@@ -13,7 +13,7 @@ https://docs.qq.com/doc/DUmNlSXJTdG1nckpm
 3. 在lib/index.ts里按照示例添加自己负责的算法模块的对应引用和导出
 4. 调试修改算法(请注意这里应该已完成步骤一)
 5. 运行 mocha test/自己的模块/**.js --reporter spec   进行单元测试
-6. 循环23
+6. 循环45
 
 ## 步骤三.提交
 1. 应保证注释可读性
