@@ -1,0 +1,23 @@
+{
+  "name": "algo_huoyou_study",
+  "version": "1.0.7",
+  "description": "思维游戏项目的算法包",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "prepublish": "npm run build",
+    "test": "mocha --reporter spec",
+    "build": "tsc"
+  },
+  "author": "qly",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.11.9",
+    "chai": "^4.3.7",
+    "mocha": "^10.1.0",
+    "typescript": "^4.9.3"
+  },
+  "dependencies": {
+    "babel-plugin-add-module-exports": "^1.0.4"
+  }
+}
