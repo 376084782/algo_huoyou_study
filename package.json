@@ -6,8 +6,9 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "prepublish": "npm run build",
-    "test": "mocha --reporter spec",
-    "build": "tsc"
+    "test": "mocha test/module2_1/**.js --reporter spec",
+    "build": "tsc",
+    "watch":"npm run build -- --watch"
   },
   "author": "qly",
   "license": "ISC",

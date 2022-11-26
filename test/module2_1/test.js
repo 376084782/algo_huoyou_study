@@ -1,6 +1,6 @@
 'use strict';
 const expect = require('chai').expect;
-const algo = require('../dist/index');
+const algo = require('../../dist/index');
 
 /**
  * 一些语法说明 https://blog.csdn.net/wsln_123456/article/details/114540622
