@@ -2,7 +2,7 @@
 见doc 【腾讯文档】算法要求
 https://docs.qq.com/doc/DUmNlSXJTdG1nckpm
 
-# 步骤一.使用
+## 步骤一.使用
 1. 首次运行项目时 npm install 安装相关依赖
 2. 运行 npm run build 使现有的ts文件转成js到dist目录
 3. 运行 npm run watch 启动监视，模块会自动检测文件改变，并实时转ts为js到dist目录
