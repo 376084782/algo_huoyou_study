@@ -3,9 +3,9 @@
 https://docs.qq.com/doc/DUmNlSXJTdG1nckpm
 
 # 步骤一.使用
-1. 首次允许项目时 num install 安装相关依赖
-2. 允许一次num run build 使现有的ts文件转成js到dist目录
-3. 运行 num run watch 启动监视，模块会自动检测文件改变，并实时转ts为js到dist目录
+1. 首次运行项目时 npm install 安装相关依赖
+2. 运行 npm run build 使现有的ts文件转成js到dist目录
+3. 运行 npm run watch 启动监视，模块会自动检测文件改变，并实时转ts为js到dist目录
 
 ## 步骤二.调试
 1. 在test目录下按照目录创建和编写自己的测试模块
