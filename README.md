@@ -14,3 +14,9 @@ https://docs.qq.com/doc/DUmNlSXJTdG1nckpm
 4. 调试修改算法(请注意这里应该已完成步骤一)
 5. 运行 mocha test/自己的模块/**.js --reporter spec   进行单元测试
 6. 循环23
+
+## 步骤三.提交
+1. 应保证注释可读性
+2. 提交时应保证已经过自测
+3. 自己提交的模块对应的index入口文件，注释上作者姓名和提交时间
+4. 提交git
