@@ -21,5 +21,18 @@
   "dependencies": {
     "babel-plugin-add-module-exports": "^1.0.4",
     "lodash": "^4.17.21"
-  }
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/376084782/algo_huoyou_study.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/376084782/algo_huoyou_study/issues"
+  },
+  "homepage": "https://github.com/376084782/algo_huoyou_study#readme"
 }
