@@ -7,11 +7,17 @@
 // interface GameData {
 //   lev: number
 // }
+console.log('in example')
 export default class example {
   getRiddleByLev(lev: number, gameConfig: any) {
+    console.log(1)
+    console.log(2)
     return {
       lev
     }
   }
 }
 
+
+let ctr=new example();
+let desk=ctr.getRiddleByLev(2,{})
