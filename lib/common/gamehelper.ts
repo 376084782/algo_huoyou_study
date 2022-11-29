@@ -1,4 +1,4 @@
-interface gamehelper {
+export default interface gamehelper {
 
     /** 
     gameConfig：部分题目可能存在多种玩法扩展，比如8张牌排序，10张牌排序，由此传入
@@ -6,7 +6,7 @@ interface gamehelper {
     GameData:游戏题目数据，数据格式视具体游戏单独定
     部分题型实时生成的算法有难度可以做成递归，每个难度的题目提前跑代码递归生成好以后入库。
     */
-    getRiddleByLevel(level: number, config: GameConfig): GameData
+    getRiddleByLevel(level: number, config: any): GameData
 
     /**
     普通获取题目：

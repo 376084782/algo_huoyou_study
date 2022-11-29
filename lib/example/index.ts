@@ -19,5 +19,5 @@ export default class example {
 }
 
 
-let ctr=new example();
-let desk=ctr.getRiddleByLev(2,{})
+let ctr = new example();
+let desk = ctr.getRiddleByLev(2, {})

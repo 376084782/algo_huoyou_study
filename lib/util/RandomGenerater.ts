@@ -1,4 +1,4 @@
-class RandomGenerater {
+export default class RandomGenerater {
   private count = 0
 
   constructor(counterStartNumber: number) {
