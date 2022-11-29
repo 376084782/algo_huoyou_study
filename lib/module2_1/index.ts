@@ -51,8 +51,7 @@ class GameData2_1 {
 export default class example2_1 {
 
   level2Positions: number[][] = [[3, 1], [4, 2], [5, 3], [6, 4], [7, 5], [8, 6], [3, 2], [4, 3], [5, 4], [6, 5], [7, 6], [8, 7], [9, 8]]
-  // level3Positions: number[][] = [[7, 1], [8, 1], [9, 1], [7, 2], [8, 2], [9, 2], [9, 3], [8, 3], [7, 3], [8, 4], [9, 5], [9, 6]]
-  level3Positions: number[][] = [[7, 1]]
+  level3Positions: number[][] = [[7, 1], [8, 1], [9, 1], [7, 2], [8, 2], [9, 2], [9, 3], [8, 3], [7, 3], [8, 4], [9, 5], [9, 6]]
   level4Positions: number[][] = [[9, 8, 1], [8, 7, 1], [7, 6, 1], [9, 2, 1], [8, 6, 5], [9, 7, 5], [8, 6, 3], [7, 4, 3], [8, 5, 3], [9, 5, 4], [9, 6, 2], [9, 6, 5]]
 
   getRiddleByLev(level: number, config: any): GameData2_1 {
