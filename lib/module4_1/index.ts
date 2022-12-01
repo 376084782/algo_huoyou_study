@@ -41,9 +41,11 @@ class GameData4_1 {
   //玩家手持
   p1 = 0
   p2 = 0
+  //剩余
   residue = 2 * this.k + 1;
-
+  //轮次
   rounds = 0
+  //当前玩家 p1 1 p2 2
   player = 1
 
   constructor(k: number, p: number) {
@@ -53,6 +55,12 @@ class GameData4_1 {
     this.residue = 2 * this.k + 1;
   }
 
+}
+class GameConfig4_1 {
+  p = 3
+  p1 = 0
+  p2 = 0
+  n = 15
 }
 class GameStep4_1 {
   p = 3;
@@ -103,29 +111,17 @@ export default class example4_1 {
     return gd;
   }
 
-  getRiddle(config: any): GameData4_1 {
+  getRiddle(config: GameConfig4_1): GameData4_1 {
     const rg = new RandomGenerater(0)
-    let k = rg.RangeInteger(4, 7);
-    let p = rg.RangeInteger(2, 3);
-    let gd = new GameData4_1(k, p);
-    let max = 0
-    let min = 0
-    if (p == 2) {
-      min = Math.floor((gd.n - (p + 1)) / 3)
-      max = min * 2
+    let k = 7
+    if (config.n % 2 == 1) {
+      k = Math.floor(config.n / 2)
     } else {
-      min = Math.floor((gd.n - (p + 1)) / 4)
-      max = min * 3
+      throw new Error("总数不可为偶数");
     }
-    let p1 = rg.RangeInteger(0, max);
-    let p2 = rg.RangeInteger(0, min);
-    if (rg.RangeInteger(0, 1) == 1) {
-      gd.p1 = p1
-      gd.p2 = p2
-    } else {
-      gd.p1 = p2
-      gd.p2 = p1
-    }
+    let gd = new GameData4_1(k, config.p);
+    gd.p1 = config.p1
+    gd.p2 = config.p2
     return gd
   }
 

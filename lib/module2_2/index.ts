@@ -48,6 +48,13 @@ class GameData2_2 {
   }
 }
 
+class GameConfig2_2 {
+  positions: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  constructor(positions: number[]) {
+    this.positions = positions;
+  }
+}
+
 export default class example2_2 {
 
   level2Positions: number[][] = [[3, 1], [4, 2], [5, 3], [6, 4], [7, 5], [8, 6], [3, 2], [4, 3], [5, 4], [6, 5], [7, 6], [8, 7], [9, 8]]
@@ -92,13 +99,18 @@ export default class example2_2 {
     return gd;
   }
 
-  getRiddle(config: any): GameData2_2 {
-    //这个没有。
-    throw new Error("Method not implemented.");
+  getRiddle(config: GameConfig2_2): GameData2_2 {
+    let gd = new GameData2_2();
+    gd.positions = config.positions
+    gd.sum = config.positions.filter(x => x == 1).length
+    return gd;
   }
 
   checkRiddle(deskData: GameData2_2): number {
-    throw new Error("Method not implemented.");
+    if (deskData.positions.filter(x => x == 1).length) {
+      return -1
+    }
+    return 1
   }
 
   doAction(deskData: GameData2_2, dataAction: number[]): [flagResult: number, dataResult: GameData2_2] {
