@@ -33,6 +33,7 @@
  * 
  */
 import RandomGenerater from '../util/RandomGenerater';
+import { GameAutoWay } from '../common/pojo';
 
 class GameData2_2 {
   //总数量
@@ -167,10 +168,10 @@ export default class example2_2 {
   binArr: number[][] = [[0, 0, 0, 0], [0, 0, 0, 1], [0, 0, 1, 0], [0, 0, 1, 1], [0, 1, 0, 0], [0, 1, 0, 1], [0, 1, 1, 0], [0, 1, 1, 1], [1, 0, 0, 0], [1, 0, 0, 1]]
 
 
-  getActionAuto(deskData: GameData2_2): number[] {
+  getActionAuto(deskData: GameData2_2): GameAutoWay {
     let positions = deskData.positions.filter(x => x == 1);
     if (positions.length == 1) {
-      return [deskData.positions.findIndex(x => x == 1), 10];
+      return new GameAutoWay([deskData.positions.findIndex(x => x == 1), 10], [deskData.positions.findIndex(x => x == 1), 10]);
     }
 
     const rg = new RandomGenerater(0)
@@ -178,7 +179,7 @@ export default class example2_2 {
 
     let allAction = this.randomAction(deskData)
     if (count % 2 == 0) {
-      return allAction[rg.RangeInteger(0, allAction.length - 1)]
+      return new GameAutoWay([deskData.positions.findIndex(x => x == 1), 10], [deskData.positions.findIndex(x => x == 1), 10]);
     }
     let vaildAction: number[][] = new Array;
     let i: number;
@@ -192,10 +193,13 @@ export default class example2_2 {
         vaildAction.push(allAction[i])
       }
     }
+    let best
     if (vaildAction.length > 0) {
-      return vaildAction[rg.RangeInteger(0, vaildAction.length - 1)]
+      best = vaildAction[rg.RangeInteger(0, vaildAction.length - 1)]
     }
-    return allAction[rg.RangeInteger(0, allAction.length - 1)]
+    best = allAction[rg.RangeInteger(0, allAction.length - 1)]
+
+    return new GameAutoWay(best, best)
   }
 
   computeDeskBin(deskData: GameData2_2): number {

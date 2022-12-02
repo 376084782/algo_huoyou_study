@@ -18,7 +18,7 @@ https://blog.csdn.net/u011587401/article/details/50877828
 电脑等级实现
  * 
  */
-import { GameStep, GameWay } from '../common/pojo';
+import { GameStep, GameWay, GameAutoWay } from '../common/pojo';
 import RandomGenerater from '../util/RandomGenerater';
 import OtherUtil from '../util/OtherUtil';
 import { Console } from 'console';
@@ -75,7 +75,7 @@ class GameStep4_1 {
 export default class example8_1 {
 
   //元组权重
-  deskWeight: number[] = [7, 100, 1000, 10000, 70, 599, 100000, 0, 0]
+  deskWeight: number[] = [7, 100, 1000, 800000, 70, 599, 100000, 0, 0]
   // 空 7
   // B 100
   // BB 1000
@@ -179,14 +179,11 @@ export default class example8_1 {
     return !(deskData.desk[xy[0]][xy[1]] == 0)
   }
 
-  getActionAuto3(deskData: GameData8_1): GameAction8_1 {
-    return new GameAction8_1(1, 1)
-  }
-
-  getActionAuto(deskData: GameData8_1): GameAction8_1 {
-    return new GameAction8_1(1, 1)
-  }
-
+  // getActionAuto3(deskData: GameData8_1): GameAction8_1 {
+  // let tmp = this.getActionAutoRecursive(deskData)
+  // return new GameAction8_1(1, 1)
+  // }
+  // getActionAutoRecursive(deskData: GameData8_1, lastTimeSteps: GameAction8_1[], count: number, countn: number): GameAction8_1 {
   getActionAutoRecursive(deskData: GameData8_1): GameAction8_1 {
     let weight: number[][] = []
     let canChessPositionMap = new Map<number, GameAction8_1[]>()
@@ -239,6 +236,63 @@ export default class example8_1 {
     throw new Error("Method not implemented.");
   }
 
+
+  getActionAuto(deskData: GameData8_1): GameAutoWay {
+    let weight: number[][] = []
+    let canChessPositionMap = new Map<number, GameAction8_1[]>()
+    let canChessPosition = new Set<number>()
+    for (let index = 1; index <= 9; index++) {
+      if (index != deskData.chess1) {
+        let tmp = index * deskData.chess1;
+        if (!this.deskHas(deskData, tmp)) {
+          canChessPosition.add(tmp)
+          if (canChessPositionMap.has(tmp)) {
+            canChessPositionMap.get(tmp)?.push(new GameAction8_1(2, index))
+          } else {
+            canChessPositionMap.set(tmp, [new GameAction8_1(2, index)])
+          }
+        }
+      }
+      if (index != deskData.chess2) {
+        let tmp = index * deskData.chess2;
+        if (!this.deskHas(deskData, tmp)) {
+          canChessPosition.add(tmp)
+          if (canChessPositionMap.has(tmp)) {
+            canChessPositionMap.get(tmp)?.push(new GameAction8_1(1, index))
+          } else {
+            canChessPositionMap.set(tmp, [new GameAction8_1(1, index)])
+          }
+        }
+      }
+    }
+    canChessPosition.forEach(key => {
+      const xy = this.getPosition(key)
+      weight.push([key, this.calculateTheWeightXy(deskData, xy[0], xy[1])])
+    })
+    let steps = weight.sort((a, b) => {
+      if (a[1] < b[1])
+        return 1;
+      if (a[1] > b[1])
+        return -1
+      return 0;
+    });
+    if (steps.length == 0) {
+      throw new Error("死局");
+    }
+    let best: number = steps[0][0];
+    let nobest: number = -1
+    if (steps[0][0] > 1000) {
+      nobest = steps[0][0];
+    }
+
+    if (canChessPositionMap.has(best)) {
+      const tmpArr = canChessPositionMap.get(best) as GameAction8_1[]
+      const rg = new RandomGenerater(0)
+      const s = tmpArr[rg.RangeInteger(0, tmpArr.length)]
+      return new GameAutoWay(s, s)
+    }
+    throw new Error("Method not implemented.");
+  }
 
   // ==============================================================================================================================
 

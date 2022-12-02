@@ -28,7 +28,7 @@
 ...
  * 
  */
-import { GameStep, GameWay } from '../common/pojo';
+import { GameStep, GameWay, GameAutoWay } from '../common/pojo';
 import RandomGenerater from '../util/RandomGenerater';
 import OtherUtil from '../util/OtherUtil';
 import { Console } from 'console';
@@ -182,61 +182,40 @@ export default class example4_1 {
   }
 
 
-  getActionAuto(deskData: GameData4_1): number {
+  getActionAuto(deskData: GameData4_1): GameAutoWay {
     const rg = new RandomGenerater(0)
     if (deskData.residue > (deskData.p * 2) - 1) {
-      return rg.RangeInteger(1, deskData.p);
+      return new GameAutoWay(rg.RangeInteger(1, deskData.p), rg.RangeInteger(1, deskData.p));
     }
     return this.getAllAction(deskData.residue, deskData.p, deskData.p1, deskData.p2, deskData.player);
+
+
   }
 
-  getAllAction(residue: number, p: number, p1: number, p2: number, player: number): number {
+  getAllAction(residue: number, p: number, p1: number, p2: number, player: number): GameAutoWay {
     let step = new GameStep(new GameStep4_1(p, p1, p2, residue, OtherUtil.getRival(player), 0), 0)
     step.nexts = this.getNextAction(step)
     let allWay: GameWay[] = OtherUtil.getTreeWays(step);
     let winStep = allWay.filter(x => { return x.node.flag == player }).sort((a, b) => { return `${a.node.stepNum}`.localeCompare(`${b.node.stepNum}`) });
     let loseStep = allWay.filter(x => { return x.node.flag != player }).sort((a, b) => { return `${b.node.stepNum}`.localeCompare(`${a.node.stepNum}`) });
 
-    let action = -1
+    let best = -1
+    let nobest = -1
     if (winStep.length == 0 && loseStep.length != 0) {
-      action = loseStep[loseStep.length - 1].current.action
+      best = loseStep[loseStep.length - 1].current.action
+      nobest = loseStep[loseStep.length - 1].current.action
     } else if (winStep.length != 0) {
-      action = winStep[0].current.action
-      // } else if (winStep.length != 0 && loseStep.length == 0) {
-      //   action = winStep[0].current.action
-      // } else if (winStep.length != 0 && loseStep.length != 0) {
-      //   if (winStep[0].node.stepNum == 1) {
-      //     action = winStep[0].current.action
-      //   } else if (winStep[0].node.stepNum > loseStep[0].node.stepNum) {
-      //     action = loseStep[loseStep.length - 1].current.action
-      //   } else {
-      //     action = winStep[0].current.action
-      //   }
-    } else {
-      console.info(1)
+      best = winStep[0].current.action
+      if (winStep[0].node.stepNum == 1) {
+        nobest = winStep[0].current.action
+      } else {
+        if (winStep.length > 1) {
+          nobest = winStep[1].current.action
+        }
+      }
+
     }
-    return action
-    // let oddMap = new Map();
-    // winStep.forEach(x => {
-    //   let action = x.current.action;
-    //   if (oddMap.has(action)) {
-    //     oddMap.set(action, oddMap.get(action) + 1)
-    //   } else {
-    //     oddMap.set(action, 1)
-    //   }
-    // })
-    // let result: number = 0
-    // let odds: number = 0
-    // oddMap.forEach((value, key) => {
-    //   if (result == 0) {
-    //     result = key
-    //     odds = value
-    //   } else if (result == 0 && odds < value) {
-    //     result = key
-    //     odds = value
-    //   }
-    // });
-    // return result;
+    return new GameAutoWay(best, nobest)
   }
 
   getNextAction(step: GameStep): GameStep[] {

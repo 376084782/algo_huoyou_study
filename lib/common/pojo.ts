@@ -10,6 +10,15 @@ enum RobotLevel { EASY, HARD };
 enum Player { P1, P2 };
 
 
+export class GameAutoWay {
+    best: any
+    nobest: any
+    constructor(best: any, nobest: any) {
+        this.best = best
+        this.nobest = nobest
+    }
+}
+
 export class GameWay {
     current: any
     node: GameStep
