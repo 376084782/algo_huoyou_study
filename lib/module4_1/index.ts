@@ -188,8 +188,6 @@ export default class example4_1 {
       return new GameAutoWay(rg.RangeInteger(1, deskData.p), rg.RangeInteger(1, deskData.p));
     }
     return this.getAllAction(deskData.residue, deskData.p, deskData.p1, deskData.p2, deskData.player);
-
-
   }
 
   getAllAction(residue: number, p: number, p1: number, p2: number, player: number): GameAutoWay {

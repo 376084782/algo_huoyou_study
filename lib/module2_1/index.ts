@@ -1,271 +1,339 @@
 /**
  * @author jiutou
  * @updateTime 2022/11/28
- * @tip 颗粒归仓
+ * @tip 堆高游戏
  * @description 
- * 一．挑战模式
-1.参数默认值：①颗粒数量：4 ②颗粒初始
-位置：（1，0，1，0，1，1，0，0，0，0）
-
-2.参数范围：①颗粒数量:[1，10] ②颗粒位
-置：自主设置 ③格子长度：固定为 10
-
+一．挑战模式
+1.参数默认值：双方各执 6 颗棋子
+2.参数范围：红，蓝色棋子数量固定为 6
 3.过程记录：无
-二．练习模式【①【对于所有练习模式的题
-目都是默认玩家先手，但玩家还是可以选择改
-变先后手；②为描述方便把离仓库最近的格子
-的位置叫 0，最远的叫 9，每道题即可用一个
-数字和一个数组来表示】
-
-一级：1 颗棋子：2，3，4，5，6，7，8，9
-二级：2 颗棋子：（3，1）、（4，2）、（5，3）、（6，4）、（7，5）、（8，6）、（3，2）、（4，3）、（5，4）、（6，5）、（7，6）、（8，7）、（9，8）
-三级：（7，1）、（8，1）、（9，1）、（7，2）、（8，2）、（9，2）、（9，3）、（8，3）、（7，3）、（8，4）、（9，5）、（9，6）
-四级：3 颗棋子：（9，8，1）、（8，7，1）、（7，6，1）、（9，2，1）、（8，6，5）、（9，7，5）、（8，6，3）、（7，4，3）、（8，5，3）、（9，5，4）、（9，6，2）、（9，6，5）
-
-游戏策略：
-考虑棋子颗数的奇偶性，
-如果是偶数颗，则按从前（位置数越小就是前）往后 2 颗一组，每组两颗棋子之间的间隔数就是这两颗棋子所对应的一个数，
-如果是奇数颗棋子，则第一个数是离仓库最近的棋子所在的格子位置是几，就对应数几，其余又从前往后按 2 颗一组，该两颗棋子之间的间隔数就是这两颗棋子所对应的一个数。
-这样不管是几颗棋子，都可以按上述方式得到一个数组。
-
-必胜策略：对数组中的每个数进行二进制转化，并将转化后的二进制数进行求和，
-求和过程中，如果二进制数的每一位上的 1 的个数都是偶数，则电脑随机操作，否则选择一种操作使得每一位的数字之和都变成偶数。
+二．练习模式
+一级：1 步取胜（包含先手一步和后手一步）
+二级：2 步取胜（同上）
+三级：3 步取胜（同上）
  * 
  */
+import OtherUtil from '../util/OtherUtil';
 import RandomGenerater from '../util/RandomGenerater';
+import { GameStep, GameWay, GameAutoWay } from '../common/pojo';
+import { off } from 'process';
 
-class GameData2_1 {
+export class GameData2_1 {
   //总数量
-  sum = 4;
-  //终点数量
-  warehouse = 0;
-  //当前选手 先手1 后手2
+  //当前选手 先手6 后手6
+  p1 = 6;
+  p2 = 6;
   player = 1;
-  //点位
-  positions: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-  constructor() {
-    this.warehouse = 0;
+  //点位 二维数组 一共十二个点位，第二层数组 0-2为底至顶123
+  positions: number[][] = [[], [], [], [], [], [], [], [], [], [], [], []]
+}
+
+export class GameAction2_1 {
+  move: number[] = []
+  action: number[]
+  score: number = 0
+  constructor(action: number[], move?: number[], score?: number) {
+    this.action = action
+    if (move != undefined) {
+      this.move = move
+    }
+    if (score != undefined) {
+      this.score = score
+    }
   }
 }
 
 export default class example2_1 {
 
-  level2Positions: number[][] = [[3, 1], [4, 2], [5, 3], [6, 4], [7, 5], [8, 6], [3, 2], [4, 3], [5, 4], [6, 5], [7, 6], [8, 7], [9, 8]]
-  level3Positions: number[][] = [[7, 1], [8, 1], [9, 1], [7, 2], [8, 2], [9, 2], [9, 3], [8, 3], [7, 3], [8, 4], [9, 5], [9, 6]]
-  level4Positions: number[][] = [[9, 8, 1], [8, 7, 1], [7, 6, 1], [9, 2, 1], [8, 6, 5], [9, 7, 5], [8, 6, 3], [7, 4, 3], [8, 5, 3], [9, 5, 4], [9, 6, 2], [9, 6, 5]]
+  level1Positions: number[] = []
+  level2Positions: number[] = []
+  level3Positions: number[] = []
 
   getRiddleByLev(level: number, config: any): GameData2_1 {
-    let gd = new GameData2_1();
-    const rg = new RandomGenerater(0)
-    switch (level) {
-      case 0:
-        gd.positions[0] = 1;
-        gd.positions[2] = 1;
-        gd.positions[4] = 1;
-        gd.positions[5] = 1;
-        break;
-      case 1:
-        gd.positions[rg.RangeInteger(1, 9)] = 1;
-        gd.warehouse = 3
-        break;
-      case 2:
-      case 3:
-        gd.warehouse = 2
-      case 4:
-        gd.warehouse = 1
-        let tmp = new Array
-        if (level == 2) {
-          tmp = this.level2Positions[rg.RangeInteger(0, this.level2Positions.length)];
-        } else if (level == 3) {
-          tmp = this.level3Positions[rg.RangeInteger(0, this.level3Positions.length)];
-        } else if (level == 4) {
-          tmp = this.level4Positions[rg.RangeInteger(0, this.level4Positions.length)];
-        }
-        let i: number;
-        for (i = 0; i < tmp.length; i++) {
-          gd.positions[tmp[i]] = 1;
-        }
-        break;
-      default:
-        throw new Error("Method not implemented.");
-    }
-    return gd;
+    //需要再说
+    throw new Error("Method not implemented.");
   }
 
   getRiddle(config: any): GameData2_1 {
     //这个没有。
-    throw new Error("Method not implemented.");
+    return new GameData2_1()
   }
 
   checkRiddle(deskData: GameData2_1): number {
     throw new Error("Method not implemented.");
   }
 
-  doAction(deskData: GameData2_1, dataAction: number[]): [flagResult: number, dataResult: GameData2_1] {
+  doAction(deskData: GameData2_1, dataAction: GameAction2_1): [flagResult: number, dataResult: GameData2_1] {
+    if (dataAction == undefined) {
+      deskData.player = OtherUtil.getRival(deskData.player)
+      return [this.checkDesk(deskData), deskData];
+    }
     if (this.checkAction(deskData, dataAction) == -1) {
       return [-1, deskData];
     }
-    let flagResult
-    deskData.positions[dataAction[0]] = 0
-    if (dataAction[1] > 9) {
-      deskData.warehouse++
+
+    if (dataAction.move.length == 0) {
+      if (deskData.player == 1) {
+        deskData.p1--
+      }
+      if (deskData.player == 2) {
+        deskData.p2--
+      }
     } else {
-      deskData.positions[dataAction[1]] = 1
+      deskData.positions[dataAction.move[0]].pop()
     }
 
-    if (deskData.positions.filter(x => x == 1).length == 0) {
-      return [1, deskData];
-    } else {
-      return [0, deskData];
-    }
+
+    deskData.positions[dataAction.action[0]].push(deskData.player)
+
+    deskData.player = OtherUtil.getRival(deskData.player)
+    return [this.checkDesk(deskData), deskData];
   }
 
-  checkAction(deskData: GameData2_1, dataAction: number[]): number {
-    let positionStart = dataAction[0];
-    let positionEnd = dataAction[1];
+  checkAction(deskData: GameData2_1, dataAction: GameAction2_1): number {
+    let p1 = deskData.p1
+    let p2 = deskData.p2
 
-    if (positionStart < 0 || positionStart > 9 ||
-      positionStart > positionEnd || deskData.positions[positionStart] != 1) {
-      //开启不合法 or 结束不合法 or 不可倒退 or 开启点无子 
-      return -1;
-    }
-
-    let i: number;
-    let end: number;
-    end = positionEnd > 9 ? 9 : positionEnd
-    for (i = positionStart + 1; i <= end; i++) {
-      if (deskData.positions[i] == 1) {
-        //前端阻塞
-        return -1;
+    if (dataAction.move.length == 0) {
+      if (deskData.player == 1 && p1 <= 0) {
+        return -1
+      }
+      if (deskData.player == 2 && p2 <= 0) {
+        return -1
+      }
+    } else {
+      if (deskData.positions[dataAction.move[0]][dataAction.move[1]] != deskData.player) {
+        return -1
+      }
+      if (deskData.positions[dataAction.action[0]].length > 2) {
+        return -1
       }
     }
     return 1;
   }
 
   checkDesk(deskData: GameData2_1): number {
-    let i: number;
-    for (i = 0; i < deskData.positions.length; i++) {
-      if (deskData.positions[i] == 1) {
-        return 0;
-      }
-    }
-    return 1;
-  }
 
-  binArr: number[][] = [[0, 0, 0, 0], [0, 0, 0, 1], [0, 0, 1, 0], [0, 0, 1, 1], [0, 1, 0, 0], [0, 1, 0, 1], [0, 1, 1, 0], [0, 1, 1, 1], [1, 0, 0, 0], [1, 0, 0, 1]]
+    let tmp = 0;
+    let count = 0;
+    let cell = 0;
 
-
-  getActionAuto(deskData: GameData2_1): number[] {
-    let positions = deskData.positions.filter(x => x == 1);
-    if (positions.length == 1) {
-      return [deskData.positions.findIndex(x => x == 1), 10];
-    }
-
-    const rg = new RandomGenerater(0)
-    let count = this.computeDeskBin(deskData);
-
-    let allAction = this.randomAction(deskData)
-    if (count % 2 == 0) {
-      return allAction[rg.RangeInteger(0, allAction.length - 1)]
-    }
-    let vaildAction: number[][] = new Array;
-    let i: number;
-    for (i = 0; i < allAction.length; i++) {
-      let tmp = allAction[i]
-      let tmpDeskData = JSON.parse(JSON.stringify(deskData));
-      tmpDeskData.positions[tmp[0]] = 0
-      tmpDeskData.positions[tmp[1]] = 1
-      count = this.computeDeskBin(deskData);
-      if (count % 2 == 0) {
-        vaildAction.push(allAction[i])
-      }
-    }
-    if (vaildAction.length > 0) {
-      return vaildAction[rg.RangeInteger(0, vaildAction.length - 1)]
-    }
-    return allAction[rg.RangeInteger(0, allAction.length - 1)]
-  }
-
-  computeDeskBin(deskData: GameData2_1): number {
-    let tmp: number[][] = []
-    let tmpPoint1 = -1
-    let tmpPoint2 = -1
-    let distance = 0
-    let i: number;
-    for (i = 0; i < deskData.positions.length; i++) {
-      if (deskData.positions[i] == 1) {
-        if (tmpPoint1 == -1) {
-          tmpPoint1 = i;
-        } else if (tmpPoint2 == -1) {
-          tmpPoint2 = i;
-          distance = tmpPoint2 - tmpPoint1 - 1
-          tmpPoint1 = -1
-          tmpPoint2 = -1
-          tmp.push(this.binArr[distance])
-          distance = 0
+    for (let i = 0; i < deskData.positions.length; i++) {
+      const row = deskData.positions[i];
+      cell = 0;
+      count = 0;
+      for (let j = 0; j < row.length; j++) {
+        if (j == 0 && row[0] != 0) {
+          cell = row[0]
+          count++
         }
-      }
-    }
-    if (tmpPoint1 != -1) {
-      tmp.push(this.binArr[tmpPoint1])
-    }
-    let bin: number[] = []
+        tmp = row[j]
 
-    if (tmp.length == 1) {
-      bin = tmp[0]
-    } else {
-      bin = this.binAdd(tmp[0], tmp[1])
-    }
-
-    let count = 0
-    for (i = 0; i < bin.length; i++) {
-      if (bin[i] == 1) {
-        count = count + 1
-      }
-    }
-
-    return count
-  }
-
-  randomAction(deskData: GameData2_1): number[][] {
-    let allAction: number[][] = [];
-    let start: number = 0;
-    let end: number = 0;
-    let i: number;
-    let j: number;
-    for (i = 0; i < deskData.positions.length; i++) {
-      if (deskData.positions[i] == 1 && i == 9) {
-        allAction.push([9, 10]);
-      } else if (deskData.positions[i] == 1) {
-        start = i;
-        for (j = i + 1; i < deskData.positions.length; j++) {
-          if (deskData.positions[j] == 0) {
-            end = j;
-            allAction.push([start, end]);
+        if (j != 0 && cell != 0) {
+          if (tmp == cell) {
+            count++
           } else {
             break
           }
         }
       }
-    }
-    return allAction;
-  }
-
-  binAdd(binArr1: number[], binArr2: number[]): number[] {
-    let bin: number[] = [0, 0, 0, 0, 0, 0, 0]
-    let i: number;
-    binArr1 = binArr1.reverse()
-    binArr2 = binArr2.reverse()
-    for (i = 0; i < 4; i++) {
-      bin[i] = bin[i] + binArr1[i] + binArr2[i]
-    }
-
-    for (i = 0; i < 4; i++) {
-      if (bin[i] > 1) {
-        bin[i + 1] = bin[i + 1] + bin[i] - 1
-        bin[i] = 1
+      if (count == 3) {
+        return tmp
       }
     }
-    return bin
+    return 0;
+  }
+
+
+  getActionAuto(deskData: GameData2_1): GameAutoWay {
+
+
+    let rival = 0
+    if (deskData.player == 1) {
+      rival = deskData.p1
+    }
+    if (deskData.player == 2) {
+      rival = deskData.p2
+    }
+
+    // //获取必胜，必败
+    // let tmp = 0;
+    // let count = 0;
+    // for (let i = 0; i < deskData.positions.length; i++) {
+    //   const row = deskData.positions[i];
+    //   for (let j = 0; j < row.length; j++) {
+    //     const cell = row[i];
+    //     if (cell != 0) {
+    //       if (j == 0) {
+    //         tmp = cell
+    //       }
+    //       if (tmp == cell) {
+    //         count++
+    //       } else {
+    //         break
+    //       }
+    //     }
+    //   }
+    //   if (count == 2) {
+    //     //获取最优移动 优先手持，最差为堵塞对方的第三颗
+    //     return new GameAutoWay(new GameAction2_1([i, 2], this.getBestMove(deskData, i)), new GameAction2_1([i, 2], this.getBestMove(deskData, i)))
+    //   }
+    // }
+
+    let canMove = rival
+    for (let i = 0; i < deskData.positions.length; i++) {
+      const row = deskData.positions[i];
+      const topCell = row[row.length - 1];
+      if (topCell == deskData.player) {
+        canMove++
+      }
+    }
+    if (canMove == 0) {
+      return new GameAutoWay(undefined, undefined)
+    }
+
+    const rg = new RandomGenerater(0)
+    //枚举下法
+    let oneP: number[] = []
+    let towP: number[] = []
+    let randomP: number[] = []
+    let emptyP: number[] = []
+    let winP: number[][] = []
+    let failureP: number[][] = []
+    //优先堵塞对方2连，
+    for (let i = 0; i < deskData.positions.length; i++) {
+      const row = deskData.positions[i];
+      if (row.length == 2) {
+        const cell = row[row.length - 1];
+        if (row.length == 2 && row[0] == OtherUtil.getRival(deskData.player) && row[1] == OtherUtil.getRival(deskData.player)) {
+          failureP.push([i, 2])
+        }
+        if (row.length == 2 && row[0] == deskData.player && row[1] == deskData.player) {
+          winP.push([i, 2])
+        }
+      } else if (row.length == 0) {
+        emptyP.push(i);
+      } else if (row.length == 1 && row[0] == deskData.player) {
+        oneP.push(i);
+      } else if (row.length == 2 && row[0] == deskData.player) {
+        towP.push(i);
+      }
+      if (row[row.length - 1] != deskData.player || row.length == 0) {
+        randomP.push(i);
+      }
+    }
+    if (winP.length != 0) {
+      let best = this.getBestMove(deskData, winP[0][0]);
+      if (best.length != 3) {
+        let win = new GameAction2_1(winP[0], best);
+        return new GameAutoWay(win, win)
+      }
+    }
+    if (failureP.length != 0) {
+      let best = this.getBestMove(deskData, failureP[0][0]);
+      if (best.length != 3) {
+        let failure = new GameAction2_1(failureP[0], best);
+        return new GameAutoWay(failure, failure)
+      }
+    }
+    let result = new GameAutoWay(undefined, undefined)
+    //当对手有手持，平铺自己棋子，（为保证棋子后期不被锁定，不主动建立二连）
+    if (emptyP.length != 0 && rival != 0) {
+      let tmpRow = emptyP[rg.RangeInteger(0, emptyP.length - 1)]
+      let tmpRow1 = emptyP[rg.RangeInteger(0, emptyP.length - 1)]
+      let best = this.getBestMove(deskData, tmpRow);
+      let best1 = this.getBestMove(deskData, tmpRow1);
+
+      let tmpAction = new GameAction2_1([tmpRow, deskData.positions[tmpRow].length], best);
+      let tmpAction1 = new GameAction2_1([tmpRow1, deskData.positions[tmpRow1].length], best1);
+      if (best1.length == 3) {
+        best1 = best
+      }
+      if (best.length != 3) {
+        result = new GameAutoWay(tmpAction, tmpAction1)
+      }
+    } else if (towP.length != 0 && rival != 0) {
+      let tmpRow = towP[rg.RangeInteger(0, towP.length - 1)]
+      let tmpRow1 = towP[rg.RangeInteger(0, towP.length - 1)]
+      let best = this.getBestMove(deskData, tmpRow);
+      let best1 = this.getBestMove(deskData, tmpRow1);
+      let tmpAction = new GameAction2_1([tmpRow, deskData.positions[tmpRow].length], best);
+      let tmpAction1 = new GameAction2_1([tmpRow1, deskData.positions[tmpRow1].length], best1);
+      if (best1.length == 3) {
+        best1 = best
+      }
+      if (best.length != 3) {
+        result = new GameAutoWay(tmpAction, tmpAction1)
+      }
+    } else {
+      //当对手无手持，存在两个平铺时，组建立自己二连，
+      if (oneP.length != 0) {
+        let tmpRow = oneP[rg.RangeInteger(0, oneP.length - 1)]
+        let tmpRow1 = oneP[rg.RangeInteger(0, oneP.length - 1)]
+        let best = this.getBestMove(deskData, tmpRow);
+        let best1 = this.getBestMove(deskData, tmpRow1);
+        let tmpAction = new GameAction2_1([tmpRow, deskData.positions[tmpRow].length], best);
+        let tmpAction1 = new GameAction2_1([tmpRow1, deskData.positions[tmpRow1].length], best1);
+        if (best1.length == 3) {
+          best1 = best
+        }
+        if (best.length != 3) {
+          result = new GameAutoWay(tmpAction, tmpAction1)
+        }
+      } else {
+        let tmpRow = randomP[rg.RangeInteger(0, randomP.length - 1)]
+        let tmpRow1 = randomP[rg.RangeInteger(0, randomP.length - 1)]
+        let best = this.getBestMove(deskData, tmpRow);
+        let best1 = this.getBestMove(deskData, tmpRow1);
+        let tmpAction = new GameAction2_1([tmpRow, deskData.positions[tmpRow].length], best);
+        let tmpAction1 = new GameAction2_1([tmpRow1, deskData.positions[tmpRow1].length], best1);
+        if (best1.length == 3) {
+          best1 = best
+        }
+        if (best.length != 3) {
+          result = new GameAutoWay(tmpAction, tmpAction1)
+        }
+      }
+      //当对手无手持，不存在可二连，随机下一个
+    }
+    return result;
+  }
+
+  getBestMove(deskData: GameData2_1, rowNum: number): number[] {
+    if (deskData.player == 1 && deskData.p1 > 0) {
+      return []
+    }
+    if (deskData.player == 2 && deskData.p2 > 0) {
+      return []
+    }
+    let canMove: number[][] = []
+    let winMove: number[][] = []
+    let failureMove: number[][] = []
+
+    for (let i = 0; i < deskData.positions.length; i++) {
+      const row = deskData.positions[i];
+      const cell = row[row.length - 1];
+      if (rowNum != i) {
+        if (cell == deskData.player) {
+          if (row.length == 3 && row[0] == OtherUtil.getRival(deskData.player) && row[1] == OtherUtil.getRival(deskData.player)) {
+            failureMove.push([i, row.length - 1])
+          } else if (row.length == 2 && row[0] == deskData.player && row[1] == deskData.player) {
+            winMove.push([i, row.length - 1])
+          } else {
+            canMove.push([i, row.length - 1])
+          }
+        }
+      }
+    }
+    const rg = new RandomGenerater(0)
+    if (canMove.length != 0) {
+      return canMove[rg.RangeInteger(1, canMove.length) - 1]
+    } else if (winMove.length != 0) {
+      return winMove[rg.RangeInteger(1, winMove.length) - 1]
+    } else if (failureMove.length != 0) {
+      return failureMove[rg.RangeInteger(1, failureMove.length) - 1]
+    } else {
+      return [0, 0, 0]
+    }
   }
 }

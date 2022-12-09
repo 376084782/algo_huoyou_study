@@ -269,7 +269,7 @@ export default class example6_2 {
             canMove.forEach(m => {
               const tmpn = this.positionMap.get(m[0] + "-" + m[1])
               if (line.findIndex(x => x == tmpn) == -1) {
-                canAction.set(m[0] + "_" + m[1] + "_" + e[0] + "_" + m[1], new GameAction6_2(m, e, score))
+                canAction.set(m[0] + "_" + m[1] + "_" + e[0] + "_" + e[1], new GameAction6_2(m, e, score))
               }
             })
 
