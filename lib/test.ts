@@ -3,7 +3,7 @@ import example2_2 from './module2_2/index';
 import example4_1 from './module4_1/index';
 import example4_2, { GameAction4_2, GameData4_2 } from './module4_2/index';
 import example6_1 from './module6_1/index';
-import example6_2 from './module6_2/index';
+import { module6_2 } from './module6_2/index';
 import example8_1, { GameConfig8_1 } from './module8_1/index';
 import RandomGenerater from './util/RandomGenerater';
 
@@ -36,7 +36,7 @@ let i = 0
 //     }
 
 // 6_2 
-// let test6_2 = new example6_2();
+// let test6_2 = new module6_2();
 // for (i = 0; i < 1; i++) {
 //     let result = test6_2.getRiddle(new GameConfig8_1(1, 2));
 //     let flagResult = 0

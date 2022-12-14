@@ -21,7 +21,7 @@ import { GameAutoWay } from '../common/pojo';
 import OtherUtil from '../util/OtherUtil';
 import RandomGenerater from '../util/RandomGenerater';
 
-class GameData6_2 {
+export class GameData6_2 {
   //棋盘 由上至下 由左至右
   desk: number[][] = [
     [9, 9, 9, 0, 9, 9, 9],
@@ -45,7 +45,7 @@ class GameData6_2 {
   }
 }
 
-class GameAction6_2 {
+export class GameAction6_2 {
   //起子点
   move: number[] = []
   //落子点
@@ -61,7 +61,7 @@ class GameAction6_2 {
   }
 }
 
-export default class example6_2 {
+export class module6_2 {
   deskCells: number[][] =
     [[1, 4],
     [2, 1], [2, 3], [2, 5], [2, 7],

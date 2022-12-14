@@ -1,13 +1,13 @@
-interface GameData {
+export interface GameData {
 }
-interface GameConfig {
+export interface GameConfig {
 }
-interface DeskData {
+export interface DeskData {
 }
 
-enum FlagValid { INVALID, VALID };
-enum RobotLevel { EASY, HARD };
-enum Player { P1, P2 };
+export enum FlagValid { INVALID, VALID };
+export enum RobotLevel { EASY, HARD };
+export enum Player { P1, P2 };
 
 
 export class GameAutoWay {

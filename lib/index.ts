@@ -1,7 +1,11 @@
 import module2_1 from './module2_1/index';
+import { module6_2, GameData6_2, GameAction6_2 } from './module6_2/index';
 import example from './example/index';
 
-module.exports = {
-  module2_1, 
-  example
+export {
+  module2_1,
+  module6_2,
+  example,
+  GameData6_2,
+  GameAction6_2
 }

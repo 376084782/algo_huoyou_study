@@ -1,3 +1,5 @@
+import { DeskData, FlagValid, GameConfig, GameData, Player, RobotLevel } from "./pojo"
+
 export default interface gamehelper {
 
     /** 
