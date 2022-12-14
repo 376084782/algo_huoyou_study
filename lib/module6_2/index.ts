@@ -26,8 +26,8 @@ export class GameData6_2 {
   desk: number[][] = [
     [9, 9, 9, 0, 9, 9, 9],
     [1, 9, 2, 9, 1, 9, 2],
-    [9, 0, 9, 9, 9, 2, 9],
-    [0, 9, 2, 9, 1, 9, 1],
+    [9, 0, 9, 9, 9, 0, 9],
+    [2, 9, 1, 9, 2, 9, 1],
     [9, 9, 9, 0, 9, 9, 9],
   ];
   // [9, 9, 9, 0, 9, 9, 9],
@@ -61,7 +61,7 @@ export class GameAction6_2 {
   }
 }
 
-export class module6_2 {
+export class example6_2 {
   deskCells: number[][] =
     [[1, 4],
     [2, 1], [2, 3], [2, 5], [2, 7],
@@ -137,6 +137,21 @@ export class module6_2 {
     return new GameData6_2(1, undefined)
   }
 
+  checkRiddle1(deskData: GameData6_2): number {
+    // 各子有4
+    let p1DeskChess = this.getDeskChess(deskData, 1)
+    let p2DeskChess = this.getDeskChess(deskData, 2)
+
+    if ((p1DeskChess.length) != 4) {
+      return -1
+    }
+    if ((p2DeskChess.length) != 4) {
+      return -1
+    }
+    //不存在3连
+    return this.checkDesk1(deskData)
+  }
+
   checkRiddle(deskData: GameData6_2): number {
     // 各子有4
     let p1DeskChess = this.getDeskChess(deskData, 1)
@@ -149,11 +164,28 @@ export class module6_2 {
       return -1
     }
     //不存在3连
-    return this.checkDesk(deskData)
+    return this.checkDesk1(deskData)
   }
 
   doAction(deskData: GameData6_2, dataAction: GameAction6_2): [flagResult: number, dataResult: GameData6_2] {
-    if (this.checkAction(deskData, dataAction) == -1) {
+
+    if (dataAction.move.length > 0) {
+      let move1 = JSON.parse(JSON.stringify(dataAction.move));
+      move1[0] = move1[0] + 1
+      move1[1] = move1[1] + 1
+      dataAction.move = move1
+    }
+    if (dataAction.action.length > 0) {
+      let action1 = JSON.parse(JSON.stringify(dataAction.action));
+      action1[0] = action1[0] + 1
+      action1[1] = action1[1] + 1
+      dataAction.action = action1
+    }
+    return this.doAction1(deskData, dataAction)
+  }
+
+  doAction1(deskData: GameData6_2, dataAction: GameAction6_2): [flagResult: number, dataResult: GameData6_2] {
+    if (this.checkAction1(deskData, dataAction) == -1) {
       return [-1, deskData];
     }
     //如果移子，保证点位有子
@@ -164,10 +196,26 @@ export class module6_2 {
     deskData.desk[dataAction.action[0] - 1][dataAction.action[1] - 1] = deskData.player
     deskData.desk[dataAction.move[0] - 1][dataAction.move[1] - 1] = 0
     deskData.player = OtherUtil.getRival(deskData.player)
-    return [this.checkRiddle(deskData), deskData];
+    return [this.checkRiddle1(deskData), deskData];
   }
 
   checkAction(deskData: GameData6_2, dataAction: GameAction6_2): number {
+    if (dataAction.move.length > 0) {
+      let move1 = JSON.parse(JSON.stringify(dataAction.move));
+      move1[0] = move1[0] + 1
+      move1[1] = move1[1] + 1
+      dataAction.move = move1
+    }
+    if (dataAction.action.length > 0) {
+      let action1 = JSON.parse(JSON.stringify(dataAction.action));
+      action1[0] = action1[0] + 1
+      action1[1] = action1[1] + 1
+      dataAction.action = action1
+    }
+    return this.checkAction1(deskData, dataAction)
+  }
+
+  checkAction1(deskData: GameData6_2, dataAction: GameAction6_2): number {
 
     //如果移子，保证点位有子
     if (deskData.player == 1 && deskData.desk[dataAction.move[0] - 1][dataAction.move[1] - 1] != 1) {
@@ -185,6 +233,10 @@ export class module6_2 {
   }
 
   checkDesk(deskData: GameData6_2): number {
+    return this.checkDesk1(deskData)
+  }
+
+  checkDesk1(deskData: GameData6_2): number {
     for (let index = 0; index < this.deskLines.length; index++) {
       const link = this.deskLines[index];
       const cell1 = deskData.desk[this.deskCells[link[0]][0] - 1][this.deskCells[link[0]][1] - 1]
@@ -196,8 +248,36 @@ export class module6_2 {
     }
     return 0;
   }
-
   getActionAuto(deskData: GameData6_2): GameAutoWay {
+    let c: GameAutoWay = this.getActionAuto1(deskData);
+    let move1 = JSON.parse(JSON.stringify(c.best.move));
+    let action1 = JSON.parse(JSON.stringify(c.best.action));
+    let move2 = JSON.parse(JSON.stringify(c.nobest.move));
+    let action2 = JSON.parse(JSON.stringify(c.nobest.action));
+    if (c.best.move.length > 0) {
+      move1[0] = move1[0] - 1
+      move1[1] = move1[1] - 1
+      c.best.move = move1
+    }
+    if (c.best.action.length > 0) {
+      action1[0] = action1[0] - 1
+      action1[1] = action1[1] - 1
+      c.best.action = action1
+    }
+    if (c.nobest.move.length > 0) {
+      move2[0] = move2[0] - 1
+      move2[1] = move2[1] - 1
+      c.nobest.move = move2
+    }
+    if (c.nobest.action.length > 0) {
+      action2[0] = action2[0] - 1
+      action2[1] = action2[1] - 1
+      c.nobest.action = action2
+    }
+    return c
+  }
+
+  getActionAuto1(deskData: GameData6_2): GameAutoWay {
     //统计所有可落点位置
     // let canChessPosition: GameAction6_2[] = this.getBestAction(deskData)
     const deskDataTmp = JSON.parse(JSON.stringify(deskData));
@@ -218,9 +298,9 @@ export class module6_2 {
     for (let index = 0; index < steps.length; index++) {
       const step = steps[index];
       let deskDataTmp = JSON.parse(JSON.stringify(deskData));
-      deskDataTmp = this.doAction(deskDataTmp, step)[1];
+      deskDataTmp = this.doAction1(deskDataTmp, step)[1];
 
-      let flag = this.checkDesk(deskDataTmp)
+      let flag = this.checkDesk1(deskDataTmp)
       if (flag == 0) {
         const tcurrentCount = currentCount
         let childSteps: GameAction6_2[] = this.recursive(deskDataTmp, count, tcurrentCount)
