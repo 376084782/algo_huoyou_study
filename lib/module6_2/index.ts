@@ -26,8 +26,8 @@ class GameData6_2 {
   desk: number[][] = [
     [9, 9, 9, 0, 9, 9, 9],
     [1, 9, 2, 9, 1, 9, 2],
-    [9, 0, 9, 9, 9, 2, 9],
-    [0, 9, 2, 9, 1, 9, 1],
+    [9, 0, 9, 9, 9, 0, 9],
+    [2, 9, 1, 9, 2, 9, 1],
     [9, 9, 9, 0, 9, 9, 9],
   ];
   // [9, 9, 9, 0, 9, 9, 9],
@@ -137,6 +137,21 @@ export default class example6_2 {
     return new GameData6_2(1, undefined)
   }
 
+  checkRiddle1(deskData: GameData6_2): number {
+    // 各子有4
+    let p1DeskChess = this.getDeskChess(deskData, 1)
+    let p2DeskChess = this.getDeskChess(deskData, 2)
+
+    if ((p1DeskChess.length) != 4) {
+      return -1
+    }
+    if ((p2DeskChess.length) != 4) {
+      return -1
+    }
+    //不存在3连
+    return this.checkDesk1(deskData)
+  }
+
   checkRiddle(deskData: GameData6_2): number {
     // 各子有4
     let p1DeskChess = this.getDeskChess(deskData, 1)
@@ -153,13 +168,18 @@ export default class example6_2 {
   }
 
   doAction(deskData: GameData6_2, dataAction: GameAction6_2): [flagResult: number, dataResult: GameData6_2] {
+
     if (dataAction.move.length > 0) {
-      dataAction.move[0] += 1
-      dataAction.move[1] += 1
+      let move1 = JSON.parse(JSON.stringify(dataAction.move));
+      move1[0] = move1[0] + 1
+      move1[1] = move1[1] + 1
+      dataAction.move = move1
     }
     if (dataAction.action.length > 0) {
-      dataAction.action[0] += 1
-      dataAction.action[1] += 1
+      let action1 = JSON.parse(JSON.stringify(dataAction.action));
+      action1[0] = action1[0] + 1
+      action1[1] = action1[1] + 1
+      dataAction.action = action1
     }
     return this.doAction1(deskData, dataAction)
   }
@@ -176,20 +196,25 @@ export default class example6_2 {
     deskData.desk[dataAction.action[0] - 1][dataAction.action[1] - 1] = deskData.player
     deskData.desk[dataAction.move[0] - 1][dataAction.move[1] - 1] = 0
     deskData.player = OtherUtil.getRival(deskData.player)
-    return [this.checkRiddle(deskData), deskData];
+    return [this.checkRiddle1(deskData), deskData];
   }
 
   checkAction(deskData: GameData6_2, dataAction: GameAction6_2): number {
     if (dataAction.move.length > 0) {
-      dataAction.move[0] += 1
-      dataAction.move[1] += 1
+      let move1 = JSON.parse(JSON.stringify(dataAction.move));
+      move1[0] = move1[0] + 1
+      move1[1] = move1[1] + 1
+      dataAction.move = move1
     }
     if (dataAction.action.length > 0) {
-      dataAction.action[0] += 1
-      dataAction.action[1] += 1
+      let action1 = JSON.parse(JSON.stringify(dataAction.action));
+      action1[0] = action1[0] + 1
+      action1[1] = action1[1] + 1
+      dataAction.action = action1
     }
     return this.checkAction1(deskData, dataAction)
   }
+
   checkAction1(deskData: GameData6_2, dataAction: GameAction6_2): number {
 
     //如果移子，保证点位有子
@@ -225,20 +250,29 @@ export default class example6_2 {
   }
   getActionAuto(deskData: GameData6_2): GameAutoWay {
     let c: GameAutoWay = this.getActionAuto1(deskData);
+    let move1 = JSON.parse(JSON.stringify(c.best.move));
+    let action1 = JSON.parse(JSON.stringify(c.best.action));
+    let move2 = JSON.parse(JSON.stringify(c.nobest.move));
+    let action2 = JSON.parse(JSON.stringify(c.nobest.action));
     if (c.best.move.length > 0) {
-      c.best.move[0] += 1
-      c.best.move[1] += 1
+      move1[0] = move1[0] - 1
+      move1[1] = move1[1] - 1
+      c.best.move = move1
     }
     if (c.best.action.length > 0) {
-      c.best.action[0] += 1
-      c.best.action[1] += 1
-    } if (c.nobest.move.length > 0) {
-      c.nobest.move[0] += 1
-      c.nobest.move[1] += 1
+      action1[0] = action1[0] - 1
+      action1[1] = action1[1] - 1
+      c.best.action = action1
+    }
+    if (c.nobest.move.length > 0) {
+      move2[0] = move2[0] - 1
+      move2[1] = move2[1] - 1
+      c.nobest.move = move2
     }
     if (c.nobest.action.length > 0) {
-      c.nobest.action[0] += 1
-      c.nobest.action[1] += 1
+      action2[0] = action2[0] - 1
+      action2[1] = action2[1] - 1
+      c.nobest.action = action2
     }
     return c
   }
