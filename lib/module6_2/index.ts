@@ -149,11 +149,23 @@ export default class example6_2 {
       return -1
     }
     //不存在3连
-    return this.checkDesk(deskData)
+    return this.checkDesk1(deskData)
   }
 
   doAction(deskData: GameData6_2, dataAction: GameAction6_2): [flagResult: number, dataResult: GameData6_2] {
-    if (this.checkAction(deskData, dataAction) == -1) {
+    if (dataAction.move.length > 0) {
+      dataAction.move[0] += 1
+      dataAction.move[1] += 1
+    }
+    if (dataAction.action.length > 0) {
+      dataAction.action[0] += 1
+      dataAction.action[1] += 1
+    }
+    return this.doAction1(deskData, dataAction)
+  }
+
+  doAction1(deskData: GameData6_2, dataAction: GameAction6_2): [flagResult: number, dataResult: GameData6_2] {
+    if (this.checkAction1(deskData, dataAction) == -1) {
       return [-1, deskData];
     }
     //如果移子，保证点位有子
@@ -168,6 +180,17 @@ export default class example6_2 {
   }
 
   checkAction(deskData: GameData6_2, dataAction: GameAction6_2): number {
+    if (dataAction.move.length > 0) {
+      dataAction.move[0] += 1
+      dataAction.move[1] += 1
+    }
+    if (dataAction.action.length > 0) {
+      dataAction.action[0] += 1
+      dataAction.action[1] += 1
+    }
+    return this.checkAction1(deskData, dataAction)
+  }
+  checkAction1(deskData: GameData6_2, dataAction: GameAction6_2): number {
 
     //如果移子，保证点位有子
     if (deskData.player == 1 && deskData.desk[dataAction.move[0] - 1][dataAction.move[1] - 1] != 1) {
@@ -185,6 +208,10 @@ export default class example6_2 {
   }
 
   checkDesk(deskData: GameData6_2): number {
+    return this.checkDesk1(deskData)
+  }
+
+  checkDesk1(deskData: GameData6_2): number {
     for (let index = 0; index < this.deskLines.length; index++) {
       const link = this.deskLines[index];
       const cell1 = deskData.desk[this.deskCells[link[0]][0] - 1][this.deskCells[link[0]][1] - 1]
@@ -196,8 +223,27 @@ export default class example6_2 {
     }
     return 0;
   }
-
   getActionAuto(deskData: GameData6_2): GameAutoWay {
+    let c: GameAutoWay = this.getActionAuto1(deskData);
+    if (c.best.move.length > 0) {
+      c.best.move[0] += 1
+      c.best.move[1] += 1
+    }
+    if (c.best.action.length > 0) {
+      c.best.action[0] += 1
+      c.best.action[1] += 1
+    } if (c.nobest.move.length > 0) {
+      c.nobest.move[0] += 1
+      c.nobest.move[1] += 1
+    }
+    if (c.nobest.action.length > 0) {
+      c.nobest.action[0] += 1
+      c.nobest.action[1] += 1
+    }
+    return c
+  }
+
+  getActionAuto1(deskData: GameData6_2): GameAutoWay {
     //统计所有可落点位置
     // let canChessPosition: GameAction6_2[] = this.getBestAction(deskData)
     const deskDataTmp = JSON.parse(JSON.stringify(deskData));
@@ -218,9 +264,9 @@ export default class example6_2 {
     for (let index = 0; index < steps.length; index++) {
       const step = steps[index];
       let deskDataTmp = JSON.parse(JSON.stringify(deskData));
-      deskDataTmp = this.doAction(deskDataTmp, step)[1];
+      deskDataTmp = this.doAction1(deskDataTmp, step)[1];
 
-      let flag = this.checkDesk(deskDataTmp)
+      let flag = this.checkDesk1(deskDataTmp)
       if (flag == 0) {
         const tcurrentCount = currentCount
         let childSteps: GameAction6_2[] = this.recursive(deskDataTmp, count, tcurrentCount)

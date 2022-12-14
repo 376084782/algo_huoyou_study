@@ -4,12 +4,20 @@ import example4_1 from './module4_1/index';
 import example4_2, { GameAction4_2, GameData4_2 } from './module4_2/index';
 import example6_1 from './module6_1/index';
 import example6_2 from './module6_2/index';
+import example6_3 from './module6_3/index';
 import example8_1, { GameConfig8_1 } from './module8_1/index';
+import example10_2 from './module10_2/index';
 import RandomGenerater from './util/RandomGenerater';
 
 let player = "P1"
 let i = 0
-// // 8_1 
+// 10_2
+// let test10_2 = new example10_2();
+// let s= test10_2.getAllDesk();
+// 0_0_0_0_0_0_1_1_0_
+// let s1= test10_2.getAllAction([[0,0,0],[0,0,0],[1,1,0]])
+// console.info()
+// 8_1 
 // let test8_1 = new example8_1();
 // for (i = 0; i < 11; i++) {
 //     let result = test8_1.getRiddle(new GameConfig8_1(1,2));
@@ -34,8 +42,12 @@ let i = 0
 //             player = "P1"
 //         }
 //     }
+// 6_3
+let test6_3 = new example6_3();
+let s1 = test6_3.getAllDesk(7);
+console.info()
 
-// 6_2 
+// 6_2
 // let test6_2 = new example6_2();
 // for (i = 0; i < 1; i++) {
 //     let result = test6_2.getRiddle(new GameConfig8_1(1, 2));
@@ -64,62 +76,62 @@ let i = 0
 // }
 
 // 6.1
-let test6_1 = new example6_1();
-const rg = new RandomGenerater(0)
-const lenght = 12
+// let test6_1 = new example6_1();
+// const rg = new RandomGenerater(0)
+// const lenght = 12
 
-let result = test6_1.getRiddle(lenght);
-result.p1 = [
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1],
-    [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
-    [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
-]
-let action = test6_1.getActionAuto(result, 4, 4)
-let tmp = test6_1.doAction(result, action.best)
-console.info(1)
-for (i = 0; i < 1; i++) {
-    let result = test6_1.getRiddle(lenght);
-    let flagResult = 0
-    let count = 1
-    console.info("开始棋盘：" + JSON.stringify(result))
+// let result = test6_1.getRiddle(lenght);
+// result.p1 = [
+//     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+//     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+//     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+//     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+//     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+//     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+//     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+//     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+//     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+//     [1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1],
+//     [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
+//     [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
+// ]
+// let action = test6_1.getActionAuto(result, 4, 4)
+// let tmp = test6_1.doAction(result, action.best)
+// console.info(1)
+// for (i = 0; i < 1; i++) {
+//     let result = test6_1.getRiddle(lenght);
+//     let flagResult = 0
+//     let count = 1
+//     console.info("开始棋盘：" + JSON.stringify(result))
 
-    while (flagResult == 0) {
-        const n1 = rg.RangeInteger(1, 6);
-        const n2 = rg.RangeInteger(1, 6);
-        let action = test6_1.getActionAuto(result, n1, n2)
-        let tmp = test6_1.doAction(result, action.best)
-        result = tmp[1]
-        flagResult = tmp[0]
-        console.info("%s %s |\n操作 %s 结果 %s ", count++, player, JSON.stringify(action.best), flagResult)
-        console.info("棋盘 %s %s", n1, n2)
-        let desk1: string = ''
-        let desk2: string = ''
-        for (let i = 0; i < lenght; i++) {
-            const row1 = result.p1[i];
-            const row2 = result.p2[i];
-            desk1 += JSON.stringify(row1) + ",\n"
-            desk2 += JSON.stringify(row2) + ",\n"
-        }
-        console.info(desk1 + "\n" + desk2)
-        player = player == "P1" ? "P2" : "P1"
-        if (flagResult == -1) {
-            console.info("操作异常")
-            break
-        }
-        if (flagResult != 0) {
-            console.info(player + " WIN")
-        }
-    }
-}
+//     while (flagResult == 0) {
+//         const n1 = rg.RangeInteger(1, 6);
+//         const n2 = rg.RangeInteger(1, 6);
+//         let action = test6_1.getActionAuto(result, n1, n2)
+//         let tmp = test6_1.doAction(result, action.best)
+//         result = tmp[1]
+//         flagResult = tmp[0]
+//         console.info("%s %s |\n操作 %s 结果 %s ", count++, player, JSON.stringify(action.best), flagResult)
+//         console.info("棋盘 %s %s", n1, n2)
+//         let desk1: string = ''
+//         let desk2: string = ''
+//         for (let i = 0; i < lenght; i++) {
+//             const row1 = result.p1[i];
+//             const row2 = result.p2[i];
+//             desk1 += JSON.stringify(row1) + ",\n"
+//             desk2 += JSON.stringify(row2) + ",\n"
+//         }
+//         console.info(desk1 + "\n" + desk2)
+//         player = player == "P1" ? "P2" : "P1"
+//         if (flagResult == -1) {
+//             console.info("操作异常")
+//             break
+//         }
+//         if (flagResult != 0) {
+//             console.info(player + " WIN")
+//         }
+//     }
+// }
 // 4_2
 // let test4_2 = new example4_2();
 // for (i = 0; i < 10; i++) {
