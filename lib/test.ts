@@ -1,9 +1,11 @@
+
+import { FileWriter } from './common/FileWriter';
 import example2_1, { GameAction2_1, GameData2_1 } from './module2_1/index';
 import example2_2 from './module2_2/index';
 import example4_1 from './module4_1/index';
 import example4_2, { GameAction4_2, GameData4_2 } from './module4_2/index';
 import example6_1 from './module6_1/index';
-import {example6_2} from './module6_2/index';
+import { example6_2 } from './module6_2/index';
 // import example6_3 from './module6_3/index';
 import example8_1, { GameConfig8_1 } from './module8_1/index';
 // import example10_2 from './module10_2/index';
@@ -11,6 +13,8 @@ import RandomGenerater from './util/RandomGenerater';
 
 let player = "P1"
 let i = 0
+
+FileWriter.setFile('./file/a.ts', 'let a=3;')
 // 10_2
 // let test10_2 = new example10_2();
 // let s= test10_2.getAllDesk();
