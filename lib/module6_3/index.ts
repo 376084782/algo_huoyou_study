@@ -53,12 +53,11 @@ an表示当棋子颗数为 n 时，游戏状态的个数，具体得到每一个
 import { GameStep, GameWay, GameAutoWay } from '../common/pojo';
 import RandomGenerater from '../util/RandomGenerater';
 import OtherUtil from '../util/OtherUtil';
-import DeskData from '../module6_3/data';
 import { Console } from 'console';
 import exampleData10_2 from './data';
 import { FileWriter } from '../common/FileWriter';
-
-class GameData6_3 {
+//todo
+export class GameData6_3 {
   //参数
   desk: number[] = []
   player: number = 1
@@ -70,7 +69,7 @@ class GameData6_3 {
   }
 }
 
-class GameAction6_3 {
+export class GameAction6_3 {
   //拆解下标0-29
   action: number[][]
   //对数组中点位拆解之后的数据 
@@ -83,7 +82,7 @@ class GameAction6_3 {
   }
 }
 
-class GameConfig6_3 {
+export class GameConfig6_3 {
   n: number = 20
   desk: number[] = [3, 4, 4, 9]
   constructor(n: number, desk: number[]) {
