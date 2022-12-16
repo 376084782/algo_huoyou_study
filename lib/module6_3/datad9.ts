@@ -1,0 +1,17 @@
+export default class exampleData6_3D2 {
+      d9w1: Set<string> = new Set<string>(["1_1_1_1_1_1_1_1_1_"])      
+      d9l1: Set<string> = new Set<string>(["2_1_1_1_1_1_1_1_0_","3_1_1_1_1_1_1_0_0_","4_1_1_1_1_1_0_0_0_","5_1_1_1_1_0_0_0_0_","6_1_1_1_0_0_0_0_0_","7_1_1_0_0_0_0_0_0_","8_1_0_0_0_0_0_0_0_","9_0_0_0_0_0_0_0_0_"])      
+      d9w2: Set<string> = new Set<string>(["7_2_0_0_0_0_0_0_0_"])      
+      d9l2: Set<string> = new Set<string>(["4_3_2_0_0_0_0_0_0_","5_2_2_0_0_0_0_0_0_","6_2_1_0_0_0_0_0_0_"])      
+      d9w3: Set<string> = new Set<string>(["5_4_0_0_0_0_0_0_0_"])      
+      d9l3: Set<string> = new Set<string>(["4_4_1_0_0_0_0_0_0_","5_3_1_0_0_0_0_0_0_"])      
+      d9w4: Set<string> = new Set<string>(["5_2_1_1_0_0_0_0_0_"])      
+      d9l4: Set<string> = new Set<string>(["3_2_2_1_1_0_0_0_0_","4_2_1_1_1_0_0_0_0_"])      
+      d9w5: Set<string> = new Set<string>(["4_3_1_1_0_0_0_0_0_"])      
+      d9l5: Set<string> = new Set<string>(["3_3_1_1_1_0_0_0_0_"])      
+      d9w6: Set<string> = new Set<string>(["3_2_1_1_1_1_0_0_0_","3_3_3_0_0_0_0_0_0_"])      
+      d9l6: Set<string> = new Set<string>(["2_2_1_1_1_1_1_0_0_","3_3_2_1_0_0_0_0_0_","6_3_0_0_0_0_0_0_0_"])      
+      d9w7: Set<string> = new Set<string>(["2_2_2_1_1_1_0_0_0_"])      
+      d9l7: Set<string> = new Set<string>(["2_2_2_2_1_0_0_0_0_","3_2_2_2_0_0_0_0_0_"])      
+      d9w8: Set<string> = new Set<string>(["4_2_2_1_0_0_0_0_0_"])      
+}
