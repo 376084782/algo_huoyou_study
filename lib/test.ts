@@ -1,7 +1,7 @@
 
 import { FileWriter } from './common/FileWriter';
 import example2_1, { GameAction2_1, GameData2_1 } from './module2_1/index';
-import example2_2 from './module2_2/index';
+import { example2_2 } from './module2_2/index';
 import example4_1 from './module4_1/index';
 import example4_2, { GameAction4_2, GameData4_2 } from './module4_2/index';
 import example6_1 from './module6_1/index';
