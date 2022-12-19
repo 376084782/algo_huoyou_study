@@ -6,21 +6,28 @@ import example4_1 from './module4_1/index';
 import example4_2, { GameAction4_2, GameData4_2 } from './module4_2/index';
 import example6_1 from './module6_1/index';
 import { example6_2 } from './module6_2/index';
-// import example6_3 from './module6_3/index';
+import example6_3 from './module6_3/index';
 import example8_1, { GameConfig8_1 } from './module8_1/index';
+import example8_3 from './module8_3/index';
 // import example10_2 from './module10_2/index';
 import RandomGenerater from './util/RandomGenerater';
 
 let player = "P1"
 let i = 0
 
-FileWriter.setFile('./file/a.ts', 'let a=3;')
+// FileWriter.setFile('./file/a.ts', 'let a=3;')
 // 10_2
 // let test10_2 = new example10_2();
 // let s= test10_2.getAllDesk();
 // 0_0_0_0_0_0_1_1_0_
 // let s1= test10_2.getAllAction([[0,0,0],[0,0,0],[1,1,0]])
 // console.info()
+// 8_3
+let test8_3 = new example8_3();
+for (let i = 2; i <=30; i++) {
+    let s1 = test8_3.getAllDesk(i);
+}
+console.info()
 // 8_1 
 // let test8_1 = new example8_1();
 // for (i = 0; i < 11; i++) {
@@ -48,36 +55,38 @@ FileWriter.setFile('./file/a.ts', 'let a=3;')
 //     }
 // 6_3
 // let test6_3 = new example6_3();
-// let s1 = test6_3.getAllDesk(7);
+// for (let i = 12; i < 13; i++) {
+//     let s1 = test6_3.getAllDesk(i);
+// }
 // console.info()
 
 // 6_2
-let test6_2 = new example6_2();
-for (i = 0; i < 1; i++) {
-    let result = test6_2.getRiddle(new GameConfig8_1(1, 2));
-    let flagResult = 0
-    let count = 1
-    console.info("%s\n%s\n%s\n%s\n%s", JSON.stringify(result.desk[0]), JSON.stringify(result.desk[1]), JSON.stringify(result.desk[2]), JSON.stringify(result.desk[3]), JSON.stringify(result.desk[4]))
-    console.info("开始棋盘：" + JSON.stringify(result))
-    while (flagResult == 0) {
-        let action = test6_2.getActionAuto(result)
-        let tmp = test6_2.doAction(result, action.best)
-        result = tmp[1]
-        flagResult = tmp[0]
-        console.info("%s %s | 操作：%s \n%s\n%s\n%s\n%s\n%s\n  结果 %s ", count++, player, JSON.stringify(action.best), JSON.stringify(result.desk[0]), JSON.stringify(result.desk[1]), JSON.stringify(result.desk[2]), JSON.stringify(result.desk[3]), JSON.stringify(result.desk[4]), flagResult)
-        if (flagResult == 1) {
-            console.info("P1 WIN")
-        }
-        if (flagResult == 2) {
-            console.info("P2 WIN")
-        }
-        if (player == "P1") {
-            player = "P2"
-        } else {
-            player = "P1"
-        }
-    }
-}
+// let test6_2 = new example6_2();
+// for (i = 0; i < 1; i++) {
+//     let result = test6_2.getRiddle(new GameConfig8_1(1, 2));
+//     let flagResult = 0
+//     let count = 1
+//     console.info("%s\n%s\n%s\n%s\n%s", JSON.stringify(result.desk[0]), JSON.stringify(result.desk[1]), JSON.stringify(result.desk[2]), JSON.stringify(result.desk[3]), JSON.stringify(result.desk[4]))
+//     console.info("开始棋盘：" + JSON.stringify(result))
+//     while (flagResult == 0) {
+//         let action = test6_2.getActionAuto(result)
+//         let tmp = test6_2.doAction(result, action.best)
+//         result = tmp[1]
+//         flagResult = tmp[0]
+//         console.info("%s %s | 操作：%s \n%s\n%s\n%s\n%s\n%s\n  结果 %s ", count++, player, JSON.stringify(action.best), JSON.stringify(result.desk[0]), JSON.stringify(result.desk[1]), JSON.stringify(result.desk[2]), JSON.stringify(result.desk[3]), JSON.stringify(result.desk[4]), flagResult)
+//         if (flagResult == 1) {
+//             console.info("P1 WIN")
+//         }
+//         if (flagResult == 2) {
+//             console.info("P2 WIN")
+//         }
+//         if (player == "P1") {
+//             player = "P2"
+//         } else {
+//             player = "P1"
+//         }
+//     }
+// }
 
 // 6.1
 // let test6_1 = new example6_1();
