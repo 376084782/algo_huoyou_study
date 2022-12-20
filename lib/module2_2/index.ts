@@ -56,7 +56,7 @@ export class GameConfig2_2 {
   }
 }
 
-export class example2_2 {
+export default class example2_2 {
 
   level2Positions: number[][] = [[3, 1], [4, 2], [5, 3], [6, 4], [7, 5], [8, 6], [3, 2], [4, 3], [5, 4], [6, 5], [7, 6], [8, 7], [9, 8]]
   level3Positions: number[][] = [[7, 1], [8, 1], [9, 1], [7, 2], [8, 2], [9, 2], [9, 3], [8, 3], [7, 3], [8, 4], [9, 5], [9, 6]]
@@ -108,7 +108,7 @@ export class example2_2 {
   }
 
   checkRiddle(deskData: GameData2_2): number {
-    if (deskData.positions.filter(x => x == 1).length) {
+    if (deskData.positions.filter(x => x == 1).length < 0) {
       return -1
     }
     return 1
@@ -179,7 +179,15 @@ export class example2_2 {
 
     let allAction = this.randomAction(deskData)
     if (count % 2 == 0) {
-      return new GameAutoWay([deskData.positions.findIndex(x => x == 1), 10], [deskData.positions.findIndex(x => x == 1), 10]);
+      let tmp = 0
+      for (let i = deskData.positions.length - 1; i >= 0; i--) {
+        const element = deskData.positions[i];
+        if (element == 1) {
+          tmp = i
+          break
+        }
+      }
+      return new GameAutoWay([tmp, 10], [tmp, 10]);
     }
     let vaildAction: number[][] = new Array;
     let i: number;

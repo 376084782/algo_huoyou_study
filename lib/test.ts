@@ -1,7 +1,7 @@
 
 import { FileWriter } from './common/FileWriter';
 import example2_1, { GameAction2_1, GameData2_1 } from './module2_1/index';
-import { example2_2 } from './module2_2/index';
+import example2_2, { GameData2_2 } from './module2_2/index';
 import example4_1 from './module4_1/index';
 import example4_2, { GameAction4_2, GameData4_2 } from './module4_2/index';
 import example6_1 from './module6_1/index';
@@ -23,11 +23,11 @@ let i = 0
 // let s1= test10_2.getAllAction([[0,0,0],[0,0,0],[1,1,0]])
 // console.info()
 // 8_3
-let test8_3 = new example8_3();
-for (let i = 2; i <=30; i++) {
-    let s1 = test8_3.getAllDesk(i);
-}
-console.info()
+// let test8_3 = new example8_3();
+// for (let i = 2; i <=30; i++) {
+//     let s1 = test8_3.getAllDesk(i);
+// }
+// console.info()
 // 8_1 
 // let test8_1 = new example8_1();
 // for (i = 0; i < 11; i++) {
@@ -196,7 +196,17 @@ console.info()
 //     }
 // }
 //// 2_2
-// let test2_2 = new example2_2();
+let test2_2 = new example2_2();
+
+let gd = new GameData2_2();
+gd.player = 1
+// [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+gd.positions = [1, 0, 0, 1, 1, 0, 1, 0, 0, 0]
+gd.sum = 4
+gd.warehouse = 0
+let action = test2_2.getActionAuto(gd)
+
+console.info()
 // for (i = 0; i < 10; i++) {
 //     let result = test2_2.getRiddleByLev(0, null);
 //     let flagResult = -1
@@ -204,7 +214,7 @@ console.info()
 //     console.info("开始棋盘：" + JSON.stringify(result))
 //     while (flagResult != 1) {
 //         let action = test2_2.getActionAuto(result)
-//         let tmp = test2_2.doAction(result, action)
+//         let tmp = test2_2.doAction(result, action.best)
 //         result = tmp[1]
 //         flagResult = tmp[0]
 //         console.info(count++ + " " + player + "操作:" + JSON.stringify(action) + " " + JSON.stringify(result.positions) + "结果：" + flagResult)
