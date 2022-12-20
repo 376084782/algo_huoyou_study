@@ -44,7 +44,12 @@ export class GameData2_2 {
   player = 1;
   //点位
   positions: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-  constructor() {
+  constructor(data: {
+    sum?: number,
+    warehouse?: number,
+    player?: number,
+    positions?: number[],
+  }) {
     this.warehouse = 0;
   }
 }
@@ -63,7 +68,7 @@ export class example2_2 {
   level4Positions: number[][] = [[9, 8, 1], [8, 7, 1], [7, 6, 1], [9, 2, 1], [8, 6, 5], [9, 7, 5], [8, 6, 3], [7, 4, 3], [8, 5, 3], [9, 5, 4], [9, 6, 2], [9, 6, 5]]
 
   getRiddleByLev(level: number, config: any): GameData2_2 {
-    let gd = new GameData2_2();
+    let gd = new GameData2_2({});
     const rg = new RandomGenerater(0)
     switch (level) {
       case 0:
@@ -101,13 +106,13 @@ export class example2_2 {
   }
 
   getRiddle(config: GameConfig2_2): GameData2_2 {
-    let gd = new GameData2_2();
+    let gd = new GameData2_2({});
     gd.positions = config.positions
     gd.sum = config.positions.filter(x => x == 1).length
     return gd;
   }
 
-  checkRiddle(deskData: GameData2_2): number {
+  checkRiddle(deskData: GameConfig2_2): number {
     if (deskData.positions.filter(x => x == 1).length) {
       return -1
     }
@@ -133,7 +138,7 @@ export class example2_2 {
     }
   }
 
-  checkAction(deskData: GameData2_2, dataAction: number[]): number {
+  checkAction(deskData: { positions: number[] }, dataAction: number[]): number {
     let positionStart = dataAction[0];
     let positionEnd = dataAction[1];
 
