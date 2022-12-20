@@ -216,7 +216,6 @@ export class example6_2 {
   }
 
   checkAction1(deskData: GameData6_2, dataAction: GameAction6_2): number {
-
     //如果移子，保证点位有子
     if (deskData.player == 1 && deskData.desk[dataAction.move[0] - 1][dataAction.move[1] - 1] != 1) {
       return -1
@@ -230,13 +229,13 @@ export class example6_2 {
       return -1
     }
     //保证相邻
-    const adjacentSet = this.adjacentMap.get((dataAction.move[0] + 1) + "-" + (dataAction.move[1] + 1))
-    adjacentSet?.forEach(item => {
-      if (item[0] + "_" + item[1] == dataAction.action[0] + "_" + dataAction.action[1]) {
-        return 1
-      }
-    })
-    return -1
+    const adjacentSet = this.adjacentMap.get((dataAction.move[0]) + "-" + (dataAction.move[1]))
+
+    if (!adjacentSet) {
+      return 1
+    } else {
+      return adjacentSet.has(dataAction.action) ? -1 : 1
+    }
   }
 
   checkDesk(deskData: GameData6_2): number {

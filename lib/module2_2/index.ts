@@ -44,7 +44,7 @@ export class GameData2_2 {
   player = 1;
   //点位
   positions: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-  constructor(data: {
+  constructor(data?: {
     sum?: number,
     warehouse?: number,
     player?: number,

@@ -1,7 +1,7 @@
 
 import { FileWriter } from './common/FileWriter';
 import example2_1, { GameAction2_1, GameData2_1 } from './module2_1/index';
-import example2_2, { GameData2_2 } from './module2_2/index';
+import { example2_2, GameData2_2 } from './module2_2/index';
 import example4_1 from './module4_1/index';
 import example4_2, { GameAction4_2, GameData4_2 } from './module4_2/index';
 import example6_1 from './module6_1/index';
@@ -61,7 +61,22 @@ let i = 0
 // console.info()
 
 // 6_2
-// let test6_2 = new example6_2();
+let test6_2 = new example6_2();
+let res = test6_2.checkAction({
+  desk: [
+    [9, 9, 9, 0, 9, 9, 9],
+    [1, 9, 2, 9, 1, 9, 2],
+    [9, 0, 9, 9, 9, 0, 9],
+    [2, 9, 1, 9, 2, 9, 1],
+    [9, 9, 9, 0, 9, 9, 9],
+  ],
+  player: 1
+}, {
+  action: [2, 5],
+  move: [3, 6],
+  score: 0
+})
+console.log(res,'resres')
 // for (i = 0; i < 1; i++) {
 //     let result = test6_2.getRiddle(new GameConfig8_1(1, 2));
 //     let flagResult = 0
