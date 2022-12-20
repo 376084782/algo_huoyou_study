@@ -234,7 +234,7 @@ export class example6_2 {
     if (!adjacentSet) {
       return -1
     } else {
-      return adjacentSet.has(dataAction.action) ? -1 : 1
+      return adjacentSet.has(dataAction.action) ? 1 : -1
     }
   }
 
