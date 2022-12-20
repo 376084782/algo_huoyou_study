@@ -232,7 +232,7 @@ export class example6_2 {
     const adjacentSet = this.adjacentMap.get((dataAction.move[0]) + "-" + (dataAction.move[1]))
 
     if (!adjacentSet) {
-      return 1
+      return -1
     } else {
       return adjacentSet.has(dataAction.action) ? -1 : 1
     }
