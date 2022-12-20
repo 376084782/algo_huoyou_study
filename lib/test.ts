@@ -76,7 +76,21 @@ let res = test6_2.checkAction({
   move: [3, 6],
   score: 0
 })
-console.log(res,'resres')
+let res2 = test6_2.checkAction({
+  desk: [
+    [9, 9, 9, 0, 9, 9, 9],
+    [1, 9, 2, 9, 1, 9, 2],
+    [9, 0, 9, 9, 9, 0, 9],
+    [2, 9, 1, 9, 2, 9, 1],
+    [9, 9, 9, 0, 9, 9, 9],
+  ],
+  player: 1
+}, {
+  action: [0, 3],
+  move: [3, 6],
+  score: 0
+})
+console.log(res,res2,'resres')
 // for (i = 0; i < 1; i++) {
 //     let result = test6_2.getRiddle(new GameConfig8_1(1, 2));
 //     let flagResult = 0

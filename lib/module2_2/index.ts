@@ -167,7 +167,7 @@ export class example2_2 {
         return 0;
       }
     }
-    return 1;
+    return deskData.player;
   }
 
   binArr: number[][] = [[0, 0, 0, 0], [0, 0, 0, 1], [0, 0, 1, 0], [0, 0, 1, 1], [0, 1, 0, 0], [0, 1, 0, 1], [0, 1, 1, 0], [0, 1, 1, 1], [1, 0, 0, 0], [1, 0, 0, 1]]
