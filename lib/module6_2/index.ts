@@ -234,7 +234,13 @@ export class example6_2 {
     if (!adjacentSet) {
       return -1
     } else {
-      return adjacentSet.has(dataAction.action) ? 1 : -1
+      let flag = -1;
+      adjacentSet.forEach(act => {
+        if (act[0] == dataAction.action[0] && act[1] == dataAction.action[1]) {
+          flag = 1;
+        }
+      })
+      return flag
     }
   }
 
