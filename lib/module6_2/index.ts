@@ -229,7 +229,14 @@ export class example6_2 {
     if (deskData.desk[dataAction.action[0] - 1][dataAction.action[1] - 1] != 0) {
       return -1
     }
-    return 1
+    //保证相邻
+    const adjacentSet = this.adjacentMap.get((dataAction.move[0] + 1) + "-" + (dataAction.move[1] + 1))
+    adjacentSet?.forEach(item => {
+      if (item[0] + "_" + item[1] == dataAction.action[0] + "_" + dataAction.action[1]) {
+        return 1
+      }
+    })
+    return -1
   }
 
   checkDesk(deskData: GameData6_2): number {

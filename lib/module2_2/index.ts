@@ -112,8 +112,8 @@ export class example2_2 {
     return gd;
   }
 
-  checkRiddle(deskData: GameConfig2_2): number {
-    if (deskData.positions.filter(x => x == 1).length) {
+  checkRiddle(deskData: GameData2_2): number {
+    if (deskData.positions.filter(x => x == 1).length < 0) {
       return -1
     }
     return 1
@@ -184,7 +184,15 @@ export class example2_2 {
 
     let allAction = this.randomAction(deskData)
     if (count % 2 == 0) {
-      return new GameAutoWay([deskData.positions.findIndex(x => x == 1), 10], [deskData.positions.findIndex(x => x == 1), 10]);
+      let tmp = 0
+      for (let i = deskData.positions.length - 1; i >= 0; i--) {
+        const element = deskData.positions[i];
+        if (element == 1) {
+          tmp = i
+          break
+        }
+      }
+      return new GameAutoWay([tmp, 10], [tmp, 10]);
     }
     let vaildAction: number[][] = new Array;
     let i: number;
