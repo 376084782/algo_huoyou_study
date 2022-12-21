@@ -76,7 +76,21 @@ let res = test6_2.checkAction({
   move: [3, 6],
   score: 0
 })
-console.log(res, 'resres')
+let res2 = test6_2.checkAction({
+  desk: [
+    [9, 9, 9, 0, 9, 9, 9],
+    [1, 9, 2, 9, 1, 9, 2],
+    [9, 0, 9, 9, 9, 0, 9],
+    [2, 9, 1, 9, 2, 9, 1],
+    [9, 9, 9, 0, 9, 9, 9],
+  ],
+  player: 1
+}, {
+  action: [0, 3],
+  move: [3, 6],
+  score: 0
+})
+console.log(res,res2,'resres')
 // for (i = 0; i < 1; i++) {
 //     let result = test6_2.getRiddle(new GameConfig8_1(1, 2));
 //     let flagResult = 0
@@ -212,7 +226,15 @@ console.log(res, 'resres')
 // }
 //// 2_2
 let test2_2 = new example2_2();
-let gd = test2_2.getRiddle()
+
+let gd = new GameData2_2();
+gd.player = 1
+// [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+gd.positions = [1, 0, 0, 1, 1, 0, 1, 0, 0, 0]
+gd.sum = 4
+gd.warehouse = 0
+let action = test2_2.getActionAuto(gd)
+
 console.info()
 // for (i = 0; i < 10; i++) {
 //     let result = test2_2.getRiddleByLev(0, null);
