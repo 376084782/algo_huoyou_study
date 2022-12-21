@@ -105,10 +105,39 @@ export class example2_2 {
     return gd;
   }
 
-  getRiddle(config: GameConfig2_2): GameData2_2 {
+  getRiddle(sum?: number, positions?: number[]): GameData2_2 {
     let gd = new GameData2_2({});
-    gd.positions = config.positions
-    gd.sum = config.positions.filter(x => x == 1).length
+    if (positions != undefined) {
+      gd.positions = positions
+      gd.sum = positions.filter(x => x == 1).length
+    } else if (sum != undefined) {
+      if (sum > 4) {
+        throw new Error("sum too long.");
+      }
+      gd.positions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      gd.sum = sum
+      let count = sum
+      while (count > 0) {
+        const rg = new RandomGenerater(0)
+        const p = rg.RangeInteger(0, 9)
+        if (gd.positions[p] == 0) {
+          gd.positions[p] = 1
+          count--
+        }
+      }
+    } else if (sum == undefined) {
+      gd.sum = 4
+      gd.positions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      let count = gd.sum
+      while (count > 0) {
+        const rg = new RandomGenerater(0)
+        const p = rg.RangeInteger(0, 9)
+        if (gd.positions[p] == 0) {
+          gd.positions[p] = 1
+          count--
+        }
+      }
+    }
     return gd;
   }
 
