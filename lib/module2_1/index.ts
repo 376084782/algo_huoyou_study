@@ -13,6 +13,14 @@
 三级：3 步取胜（同上）
  * 
  */
+
+
+/**
+ * 问题记录
+ * 1. checkDesk 棋子全部被另一方压住不能走的时候也要判负
+ * 2. checkRiddle要有，格式有些游戏可以不检验因为玩家不能自定义这么彻底，前端按照固定格式传就行，  但是有自定义局面的游戏都要判断是否一开始的棋局就某方直接获胜，这种也算非法
+ * 
+ */
 import OtherUtil from '../util/OtherUtil';
 import RandomGenerater from '../util/RandomGenerater';
 import { GameStep, GameWay, GameAutoWay } from '../common/pojo';
@@ -26,6 +34,7 @@ export class GameData2_1 {
   player = 1;
   //点位 二维数组 一共十二个点位，第二层数组 0-2为底至顶123
   positions: number[][] = [[], [], [], [], [], [], [], [], [], [], [], []]
+  constructor() { }
 }
 
 export class GameAction2_1 {
@@ -60,7 +69,8 @@ export default class example2_1 {
   }
 
   checkRiddle(deskData: GameData2_1): number {
-    throw new Error("Method not implemented.");
+    // todo: 这个需要有，检测是否一开局就三子连续胜利了就行
+    return 0
   }
 
   doAction(deskData: GameData2_1, dataAction: GameAction2_1): [flagResult: number, dataResult: GameData2_1] {

@@ -33,7 +33,7 @@ import RandomGenerater from '../util/RandomGenerater';
 import OtherUtil from '../util/OtherUtil';
 import { Console } from 'console';
 
-class GameData4_1 {
+export class GameData4_1 {
   //参数
   k = 7;
   n = 2 * this.k + 1;
@@ -56,13 +56,13 @@ class GameData4_1 {
   }
 
 }
-class GameConfig4_1 {
+export class GameConfig4_1 {
   p = 3
   p1 = 0
   p2 = 0
   n = 15
 }
-class GameStep4_1 {
+export class GameStep4_1 {
   p = 3;
   p1 = 0
   p2 = 0
@@ -127,7 +127,7 @@ export default class example4_1 {
 
   checkRiddle(deskData: GameData4_1): number {
     if (deskData.k > 7 || deskData.k < 0 ||
-      (deskData.p == 2 || deskData.p == 3) ||
+      (deskData.p != 2 && deskData.p != 3) ||
       (deskData.n != 2 * deskData.k + 1) ||
       ((deskData.p1 + deskData.p2) > deskData.n)) {
       return -1

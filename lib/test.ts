@@ -2,7 +2,7 @@
 import { FileWriter } from './common/FileWriter';
 import example2_1, { GameAction2_1, GameData2_1 } from './module2_1/index';
 import { example2_2, GameData2_2 } from './module2_2/index';
-import example4_1 from './module4_1/index';
+import example4_1, { GameData4_1 } from './module4_1/index';
 import example4_2, { GameAction4_2, GameData4_2 } from './module4_2/index';
 import example6_1 from './module6_1/index';
 import { example6_2 } from './module6_2/index';
@@ -90,7 +90,7 @@ let res2 = test6_2.checkAction({
   move: [3, 6],
   score: 0
 })
-console.log(res,res2,'resres')
+console.log(res, res2, 'resres')
 // for (i = 0; i < 1; i++) {
 //     let result = test6_2.getRiddle(new GameConfig8_1(1, 2));
 //     let flagResult = 0
@@ -199,7 +199,10 @@ console.log(res,res2,'resres')
 //     }
 // }
 // // 4_1
-// let test4_1 = new example4_1();
+let test4_1 = new example4_1();
+let dd = new GameData4_1(7, 2)
+let checker = test4_1.checkRiddle(dd)
+console.log(checker, dd, 'cccc')
 // for (i = 0; i < 11; i++) {
 //     let result = test4_1.getRiddleByLev(0, null);
 //     let flagResult = 0
