@@ -175,7 +175,16 @@ console.log(res, res2, 'resres')
 //     }
 // }
 // 4_2
-// let test4_2 = new example4_2();
+let test4_2 = new example4_2();
+let desk = new GameData4_2(1, [
+  [1, 0, 0],
+  [2, 1, 0],
+  [0, 2, 0]
+])
+desk.p1 = 1;
+desk.p2 = 1;
+let flag = test4_2.checkRiddle(desk)
+console.log(flag, 'flagflagflag')
 // for (i = 0; i < 10; i++) {
 //     let result = test4_2.getRiddle(0);
 //     let flagResult = 0
@@ -199,10 +208,10 @@ console.log(res, res2, 'resres')
 //     }
 // }
 // // 4_1
-let test4_1 = new example4_1();
-let dd = new GameData4_1(7, 2)
-let checker = test4_1.checkRiddle(dd)
-console.log(checker, dd, 'cccc')
+// let test4_1 = new example4_1();
+// let dd = new GameData4_1(7, 2)
+// let checker = test4_1.checkRiddle(dd)
+// console.log(checker, dd, 'cccc')
 // for (i = 0; i < 11; i++) {
 //     let result = test4_1.getRiddleByLev(0, null);
 //     let flagResult = 0
