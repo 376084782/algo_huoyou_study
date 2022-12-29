@@ -15,13 +15,14 @@
 赢电脑 3 次
  * 
  */
+
 import { REFUSED } from 'dns';
 import { threadId } from 'worker_threads';
 import { GameAutoWay } from '../common/pojo';
 import OtherUtil from '../util/OtherUtil';
 import RandomGenerater from '../util/RandomGenerater';
 
-class GameData6_1 {
+export class GameData6_1 {
   //棋盘 由上至下 由左至右
   p1: number[][] = [];
   p2: number[][] = []
@@ -45,7 +46,7 @@ class GameData6_1 {
   }
 }
 
-class GameAction6_1 {
+export class GameAction6_1 {
   //画图的起始点
   start: number[] = []
   //画图的结束点
