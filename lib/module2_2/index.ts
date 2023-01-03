@@ -212,7 +212,7 @@ export class example2_2 {
     let count = this.computeDeskBin(deskData);
 
     let allAction = this.randomAction(deskData)
-    if (count % 2 == 0) {
+    if (count % 2 == 0 && count > 2) {
       let tmp = 0
       for (let i = deskData.positions.length - 1; i >= 0; i--) {
         const element = deskData.positions[i];

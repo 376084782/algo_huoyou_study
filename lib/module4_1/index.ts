@@ -36,7 +36,9 @@ import { Console } from 'console';
 export class GameData4_1 {
   //参数
   k = 7;
+  //总数
   n = 2 * this.k + 1;
+  //限制获取上限
   p = 3;
   //玩家手持
   p1 = 0
@@ -62,6 +64,7 @@ export class GameConfig4_1 {
   p2 = 0
   n = 15
 }
+
 export class GameStep4_1 {
   p = 3;
   p1 = 0
@@ -119,6 +122,9 @@ export default class example4_1 {
     } else {
       throw new Error("总数不可为偶数");
     }
+    if (config.p2 + config.p1 >= config.n) {
+      throw new Error("双方数量总和大于或等于总数");
+    }
     let gd = new GameData4_1(k, config.p);
     gd.p1 = config.p1
     gd.p2 = config.p2
@@ -164,6 +170,9 @@ export default class example4_1 {
 
   checkAction(deskData: GameData4_1, dataAction: number): number {
     if (deskData.residue < dataAction) {
+      return -1;
+    }
+    if (dataAction > deskData.p) {
       return -1;
     }
     return 1;

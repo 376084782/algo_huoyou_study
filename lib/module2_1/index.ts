@@ -69,7 +69,24 @@ export default class example2_1 {
   }
 
   checkRiddle(deskData: GameData2_1): number {
-    // todo: 这个需要有，检测是否一开局就三子连续胜利了就行
+    // 1、设置的时候，已经连成3个是非法
+    // 2、棋盘上放上的红蓝双方的数量应该是一致，否则非法。
+    let p1 = deskData.p1;
+    let p2 = deskData.p2;
+    for (let index = 0; index < deskData.positions.length; index++) {
+      const element = deskData.positions[index];
+      for (let j = 0; j < element.length; j++) {
+        const chess = element[j];
+        if (chess == 1) {
+          p1++
+        } else if (chess == 2) {
+          p2++
+        }
+      }
+    }
+    if (this.checkDesk(deskData) != 0) {
+      return -1
+    }
     return 0
   }
 
