@@ -23,7 +23,7 @@ import RandomGenerater from '../util/RandomGenerater';
 import OtherUtil from '../util/OtherUtil';
 import { Console } from 'console';
 
-class GameData4_3 {
+export class GameData4_3 {
   //参数
   desk: number[][] = [
     [0, 0, 0, 0, 0, 0],
@@ -54,7 +54,7 @@ export class GameConfig4_3 {
   }
 }
 
-class GameAction4_3 {
+export class GameAction4_3 {
   //移动的子
   chessNum: number = 1
   //移动的子落得位置
@@ -71,7 +71,7 @@ class GameAction4_3 {
   }
 }
 
-class GameStep4_1 {
+export class GameStep4_1 {
 
 }
 export default class example4_3 {

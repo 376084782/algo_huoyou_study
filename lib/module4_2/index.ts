@@ -91,14 +91,14 @@ export default class example4_2 {
   }
 
   checkRiddle(deskData: GameData4_2): number {
-    // 各子有4
+    // 各子有3
     let p1DeskChess = this.getDeskChess(deskData, 1)
     let p2DeskChess = this.getDeskChess(deskData, 2)
 
-    if ((p1DeskChess.length + deskData.p1) != 4) {
+    if ((p1DeskChess.length + deskData.p1) != 3) {
       return -1
     }
-    if ((p2DeskChess.length + deskData.p2) != 4) {
+    if ((p2DeskChess.length + deskData.p2) != 3) {
       return -1
     }
     return 1
@@ -474,7 +474,7 @@ export default class example4_2 {
     for (let i = 0; i < deskData.desk.length; i++) {
       const row = deskData.desk[i];
       for (let j = 0; j < row.length; j++) {
-        const cell = row[i];
+        const cell = row[j];
         if (cell == player) {
           result.push([i, j])
         }

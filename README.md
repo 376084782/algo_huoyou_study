@@ -21,6 +21,11 @@ https://docs.qq.com/doc/DUmNlSXJTdG1nckpm
 3. 自己提交的模块对应的index入口文件，注释上作者姓名和提交时间
 4. 提交git 应保证提交记录说明对应的修改内容和题号
 
+# 额外的调试方法
+1. 参考test.ts 自己建一个入口文件
+2. package.json里参考debug自己建一个对应的debug指令
+3. 直接运行ts代码进行调试，可以打断点等
+
 # 开发资源
 1. 资源汇总 [资源汇总](https://docs.qq.com/sheet/DUndTUG5KWldyVEZP?tab=BB08J2)
 2. 大致的机器人递归两步思路[腾讯文档](https://docs.qq.com/flowchart/DUklQc2ZLcklHbGhJ)
