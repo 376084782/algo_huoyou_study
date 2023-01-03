@@ -315,6 +315,9 @@ gd.player = 1;
 
 let action = test2_1.getActionAuto(gd)
 
+let act=undefined;
+let res = test2_1.checkAction({ "p1": 6, "p2": 6, "player": 2, "positions": [[], [], [], [], [], [], [], [], [], [], [], []] }, act)
+console.log('res', res)
 console.info()
 // for (i = 0; i < 10; i++) {
 //     let result = test2_1.getRiddle(undefined);

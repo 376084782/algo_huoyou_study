@@ -92,7 +92,7 @@ export default class example2_1 {
     return 0
   }
 
-  doAction(deskData: GameData2_1, dataAction: GameAction2_1): [flagResult: number, dataResult: GameData2_1] {
+  doAction(deskData: GameData2_1, dataAction?: GameAction2_1): [flagResult: number, dataResult: GameData2_1] {
     if (dataAction == undefined) {
       deskData.player = OtherUtil.getRival(deskData.player)
       return [this.checkDesk(deskData), deskData];
@@ -119,7 +119,7 @@ export default class example2_1 {
     return [this.checkDesk(deskData), deskData];
   }
 
-  checkAction(deskData: GameData2_1, dataAction: GameAction2_1): number {
+  checkAction(deskData: GameData2_1, dataAction?: GameAction2_1): number {
 
     if (dataAction == undefined) {
       if (deskData.player == 1) {
@@ -148,7 +148,7 @@ export default class example2_1 {
     let p1 = deskData.p1
     let p2 = deskData.p2
 
-    if (dataAction.move.length == 0) {
+    if (dataAction!.move.length == 0) {
       if (deskData.player == 1 && p1 <= 0) {
         return -1
       }
@@ -156,10 +156,10 @@ export default class example2_1 {
         return -1
       }
     } else {
-      if (deskData.positions[dataAction.move[0]][dataAction.move[1]] != deskData.player) {
+      if (deskData.positions[dataAction!.move[0]][dataAction!.move[1]] != deskData.player) {
         return -1
       }
-      if (deskData.positions[dataAction.action[0]].length > 2) {
+      if (deskData.positions[dataAction!.action[0]].length > 2) {
         return -1
       }
     }
