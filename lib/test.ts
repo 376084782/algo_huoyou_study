@@ -241,31 +241,31 @@ let i = 0
 // 这个情况是他们的练习题，他们肯定也会测的，需要考虑进去。
 // 当A玩家手里是偶数个，且公共区还剩4个时候的时候，B玩家是必输的，A玩家是必胜的。
 // 机器人应该考虑这种情况，当下一手取完 可以给让自己手里偶数个，且留给对面4个，困难的机器人应该100 % 执行这个操作。目前我测困难人机没有这个操作。
-let test4_1 = new example4_1();
-for (i = 0; i < 11; i++) {
-  let result = test4_1.getRiddleByLev(0, null);
-  let flagResult = 0
-  let count = 1
-  console.info("开始棋盘：" + JSON.stringify(result))
-  while (flagResult == 0) {
-    let action = test4_1.getActionAuto(result)
-    let tmp = test4_1.doAction(result, action.best)
-    result = tmp[1]
-    flagResult = tmp[0]
-    console.info("%s %s |P1:%s P2:%s 剩余%s 操作 %s 结果 %s ", count++, player, result.p1, result.p2, result.residue, action, flagResult)
-    if (flagResult == 1) {
-      console.info("P1 WIN")
-    }
-    if (flagResult == 2) {
-      console.info("P2 WIN")
-    }
-    if (player == "P1") {
-      player = "P2"
-    } else {
-      player = "P1"
-    }
-  }
-}
+// let test4_1 = new example4_1();
+// for (i = 0; i < 11; i++) {
+//   let result = test4_1.getRiddleByLev(0, null);
+//   let flagResult = 0
+//   let count = 1
+//   console.info("开始棋盘：" + JSON.stringify(result))
+//   while (flagResult == 0) {
+//     let action = test4_1.getActionAuto(result)
+//     let tmp = test4_1.doAction(result, action.best)
+//     result = tmp[1]
+//     flagResult = tmp[0]
+//     console.info("%s %s |P1:%s P2:%s 剩余%s 操作 %s 结果 %s ", count++, player, result.p1, result.p2, result.residue, action, flagResult)
+//     if (flagResult == 1) {
+//       console.info("P1 WIN")
+//     }
+//     if (flagResult == 2) {
+//       console.info("P2 WIN")
+//     }
+//     if (player == "P1") {
+//       player = "P2"
+//     } else {
+//       player = "P1"
+//     }
+//   }
+// }
 //// 2_2
 // let test2_2 = new example2_2();
 // for (let index = 0; index < 10; index++) {
@@ -302,18 +302,20 @@ for (i = 0; i < 11; i++) {
 //     }
 // }
 // 2_1
-// let test2_1 = new example2_1();
+let test2_1 = new example2_1();
 
-// let gd = new GameData2_1();
-// gd.player = 1
-// // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-// gd.positions = [[1, 1, 2], [1, 1, 2], [1, 1, 2], [2, 2], [2], [], [], [], [], [], [], []]
-// gd.p1 = 0;
-// gd.p2 = 0;
-// gd.player = 1;
-// let action = test2_1.getActionAuto(gd)
+let gd = new GameData2_1();
+gd.player = 1
+//{"p1":0,"p2":0,"player":1,"positions":[[1,2],[1,2],[2],[],[],[1,2],[],[],[1,2],[1,2],[1],[]]}
+gd.positions = [[1, 2], [1, 2], [2], [], [], [1, 2], [], [], [1, 2], [1, 2], [1], []]
+// gd.positions = [[1, 2], [1, 2], [2], [], [], [1, 2], [], [], [1, 1], [2, 2], [1], []]
+gd.p1 = 0;
+gd.p2 = 0;
+gd.player = 1;
 
-// console.info()
+let action = test2_1.getActionAuto(gd)
+
+console.info()
 // for (i = 0; i < 10; i++) {
 //     let result = test2_1.getRiddle(undefined);
 //     let flagResult = -1

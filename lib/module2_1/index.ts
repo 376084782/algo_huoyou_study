@@ -38,7 +38,9 @@ export class GameData2_1 {
 }
 
 export class GameAction2_1 {
+  //被移动的棋子
   move: number[] = []
+  //移动棋子的落点
   action: number[]
   score: number = 0
   constructor(action: number[], move?: number[], score?: number) {
@@ -118,6 +120,31 @@ export default class example2_1 {
   }
 
   checkAction(deskData: GameData2_1, dataAction: GameAction2_1): number {
+
+    if (dataAction == undefined) {
+      if (deskData.player == 1) {
+        if (deskData.p1 > 0) {
+          return -1
+        }
+      }
+      if (deskData.player == 2) {
+        if (deskData.p2 > 0) {
+          return -1
+        }
+      }
+      let canMove = 0
+      for (let i = 0; i < deskData.positions.length; i++) {
+        const row = deskData.positions[i];
+        const topCell = row[row.length - 1];
+        if (topCell == deskData.player) {
+          canMove++
+        }
+      }
+      if (canMove != 0) {
+        return -1
+      }
+    }
+
     let p1 = deskData.p1
     let p2 = deskData.p2
 
@@ -173,7 +200,6 @@ export default class example2_1 {
 
 
   getActionAuto(deskData: GameData2_1): GameAutoWay {
-
 
     let rival = 0
     if (deskData.player == 1) {
@@ -306,6 +332,16 @@ export default class example2_1 {
         }
         if (best.length != 3) {
           result = new GameAutoWay(tmpAction, tmpAction1)
+        } else {
+          tmpAction.move = tmpAction.action
+          for (let i = 0; i < deskData.positions.length; i++) {
+            const row = deskData.positions[i];
+            if (row.length == 0) {
+              tmpAction.action = [i, 0]
+              break
+            }
+          }
+          result = new GameAutoWay(tmpAction, tmpAction)
         }
       } else {
         let tmpRow = randomP[rg.RangeInteger(0, randomP.length - 1)]
