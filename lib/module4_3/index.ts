@@ -300,7 +300,7 @@ export default class example4_3 {
       return 0;
     });
     if (steps.length == 0) {
-      throw new Error("死局");
+      throw new Error("无子可走");
     }
     let best: GameAction4_3 = steps[0];
     if (canChessPositionMap.has(best.move[0] + "_" + best.move[1])) {
@@ -309,7 +309,7 @@ export default class example4_3 {
       const s = tmpArr[rg.RangeInteger(0, tmpArr.length)]
       return s
     }
-    throw new Error("Method not implemented.");
+    throw new Error("无子可走");
   }
 
 
@@ -358,7 +358,7 @@ export default class example4_3 {
       return 0;
     });
     if (steps.length == 0) {
-      throw new Error("死局");
+      throw new Error("无子可走");
     }
     let best: GameAction4_3 = steps[0];
     let nobest: GameAction4_3
@@ -372,7 +372,7 @@ export default class example4_3 {
       const s = tmpArr[rg.RangeInteger(0, tmpArr.length)]
       return new GameAutoWay(s, s)
     }
-    throw new Error("Method not implemented.");
+    throw new Error("无子可走");
   }
 
   // ==============================================================================================================================

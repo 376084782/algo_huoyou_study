@@ -66,7 +66,6 @@ export default class example2_1 {
   }
 
   getRiddle(config: any): GameData2_1 {
-    //这个没有。
     return new GameData2_1()
   }
 

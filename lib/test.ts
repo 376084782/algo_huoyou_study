@@ -29,7 +29,7 @@ let i = 0
 //     let s1 = test8_3.getAllDesk(i);
 // }
 // console.info()
-// 8_1 
+// 8_1
 // let test8_1 = new example8_1();
 // for (i = 0; i < 11; i++) {
 //     let result = test8_1.getRiddle(new GameConfig8_1(1,2));
@@ -62,101 +62,33 @@ let i = 0
 // console.info()
 
 // 6_2
-// let test6_2 = new example6_2();
-// let s = new GameData6_2(1, [
-//     [9, 9, 9, 0, 9, 9, 9],
-//     [1, 9, 2, 9, 1, 9, 2],
-//     [9, 0, 9, 9, 9, 0, 9],
-//     [2, 9, 1, 9, 2, 9, 1],
-//     [9, 9, 9, 0, 9, 9, 9],
-// ])
-// let ss = test6_2.checkRiddle(s)
-// console.log()
-
-// let res = test6_2.checkAction({
-//   desk: [
-//     [9, 9, 9, 0, 9, 9, 9],
-//     [1, 9, 2, 9, 1, 9, 2],
-//     [9, 0, 9, 9, 9, 0, 9],
-//     [2, 9, 1, 9, 2, 9, 1],
-//     [9, 9, 9, 0, 9, 9, 9],
-//   ],
-//   player: 1
-// }, {
-//   action: [2, 5],
-//   move: [3, 6],
-//   score: 0
-// })
-// let res2 = test6_2.checkAction({
-//   desk: [
-//     [9, 9, 9, 0, 9, 9, 9],
-//     [1, 9, 2, 9, 1, 9, 2],
-//     [9, 0, 9, 9, 9, 0, 9],
-//     [2, 9, 1, 9, 2, 9, 1],
-//     [9, 9, 9, 0, 9, 9, 9],
-//   ],
-//   player: 1
-// }, {
-//   action: [0, 3],
-//   move: [3, 6],
-//   score: 0
-// })
-// console.log(res, res2, 'resres')
-// let test6_2 = new example6_2();
-// let res = test6_2.checkAction({
-//   desk: [
-//     [9, 9, 9, 0, 9, 9, 9],
-//     [1, 9, 2, 9, 1, 9, 2],
-//     [9, 0, 9, 9, 9, 0, 9],
-//     [2, 9, 1, 9, 2, 9, 1],
-//     [9, 9, 9, 0, 9, 9, 9],
-//   ],
-//   player: 1
-// }, {
-//   action: [2, 5],
-//   move: [3, 6],
-//   score: 0
-// })
-// let res2 = test6_2.checkAction({
-//   desk: [
-//     [9, 9, 9, 0, 9, 9, 9],
-//     [1, 9, 2, 9, 1, 9, 2],
-//     [9, 0, 9, 9, 9, 0, 9],
-//     [2, 9, 1, 9, 2, 9, 1],
-//     [9, 9, 9, 0, 9, 9, 9],
-//   ],
-//   player: 1
-// }, {
-//   action: [0, 3],
-//   move: [3, 6],
-//   score: 0
-// })
-// console.log(res,res2,'resres')
-// for (i = 0; i < 1; i++) {
-//     let result = test6_2.getRiddle(new GameConfig8_1(1, 2));
-//     let flagResult = 0
-//     let count = 1
-//     console.info("%s\n%s\n%s\n%s\n%s", JSON.stringify(result.desk[0]), JSON.stringify(result.desk[1]), JSON.stringify(result.desk[2]), JSON.stringify(result.desk[3]), JSON.stringify(result.desk[4]))
-//     console.info("开始棋盘：" + JSON.stringify(result))
-//     while (flagResult == 0) {
-//         let action = test6_2.getActionAuto(result)
-//         let tmp = test6_2.doAction(result, action.best)
-//         result = tmp[1]
-//         flagResult = tmp[0]
-//         console.info("%s %s | 操作：%s \n%s\n%s\n%s\n%s\n%s\n  结果 %s ", count++, player, JSON.stringify(action.best), JSON.stringify(result.desk[0]), JSON.stringify(result.desk[1]), JSON.stringify(result.desk[2]), JSON.stringify(result.desk[3]), JSON.stringify(result.desk[4]), flagResult)
-//         if (flagResult == 1) {
-//             console.info("P1 WIN")
-//         }
-//         if (flagResult == 2) {
-//             console.info("P2 WIN")
-//         }
-//         if (player == "P1") {
-//             player = "P2"
-//         } else {
-//             player = "P1"
-//         }
-//     }
-// }
+let test6_2 = new example6_2();
+for (i = 0; i < 3; i++) {
+    let result = test6_2.getRiddle(new GameConfig8_1(1, 2));
+    let flagResult = 0
+    let count = 1
+    console.info("%s\n%s\n%s\n%s\n%s", JSON.stringify(result.desk[0]), JSON.stringify(result.desk[1]), JSON.stringify(result.desk[2]), JSON.stringify(result.desk[3]), JSON.stringify(result.desk[4]))
+    console.info("开始棋盘：" + JSON.stringify(result))
+    while (flagResult == 0) {
+        let action = test6_2.getActionAuto(result)
+        let tmp = test6_2.doAction(result, action.best)
+        result = tmp[1]
+        flagResult = tmp[0]
+        console.info("%s %s | 操作：%s \n%s\n%s\n%s\n%s\n%s\n  结果 %s ", count++, player, JSON.stringify(action.best), JSON.stringify(result.desk[0]), JSON.stringify(result.desk[1]), JSON.stringify(result.desk[2]), JSON.stringify(result.desk[3]), JSON.stringify(result.desk[4]), flagResult)
+        console.info("%s", JSON.stringify(result))
+        if (flagResult == 1) {
+            console.info("P1 WIN")
+        }
+        if (flagResult == 2) {
+            console.info("P2 WIN")
+        }
+        if (player == "P1") {
+            player = "P2"
+        } else {
+            player = "P1"
+        }
+    }
+}
 
 // 6.1
 // let test6_1 = new example6_1();
@@ -238,17 +170,6 @@ let i = 0
 // console.log()
 // 4_2
 // let test4_2 = new example4_2();
-// let desk = new GameData4_2(1, [
-//     [1, 2, 0],
-//     [2, 1, 1],
-//     [0, 2, 0]
-// ])
-// desk.p1 = 0;
-// desk.p2 = 0;
-// let action = test4_2.checkAction(desk, new GameAction4_2([0, 2], [1, 1]))
-// console.log()
-// let flag = test4_2.checkRiddle(desk)
-// console.log(flag, 'flagflagflag')
 // for (i = 0; i < 10; i++) {
 //     let result = test4_2.getRiddle(0);
 //     let flagResult = 0
@@ -260,8 +181,8 @@ let i = 0
 //         result = tmp[1]
 //         flagResult = tmp[0]
 //         console.info("%s %s |P1:%s P2:%s \n操作 %s 结果 %s ", count++, player, result.p1, result.p2, JSON.stringify(action.best), flagResult)
-//         console.info("棋盘\n%s\n%s\n%s ", JSON.stringify(result.desk[0]), JSON.stringify(result.desk[1]), JSON.stringify(result.desk[2]))
-//         player = player == "P1" ? "P2" : "P1"
+//         // console.info("棋盘\n%s\n%s\n%s ", JSON.stringify(result.desk[0]), JSON.stringify(result.desk[1]), JSON.stringify(result.desk[2]))
+//         console.info("%s ", JSON.stringify(result))
 //         if (flagResult == -1) {
 //             console.info("操作异常")
 //             break
@@ -269,6 +190,7 @@ let i = 0
 //         if (flagResult != 0) {
 //             console.info(player + " WIN")
 //         }
+//         player = player == "P1" ? "P2" : "P1"
 //     }
 // }
 // // 4_1
@@ -301,15 +223,15 @@ let i = 0
 //   }
 // }
 //// 2_2
-let test2_2 = new example2_2();
-let gd = new GameData2_2();
-gd.player = 1
-// [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-gd.positions = [0, 0, 0, 0, 0, 0, 0, 1, 0, 1]
-gd.sum = 4
-gd.warehouse = 2
-let action = test2_2.getActionAuto(gd)
-console.info()
+// let test2_2 = new example2_2();
+// let gd = new GameData2_2();
+// gd.player = 1
+// // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+// gd.positions = [0, 0, 0, 0, 0, 0, 0, 1, 0, 1]
+// gd.sum = 4
+// gd.warehouse = 2
+// let action = test2_2.getActionAuto(gd)
+// console.info()
 // for (i = 0; i < 10; i++) {
 //     let result = test2_2.getRiddleByLev(0, null);
 //     let flagResult = -1
@@ -335,19 +257,19 @@ console.info()
 // let test2_1 = new example2_1();
 // for (i = 0; i < 10; i++) {
 //     let result = test2_1.getRiddle(undefined);
-//     let flagResult = -1
+//     let flagResult = 0
 //     let count = 0
 //     console.info("开始棋盘：" + JSON.stringify(result))
-//     while (flagResult != 1) {
+//     while (flagResult == 0) {
 //         let action = test2_1.getActionAuto(result)
 //         let tmp = test2_1.doAction(result, action.best)
 //         result = tmp[1]
 //         flagResult = tmp[0]
 //         console.info(count++ + " " + player + "操作:" + JSON.stringify(action))
-//         console.info("P1:" + result.p1 + " P2:" + result.p2 + " " + JSON.stringify(result.positions) + " 结果：" + flagResult)
-//         player = player == "P1" ? "P2" : "P1"
+//         console.info("P1:" + result.p1 + " P2:" + result.p2 + " " + JSON.stringify(result.positions) + " 结果：" + flagResult + " json：" + JSON.stringify(result))
 //         if (flagResult != 0) {
 //             console.info(player + " WIN")
 //         }
+//         player = player == "P1" ? "P2" : "P1"
 //     }
 // }

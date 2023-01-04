@@ -149,6 +149,11 @@ export default class example4_1 {
         return -1
       }
     }
+    if (deskData.p2 + deskData.p1 >= deskData.n) {
+      // throw new Error("双方数量总和大于或等于总数");
+      return -1
+    }
+
     return 1
   }
 

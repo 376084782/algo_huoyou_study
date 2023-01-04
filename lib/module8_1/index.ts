@@ -171,6 +171,35 @@ export default class example8_1 {
         }
       }
     }
+    let canChessPositionMap = new Map<number, GameAction8_1[]>()
+    let canChessPosition = new Set<number>()
+    for (let index = 1; index <= 9; index++) {
+      if (index != deskData.chess1) {
+        let tmp = index * deskData.chess1;
+        if (!this.deskHas(deskData, tmp)) {
+          canChessPosition.add(tmp)
+          if (canChessPositionMap.has(tmp)) {
+            canChessPositionMap.get(tmp)?.push(new GameAction8_1(2, index))
+          } else {
+            canChessPositionMap.set(tmp, [new GameAction8_1(2, index)])
+          }
+        }
+      }
+      if (index != deskData.chess2) {
+        let tmp = index * deskData.chess2;
+        if (!this.deskHas(deskData, tmp)) {
+          canChessPosition.add(tmp)
+          if (canChessPositionMap.has(tmp)) {
+            canChessPositionMap.get(tmp)?.push(new GameAction8_1(1, index))
+          } else {
+            canChessPositionMap.set(tmp, [new GameAction8_1(1, index)])
+          }
+        }
+      }
+    }
+    if (canChessPosition.size == 0) {
+      return OtherUtil.getRival(deskData.player)
+    }
     return 0
   }
 
@@ -224,7 +253,7 @@ export default class example8_1 {
       return 0;
     });
     if (steps.length == 0) {
-      throw new Error("死局");
+      throw new Error("无子可走");
     }
     let best: number = steps[0][0];
     if (canChessPositionMap.has(best)) {
@@ -233,7 +262,7 @@ export default class example8_1 {
       const s = tmpArr[rg.RangeInteger(0, tmpArr.length)]
       return s
     }
-    throw new Error("Method not implemented.");
+    throw new Error("无子可走");
   }
 
 
@@ -277,7 +306,7 @@ export default class example8_1 {
       return 0;
     });
     if (steps.length == 0) {
-      throw new Error("死局");
+      throw new Error("无子可走");
     }
     let best: number = steps[0][0];
     let nobest: number = -1
@@ -291,7 +320,7 @@ export default class example8_1 {
       const s = tmpArr[rg.RangeInteger(0, tmpArr.length)]
       return new GameAutoWay(s, s)
     }
-    throw new Error("Method not implemented.");
+    throw new Error("无子可走");
   }
 
   // ==============================================================================================================================
