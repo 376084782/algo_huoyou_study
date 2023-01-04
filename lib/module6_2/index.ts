@@ -164,7 +164,10 @@ export class example6_2 {
       return -1
     }
     //不存在3连
-    return this.checkDesk1(deskData)
+    if (this.checkDesk1(deskData) != 0) {
+      return -1
+    }
+    return 1
   }
 
   doAction(deskData: GameData6_2, dataAction: GameAction6_2): [flagResult: number, dataResult: GameData6_2] {
