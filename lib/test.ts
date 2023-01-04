@@ -62,33 +62,33 @@ let i = 0
 // console.info()
 
 // 6_2
-let test6_2 = new example6_2();
-for (i = 0; i < 3; i++) {
-    let result = test6_2.getRiddle(new GameConfig8_1(1, 2));
-    let flagResult = 0
-    let count = 1
-    console.info("%s\n%s\n%s\n%s\n%s", JSON.stringify(result.desk[0]), JSON.stringify(result.desk[1]), JSON.stringify(result.desk[2]), JSON.stringify(result.desk[3]), JSON.stringify(result.desk[4]))
-    console.info("开始棋盘：" + JSON.stringify(result))
-    while (flagResult == 0) {
-        let action = test6_2.getActionAuto(result)
-        let tmp = test6_2.doAction(result, action.best)
-        result = tmp[1]
-        flagResult = tmp[0]
-        console.info("%s %s | 操作：%s \n%s\n%s\n%s\n%s\n%s\n  结果 %s ", count++, player, JSON.stringify(action.best), JSON.stringify(result.desk[0]), JSON.stringify(result.desk[1]), JSON.stringify(result.desk[2]), JSON.stringify(result.desk[3]), JSON.stringify(result.desk[4]), flagResult)
-        console.info("%s", JSON.stringify(result))
-        if (flagResult == 1) {
-            console.info("P1 WIN")
-        }
-        if (flagResult == 2) {
-            console.info("P2 WIN")
-        }
-        if (player == "P1") {
-            player = "P2"
-        } else {
-            player = "P1"
-        }
-    }
-}
+// let test6_2 = new example6_2();
+// for (i = 0; i < 3; i++) {
+//   let result = test6_2.getRiddle(new GameConfig8_1(1, 2));
+//   let flagResult = 0
+//   let count = 1
+//   console.info("%s\n%s\n%s\n%s\n%s", JSON.stringify(result.desk[0]), JSON.stringify(result.desk[1]), JSON.stringify(result.desk[2]), JSON.stringify(result.desk[3]), JSON.stringify(result.desk[4]))
+//   console.info("开始棋盘：" + JSON.stringify(result))
+//   while (flagResult == 0) {
+//     let action = test6_2.getActionAuto(result)
+//     let tmp = test6_2.doAction(result, action.best)
+//     result = tmp[1]
+//     flagResult = tmp[0]
+//     console.info("%s %s | 操作：%s \n%s\n%s\n%s\n%s\n%s\n  结果 %s ", count++, player, JSON.stringify(action.best), JSON.stringify(result.desk[0]), JSON.stringify(result.desk[1]), JSON.stringify(result.desk[2]), JSON.stringify(result.desk[3]), JSON.stringify(result.desk[4]), flagResult)
+//     console.info("%s", JSON.stringify(result))
+//     if (flagResult == 1) {
+//       console.info("P1 WIN")
+//     }
+//     if (flagResult == 2) {
+//       console.info("P2 WIN")
+//     }
+//     if (player == "P1") {
+//       player = "P2"
+//     } else {
+//       player = "P1"
+//     }
+//   }
+// }
 
 // 6.1
 // let test6_1 = new example6_1();
@@ -155,6 +155,13 @@ for (i = 0; i < 3; i++) {
 // [13, 14, 15, 16, 17, 18],
 // [4, 19, 5, 20, 6, 21]
 // let test4_3 = new example4_3();
+// let res = test4_3.checkDesk({ "desk": [[0, 0, 0, 0, 0, 0], [0, 2, 1, 0, 0, 1], [2, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]], "chess1": 5, "chess2": 6, "player": 2 })
+// let res=test4_3.checkAction( {"desk":[[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]],"chess1":1,"chess2":2,"player":1} ,{"chessNum":2,"chessPosition":6,"score":0,"move":[1,0]})
+// console.log(res, 'checkDesk')
+// let res = test4_3.checkAction(
+//   { "desk": [[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]], "chess1": 1, "chess2": 2, "player": 1 },
+//   { "chessNum": 2, "chessPosition": 4, "score": 0, "move": [0, 5] })
+// console.log(res, 'rrrr')
 // let s = test4_3.getRiddle(new GameConfig4_3())
 // s.chess1 = 9
 // s.chess2 = 1
@@ -169,7 +176,9 @@ for (i = 0; i < 3; i++) {
 // let s12 = test4_3.checkDesk(s);
 // console.log()
 // 4_2
-// let test4_2 = new example4_2();
+let test4_2 = new example4_2();
+let res=test4_2.checkRiddle({"desk":[[1,0,0],[0,0,0],[0,0,0]],"p1":2,"p2":3,"player":1})
+console.log(res,'rrr')
 // for (i = 0; i < 10; i++) {
 //     let result = test4_2.getRiddle(0);
 //     let flagResult = 0
@@ -198,6 +207,8 @@ for (i = 0; i < 3; i++) {
 // 当A玩家手里是偶数个，且公共区还剩4个时候的时候，B玩家是必输的，A玩家是必胜的。
 // 机器人应该考虑这种情况，当下一手取完 可以给让自己手里偶数个，且留给对面4个，困难的机器人应该100 % 执行这个操作。目前我测困难人机没有这个操作。
 // let test4_1 = new example4_1();
+// let res = test4_1.getActionAuto({"k":7,"n":15,"p":3,"p1":4,"p2":7,"residue":4,"rounds":0,"player":1})
+// console.log(res, 'getActionAutogetActionAutogetActionAuto')
 // for (i = 0; i < 11; i++) {
 //   let result = test4_1.getRiddleByLev(0, null);
 //   let flagResult = 0
@@ -255,6 +266,10 @@ for (i = 0; i < 3; i++) {
 // }
 // 2_1
 // let test2_1 = new example2_1();
+// let act = test2_1.checkAction({"p1":0,"p2":0,"player":2,"positions":[[],[2,1],[2,1],[2,1],[2,1],[2,1],[2,1],[],[],[],[],[]]}, undefined)
+// let act=test2_1.checkRiddle({"p1":2,"p2":2,"player":1,"positions":[[2],[2],[2,1],[1,2],[1],[1],[],[],[],[],[],[]]})
+// let act=test2_1.checkRiddle({"p1":4,"p2":4,"player":1,"positions":[[],[],[2],[2],[1],[1],[],[],[],[],[],[]]})
+// console.log(act,'actactactactact')
 // for (i = 0; i < 10; i++) {
 //     let result = test2_1.getRiddle(undefined);
 //     let flagResult = 0
