@@ -101,6 +101,9 @@ export default class example4_2 {
     if ((p2DeskChess.length + deskData.p2) != 3) {
       return -1
     }
+    if (this.checkDesk(deskData) != 0) {
+      return -1
+    }
     return 1
   }
 
@@ -130,12 +133,27 @@ export default class example4_2 {
       if (deskData.desk[dataAction.move[0]][dataAction.move[1]] != deskData.player) {
         return -1
       }
+      if (dataAction.move[0] == dataAction.action[0]) {
+        if (Math.abs(dataAction.move[1] - dataAction.action[1]) != 1) {
+          return -1
+        }
+      } else if (dataAction.move[1] == dataAction.action[1]) {
+        if (Math.abs(dataAction.move[0] - dataAction.action[0]) != 1) {
+          return -1
+        }
+      } else {
+        return -1
+      }
     }
 
     //如果ok，保证落子点ok
     if (deskData.desk[dataAction.action[0]][dataAction.action[1]] != 0) {
       return -1
     }
+
+
+
+
     return 1
   }
 
@@ -163,6 +181,9 @@ export default class example4_2 {
     // }
     let best = canChessPosition[0]
     let nobest = canChessPosition.length == 1 ? canChessPosition[0] : canChessPosition[1]
+    if (nobest.score < 0) {
+      nobest = best
+    }
     return new GameAutoWay(best, nobest)
   }
 

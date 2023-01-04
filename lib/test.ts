@@ -4,6 +4,7 @@ import example2_1, { GameAction2_1, GameData2_1 } from './module2_1/index';
 import { example2_2, GameData2_2 } from './module2_2/index';
 import example4_1, { GameConfig4_1, GameData4_1 } from './module4_1/index';
 import example4_2, { GameAction4_2, GameData4_2 } from './module4_2/index';
+import example4_3, { GameAction4_3, GameConfig4_3, GameData4_3 } from './module4_3/index';
 import example6_1 from './module6_1/index';
 import { example6_2 } from './module6_2/index';
 import example6_3 from './module6_3/index';
@@ -204,15 +205,39 @@ let i = 0
 //         }
 //     }
 // }
+// 4_3
+// [1, 2, 3, 4, 5, 6],
+// [7, 8, 9, 10, 11, 12],
+// [13, 14, 15, 16, 17, 18],
+// [19, 20, 21, 22, 23, 24],
+// [13, 14, 15, 16, 17, 18],
+// [4, 19, 5, 20, 6, 21]
+let test4_3 = new example4_3();
+let s = test4_3.getRiddle(new GameConfig4_3())
+s.chess1 = 9
+s.chess2 = 1
+s.player = 1
+s.desk = [
+    [0, 0, 0, 0, 0, 0],
+    [0, 1, 2, 2, 2, 2],
+    [1, 1, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0]]
+let s12 = test4_3.checkDesk(s);
+console.log()
+
 // 4_2
 // let test4_2 = new example4_2();
 // let desk = new GameData4_2(1, [
-//   [1, 0, 0],
-//   [2, 1, 0],
-//   [0, 2, 0]
+//     [1, 2, 0],
+//     [2, 1, 1],
+//     [0, 2, 0]
 // ])
-// desk.p1 = 1;
-// desk.p2 = 1;
+// desk.p1 = 0;
+// desk.p2 = 0;
+// let action = test4_2.checkAction(desk, new GameAction4_2([0, 2], [1, 1]))
+// console.log()
 // let flag = test4_2.checkRiddle(desk)
 // console.log(flag, 'flagflagflag')
 // for (i = 0; i < 10; i++) {
@@ -302,20 +327,7 @@ let i = 0
 //     }
 // }
 // 2_1
-let test2_1 = new example2_1();
-
-let gd = new GameData2_1();
-gd.player = 1
-//{"p1":0,"p2":0,"player":1,"positions":[[1,2],[1,2],[2],[],[],[1,2],[],[],[1,2],[1,2],[1],[]]}
-gd.positions = [[1, 2], [1, 2], [2], [], [], [1, 2], [], [], [1, 2], [1, 2], [1], []]
-// gd.positions = [[1, 2], [1, 2], [2], [], [], [1, 2], [], [], [1, 1], [2, 2], [1], []]
-gd.p1 = 0;
-gd.p2 = 0;
-gd.player = 1;
-
-let action = test2_1.getActionAuto(gd)
-
-console.info()
+// let test2_1 = new example2_1();
 // for (i = 0; i < 10; i++) {
 //     let result = test2_1.getRiddle(undefined);
 //     let flagResult = -1

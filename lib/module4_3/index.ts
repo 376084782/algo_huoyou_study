@@ -48,9 +48,22 @@ export class GameData4_3 {
 export class GameConfig4_3 {
   chess1: number = 1
   chess2: number = 2
-  constructor(chess1: number, chess2: number) {
-    this.chess1 = chess1
-    this.chess2 = chess2
+  constructor(chess1?: number, chess2?: number) {
+    if (chess1 != undefined) {
+      this.chess1 = chess1
+    } else {
+      const rg = new RandomGenerater(0)
+      this.chess1 = rg.RangeInteger(1, 12)
+    }
+    if (chess2 != undefined) {
+      this.chess2 = chess2
+    } else {
+      const rg = new RandomGenerater(0)
+      this.chess2 = rg.RangeInteger(1, 12)
+      while (this.chess2 == this.chess1) {
+        this.chess2 = rg.RangeInteger(1, 12)
+      }
+    }
   }
 }
 
@@ -146,6 +159,25 @@ export default class example4_3 {
 
   checkAction(deskData: GameData4_3, dataAction: GameAction4_3): number {
     if (dataAction.chessNum == 1) {
+      if (deskData.chess1 == dataAction.chessPosition) {
+        return -1;
+      }
+    }
+    if (dataAction.chessNum == 2) {
+      if (deskData.chess2 == dataAction.chessPosition) {
+        return -1;
+      }
+    }
+    let tmp = 0
+    if (dataAction.chessNum == 1) {
+      tmp = deskData.chess2
+    } else {
+      tmp = deskData.chess1
+    }
+    if (dataAction.chessPosition + tmp != this.cdesk[dataAction.move[0]][dataAction.move[1]]) {
+      return -1
+    }
+    if (dataAction.chessNum == 1) {
       // let tmp: number = deskData.chess2 * dataAction.chessPosition
       // let xy = this.getPosition(tmp)
       if (deskData.desk[dataAction.move[0]][dataAction.move[1]] != 0) {
@@ -172,6 +204,42 @@ export default class example4_3 {
           return tmp
         }
       }
+    }
+
+    let canChessPositionMap = new Map<string, GameAction4_3[]>()
+    let canChessPosition = new Set<number[]>()
+    for (let index = 1; index <= 9; index++) {
+      if (index != deskData.chess1) {
+        let tmp = this.getPosition(index + deskData.chess1)
+        for (let j = 0; j < tmp.length; j++) {
+          const move = tmp[j];
+          if (!this.deskHas(deskData, move)) {
+            canChessPosition.add(move)
+            if (canChessPositionMap.has(move[0] + "_" + move[1])) {
+              canChessPositionMap.get(move[0] + "_" + move[1])?.push(new GameAction4_3(2, index, move))
+            } else {
+              canChessPositionMap.set(move[0] + "_" + move[1], [new GameAction4_3(2, index, move)])
+            }
+          }
+        }
+      }
+      if (index != deskData.chess2) {
+        let tmp = this.getPosition(index + deskData.chess1)
+        for (let j = 0; j < tmp.length; j++) {
+          const move = tmp[j];
+          if (!this.deskHas(deskData, move)) {
+            canChessPosition.add(move)
+            if (canChessPositionMap.has(move[0] + "_" + move[1])) {
+              canChessPositionMap.get(move[0] + "_" + move[1])?.push(new GameAction4_3(1, index, move))
+            } else {
+              canChessPositionMap.set(move[0] + "_" + move[1], [new GameAction4_3(1, index, move)])
+            }
+          }
+        }
+      }
+    }
+    if (canChessPosition.size == 0) {
+      return OtherUtil.getRival(deskData.player)
     }
     return 0
   }
@@ -521,7 +589,7 @@ export default class example4_3 {
   //左上右下
   lurd(deskData: GameData4_3, x: number, y: number): number {
     let cell = deskData.desk[x][y]
-    let link = 0
+    let link = 1
     if (cell != 0) {
       for (let index = 1; index <= 3; index++) {
         const tx = x + 1
@@ -539,7 +607,7 @@ export default class example4_3 {
       if (link == 4) {
         return cell
       } else {
-        link = 0
+        link = 1
       }
       for (let index = 1; index <= 3; index++) {
         const tx = x - 1
@@ -564,7 +632,7 @@ export default class example4_3 {
   }
   ruld(deskData: GameData4_3, x: number, y: number): number {
     let cell = deskData.desk[x][y]
-    let link = 0
+    let link = 1
     if (cell != 0) {
       for (let index = 1; index <= 3; index++) {
         const tx = x + 1
@@ -582,7 +650,7 @@ export default class example4_3 {
       if (link == 4) {
         return cell
       } else {
-        link = 0
+        link = 1
       }
       for (let index = 1; index <= 3; index++) {
         const tx = x - 1
@@ -607,7 +675,7 @@ export default class example4_3 {
   }
   leftRight(deskData: GameData4_3, x: number, y: number): number {
     let cell = deskData.desk[x][y]
-    let link = 0
+    let link = 1
     if (cell != 0) {
       for (let index = 1; index <= 3; index++) {
         const tx = x + 1
@@ -625,7 +693,7 @@ export default class example4_3 {
       if (link == 4) {
         return cell
       } else {
-        link = 0
+        link = 1
       }
       for (let index = 1; index <= 3; index++) {
         const tx = x - 1
@@ -650,7 +718,7 @@ export default class example4_3 {
   }
   upDown(deskData: GameData4_3, x: number, y: number): number {
     let cell = deskData.desk[x][y]
-    let link = 0
+    let link = 1
     if (cell != 0) {
       for (let index = 1; index <= 3; index++) {
         const tx = x
@@ -668,7 +736,7 @@ export default class example4_3 {
       if (link == 4) {
         return cell
       } else {
-        link = 0
+        link = 1
       }
       for (let index = 1; index <= 3; index++) {
         const tx = x
