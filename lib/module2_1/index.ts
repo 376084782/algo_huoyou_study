@@ -332,7 +332,6 @@ export default class example2_1 {
         if (best.length != 3) {
           result = new GameAutoWay(tmpAction, tmpAction1)
         } else {
-          tmpAction.move = tmpAction.action
           for (let i = 0; i < deskData.positions.length; i++) {
             const row = deskData.positions[i];
             if (row.length == 0) {
@@ -340,6 +339,7 @@ export default class example2_1 {
               break
             }
           }
+          tmpAction.move = this.getBestMove(deskData, 0);
           result = new GameAutoWay(tmpAction, tmpAction)
         }
       } else {
