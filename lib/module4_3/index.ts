@@ -168,14 +168,14 @@ export default class example4_3 {
         return -1;
       }
     }
-    let tmp=0;
+    let tmp = 0;
     if (dataAction.chessNum == 1) {
       tmp = deskData.chess2
     } else {
       tmp = deskData.chess1
     }
     if (dataAction.chessPosition + tmp != this.cdesk[dataAction.move[0]][dataAction.move[1]]) {
-      console.log('不一样的数字',this.cdesk[dataAction.move[0]][dataAction.move[1]],dataAction.chessPosition , tmp)
+      console.log('不一样的数字', this.cdesk[dataAction.move[0]][dataAction.move[1]], dataAction.chessPosition, tmp)
       return -1
     }
     if (dataAction.chessNum == 1) {
@@ -593,8 +593,8 @@ export default class example4_3 {
     let link = 1
     if (cell != 0) {
       for (let index = 1; index <= 3; index++) {
-        const tx = x + 1
-        const ty = y + 1
+        const tx = x + index
+        const ty = y + index
         if (this.vaildXy(tx, ty) == -1) {
           break;
         }
@@ -611,8 +611,8 @@ export default class example4_3 {
         link = 1
       }
       for (let index = 1; index <= 3; index++) {
-        const tx = x - 1
-        const ty = y - 1
+        const tx = x - index
+        const ty = y - index
         if (this.vaildXy(tx, ty) == -1) {
           break;
         }
@@ -634,10 +634,11 @@ export default class example4_3 {
   ruld(deskData: GameData4_3, x: number, y: number): number {
     let cell = deskData.desk[x][y]
     let link = 1
+
     if (cell != 0) {
       for (let index = 1; index <= 3; index++) {
-        const tx = x + 1
-        const ty = y - 1
+        const tx = x + index
+        const ty = y - index
         if (this.vaildXy(tx, ty) == -1) {
           break;
         }
@@ -654,8 +655,8 @@ export default class example4_3 {
         link = 1
       }
       for (let index = 1; index <= 3; index++) {
-        const tx = x - 1
-        const ty = y + 1
+        const tx = x - index
+        const ty = y + index
         if (this.vaildXy(tx, ty) == -1) {
           break;
         }
@@ -679,7 +680,7 @@ export default class example4_3 {
     let link = 1
     if (cell != 0) {
       for (let index = 1; index <= 3; index++) {
-        const tx = x + 1
+        const tx = x + index
         const ty = y
         if (this.vaildXy(tx, ty) == -1) {
           break;
@@ -697,7 +698,7 @@ export default class example4_3 {
         link = 1
       }
       for (let index = 1; index <= 3; index++) {
-        const tx = x - 1
+        const tx = x - index
         const ty = y
         if (this.vaildXy(tx, ty) == -1) {
           break;
@@ -723,7 +724,7 @@ export default class example4_3 {
     if (cell != 0) {
       for (let index = 1; index <= 3; index++) {
         const tx = x
-        const ty = y + 1
+        const ty = y + index
         if (this.vaildXy(tx, ty) == -1) {
           break;
         }
@@ -741,7 +742,7 @@ export default class example4_3 {
       }
       for (let index = 1; index <= 3; index++) {
         const tx = x
-        const ty = y - 1
+        const ty = y - index
         const tcell = deskData.desk[tx][ty]
         if (this.vaildXy(tx, ty) == -1) {
           break;
