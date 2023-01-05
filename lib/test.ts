@@ -155,19 +155,26 @@ let i = 0
 // [4, 19, 5, 20, 6, 21]
 // test4_3.checkDesk({ "desk": , "chess1": 5, "chess2": 6, "player": 2 })
 let test4_3 = new example4_3();
-let s = test4_3.getRiddle(new GameConfig4_3())
-s.chess1 = 5
-s.chess2 = 6
-s.player = 2
-s.desk = [
-    [2, 0, 0, 0, 0, 0],
-    [0, 2, 1, 1, 1, 1],
-    [2, 0, 2, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0]]
-let s12 = test4_3.checkDesk(s);
-console.log(s12)
+// let s = test4_3.getRiddle(new GameConfig4_3())
+// s.chess1 = 5
+// s.chess2 = 6
+// s.player = 2
+// s.desk = [
+//     [2, 0, 0, 0, 0, 0],
+//     [0, 2, 1, 1, 1, 1],
+//     [2, 0, 2, 0, 0, 0],
+//     [0, 0, 0, 0, 0, 0],
+//     [0, 0, 0, 0, 0, 0],
+//     [0, 0, 0, 0, 0, 0]]
+// let s12 = test4_3.checkDesk(s);
+// console.log(s12)
+// let res=test4_3.doAction( {"desk":[[0,0,0,0,0,0],[0,0,1,2,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]],"chess1":1,"chess2":8,"player":2},{"chessNum":2,"chessPosition":8,"score":0,"move":[1,2]})
+let desk = { "desk": [[0, 0, 0, 0, 0, 0], [0, 0, 1, 2, 0, 0], [0, 0, 1, 2, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]], "chess1": 2, "chess2": 8, "player": 2 }
+let res = test4_3.getActionAuto(desk)
+let resValid = test4_3.checkAction(desk, res.best)
+console.log(res, resValid)
+
+
 // 4_2
 // let test4_2 = new example4_2();
 // for (i = 0; i < 10; i++) {
