@@ -1,4 +1,5 @@
 
+import { json } from 'stream/consumers';
 import { FileWriter } from './common/FileWriter';
 import example2_1, { GameAction2_1, GameData2_1 } from './module2_1/index';
 import { example2_2, GameData2_2 } from './module2_2/index';
@@ -153,28 +154,21 @@ let i = 0
 // [19, 20, 21, 22, 23, 24],
 // [13, 14, 15, 16, 17, 18],
 // [4, 19, 5, 20, 6, 21]
-// test4_3.checkDesk({ "desk": , "chess1": 5, "chess2": 6, "player": 2 })
 let test4_3 = new example4_3();
-// let s = test4_3.getRiddle(new GameConfig4_3())
-// s.chess1 = 5
-// s.chess2 = 6
-// s.player = 2
-// s.desk = [
-//     [2, 0, 0, 0, 0, 0],
-//     [0, 2, 1, 1, 1, 1],
-//     [2, 0, 2, 0, 0, 0],
-//     [0, 0, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 0, 0]]
-// let s12 = test4_3.checkDesk(s);
-// console.log(s12)
-// let res=test4_3.doAction( {"desk":[[0,0,0,0,0,0],[0,0,1,2,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]],"chess1":1,"chess2":8,"player":2},{"chessNum":2,"chessPosition":8,"score":0,"move":[1,2]})
-let desk = { "desk": [[0, 0, 0, 0, 0, 0], [0, 0, 1, 2, 0, 0], [0, 0, 1, 2, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]], "chess1": 2, "chess2": 8, "player": 2 }
+let desk = {
+    "desk": [
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 2, 0, 0],
+        [0, 0, 1, 2, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0]],
+    "chess1": 2, "chess2": 8, "player": 2
+}
 let res = test4_3.getActionAuto(desk)
 let resValid = test4_3.checkAction(desk, res.best)
-console.log(res, resValid)
-
-
+console.log(JSON.stringify(res))
+console.log(JSON.stringify(resValid))
 // 4_2
 // let test4_2 = new example4_2();
 // for (i = 0; i < 10; i++) {
@@ -202,6 +196,9 @@ console.log(res, resValid)
 // }
 // // 4_1
 // let test4_1 = new example4_1();
+// let s = test4_1.getActionAuto({ "k": 7, "n": 15, "p": 3, "p1": 4, "p2": 7, "residue": 4, "rounds": 0, "player": 1 })
+// console.info(s)
+
 // for (i = 0; i < 11; i++) {
 //   let result = test4_1.getRiddleByLev(0, null);
 //   let flagResult = 0
@@ -231,11 +228,11 @@ console.log(res, resValid)
 // let gd = new GameData2_2();
 // gd.player = 1
 // // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-// gd.positions = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1]
+// gd.positions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
 // gd.sum = 4
-// gd.warehouse = 2
-// let action = test2_2.getActionAuto(gd)
-// console.info()
+// gd.warehouse = 3
+// let action = test2_2.checkRiddle(gd)
+// console.info(action)
 // for (i = 0; i < 10; i++) {
 //     let result = test2_2.getRiddleByLev(0, null);
 //     let flagResult = -1
