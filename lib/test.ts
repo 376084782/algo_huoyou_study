@@ -193,9 +193,6 @@ let i = 0
 //     }
 // }
 // // 4_1
-// 这个情况是他们的练习题，他们肯定也会测的，需要考虑进去。
-// 当A玩家手里是偶数个，且公共区还剩4个时候的时候，B玩家是必输的，A玩家是必胜的。
-// 机器人应该考虑这种情况，当下一手取完 可以给让自己手里偶数个，且留给对面4个，困难的机器人应该100 % 执行这个操作。目前我测困难人机没有这个操作。
 // let test4_1 = new example4_1();
 // for (i = 0; i < 11; i++) {
 //   let result = test4_1.getRiddleByLev(0, null);
@@ -222,15 +219,15 @@ let i = 0
 //   }
 // }
 //// 2_2
-// let test2_2 = new example2_2();
-// let gd = new GameData2_2();
-// gd.player = 1
-// // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-// gd.positions = [0, 0, 0, 0, 0, 0, 0, 1, 0, 1]
-// gd.sum = 4
-// gd.warehouse = 2
-// let action = test2_2.getActionAuto(gd)
-// console.info()
+let test2_2 = new example2_2();
+let gd = new GameData2_2();
+gd.player = 1
+// [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+gd.positions = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1]
+gd.sum = 4
+gd.warehouse = 2
+let action = test2_2.getActionAuto(gd)
+console.info()
 // for (i = 0; i < 10; i++) {
 //     let result = test2_2.getRiddleByLev(0, null);
 //     let flagResult = -1
@@ -255,13 +252,12 @@ let i = 0
 // 2_1
 // let test2_1 = new example2_1();
 // let desk = new GameData2_1()
-// desk.p1 = 0
-// desk.p2 = 0
-// desk.player = 2
-// desk.positions = [[1], [2, 1], [2, 1], [], [], [2], [2, 1], [], [2, 1], [2, 1], [], []]
-// let action = test2_1.getActionAuto(desk)
-// let tmp = test2_1.doAction(desk, action.best)
-// console.info()
+// desk.p1 = 5
+// desk.p2 = 6
+// desk.player = 1
+// desk.positions = [[1], [], [], [], [], [], [], [], [], [], [], []]
+// let tmp = test2_1.checkRiddle(desk)
+// console.info(tmp)
 
 // for (i = 0; i < 1; i++) {
 //     let result = test2_1.getRiddle(undefined);

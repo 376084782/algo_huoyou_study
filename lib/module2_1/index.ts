@@ -74,19 +74,32 @@ export default class example2_1 {
     // 2、棋盘上放上的红蓝双方的数量应该是一致，否则非法。
     let p1 = deskData.p1;
     let p2 = deskData.p2;
+    let dp1 = 0;
+    let dp2 = 0;
     for (let index = 0; index < deskData.positions.length; index++) {
       const element = deskData.positions[index];
       for (let j = 0; j < element.length; j++) {
         const chess = element[j];
         if (chess == 1) {
           p1++
+          dp1++
         } else if (chess == 2) {
           p2++
+          dp2++
         }
       }
     }
     if (this.checkDesk(deskData) != 0) {
       return -1
+    }
+    if (deskData.player == 1) {
+      if (dp1 != dp2) {
+        return -1
+      }
+    } else {
+      if (dp1 != dp2 + 1) {
+        return -1
+      }
     }
     return 0
   }
@@ -142,26 +155,36 @@ export default class example2_1 {
       if (canMove != 0) {
         return -1
       }
-    }
-
-    let p1 = deskData.p1
-    let p2 = deskData.p2
-
-    if (dataAction!.move.length == 0) {
-      if (deskData.player == 1 && p1 <= 0) {
-        return -1
-      }
-      if (deskData.player == 2 && p2 <= 0) {
-        return -1
-      }
     } else {
-      if (deskData.positions[dataAction!.move[0]][dataAction!.move[1]] != deskData.player) {
-        return -1
-      }
-      if (deskData.positions[dataAction!.action[0]].length > 2) {
-        return -1
+      let p1 = deskData.p1
+      let p2 = deskData.p2
+      if (dataAction!.move.length == 0) {
+        if (deskData.player == 1 && p1 <= 0) {
+          return -1
+        }
+        if (deskData.player == 2 && p2 <= 0) {
+          return -1
+        }
+      } else {
+        if (deskData.player == 1 && p1 > 0) {
+          return -1
+        }
+        if (deskData.player == 2 && p2 > 0) {
+          return -1
+        }
+        if (deskData.positions[dataAction!.move[0]][dataAction!.move[1]] != deskData.player) {
+          return -1
+        }
+        if (deskData.positions[dataAction!.action[0]].length > 2) {
+          return -1
+        }
       }
     }
+    if (dataAction!.action[1] > 2) {
+      return -1
+    }
+
+
     return 1;
   }
 
