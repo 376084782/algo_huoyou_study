@@ -104,6 +104,12 @@ export default class example4_2 {
     if (this.checkDesk(deskData) != 0) {
       return -1
     }
+    if (deskData.player == 1 && p1DeskChess.length != p2DeskChess.length) {
+      return -1
+    }
+    if (deskData.player == 2 && (p1DeskChess.length + 1) != p2DeskChess.length) {
+      return -1
+    }
     return 1
   }
 

@@ -203,13 +203,31 @@ export class example2_2 {
 
 
   getActionAuto(deskData: GameData2_2): GameAutoWay {
+
     let positions = deskData.positions.filter(x => x == 1);
     if (positions.length == 1) {
       return new GameAutoWay([deskData.positions.findIndex(x => x == 1), 10], [deskData.positions.findIndex(x => x == 1), 10]);
     }
-
     const rg = new RandomGenerater(0)
     let count = this.computeDeskBin(deskData);
+    if (count == 2) {
+      let f = 0
+      let s = 0
+      for (let i = deskData.positions.length - 1; i >= 0; i--) {
+        const cell = deskData.positions[i];
+        if (cell == 1) {
+          if (f == 0) {
+            f = i
+          } else {
+            s = i
+            break
+          }
+        }
+      }
+      if (s + 1 != f) {
+        return new GameAutoWay([s, f - 1], [s, f - 1]);
+      }
+    }
 
     let allAction = this.randomAction(deskData)
     if (count % 2 == 0 && count > 2) {
