@@ -168,13 +168,14 @@ export default class example4_3 {
         return -1;
       }
     }
-    let tmp = 0
+    let tmp=0;
     if (dataAction.chessNum == 1) {
       tmp = deskData.chess2
     } else {
       tmp = deskData.chess1
     }
     if (dataAction.chessPosition + tmp != this.cdesk[dataAction.move[0]][dataAction.move[1]]) {
+      console.log('不一样的数字',this.cdesk[dataAction.move[0]][dataAction.move[1]],dataAction.chessPosition , tmp)
       return -1
     }
     if (dataAction.chessNum == 1) {
