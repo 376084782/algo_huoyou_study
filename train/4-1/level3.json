@@ -1,0 +1,10 @@
+[
+  {"k":7,"n":15,"p":2,"p1":2,"p2":4,"residue":9,"rounds":0,"player":1},
+  {"k":7,"n":15,"p":2,"p1":3,"p2":3,"residue":9,"rounds":0,"player":1},
+  {"k":7,"n":15,"p":2,"p1":3,"p2":2,"residue":10,"rounds":0,"player":1},
+  {"k":7,"n":15,"p":2,"p1":2,"p2":3,"residue":10,"rounds":0,"player":1},
+  {"k":7,"n":15,"p":2,"p1":2,"p2":2,"residue":11,"rounds":0,"player":1},
+  {"k":7,"n":15,"p":2,"p1":1,"p2":3,"residue":11,"rounds":0,"player":1},
+  {"k":7,"n":15,"p":2,"p1":2,"p2":1,"residue":12,"rounds":0,"player":1},
+  {"k":7,"n":15,"p":2,"p1":1,"p2":2,"residue":12,"rounds":0,"player":1}
+]
