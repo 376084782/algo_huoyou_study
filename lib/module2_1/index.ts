@@ -179,12 +179,10 @@ export default class example2_1 {
           return -1
         }
       }
+      if (dataAction!.action[1] > 2) {
+        return -1
+      }
     }
-    if (dataAction!.action[1] > 2) {
-      return -1
-    }
-
-
     return 1;
   }
 

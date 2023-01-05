@@ -334,7 +334,7 @@ export default class example4_3 {
         }
       }
       if (index != deskData.chess2) {
-        let tmp = this.getPosition(index + deskData.chess1)
+        let tmp = this.getPosition(index + deskData.chess2)
         for (let j = 0; j < tmp.length; j++) {
           const move = tmp[j];
           if (!this.deskHas(deskData, move)) {

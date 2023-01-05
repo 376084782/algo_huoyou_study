@@ -140,6 +140,12 @@ export default class example4_1 {
     }
     let ps: number[] = [deskData.p1, deskData.p2]
     ps = ps.sort()
+    if (!(deskData.n >= 5 && deskData.n <= 5 && deskData.n % 2 != 0)) {
+      return -1
+    }
+
+
+
     if (deskData.p == 3) {
       if (ps[0] * 3 < ps[1]) {
         return -1
@@ -178,6 +184,9 @@ export default class example4_1 {
       return -1;
     }
     if (dataAction > deskData.p) {
+      return -1;
+    }
+    if (dataAction <= 0) {
       return -1;
     }
     return 1;
@@ -223,6 +232,8 @@ export default class example4_1 {
       } else {
         if (winStep.length > 1) {
           nobest = winStep[1].current.action
+        } else {
+          nobest = best
         }
       }
 

@@ -142,7 +142,7 @@ export class example2_2 {
   }
 
   checkRiddle(deskData: GameData2_2): number {
-    if (deskData.positions.filter(x => x == 1).length < 0) {
+    if (deskData.positions.filter(x => x == 1).length < 1) {
       return -1
     }
     return 1
