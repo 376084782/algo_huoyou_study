@@ -361,6 +361,6 @@ export default class example6_1 {
     // }
     // //贴边找个能放下的地方。
     // console.info(12)
-    return new GameAutoWay(best, best)
+    return new GameAutoWay(undefined, undefined)
   }
 }
