@@ -95,6 +95,9 @@ export default class example6_1 {
   }
 
   checkAction(deskData: GameData6_1, dataAction: GameAction6_1): number {
+    if (dataAction == undefined) {
+      return 1
+    }
     let desk
     if (deskData.player == 1) {
       desk = deskData.p1
@@ -361,6 +364,6 @@ export default class example6_1 {
     // }
     // //贴边找个能放下的地方。
     // console.info(12)
-    return new GameAutoWay(best, best)
+    return new GameAutoWay(undefined, undefined)
   }
 }
