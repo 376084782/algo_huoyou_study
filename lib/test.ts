@@ -91,7 +91,27 @@ let i = 0
 //     }
 // }
 // 6.1
-// let test6_1 = new example6_1();
+let test6_1 = new example6_1();
+// const rg = new RandomGenerater(0)
+const lenght = 10
+
+let result = test6_1.getRiddle(lenght);
+result.p1 = [
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1,],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1,],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1,],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1,],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1,],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1,],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1,],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1,],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1,],
+    [1, 1, 1, 1, 1, 1, 0, 0, 1, 1,],
+]
+let action = test6_1.getActionAuto(result, 4, 4)
+let action1 = test6_1.checkDesk(result)
+console.info(JSON.stringify(action))
+
 // const rg = new RandomGenerater(0)
 // const lenght = 12
 
@@ -154,21 +174,7 @@ let i = 0
 // [19, 20, 21, 22, 23, 24],
 // [13, 14, 15, 16, 17, 18],
 // [4, 19, 5, 20, 6, 21]
-let test4_3 = new example4_3();
-let desk = {
-    "desk": [
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 1, 2, 0, 0],
-        [0, 0, 1, 2, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0]],
-    "chess1": 2, "chess2": 8, "player": 2
-}
-let res = test4_3.getActionAuto(desk)
-let resValid = test4_3.checkAction(desk, res.best)
-console.log(JSON.stringify(res))
-console.log(JSON.stringify(resValid))
+// let test4_3 = new example4_3();
 // 4_2
 // let test4_2 = new example4_2();
 // for (i = 0; i < 10; i++) {
