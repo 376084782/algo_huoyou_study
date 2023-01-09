@@ -140,7 +140,7 @@ export default class example4_1 {
     }
     let ps: number[] = [deskData.p1, deskData.p2]
     ps = ps.sort()
-    if (!(deskData.n >= 5 && deskData.n <= 5 && deskData.n % 2 != 0)) {
+    if (!(deskData.n >= 5 && deskData.n <= 15 && deskData.n % 2 != 0)) {
       return -1
     }
 
