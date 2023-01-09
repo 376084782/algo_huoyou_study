@@ -91,26 +91,26 @@ let i = 0
 //     }
 // }
 // 6.1
-let test6_1 = new example6_1();
-// const rg = new RandomGenerater(0)
-const lenght = 10
+// let test6_1 = new example6_1();
+// // const rg = new RandomGenerater(0)
+// const lenght = 10
 
-let result = test6_1.getRiddle(lenght);
-result.p1 = [
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1,],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1,],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1,],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1,],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1,],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1,],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1,],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1,],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1,],
-    [1, 1, 1, 1, 1, 1, 0, 0, 1, 1,],
-]
-let action = test6_1.getActionAuto(result, 4, 4)
-let action1 = test6_1.checkDesk(result)
-console.info(JSON.stringify(action))
+// let result = test6_1.getRiddle(lenght);
+// result.p1 = [
+//     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1,],
+//     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1,],
+//     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1,],
+//     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1,],
+//     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1,],
+//     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1,],
+//     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1,],
+//     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1,],
+//     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1,],
+//     [1, 1, 1, 1, 1, 1, 0, 0, 1, 1,],
+// ]
+// let action = test6_1.getActionAuto(result, 4, 4)
+// let action1 = test6_1.checkDesk(result)
+// console.info(JSON.stringify(action))
 
 // const rg = new RandomGenerater(0)
 // const lenght = 12
@@ -174,9 +174,52 @@ console.info(JSON.stringify(action))
 // [19, 20, 21, 22, 23, 24],
 // [13, 14, 15, 16, 17, 18],
 // [4, 19, 5, 20, 6, 21]
-// let test4_3 = new example4_3();
+let test4_3 = new example4_3();
+// let test4 = test4_3.getActionAuto({
+//     "desk": [
+//         [0, 0, 0, 0, 0, 0],
+//         [0, 0, 0, 0, 0, 0],
+//         [0, 0, 0, 0, 0, 0],
+//         [0, 0, 0, 0, 0, 0],
+//         [0, 0, 0, 0, 0, 0],
+//         [0, 0, 0, 0, 0, 0]],
+//     "chess1": 6,
+//     "chess2": 8,
+//     "player": 2
+// })
+
+let asda = test4_3.checkAction({
+    "desk": [
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0]],
+    "chess1": 1,
+    "chess2": 2,
+    "player": 1
+}, {
+    "chessNum": 2,
+    "chessPosition": 8,
+    "move": [1, 3],
+    "score": 1
+})
+console.info(asda)
+
 // 4_2
 // let test4_2 = new example4_2();
+// let action = test4_2.getActionAuto({
+//     "desk": [
+//         [2, 0, 0],
+//         [1, 1, 0],
+//         [0, 0, 0],],
+//     "p1": 1,
+//     "p2": 2,
+//     "player": 2
+// })
+// console.info(JSON.stringify(action))
+
 // for (i = 0; i < 10; i++) {
 //     let result = test4_2.getRiddle(0);
 //     let flagResult = 0
