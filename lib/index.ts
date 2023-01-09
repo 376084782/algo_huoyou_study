@@ -1,4 +1,5 @@
 import module2_1, { GameData2_1, GameAction2_1 } from './module2_1/index';
+import module2_5, { GameData2_5, GameAction2_5, GameConfig2_5 } from './module2_5/index';
 import module4_1, { GameData4_1, GameStep4_1, GameConfig4_1 } from './module4_1/index';
 import module4_2, { GameData4_2, GameAction4_2 } from './module4_2/index';
 import module4_3, { GameData4_3, GameAction4_3, GameConfig4_3 } from './module4_3/index';
@@ -16,6 +17,11 @@ export {
   module2_1,
   GameData2_1,
   GameAction2_1,
+
+  module2_5,
+  GameData2_5,
+  GameAction2_5,
+  GameConfig2_5,
 
   module4_1,
   GameData4_1,
