@@ -112,8 +112,8 @@ export default class example4_3 {
   deskMap = new Map<number, number[][]>([
     [1, [[0, 0]]], [2, [[0, 1]]], [3, [[0, 2]]], [4, [[0, 3], [5, 0]]], [5, [[0, 4], [5, 2]]], [6, [[0, 5], [5, 4]]],
     [7, [[1, 0]]], [8, [[1, 1]]], [9, [[1, 2]]], [10, [[1, 3]]], [11, [[1, 4]]], [12, [[1, 5]]],
-    [13, [[2, 0]]], [14, [[2, 1]]], [15, [[2, 2]]], [16, [[2, 3]]], [17, [[2, 4]]], [18, [[2, 5]]],
-    [19, [[3, 0]]], [20, [[3, 1]]], [21, [[3, 2]]], [22, [[3, 3]]], [23, [[3, 4]]], [24, [[3, 5]]],
+    [13, [[2, 0], [4, 0]]], [14, [[2, 1], [4, 1]]], [15, [[2, 2], [4, 2]]], [16, [[2, 3], [4, 3]]], [17, [[2, 4], [4, 4]]], [18, [[2, 5], [4, 5]]],
+    [19, [[3, 0], [5, 1]]], [20, [[3, 1], [5, 3]]], [21, [[3, 2], [5, 5]]], [22, [[3, 3]]], [23, [[3, 4]]], [24, [[3, 5]]],
   ]);
 
   getRiddleByLev(level: number, config: any): GameData4_3 {
@@ -126,6 +126,26 @@ export default class example4_3 {
   }
 
   checkRiddle(deskData: GameData4_3): number {
+    if (this.checkDesk(deskData) != 0) {
+      return -1
+    }
+    let p1 = 0
+    let p2 = 0
+    for (let i = 0; i < deskData.desk.length; i++) {
+      const row = deskData.desk[i];
+      for (let j = 0; j < row.length; j++) {
+        const chess = row[j];
+        if (chess == 1) {
+          p1++
+        }
+        if (chess == 2) {
+          p2++
+        }
+      }
+    }
+    if (p1 != p2) {
+      return -1
+    }
     return 1
   }
 
@@ -507,9 +527,9 @@ export default class example4_3 {
     let tmp = 0
     for (let i = -3; i <= 0; i++) {
       let y1 = y + i
-      let y2 = y + 1
-      let y3 = y + 2
-      let y4 = y + 3
+      let y2 = y + i + 1
+      let y3 = y + i + 2
+      let y4 = y + i + 3
       //查询四元组
       if (!(this.vaildXy(x, y1) == -1 ||
         this.vaildXy(x, y2) == -1 ||
