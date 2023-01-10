@@ -97,7 +97,7 @@ export default class example2_1 {
         return -1
       }
     } else {
-      if (dp1 != dp2 + 1) {
+      if (deskData.p2 != 0 && dp1 != dp2 + 1) {
         return -1
       }
     }
@@ -350,7 +350,7 @@ export default class example2_1 {
         if (best1.length == 3) {
           best1 = best
         }
-        if (best.length != 3) {
+        if (best.length != 3 && this.isFailureMove(deskData, best1[0]) != -1) {
           result = new GameAutoWay(tmpAction, tmpAction1)
         } else {
           for (let i = 0; i < deskData.positions.length; i++) {
@@ -382,6 +382,12 @@ export default class example2_1 {
     return result;
   }
 
+  isFailureMove(deskData: GameData2_1, rowNum: number): number {
+    if (deskData.positions[rowNum].length == 3 && deskData.positions[rowNum][0] == OtherUtil.getRival(deskData.player) && deskData.positions[rowNum][1] == OtherUtil.getRival(deskData.player)) {
+      return -1
+    }
+    return 1
+  }
   getBestMove(deskData: GameData2_1, rowNum: number): number[] {
     if (deskData.player == 1 && deskData.p1 > 0) {
       return []
