@@ -174,7 +174,7 @@ let i = 0
 // [19, 20, 21, 22, 23, 24],
 // [13, 14, 15, 16, 17, 18],
 // [4, 19, 5, 20, 6, 21]
-let test4_3 = new example4_3();
+// let test4_3 = new example4_3();
 // let test4 = test4_3.getActionAuto({
 //     "desk": [
 //         [0, 0, 0, 0, 0, 0],
@@ -187,25 +187,36 @@ let test4_3 = new example4_3();
 //     "chess2": 8,
 //     "player": 2
 // })
-
-let asda = test4_3.checkAction({
-    "desk": [
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0]],
-    "chess1": 1,
-    "chess2": 2,
-    "player": 1
-}, {
-    "chessNum": 2,
-    "chessPosition": 8,
-    "move": [1, 3],
-    "score": 1
-})
-console.info(asda)
+// let action = test4_3.getActionAuto({
+//     "desk": [
+//         [0, 0, 0, 0, 2, 0],
+//         [0, 2, 2, 1, 1, 0],
+//         [0, 2, 1, 1, 0, 0],
+//         [0, 2, 0, 0, 0, 0],
+//         [0, 0, 0, 1, 0, 0],
+//         [0, 0, 0, 0, 0, 0]],
+//     "chess1": 1,
+//     "chess2": 9,
+//     "player": 2
+// })
+// let asda = test4_3.checkAction({
+//     "desk": [
+//         [0, 0, 0, 0, 2, 0],
+//         [0, 2, 2, 1, 1, 0],
+//         [0, 2, 1, 1, 0, 0],
+//         [0, 2, 0, 0, 0, 0],
+//         [0, 0, 0, 1, 0, 0],
+//         [0, 0, 0, 0, 0, 0]],
+//     "chess1": 1,
+//     "chess2": 9,
+//     "player": 2
+// }, {
+//     "chessNum": 2,
+//     "chessPosition": 8,
+//     "move": [1, 3],
+//     "score": 1
+// })
+// console.info(JSON.stringify(action))
 
 // 4_2
 // let test4_2 = new example4_2();
@@ -244,9 +255,9 @@ console.info(asda)
 //     }
 // }
 // // 4_1
-// let test4_1 = new example4_1();
-// let s = test4_1.getActionAuto({ "k": 7, "n": 15, "p": 3, "p1": 4, "p2": 7, "residue": 4, "rounds": 0, "player": 1 })
-// console.info(s)
+let test4_1 = new example4_1();
+let action = test4_1.getActionAuto({ "k": 7, "n": 15, "p": 3, "p1": 4, "p2": 7, "residue": 4, "rounds": 0, "player": 1 })
+console.info(JSON.stringify(action))
 
 // for (i = 0; i < 11; i++) {
 //   let result = test4_1.getRiddleByLev(0, null);
