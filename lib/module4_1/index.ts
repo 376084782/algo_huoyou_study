@@ -207,7 +207,10 @@ export default class example4_1 {
 
   getActionAuto(deskData: GameData4_1): GameAutoWay {
     const rg = new RandomGenerater(0)
-    if (deskData.residue > (deskData.p * 2) - 1) {
+    if (deskData.residue <= (deskData.p * 2) + 1 && deskData.residue > deskData.p + 1) {
+      return new GameAutoWay(deskData.residue - deskData.p - 1, deskData.residue - deskData.p - 1);
+    }
+    if (deskData.residue > (deskData.p * 2)) {
       return new GameAutoWay(rg.RangeInteger(1, deskData.p), rg.RangeInteger(1, deskData.p));
     }
     return this.getAllAction(deskData.residue, deskData.p, deskData.p1, deskData.p2, deskData.player);
@@ -215,7 +218,7 @@ export default class example4_1 {
 
   getAllAction(residue: number, p: number, p1: number, p2: number, player: number): GameAutoWay {
     let step = new GameStep(new GameStep4_1(p, p1, p2, residue, OtherUtil.getRival(player), 0), 0)
-    step.nexts = this.getNextAction(step)
+    step.nexts = this.getNextAction1(step)
     let allWay: GameWay[] = OtherUtil.getTreeWays(step);
     let winStep = allWay.filter(x => { return x.node.flag == player }).sort((a, b) => { return `${a.node.stepNum}`.localeCompare(`${b.node.stepNum}`) });
     let loseStep = allWay.filter(x => { return x.node.flag != player }).sort((a, b) => { return `${b.node.stepNum}`.localeCompare(`${a.node.stepNum}`) });
@@ -241,6 +244,40 @@ export default class example4_1 {
     return new GameAutoWay(best, nobest)
   }
 
+  getNextAction1(step: GameStep): GameStep[] {
+
+    let max = step.current.residue > step.current.p ? step.current.p : step.current.residue;
+
+    let result: GameStep[] = []
+
+    let i: number = 1
+    for (i = 1; i <= max; i++) {
+      let p = step.current.p
+      let p1 = step.current.p1
+      let p2 = step.current.p2
+      let residue = step.current.residue
+      let player = OtherUtil.getRival(step.current.player)
+      residue -= i
+      if (player == 1) {
+        p1 += i
+      } else {
+        p2 += i
+      }
+      let tmp = new GameStep(new GameStep4_1(p, p1, p2, residue, player, i), step.stepNum + 1)
+      if (tmp.current.residue == 0) {
+        //如果这步下完输了，并有其他的下法，则过滤
+        tmp.flag = p1 % 2 == 0 ? 2 : 1
+      } else {
+        tmp.flag = 0
+        tmp.nexts = this.getNextAction(tmp);
+      }
+      if (!((player == 1 && p1 % 2 == 0 && max == 1) ||
+        (player == 2 && p2 % 2 == 0 && max == 1))) {
+        result.push(tmp)
+      }
+    }
+    return result;
+  }
   getNextAction(step: GameStep): GameStep[] {
 
     let max = step.current.residue > step.current.p ? step.current.p : step.current.residue;
