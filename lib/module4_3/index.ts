@@ -141,6 +141,12 @@ export default class example4_3 {
         if (chess == 2) {
           p2++
         }
+        if (chess == 0) {
+          const tmps = this.calculateTheWeightXy(deskData, i, j);
+          if (tmps >= 100000) {
+            return -1
+          }
+        }
       }
     }
     if (p1 != p2) {
@@ -338,33 +344,33 @@ export default class example4_3 {
     let canChessPositionMap = new Map<string, GameAction4_3[]>()
     let canChessPosition = new Set<number[]>()
     for (let index = 1; index <= 12; index++) {
-      if (index != deskData.chess1) {
-        let tmp = this.getPosition(index + deskData.chess1)
-        for (let j = 0; j < tmp.length; j++) {
-          const move = tmp[j];
-          if (!this.deskHas(deskData, move)) {
-            canChessPosition.add(move)
-            if (canChessPositionMap.has(move[0] + "_" + move[1])) {
-              canChessPositionMap.get(move[0] + "_" + move[1])?.push(new GameAction4_3(2, index, move))
-            } else {
-              canChessPositionMap.set(move[0] + "_" + move[1], [new GameAction4_3(2, index, move)])
-            }
+      // if (index != deskData.chess1) {
+      let tmp1 = this.getPosition(index + deskData.chess1)
+      for (let j = 0; j < tmp1.length; j++) {
+        const move = tmp1[j];
+        if (!this.deskHas(deskData, move)) {
+          canChessPosition.add(move)
+          if (canChessPositionMap.has(move[0] + "_" + move[1])) {
+            canChessPositionMap.get(move[0] + "_" + move[1])?.push(new GameAction4_3(2, index, move))
+          } else {
+            canChessPositionMap.set(move[0] + "_" + move[1], [new GameAction4_3(2, index, move)])
           }
         }
       }
-      if (index != deskData.chess2) {
-        let tmp = this.getPosition(index + deskData.chess2)
-        for (let j = 0; j < tmp.length; j++) {
-          const move = tmp[j];
-          if (!this.deskHas(deskData, move)) {
-            canChessPosition.add(move)
-            if (canChessPositionMap.has(move[0] + "_" + move[1])) {
-              canChessPositionMap.get(move[0] + "_" + move[1])?.push(new GameAction4_3(1, index, move))
-            } else {
-              canChessPositionMap.set(move[0] + "_" + move[1], [new GameAction4_3(1, index, move)])
-            }
+      // }
+      // if (index != deskData.chess2) {
+      let tmp2 = this.getPosition(index + deskData.chess2)
+      for (let j = 0; j < tmp2.length; j++) {
+        const move = tmp2[j];
+        if (!this.deskHas(deskData, move)) {
+          canChessPosition.add(move)
+          if (canChessPositionMap.has(move[0] + "_" + move[1])) {
+            canChessPositionMap.get(move[0] + "_" + move[1])?.push(new GameAction4_3(1, index, move))
+          } else {
+            canChessPositionMap.set(move[0] + "_" + move[1], [new GameAction4_3(1, index, move)])
           }
         }
+        // }
       }
     }
     canChessPosition.forEach(move => {
@@ -413,52 +419,50 @@ export default class example4_3 {
     if (player == cell1) {
       tmpp++
     } else if (OtherUtil.getRival(player) == cell1) {
-      tmpe++
-    } else if (cell1 == 0) {
       tmpb++
+    } else if (cell1 == 0) {
+      tmpe++
     }
     if (player == cell2) {
       tmpp++
     } else if (OtherUtil.getRival(player) == cell2) {
-      tmpe++
-    } else if (cell2 == 0) {
       tmpb++
+    } else if (cell2 == 0) {
+      tmpe++
     }
     if (player == cell3) {
       tmpp++
     } else if (OtherUtil.getRival(player) == cell3) {
-      tmpe++
-    } else if (cell3 == 0) {
       tmpb++
+    } else if (cell3 == 0) {
+      tmpe++
     }
     if (player == cell4) {
       tmpp++
     } else if (OtherUtil.getRival(player) == cell4) {
-      tmpe++
-    } else if (cell4 == 0) {
       tmpb++
+    } else if (cell4 == 0) {
+      tmpe++
     }
 
-    if (tmpp == 1 && tmpb == 3) {
+    // deskWeight: number[] = [7, 100, 1000, 800000, 70, 599, 100000, 0, 0]
+    if (tmpp == 1 && tmpe == 3) {
       return this.deskWeight[1]
     }
-    if (tmpp == 2 && tmpb == 2) {
+    if (tmpp == 2 && tmpe == 2) {
       return this.deskWeight[2]
     }
-    if (tmpp == 3 && tmpb == 3) {
+    if (tmpp == 3 && tmpe == 1) {
       return this.deskWeight[3]
     }
     if (tmpe == 1 && tmpb == 3) {
-      return this.deskWeight[4]
+      return this.deskWeight[6]
     }
     if (tmpe == 2 && tmpb == 2) {
       return this.deskWeight[5]
     }
-    if (tmpe == 3 && tmpb == 3) {
-      return this.deskWeight[6]
-    }
-    if (tmpb == 4) {
-      return this.deskWeight[0]
+    if (tmpe == 3 && tmpb == 1) {
+      return this.deskWeight[4]
     }
     return 0
   }

@@ -187,7 +187,9 @@ export default class example4_2 {
     // }
     let best = canChessPosition[0]
     let nobest = canChessPosition.length == 1 ? canChessPosition[0] : canChessPosition[1]
-    if (nobest.score < 0) {
+    if (canChessPosition.length > 1) {
+      nobest = canChessPosition[1]
+    } else {
       nobest = best
     }
     return new GameAutoWay(best, nobest)

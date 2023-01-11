@@ -180,7 +180,7 @@ console.log(res6_3)
 // [19, 20, 21, 22, 23, 24],
 // [13, 14, 15, 16, 17, 18],
 // [4, 19, 5, 20, 6, 21]
-// let test4_3 = new example4_3();
+let test4_3 = new example4_3();
 // let test4 = test4_3.getActionAuto({
 //     "desk": [
 //         [0, 0, 0, 0, 0, 0],
@@ -195,13 +195,13 @@ console.log(res6_3)
 // })
 // let action = test4_3.getActionAuto({
 //     "desk": [
-//         [0, 0, 0, 0, 2, 0],
-//         [0, 2, 2, 1, 1, 0],
-//         [0, 2, 1, 1, 0, 0],
-//         [0, 2, 0, 0, 0, 0],
-//         [0, 0, 0, 1, 0, 0],
+//         [0, 0, 0, 0, 0, 0],
+//         [0, 0, 2, 2, 1, 1],
+//         [0, 2, 1, 1, 1, 0],
+//         [0, 0, 2, 0, 0, 0],
+//         [0, 0, 0, 2, 0, 0],
 //         [0, 0, 0, 0, 0, 0]],
-//     "chess1": 1,
+//     "chess1": 7,
 //     "chess2": 9,
 //     "player": 2
 // })
@@ -222,7 +222,20 @@ console.log(res6_3)
 //     "move": [1, 3],
 //     "score": 1
 // })
-// console.info(JSON.stringify(action))
+
+let action = test4_3.checkRiddle({
+    "desk": [
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 2, 0, 1, 1],
+        [1, 0, 0, 0, 0, 0],
+        [0, 0, 2, 0, 0, 0],
+        [0, 0, 2, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0]],
+    "chess1": 7,
+    "chess2": 9,
+    "player": 1
+})
+console.info(JSON.stringify(action))
 
 // 4_2
 // let test4_2 = new example4_2();
@@ -262,7 +275,7 @@ console.log(res6_3)
 // }
 // // 4_1
 // let test4_1 = new example4_1();
-// let action = test4_1.getActionAuto({ "k": 7, "n": 15, "p": 3, "p1": 4, "p2": 7, "residue": 4, "rounds": 0, "player": 1 })
+// let action = test4_1.getActionAuto({ "k": 3, "n": 7, "p": 2, "p1": 4, "p2": 0, "residue": 3, "rounds": 0, "player": 2 })
 // console.info(JSON.stringify(action))
 
 // for (i = 0; i < 11; i++) {
@@ -323,12 +336,12 @@ console.log(res6_3)
 // 2_1
 // let test2_1 = new example2_1();
 // let desk = new GameData2_1()
-// desk.p1 = 5
-// desk.p2 = 6
-// desk.player = 1
-// desk.positions = [[1], [], [], [], [], [], [], [], [], [], [], []]
-// let tmp = test2_1.checkRiddle(desk)
-// console.info(tmp)
+// desk.p1 = 0
+// desk.p2 = 0
+// desk.player = 2
+// desk.positions = [[2, 1], [2, 1], [2, 1], [1, 2], [2], [1, 1, 2], [], [], [], [], [], []]
+// let tmp = test2_1.getActionAuto(desk)
+// console.info(JSON.stringify(tmp))
 
 // for (i = 0; i < 1; i++) {
 //     let result = test2_1.getRiddle(undefined);
