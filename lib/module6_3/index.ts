@@ -159,7 +159,12 @@ export default class example6_3 {
     for (let i = 0; i < deskData.desk.length; i++) {
       count += deskData.desk[i]
     }
-    if (count != deskData.desk.length) {
+    if (count < 2 || count > 30) {
+      // 总数2-30
+      return -1
+    }
+    if (count == deskData.desk.length) {
+      // 堆数1到n-1，即不能所有堆都是1
       return -1
     }
     return 1;
@@ -216,13 +221,12 @@ export default class example6_3 {
         sum += actionItem[1]
       }
       if (sum != dataAction.action[0][1]) {
-        console.info(1)
+        console.info(2)
         return -1
       }
     } else {
       let sum = 0
-      if (deskData.desk[dataAction.actionAfter[0][0]] != 0) {
-        console.info(1)
+      if (deskData.desk[dataAction.actionAfter[0][0]] > 0) {
         return -1
       }
       for (let i = 0; i < dataAction.action.length; i++) {
@@ -230,7 +234,7 @@ export default class example6_3 {
         sum += actionItem[1]
       }
       if (sum != dataAction.actionAfter[0][1]) {
-        console.info(1)
+        console.info(4)
         return -1
       }
     }
@@ -238,6 +242,12 @@ export default class example6_3 {
   }
 
   getActionAuto(deskData: GameData6_3): GameAutoWay {
+    let listAll = this.getAllAction(deskData.desk);
+    if (listAll.length >= 2) {
+      return new GameAutoWay(listAll[0], listAll[1])
+    } else if (listAll.length >= 1) {
+      return new GameAutoWay(listAll[0], listAll[0])
+    }
     return new GameAutoWay(undefined, undefined)
   }
 

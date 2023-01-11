@@ -56,7 +56,13 @@ let i = 0
 //         }
 //     }
 // 6_3
-// let test6_3 = new example6_3();
+let test6_3 = new example6_3();
+// let res6_3 = test6_3.doAction(
+//   { "desk": [3, 4, 4, 9], "player": 1 },
+//   { "action": [[2, 4], [0, 3]], "actionAfter": [[4, 7]] }
+// )
+let res6_3=test6_3.getActionAuto({"desk":[3,4,1,9,1,1,1],"player":2})
+console.log(res6_3)
 // for (let i = 12; i < 13; i++) {
 //     let s1 = test6_3.getAllDesk(i);
 // }
@@ -255,9 +261,9 @@ let i = 0
 //     }
 // }
 // // 4_1
-let test4_1 = new example4_1();
-let action = test4_1.getActionAuto({ "k": 7, "n": 15, "p": 3, "p1": 4, "p2": 7, "residue": 4, "rounds": 0, "player": 1 })
-console.info(JSON.stringify(action))
+// let test4_1 = new example4_1();
+// let action = test4_1.getActionAuto({ "k": 7, "n": 15, "p": 3, "p1": 4, "p2": 7, "residue": 4, "rounds": 0, "player": 1 })
+// console.info(JSON.stringify(action))
 
 // for (i = 0; i < 11; i++) {
 //   let result = test4_1.getRiddleByLev(0, null);
