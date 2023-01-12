@@ -19,7 +19,7 @@ import RandomGenerater from '../util/RandomGenerater';
 import OtherUtil from '../util/OtherUtil';
 import { Console } from 'console';
 
-class GameData10_1 {
+export class GameData10_1 {
   //参数
   desk: number[][] = [
     [0, 0, 0, 0, 0, 0],
@@ -34,7 +34,7 @@ class GameData10_1 {
   }
 }
 
-class GameAction10_1 {
+export class GameAction10_1 {
   x: number = 0
   y: number = 0
   score: number = 0
