@@ -10,19 +10,13 @@ import example6_1 from './module6_1/index';
 import { example6_2, GameAction6_2, GameData6_2 } from './module6_2/index';
 import example6_3 from './module6_3/index';
 import example8_1, { GameConfig8_1 } from './module8_1/index';
-import example10_1, { } from './module10_1/index';
 import example8_3 from './module8_3/index';
+import example10_1, { GameData10_1, GameAction10_1 } from './module10_1/index';
 // import example10_2 from './module10_2/index';
 import RandomGenerater from './util/RandomGenerater';
 
 let player = "P1"
 let i = 0
-
-let test10_1 = new example10_1();
-// let res10_1 = test10_1.doAction({ "desk": [[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 2, 0, 0, 1, 0], [0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0]], "player": 2 }, { "x": 0, "y": 2, "score": 0 })
-// let res10_1=test10_1.checkDesk({"desk":[[1,1,1,1,0,2],[0,0,2,0,1,0],[0,1,0,2,0,0],[2,2,1,0,0,1],[0,1,0,2,1,0],[0,1,1,0,0,0]],"player":1})
-let res10_1 = test10_1.getActionAuto({ "desk": [[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]], "player": 1 })
-console.log(res10_1, 'res10_1')
 
 // FileWriter.setFile('./file/a.ts', 'let a=3;')
 // 10_2
@@ -37,8 +31,101 @@ console.log(res10_1, 'res10_1')
 //     let s1 = test8_3.getAllDesk(i);
 // }
 // console.info()
+// 10_1
+let test10_1 = new example10_1();
+
+// let res10_1 = test10_1.doAction({ "desk": [[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 2, 0, 0, 1, 0], [0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0]], "player": 2 }, { "x": 0, "y": 2, "score": 0 })
+// let res10_1=test10_1.checkDesk({"desk":[[1,1,1,1,0,2],[0,0,2,0,1,0],[0,1,0,2,0,0],[2,2,1,0,0,1],[0,1,0,2,1,0],[0,1,1,0,0,0]],"player":1})
+let res10_1 = test10_1.getActionAuto({ "desk": [[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]], "player": 1 })
+console.log(res10_1, 'res10_1')
+
+let action = test10_1.checkDesk({
+    "desk": [
+        [0, 0, 0, 0, 0, 0],
+        [2, 0, 0, 0, 0, 0],
+        [0, 0, 1, 0, 0, 0],
+        [0, 0, 1, 2, 0, 0],
+        [0, 0, 1, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0]],
+    "player": 1
+});
+console.info(JSON.stringify(action))
+
+// for (let index = 0; index < 20; index++) {
+//     let action = test10_1.getActionAuto({
+//         "desk": [
+//             [0, 0, 0, 0, 0, 0],
+//             [2, 0, 0, 0, 0, 0],
+//             [0, 0, 1, 0, 0, 0],
+//             [0, 0, 0, 2, 0, 0],
+//             [0, 0, 1, 0, 0, 0],
+//             [0, 0, 0, 0, 0, 0]],
+//         "player": 1
+//     });
+//     console.info(JSON.stringify(action))
+// }
+// console.info(JSON.stringify(action))
+for (i = 0; i < 1; i++) {
+    let result = {
+        "desk": [
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0]],
+        "player": 1
+    }
+    let flagResult = 0
+    let count = 1
+    console.info("开始棋盘：" + JSON.stringify(result))
+    while (flagResult == 0) {
+        let action = test10_1.getActionAuto(result)
+        let tmp = test10_1.doAction(result, action.best)
+        result = tmp[1]
+        flagResult = tmp[0]
+        console.info("%s %s | \n操作：%s \n%s\n%s\n%s\n%s\n%s\n%s\n  结果 %s ", count++, player, JSON.stringify(action), JSON.stringify(result.desk[0]), JSON.stringify(result.desk[1]), JSON.stringify(result.desk[2]), JSON.stringify(result.desk[3]), JSON.stringify(result.desk[4]), JSON.stringify(result.desk[5]), flagResult)
+        if (flagResult == 1) {
+            console.info("P1 WIN")
+        }
+        if (flagResult == 2) {
+            console.info("P2 WIN")
+        }
+        if (player == "P1") {
+            player = "P2"
+        } else {
+            player = "P1"
+        }
+    }
+}
+// 8_3
+// let test8_3 = new example8_3();
+// for (let i = 2; i <=30; i++) {
+//     let s1 = test8_3.getAllDesk(i);
+// }
+// console.info()
 // 8_1
+// [1,  2,  3,  4,  5,  6],
+// [7,  8,  9,  10, 12, 14],
+// [15, 16, 18, 20, 21, 24],
+// [25, 27, 28, 30, 32, 35],
+// [36, 40, 42, 45, 48, 49],
+// [54, 56, 63, 64, 72, 81]]
 // let test8_1 = new example8_1();
+// let action = test8_1.getActionAuto({
+//     "desk":
+//         [[0, 0, 2, 0, 0, 1],
+//         [1, 1, 0, 2, 0, 0],
+//         [0, 0, 2, 1, 0, 0],
+//         [0, 2, 2, 0, 0, 0],
+//         [0, 0, 2, 1, 0, 0],
+//         [0, 0, 0, 0, 0, 1]],
+//     "chess1": 3,
+//     "chess2": 1,
+//     "player": 2
+// })
+
+// console.info(JSON.stringify(action))
 // for (i = 0; i < 11; i++) {
 //     let result = test8_1.getRiddle(new GameConfig8_1(1,2));
 //     let flagResult = 0
@@ -187,7 +274,7 @@ console.log(res6_3)
 // [19, 20, 21, 22, 23, 24],
 // [13, 14, 15, 16, 17, 18],
 // [4, 19, 5, 20, 6, 21]
-let test4_3 = new example4_3();
+// let test4_3 = new example4_3();
 // let test4 = test4_3.getActionAuto({
 //     "desk": [
 //         [0, 0, 0, 0, 0, 0],
@@ -230,19 +317,19 @@ let test4_3 = new example4_3();
 //     "score": 1
 // })
 
-let action = test4_3.checkRiddle({
-    "desk": [
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 2, 0, 1, 1],
-        [1, 0, 0, 0, 0, 0],
-        [0, 0, 2, 0, 0, 0],
-        [0, 0, 2, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0]],
-    "chess1": 7,
-    "chess2": 9,
-    "player": 1
-})
-console.info(JSON.stringify(action))
+// let action = test4_3.checkRiddle({
+//     "desk": [
+//         [0, 0, 0, 0, 0, 0],
+//         [0, 0, 2, 0, 1, 1],
+//         [1, 0, 0, 0, 0, 0],
+//         [0, 0, 2, 0, 0, 0],
+//         [0, 0, 2, 0, 0, 0],
+//         [0, 0, 0, 0, 0, 0]],
+//     "chess1": 7,
+//     "chess2": 9,
+//     "player": 1
+// })
+// console.info(JSON.stringify(action))
 
 // 4_2
 // let test4_2 = new example4_2();
@@ -282,8 +369,8 @@ console.info(JSON.stringify(action))
 // }
 // // 4_1
 // let test4_1 = new example4_1();
-// let action1 = test4_1.getActionAuto({ "k": 3, "n": 7, "p": 3, "p1": 9, "p2": 5, "residue": 1, "rounds": 0, "player": 2 })
-// console.info(JSON.stringify(action1))
+// let action = test4_1.getActionAuto({ "k": 3, "n": 7, "p": 3, "p1": 9, "p2": 5, "residue": 1, "rounds": 0, "player": 2 })
+// console.info(JSON.stringify(action))
 
 // for (i = 0; i < 11; i++) {
 //   let result = test4_1.getRiddleByLev(0, null);

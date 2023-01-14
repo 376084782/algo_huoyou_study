@@ -217,6 +217,7 @@ export default class example4_1 {
   }
 
   getAllAction(residue: number, p: number, p1: number, p2: number, player: number): GameAutoWay {
+    const rg = new RandomGenerater(0)
     let step = new GameStep(new GameStep4_1(p, p1, p2, residue, OtherUtil.getRival(player), 0), 0)
     step.nexts = this.getNextAction1(step)
     let allWay: GameWay[] = OtherUtil.getTreeWays(step);
@@ -239,7 +240,13 @@ export default class example4_1 {
           nobest = best
         }
       }
-
+    }
+    let max = step.current.residue > step.current.p ? step.current.p : step.current.residue;
+    if (best == -1) {
+      best = rg.RangeInteger(1, max)
+    }
+    if (nobest == -1) {
+      nobest = rg.RangeInteger(1, max)
     }
     return new GameAutoWay(best, nobest)
   }

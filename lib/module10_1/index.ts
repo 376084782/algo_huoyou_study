@@ -94,7 +94,7 @@ export default class example10_1 {
     for (let i = 1; i <= 6; i++) {
       for (let j = 1; j < 6; j++) {
         if (deskData.desk[i][j] != 0) {
-          return this.lurd(deskData, i, j) || this.ruld(deskData, i, j) || this.leftRight(deskData, i, j) || this.upDown(deskData, i, j) ? 1 : 0
+          return this.lurd(deskData, i, j) || this.ruld(deskData, i, j) || this.leftRight(deskData, i, j) || this.upDown(deskData, i, j) ? deskData.desk[i][j] : 0
         }
       }
     }
@@ -105,12 +105,21 @@ export default class example10_1 {
     const rg = new RandomGenerater(0)
     const x = rg.RangeInteger(1, 6)
     const y = rg.RangeInteger(1, 6)
-
-    let deskDataTmp = JSON.parse(JSON.stringify(deskData));
-    deskDataTmp = this.doAction(deskDataTmp, new GameAction10_1(x, y))
-    if (this.lurd(deskDataTmp, x, y) || this.ruld(deskDataTmp, x, y) || this.leftRight(deskDataTmp, x, y) || this.upDown(deskDataTmp, x, y)) {
+    console.info(x + "_" + y)
+    let bs = this.calculateTheWeightXy(deskData, x, y)
+    let nbs = this.calculateTheWeightXy(deskData, y, x)
+    // if (this.lurd(deskDataTmp, x, y) || this.ruld(deskDataTmp, x, y) || this.leftRight(deskDataTmp, x, y) || this.upDown(deskDataTmp, x, y)) {
+    //   return new GameAutoWay(new GameAction10_1(x, y), new GameAction10_1(x, y))
+    // } else if (deskData.desk[x][y] == deskData.player) {
+    //   return new GameAutoWay(new GameAction10_1(x, y), new GameAction10_1(x, y))
+    // } else {
+    //   return new GameAutoWay(new GameAction10_1(y, x), new GameAction10_1(y, x))
+    // }
+    if (bs > nbs) {
       return new GameAutoWay(new GameAction10_1(x, y), new GameAction10_1(x, y))
-    } else if (deskData.desk[x][y] == deskData.player) {
+    } else if (bs == nbs && deskData.desk[x][y] == OtherUtil.getRival(deskData.player)) {
+      return new GameAutoWay(new GameAction10_1(x, y), new GameAction10_1(x, y))
+    } else if (bs == nbs && deskData.desk[y][x] == OtherUtil.getRival(deskData.player)) {
       return new GameAutoWay(new GameAction10_1(x, y), new GameAction10_1(x, y))
     } else {
       return new GameAutoWay(new GameAction10_1(y, x), new GameAction10_1(y, x))
@@ -118,6 +127,102 @@ export default class example10_1 {
   }
 
   // ==============================================================================================================================
+
+  calculateTheWeightXy(deskData: GameData10_1, x: number, y: number): number {
+    let tmp = 0
+    tmp += this.lurdWeight(deskData, x - 1, y - 1)
+    tmp += this.ruldWeight(deskData, x - 1, y - 1)
+    tmp += this.leftRightWeight(deskData, x - 1, y - 1)
+    tmp += this.upDownWeight(deskData, x - 1, y - 1)
+    return tmp
+  }
+  //左上右下
+  lurdWeight(deskData: GameData10_1, x: number, y: number): number {
+    let tmp = 0
+    for (let i = -3; i <= 0; i++) {
+      //查询四元组
+      let x1 = x + i
+      let x2 = x + i + 1
+      let x3 = x + i + 2
+      let y1 = y + i
+      let y2 = y + i + 1
+      let y3 = y + i + 2
+      if (this.vaildXy(x1, y1) && this.vaildXy(x2, y2) && this.vaildXy(x3, y3)) {
+        const tcell1 = deskData.desk[x1][y1]
+        const tcell2 = deskData.desk[x2][y2]
+        const tcell3 = deskData.desk[x3][y3]
+        tmp += this.getWeight(deskData.player, tcell1, tcell2, tcell3)
+        // console.info("点位 %s %s 校验四元组：%s_%s,%s_%s,%s_%s,%s_%s 得分：%s ", x, y, x1, y1, x2, y2, x3, y3, x4, y4, tmp)
+        // } else {
+        // console.info("点位 %s %s 校验四元组：%s_%s,%s_%s,%s_%s,%s_%s 不合规", x, y, x1, y1, x2, y2, x3, y3, x4, y4)
+      }
+    }
+    return tmp
+  }
+
+  ruldWeight(deskData: GameData10_1, x: number, y: number): number {
+    let tmp = 0
+    for (let i = -3; i <= 0; i++) {
+      let x1 = x + i
+      let x2 = x + i + 1
+      let x3 = x + i + 2
+      let y1 = y - i
+      let y2 = y - i - 1
+      let y3 = y - i - 2
+      //查询四元组
+      if (this.vaildXy(x1, y1) && this.vaildXy(x2, y2) && this.vaildXy(x3, y3)) {
+        const tcell1 = deskData.desk[x1][y1]
+        const tcell2 = deskData.desk[x2][y2]
+        const tcell3 = deskData.desk[x3][y3]
+        tmp += this.getWeight(deskData.player, tcell1, tcell2, tcell3)
+        //   console.info("点位 %s %s 校验四元组：%s_%s,%s_%s,%s_%s,%s_%s 得分：%s ", x, y, x1, y1, x2, y2, x3, y3, x4, y4, tmp)
+        // } else {
+        //   console.info("点位 %s %s 校验四元组：%s_%s,%s_%s,%s_%s,%s_%s 不合规", x, y, x1, y1, x2, y2, x3, y3, x4, y4)
+      }
+    }
+    return tmp
+  }
+
+  leftRightWeight(deskData: GameData10_1, x: number, y: number): number {
+    let tmp = 0
+    for (let i = -3; i <= 0; i++) {
+      let y1 = y + i
+      let y2 = y + 1
+      let y3 = y + 2
+      //查询四元组
+      if (this.vaildXy(x, y1) && this.vaildXy(x, y2) && this.vaildXy(x, y3)) {
+        const tcell1 = deskData.desk[x][y1]
+        const tcell2 = deskData.desk[x][y2]
+        const tcell3 = deskData.desk[x][y3]
+        tmp += this.getWeight(deskData.player, tcell1, tcell2, tcell3)
+        //   console.info("点位 %s %s 校验四元组：%s_%s,%s_%s,%s_%s,%s_%s 得分：%s ", x, y, x, y1, x, y2, x, y3, x, y4, tmp)
+        // } else {
+        //   console.info("点位 %s %s 校验四元组：%s_%s,%s_%s,%s_%s,%s_%s 不合规", x, y, x, y1, x, y2, x, y3, x, y4)
+      }
+    }
+    return tmp
+  }
+
+  upDownWeight(deskData: GameData10_1, x: number, y: number): number {
+    let tmp = 0
+    for (let i = -3; i <= 0; i++) {
+      //查询四元组
+      let x1 = x + i
+      let x2 = x + i + 1
+      let x3 = x + i + 2
+      if (this.vaildXy(x1, y) && this.vaildXy(x2, y) && this.vaildXy(x3, y)) {
+        const tcell1 = deskData.desk[x1][y]
+        const tcell2 = deskData.desk[x2][y]
+        const tcell3 = deskData.desk[x3][y]
+        tmp += this.getWeight(deskData.player, tcell1, tcell2, tcell3)
+        //   console.info("点位 %s %s 校验四元组：%s_%s,%s_%s,%s_%s,%s_%s 得分：%s ", x, y, x1, y, x2, y, x3, y, x4, y, tmp)
+        // } else {
+        //   console.info("点位 %s %s 校验四元组：%s_%s,%s_%s,%s_%s,%s_%s 不合规", x, y, x1, y, x2, y, x3, y, x4, y)
+      }
+    }
+    return tmp
+  }
+
 
   vaildXy(x: number, y: number): boolean {
     if (x > 5 || x < 0) {
@@ -217,5 +322,47 @@ export default class example10_1 {
     return false
   }
 
-
+  getWeight(player: number, cell1: number, cell2: number, cell3: number): number {
+    let tmpp = 0
+    let tmpb = 0
+    let tmpe = 0
+    if (player == cell1) {
+      tmpp++
+    } else if (OtherUtil.getRival(player) == cell1) {
+      tmpb++
+    } else if (cell1 == 0) {
+      tmpe++
+    }
+    if (player == cell2) {
+      tmpp++
+    } else if (OtherUtil.getRival(player) == cell2) {
+      tmpb++
+    } else if (cell2 == 0) {
+      tmpe++
+    }
+    if (player == cell3) {
+      tmpp++
+    } else if (OtherUtil.getRival(player) == cell3) {
+      tmpb++
+    } else if (cell3 == 0) {
+      tmpe++
+    }
+    // [7, 100, 1000, 800000, 70, 599, 100000, 0, 0]
+    if (tmpp == 1 && tmpe == 2) {
+      return 100
+    }
+    if (tmpb == 1 && tmpe == 2) {
+      return 70
+    }
+    if (tmpp == 2 && tmpe == 1) {
+      return 10000
+    }
+    if (tmpb == 2 && tmpe == 1) {
+      return 5000
+    }
+    if (tmpe == 3) {
+      return 30
+    }
+    return 0
+  }
 }
