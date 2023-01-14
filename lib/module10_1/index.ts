@@ -81,10 +81,10 @@ export default class example10_1 {
   }
 
   checkAction(deskData: GameData10_1, dataAction: GameAction10_1): number {
-    if (dataAction.x < 1 || dataAction.x > 6) {
+    if (dataAction.x < 0 || dataAction.x > 5) {
       return -1
     }
-    if (dataAction.y < 1 || dataAction.y > 6) {
+    if (dataAction.y < 0 || dataAction.y > 5) {
       return -1
     }
     return 1;

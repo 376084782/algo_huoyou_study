@@ -6,6 +6,8 @@ import module6_1, { GameData6_1, GameAction6_1 } from './module6_1/index';
 import module6_3, { GameData6_3, GameAction6_3, GameConfig6_3 } from './module6_3/index';
 import module8_1, { GameData8_1, GameAction8_1, GameConfig8_1 } from './module8_1/index';
 import module10_1, { GameData10_1, GameAction10_1 } from './module10_1/index';
+import module10_2, { GameData10_2, GameAction10_2, GameConfig10_2 } from './module10_2/index';
+import module8_3, { GameData8_3, GameAction8_3 } from './module8_3/index';
 import {
   example6_2 as module6_2, GameData6_2, GameAction6_2,
 } from './module6_2/index';
@@ -50,10 +52,22 @@ export {
   GameAction8_1,
   GameConfig8_1,
 
-  
+
   module10_1,
   GameData10_1,
   GameAction10_1,
+
+
+  module10_2,
+  GameData10_2,
+  GameAction10_2,
+  GameConfig10_2,
+
+
+  module8_3,
+  GameData8_3,
+  GameAction8_3,
+  
 
   example,
   module6_2,

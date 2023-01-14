@@ -35,21 +35,21 @@ let i = 0
 let test10_1 = new example10_1();
 
 // let res10_1 = test10_1.doAction({ "desk": [[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 2, 0, 0, 1, 0], [0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0]], "player": 2 }, { "x": 0, "y": 2, "score": 0 })
-// let res10_1=test10_1.checkDesk({"desk":[[1,1,1,1,0,2],[0,0,2,0,1,0],[0,1,0,2,0,0],[2,2,1,0,0,1],[0,1,0,2,1,0],[0,1,1,0,0,0]],"player":1})
-let res10_1 = test10_1.getActionAuto({ "desk": [[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]], "player": 1 })
+let res10_1=test10_1.checkDesk({"desk":[[1,1,1,1,0,2],[0,0,2,0,1,0],[0,1,0,2,0,0],[2,2,1,0,0,1],[0,1,0,2,1,0],[0,1,1,0,0,0]],"player":1})
+// let res10_1 = test10_1.getActionAuto({ "desk": [[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]], "player": 1 })
 console.log(res10_1, 'res10_1')
 
-let action = test10_1.checkDesk({
-    "desk": [
-        [0, 0, 0, 0, 0, 0],
-        [2, 0, 0, 0, 0, 0],
-        [0, 0, 1, 0, 0, 0],
-        [0, 0, 1, 2, 0, 0],
-        [0, 0, 1, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0]],
-    "player": 1
-});
-console.info(JSON.stringify(action))
+// let action = test10_1.checkDesk({
+//     "desk": [
+//         [0, 0, 0, 0, 0, 0],
+//         [2, 0, 0, 0, 0, 0],
+//         [0, 0, 1, 0, 0, 0],
+//         [0, 0, 1, 2, 0, 0],
+//         [0, 0, 1, 0, 0, 0],
+//         [0, 0, 0, 0, 0, 0]],
+//     "player": 1
+// });
+// console.info(JSON.stringify(action))
 
 // for (let index = 0; index < 20; index++) {
 //     let action = test10_1.getActionAuto({
@@ -65,39 +65,39 @@ console.info(JSON.stringify(action))
 //     console.info(JSON.stringify(action))
 // }
 // console.info(JSON.stringify(action))
-for (i = 0; i < 1; i++) {
-    let result = {
-        "desk": [
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0]],
-        "player": 1
-    }
-    let flagResult = 0
-    let count = 1
-    console.info("开始棋盘：" + JSON.stringify(result))
-    while (flagResult == 0) {
-        let action = test10_1.getActionAuto(result)
-        let tmp = test10_1.doAction(result, action.best)
-        result = tmp[1]
-        flagResult = tmp[0]
-        console.info("%s %s | \n操作：%s \n%s\n%s\n%s\n%s\n%s\n%s\n  结果 %s ", count++, player, JSON.stringify(action), JSON.stringify(result.desk[0]), JSON.stringify(result.desk[1]), JSON.stringify(result.desk[2]), JSON.stringify(result.desk[3]), JSON.stringify(result.desk[4]), JSON.stringify(result.desk[5]), flagResult)
-        if (flagResult == 1) {
-            console.info("P1 WIN")
-        }
-        if (flagResult == 2) {
-            console.info("P2 WIN")
-        }
-        if (player == "P1") {
-            player = "P2"
-        } else {
-            player = "P1"
-        }
-    }
-}
+// for (i = 0; i < 1; i++) {
+//     let result = {
+//         "desk": [
+//             [0, 0, 0, 0, 0, 0],
+//             [0, 0, 0, 0, 0, 0],
+//             [0, 0, 0, 0, 0, 0],
+//             [0, 0, 0, 0, 0, 0],
+//             [0, 0, 0, 0, 0, 0],
+//             [0, 0, 0, 0, 0, 0]],
+//         "player": 1
+//     }
+//     let flagResult = 0
+//     let count = 1
+//     console.info("开始棋盘：" + JSON.stringify(result))
+//     while (flagResult == 0) {
+//         let action = test10_1.getActionAuto(result)
+//         let tmp = test10_1.doAction(result, action.best)
+//         result = tmp[1]
+//         flagResult = tmp[0]
+//         console.info("%s %s | \n操作：%s \n%s\n%s\n%s\n%s\n%s\n%s\n  结果 %s ", count++, player, JSON.stringify(action), JSON.stringify(result.desk[0]), JSON.stringify(result.desk[1]), JSON.stringify(result.desk[2]), JSON.stringify(result.desk[3]), JSON.stringify(result.desk[4]), JSON.stringify(result.desk[5]), flagResult)
+//         if (flagResult == 1) {
+//             console.info("P1 WIN")
+//         }
+//         if (flagResult == 2) {
+//             console.info("P2 WIN")
+//         }
+//         if (player == "P1") {
+//             player = "P2"
+//         } else {
+//             player = "P1"
+//         }
+//     }
+// }
 // 8_3
 // let test8_3 = new example8_3();
 // for (let i = 2; i <=30; i++) {
@@ -150,13 +150,13 @@ for (i = 0; i < 1; i++) {
 //         }
 //     }
 // 6_3
-let test6_3 = new example6_3();
+// let test6_3 = new example6_3();
 // let res6_3 = test6_3.doAction(
 //   { "desk": [3, 4, 4, 9], "player": 1 },
 //   { "action": [[2, 4], [0, 3]], "actionAfter": [[4, 7]] }
 // )
-let res6_3 = test6_3.getActionAuto({ "desk": [3, 4, 1, 9, 1, 1, 1], "player": 2 })
-console.log(res6_3)
+// let res6_3 = test6_3.getActionAuto({ "desk": [3, 4, 1, 9, 1, 1, 1], "player": 2 })
+// console.log(res6_3)
 // for (let i = 12; i < 13; i++) {
 //     let s1 = test6_3.getAllDesk(i);
 // }
