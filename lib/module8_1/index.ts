@@ -4,6 +4,8 @@
  * @tip 乘法游戏
  * @description 
  * 
+ * 4-3：加法游戏
+
 https://blog.csdn.net/u011587401/article/details/50877828
  一．挑战模式
 1.参数默认值：
@@ -341,52 +343,49 @@ export default class example8_1 {
     if (player == cell1) {
       tmpp++
     } else if (OtherUtil.getRival(player) == cell1) {
-      tmpe++
-    } else if (cell1 == 0) {
       tmpb++
+    } else if (cell1 == 0) {
+      tmpe++
     }
     if (player == cell2) {
       tmpp++
     } else if (OtherUtil.getRival(player) == cell2) {
-      tmpe++
-    } else if (cell2 == 0) {
       tmpb++
+    } else if (cell2 == 0) {
+      tmpe++
     }
     if (player == cell3) {
       tmpp++
     } else if (OtherUtil.getRival(player) == cell3) {
-      tmpe++
-    } else if (cell3 == 0) {
       tmpb++
+    } else if (cell3 == 0) {
+      tmpe++
     }
     if (player == cell4) {
       tmpp++
     } else if (OtherUtil.getRival(player) == cell4) {
-      tmpe++
-    } else if (cell4 == 0) {
       tmpb++
+    } else if (cell4 == 0) {
+      tmpe++
     }
-
-    if (tmpp == 1 && tmpb == 3) {
+    // [7, 100, 1000, 800000, 70, 599, 100000, 0, 0]
+    if (tmpp == 1 && tmpe == 3) {
       return this.deskWeight[1]
     }
-    if (tmpp == 2 && tmpb == 2) {
+    if (tmpp == 2 && tmpe == 2) {
       return this.deskWeight[2]
     }
-    if (tmpp == 3 && tmpb == 3) {
+    if (tmpp == 3 && tmpe == 1) {
       return this.deskWeight[3]
     }
     if (tmpe == 1 && tmpb == 3) {
-      return this.deskWeight[4]
+      return this.deskWeight[6]
     }
     if (tmpe == 2 && tmpb == 2) {
       return this.deskWeight[5]
     }
-    if (tmpe == 3 && tmpb == 3) {
-      return this.deskWeight[6]
-    }
-    if (tmpb == 4) {
-      return this.deskWeight[0]
+    if (tmpe == 3 && tmpb == 1) {
+      return this.deskWeight[4]
     }
     return 0
   }
@@ -535,13 +534,14 @@ export default class example8_1 {
   }
 
   //左上右下
+  //左上右下
   lurd(deskData: GameData8_1, x: number, y: number): number {
     let cell = deskData.desk[x][y]
-    let link = 0
+    let link = 1
     if (cell != 0) {
       for (let index = 1; index <= 3; index++) {
-        const tx = x + 1
-        const ty = y + 1
+        const tx = x + index
+        const ty = y + index
         if (this.vaildXy(tx, ty) == -1) {
           break;
         }
@@ -555,11 +555,11 @@ export default class example8_1 {
       if (link == 4) {
         return cell
       } else {
-        link = 0
+        link = 1
       }
       for (let index = 1; index <= 3; index++) {
-        const tx = x - 1
-        const ty = y - 1
+        const tx = x - index
+        const ty = y - index
         if (this.vaildXy(tx, ty) == -1) {
           break;
         }
@@ -580,11 +580,12 @@ export default class example8_1 {
   }
   ruld(deskData: GameData8_1, x: number, y: number): number {
     let cell = deskData.desk[x][y]
-    let link = 0
+    let link = 1
+
     if (cell != 0) {
       for (let index = 1; index <= 3; index++) {
-        const tx = x + 1
-        const ty = y - 1
+        const tx = x + index
+        const ty = y - index
         if (this.vaildXy(tx, ty) == -1) {
           break;
         }
@@ -598,11 +599,11 @@ export default class example8_1 {
       if (link == 4) {
         return cell
       } else {
-        link = 0
+        link = 1
       }
       for (let index = 1; index <= 3; index++) {
-        const tx = x - 1
-        const ty = y + 1
+        const tx = x - index
+        const ty = y + index
         if (this.vaildXy(tx, ty) == -1) {
           break;
         }
@@ -623,10 +624,10 @@ export default class example8_1 {
   }
   leftRight(deskData: GameData8_1, x: number, y: number): number {
     let cell = deskData.desk[x][y]
-    let link = 0
+    let link = 1
     if (cell != 0) {
       for (let index = 1; index <= 3; index++) {
-        const tx = x + 1
+        const tx = x + index
         const ty = y
         if (this.vaildXy(tx, ty) == -1) {
           break;
@@ -641,10 +642,10 @@ export default class example8_1 {
       if (link == 4) {
         return cell
       } else {
-        link = 0
+        link = 1
       }
       for (let index = 1; index <= 3; index++) {
-        const tx = x - 1
+        const tx = x - index
         const ty = y
         if (this.vaildXy(tx, ty) == -1) {
           break;
@@ -666,11 +667,11 @@ export default class example8_1 {
   }
   upDown(deskData: GameData8_1, x: number, y: number): number {
     let cell = deskData.desk[x][y]
-    let link = 0
+    let link = 1
     if (cell != 0) {
       for (let index = 1; index <= 3; index++) {
         const tx = x
-        const ty = y + 1
+        const ty = y + index
         if (this.vaildXy(tx, ty) == -1) {
           break;
         }
@@ -684,11 +685,11 @@ export default class example8_1 {
       if (link == 4) {
         return cell
       } else {
-        link = 0
+        link = 1
       }
       for (let index = 1; index <= 3; index++) {
         const tx = x
-        const ty = y - 1
+        const ty = y - index
         const tcell = deskData.desk[tx][ty]
         if (this.vaildXy(tx, ty) == -1) {
           break;
@@ -707,5 +708,4 @@ export default class example8_1 {
     }
     return 0
   }
-
 }
