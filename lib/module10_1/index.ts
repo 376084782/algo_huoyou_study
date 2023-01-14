@@ -91,10 +91,14 @@ export default class example10_1 {
   }
 
   checkDesk(deskData: GameData10_1): number {
-    for (let i = 1; i <= 6; i++) {
-      for (let j = 1; j < 6; j++) {
+    let f = 0
+    for (let i = 0; i <= 5; i++) {
+      for (let j = 0; j < 5; j++) {
         if (deskData.desk[i][j] != 0) {
-          return this.lurd(deskData, i, j) || this.ruld(deskData, i, j) || this.leftRight(deskData, i, j) || this.upDown(deskData, i, j) ? deskData.desk[i][j] : 0
+          f = this.lurd(deskData, i, j) || this.ruld(deskData, i, j) || this.leftRight(deskData, i, j) || this.upDown(deskData, i, j) ? deskData.desk[i][j] : 0
+          if (f != 0) {
+            return f
+          }
         }
       }
     }
@@ -244,14 +248,14 @@ export default class example10_1 {
         const ty2 = y + i
         const tx3 = x + (i - 1)
         const ty3 = y + (i - 1)
-        if (!this.vaildXy(tx1, ty1) || !this.vaildXy(tx2, ty2) || !this.vaildXy(tx3, ty3)) {
-          break;
-        }
-        const tcell1 = deskData.desk[tx1][ty1]
-        const tcell2 = deskData.desk[tx2][ty2]
-        const tcell3 = deskData.desk[tx3][ty3]
-        if (tcell1 == tcell2 && tcell1 == tcell3) {
-          return true
+        // if (this.vaildXy(x1, y) && this.vaildXy(x2, y) && this.vaildXy(x3, y)) {
+        if (this.vaildXy(tx1, ty1) && this.vaildXy(tx2, ty2) && this.vaildXy(tx3, ty3)) {
+          const tcell1 = deskData.desk[tx1][ty1]
+          const tcell2 = deskData.desk[tx2][ty2]
+          const tcell3 = deskData.desk[tx3][ty3]
+          if (tcell1 == tcell2 && tcell1 == tcell3) {
+            return true
+          }
         }
       }
     }
@@ -268,14 +272,13 @@ export default class example10_1 {
         const ty2 = y + i
         const tx3 = x - (i - 1)
         const ty3 = y + (i - 1)
-        if (!this.vaildXy(tx1, ty1) || !this.vaildXy(tx2, ty2) || !this.vaildXy(tx3, ty3)) {
-          break;
-        }
-        const tcell1 = deskData.desk[tx1][ty1]
-        const tcell2 = deskData.desk[tx2][ty2]
-        const tcell3 = deskData.desk[tx3][ty3]
-        if (tcell1 == tcell2 && tcell1 == tcell3) {
-          return true
+        if (this.vaildXy(tx1, ty1) && this.vaildXy(tx2, ty2) && this.vaildXy(tx3, ty3)) {
+          const tcell1 = deskData.desk[tx1][ty1]
+          const tcell2 = deskData.desk[tx2][ty2]
+          const tcell3 = deskData.desk[tx3][ty3]
+          if (tcell1 == tcell2 && tcell1 == tcell3) {
+            return true
+          }
         }
       }
     }
@@ -288,14 +291,13 @@ export default class example10_1 {
         const ty1 = y + (i + 1)
         const ty2 = y + i
         const ty3 = y + (i - 1)
-        if (!this.vaildXy(x, ty1) || !this.vaildXy(x, ty2) || !this.vaildXy(x, ty3)) {
-          break;
-        }
-        const tcell1 = deskData.desk[x][ty1]
-        const tcell2 = deskData.desk[x][ty2]
-        const tcell3 = deskData.desk[x][ty3]
-        if (tcell1 == tcell2 && tcell1 == tcell3) {
-          return true
+        if (this.vaildXy(x, ty1) && this.vaildXy(x, ty2) && this.vaildXy(x, ty3)) {
+          const tcell1 = deskData.desk[x][ty1]
+          const tcell2 = deskData.desk[x][ty2]
+          const tcell3 = deskData.desk[x][ty3]
+          if (tcell1 == tcell2 && tcell1 == tcell3) {
+            return true
+          }
         }
       }
     }
@@ -308,14 +310,13 @@ export default class example10_1 {
         const tx1 = x + (i + 1)
         const tx2 = x + i
         const tx3 = x + (i - 1)
-        if (!this.vaildXy(tx1, y) || !this.vaildXy(tx2, y) || !this.vaildXy(tx3, y)) {
-          break;
-        }
-        const tcell1 = deskData.desk[tx1][y]
-        const tcell2 = deskData.desk[tx2][y]
-        const tcell3 = deskData.desk[tx3][y]
-        if (tcell1 == tcell2 && tcell1 == tcell3) {
-          return true
+        if (this.vaildXy(tx1, y) && this.vaildXy(tx2, y) && this.vaildXy(tx3, y)) {
+          const tcell1 = deskData.desk[tx1][y]
+          const tcell2 = deskData.desk[tx2][y]
+          const tcell3 = deskData.desk[tx3][y]
+          if (tcell1 == tcell2 && tcell1 == tcell3) {
+            return true
+          }
         }
       }
     }
