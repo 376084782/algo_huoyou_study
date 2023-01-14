@@ -10,12 +10,19 @@ import example6_1 from './module6_1/index';
 import { example6_2, GameAction6_2, GameData6_2 } from './module6_2/index';
 import example6_3 from './module6_3/index';
 import example8_1, { GameConfig8_1 } from './module8_1/index';
+import example10_1, { } from './module10_1/index';
 import example8_3 from './module8_3/index';
 // import example10_2 from './module10_2/index';
 import RandomGenerater from './util/RandomGenerater';
 
 let player = "P1"
 let i = 0
+
+let test10_1 = new example10_1();
+// let res10_1 = test10_1.doAction({ "desk": [[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 2, 0, 0, 1, 0], [0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0]], "player": 2 }, { "x": 0, "y": 2, "score": 0 })
+// let res10_1=test10_1.checkDesk({"desk":[[1,1,1,1,0,2],[0,0,2,0,1,0],[0,1,0,2,0,0],[2,2,1,0,0,1],[0,1,0,2,1,0],[0,1,1,0,0,0]],"player":1})
+let res10_1 = test10_1.getActionAuto({ "desk": [[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]], "player": 1 })
+console.log(res10_1, 'res10_1')
 
 // FileWriter.setFile('./file/a.ts', 'let a=3;')
 // 10_2
@@ -61,7 +68,7 @@ let test6_3 = new example6_3();
 //   { "desk": [3, 4, 4, 9], "player": 1 },
 //   { "action": [[2, 4], [0, 3]], "actionAfter": [[4, 7]] }
 // )
-let res6_3=test6_3.getActionAuto({"desk":[3,4,1,9,1,1,1],"player":2})
+let res6_3 = test6_3.getActionAuto({ "desk": [3, 4, 1, 9, 1, 1, 1], "player": 2 })
 console.log(res6_3)
 // for (let i = 12; i < 13; i++) {
 //     let s1 = test6_3.getAllDesk(i);
@@ -275,8 +282,8 @@ console.info(JSON.stringify(action))
 // }
 // // 4_1
 // let test4_1 = new example4_1();
-// let action = test4_1.getActionAuto({ "k": 3, "n": 7, "p": 2, "p1": 4, "p2": 0, "residue": 3, "rounds": 0, "player": 2 })
-// console.info(JSON.stringify(action))
+// let action1 = test4_1.getActionAuto({ "k": 3, "n": 7, "p": 3, "p1": 9, "p2": 5, "residue": 1, "rounds": 0, "player": 2 })
+// console.info(JSON.stringify(action1))
 
 // for (i = 0; i < 11; i++) {
 //   let result = test4_1.getRiddleByLev(0, null);
