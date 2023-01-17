@@ -24,6 +24,7 @@ import { GameStep, GameWay, GameAutoWay } from '../common/pojo';
 import RandomGenerater from '../util/RandomGenerater';
 import OtherUtil from '../util/OtherUtil';
 import { Console } from 'console';
+import { off } from 'process';
 
 export class GameData8_1 {
   //参数
@@ -113,6 +114,240 @@ export default class example8_1 {
   }
 
   checkRiddle(deskData: GameData8_1): number {
+    let p1 = 0
+    let p2 = 0
+    for (let x = 0; x < deskData.desk.length; x++) {
+      const row = deskData.desk[x];
+      for (let y = 0; y < row.length; y++) {
+        const cell = row[y];
+        if (cell == 1) {
+          p1++
+        } else if (cell == 2) {
+          p2++
+        }
+        //左上右下
+        for (let index = 0; index < 4; index++) {
+          const tx1 = x + index - 3
+          const ty1 = y + index - 3
+          const tx2 = x + index - 2
+          const ty2 = y + index - 2
+          const tx3 = x + index - 1
+          const ty3 = y + index - 1
+          const tx4 = x + index
+          const ty4 = y + index
+          if (this.vaildXy(tx1, ty1) == 1 && this.vaildXy(tx2, ty2) == 1 && this.vaildXy(tx3, ty3) == 1 && this.vaildXy(tx4, ty4) == 1) {
+            const tcell1 = deskData.desk[tx1][ty1]
+            const tcell2 = deskData.desk[tx2][ty2]
+            const tcell3 = deskData.desk[tx3][ty3]
+            const tcell4 = deskData.desk[tx4][ty4]
+            let t1 = 0
+            let t2 = 0
+            let t0 = 0
+            if (tcell1 == 1) {
+              t1++
+            } else if (tcell1 == 2) {
+              t2++
+            } else {
+              t0++
+            }
+            if (tcell2 == 1) {
+              t1++
+            } else if (tcell2 == 2) {
+              t2++
+            } else {
+              t0++
+            }
+            if (tcell3 == 1) {
+              t1++
+            } else if (tcell3 == 2) {
+              t2++
+            } else {
+              t0++
+            }
+            if (tcell4 == 1) {
+              t1++
+            } else if (tcell4 == 2) {
+              t2++
+            } else {
+              t0++
+            }
+            if ((t1 == 4) ||
+              (t2 == 4) ||
+              (t2 == 3 && t0 == 1) ||
+              (t1 == 3 && t0 == 1)) {
+              return -1
+            }
+          }
+        }
+        //左下右上
+        for (let index = 0; index < 4; index++) {
+          const tx1 = x - index + 3
+          const ty1 = y + index - 3
+          const tx2 = x - index + 2
+          const ty2 = y + index - 2
+          const tx3 = x - index + 1
+          const ty3 = y + index - 1
+          const tx4 = x - index
+          const ty4 = y + index
+
+          if (this.vaildXy(tx1, ty1) == 1 && this.vaildXy(tx2, ty2) == 1 && this.vaildXy(tx3, ty3) == 1 && this.vaildXy(tx4, ty4) == 1) {
+            const tcell1 = deskData.desk[tx1][ty1]
+            const tcell2 = deskData.desk[tx2][ty2]
+            const tcell3 = deskData.desk[tx3][ty3]
+            const tcell4 = deskData.desk[tx4][ty4]
+            let t1 = 0
+            let t2 = 0
+            let t0 = 0
+            if (tcell1 == 1) {
+              t1++
+            } else if (tcell1 == 2) {
+              t2++
+            } else {
+              t0++
+            }
+            if (tcell2 == 1) {
+              t1++
+            } else if (tcell2 == 2) {
+              t2++
+            } else {
+              t0++
+            }
+            if (tcell3 == 1) {
+              t1++
+            } else if (tcell3 == 2) {
+              t2++
+            } else {
+              t0++
+            }
+            if (tcell4 == 1) {
+              t1++
+            } else if (tcell4 == 2) {
+              t2++
+            } else {
+              t0++
+            }
+            if ((t1 == 4) ||
+              (t2 == 4) ||
+              (t2 == 3 && t0 == 1) ||
+              (t1 == 3 && t0 == 1)) {
+              return -1
+            }
+          }
+        }
+        for (let index = 0; index < 4; index++) {
+          const tx1 = x
+          const ty1 = y + index - 3
+          const tx2 = x
+          const ty2 = y + index - 2
+          const tx3 = x
+          const ty3 = y + index - 1
+          const tx4 = x
+          const ty4 = y + index
+
+          if (this.vaildXy(tx1, ty1) == 1 && this.vaildXy(tx2, ty2) == 1 && this.vaildXy(tx3, ty3) == 1 && this.vaildXy(tx4, ty4) == 1) {
+            const tcell1 = deskData.desk[tx1][ty1]
+            const tcell2 = deskData.desk[tx2][ty2]
+            const tcell3 = deskData.desk[tx3][ty3]
+            const tcell4 = deskData.desk[tx4][ty4]
+            let t1 = 0
+            let t2 = 0
+            let t0 = 0
+            if (tcell1 == 1) {
+              t1++
+            } else if (tcell1 == 2) {
+              t2++
+            } else {
+              t0++
+            }
+            if (tcell2 == 1) {
+              t1++
+            } else if (tcell2 == 2) {
+              t2++
+            } else {
+              t0++
+            }
+            if (tcell3 == 1) {
+              t1++
+            } else if (tcell3 == 2) {
+              t2++
+            } else {
+              t0++
+            }
+            if (tcell4 == 1) {
+              t1++
+            } else if (tcell4 == 2) {
+              t2++
+            } else {
+              t0++
+            }
+            if ((t1 == 4) ||
+              (t2 == 4) ||
+              (t2 == 3 && t0 == 1) ||
+              (t1 == 3 && t0 == 1)) {
+              return -1
+            }
+          }
+        }
+        for (let index = 0; index < 4; index++) {
+          const tx1 = x + index - 3
+          const ty1 = y
+          const tx2 = x + index - 2
+          const ty2 = y
+          const tx3 = x + index - 1
+          const ty3 = y
+          const tx4 = x + index
+          const ty4 = y
+
+          if (this.vaildXy(tx1, ty1) == 1 && this.vaildXy(tx2, ty2) == 1 && this.vaildXy(tx3, ty3) == 1 && this.vaildXy(tx4, ty4) == 1) {
+            const tcell1 = deskData.desk[tx1][ty1]
+            const tcell2 = deskData.desk[tx2][ty2]
+            const tcell3 = deskData.desk[tx3][ty3]
+            const tcell4 = deskData.desk[tx4][ty4]
+            let t1 = 0
+            let t2 = 0
+            let t0 = 0
+            if (tcell1 == 1) {
+              t1++
+            } else if (tcell1 == 2) {
+              t2++
+            } else {
+              t0++
+            }
+            if (tcell2 == 1) {
+              t1++
+            } else if (tcell2 == 2) {
+              t2++
+            } else {
+              t0++
+            }
+            if (tcell3 == 1) {
+              t1++
+            } else if (tcell3 == 2) {
+              t2++
+            } else {
+              t0++
+            }
+            if (tcell4 == 1) {
+              t1++
+            } else if (tcell4 == 2) {
+              t2++
+            } else {
+              t0++
+            }
+            if ((t1 == 4) ||
+              (t2 == 4) ||
+              (t2 == 3 && t0 == 1) ||
+              (t1 == 3 && t0 == 1)) {
+              return -1
+            }
+          }
+        }
+      }
+    }
+
+
+
+
     return 1
   }
 

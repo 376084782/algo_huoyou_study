@@ -188,7 +188,7 @@ export default class example8_3 {
           deskDatas.d30l4.has(deskStr) ||
           deskDatas.d30l3.has(deskStr) ||
           deskDatas.d30l2.has(deskStr) ||
-          deskDatas.d30w1.has(deskStr)) {
+          deskDatas.d30l1.has(deskStr)) {
           best = action
           break
         }

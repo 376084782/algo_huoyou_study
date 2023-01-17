@@ -487,7 +487,7 @@ export default class example8_2 {
     if (cell == 0) {
       return 0
     }
-    for (let index = 0; index < 2; index++) {
+    for (let index = 0; index < 3; index++) {
       const tx1 = x - index + 2
       const ty1 = y + index - 2
       const tx2 = x - index + 1
