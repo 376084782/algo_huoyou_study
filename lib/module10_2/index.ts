@@ -37,7 +37,9 @@ import OtherUtil from '../util/OtherUtil';
 import DeskData from '../module10_2/data';
 import { Console } from 'console';
 
-class GameData10_2 {
+export class GameData10_2 {
+  p1: number = 0;
+  p2: number = 0;
   //参数
   desk: number[][] = [
     [1, 1, 1, 1],
@@ -55,7 +57,7 @@ class GameData10_2 {
   }
 }
 
-class GameAction10_2 {
+export class GameAction10_2 {
   move: number[][] = []
   // w1 1 l1 -1 nt 0
   // type: number = 0
@@ -69,7 +71,7 @@ class GameAction10_2 {
   }
 }
 
-class GameConfig10_2 {
+export class GameConfig10_2 {
   deskSize: number = 4
   chessNum: number = 16
   desk: number[][] = [
@@ -83,6 +85,16 @@ class GameConfig10_2 {
     this.chessNum = chessNum
     if (desk != undefined) {
       this.desk = desk
+    } else {
+      let deskNew: number[][] = []
+      for (let y = 0; y < deskSize; y++) {
+        let row: number[] = []
+        deskNew.push(row);
+        for (let x = 0; x < deskSize; x++) {
+          row.push(1)
+        }
+      }
+      this.desk = deskNew
     }
   }
 }
@@ -94,7 +106,7 @@ export default class example10_2 {
   }
 
   getRiddle(config: GameConfig10_2): GameData10_2 {
-    let desk: number[][] = []
+    let desk: number[][] = config.desk || []
     let initChessNum: number = 0
     for (let i = 0; i < config.deskSize; i++) {
       let rowTmp: number[] = []
@@ -121,6 +133,12 @@ export default class example10_2 {
   doAction(deskData: GameData10_2, dataAction: GameAction10_2): [flagResult: number, dataResult: GameData10_2] {
     if (this.checkAction(deskData, dataAction) == -1) {
       return [-1, deskData];
+    }
+    if (deskData.player == 1) {
+      deskData.p1 += dataAction.move.length
+    }
+    if (deskData.player == 2) {
+      deskData.p2 += dataAction.move.length
     }
     for (let i = 0; i < dataAction.move.length; i++) {
       const element = dataAction.move[i];
