@@ -221,7 +221,7 @@ export default class example6_3 {
         sum += actionItem[1]
       }
       if (sum != dataAction.action[0][1]) {
-        console.info(2)
+        //console.info(2)
         return -1
       }
     } else {
@@ -258,7 +258,7 @@ export default class example6_3 {
     s.forEach(element => {
       allDesk.set(this.deskToStr(element), element)
     });
-    console.info(allDesk.size)
+    // console.info(allDesk.size)
     let w1: Set<string> = new Set<string>()
     let l1: Set<string> = new Set<string>()
     let tmp1 = []
@@ -312,7 +312,7 @@ export default class example6_3 {
         const action = allActionTmp[i];
         const desknow = this.doAction(new GameData6_3(1, JSON.parse(JSON.stringify(value))), action);
         if (desknow[0] == -1) {
-          console.info(1)
+          //          console.info(1)
         }
         const str = this.deskToStr(desknow[1].desk);
         if (w1.has(str)) {
@@ -336,7 +336,7 @@ export default class example6_3 {
         const action = allActionTmp[i];
         const desknow = this.doAction(new GameData6_3(1, JSON.parse(JSON.stringify(value))), action);
         if (desknow[0] == -1) {
-          console.info(1)
+          //          console.info(1)
         }
         const str = this.deskToStr(desknow[1].desk);
         if (l1.has(str)) {
@@ -361,7 +361,7 @@ export default class example6_3 {
         const action = allActionTmp[i];
         const desknow = this.doAction(new GameData6_3(1, JSON.parse(JSON.stringify(value))), action);
         if (desknow[0] == -1) {
-          console.info(1)
+          //          console.info(1)
         }
         const str = this.deskToStr(desknow[1].desk);
         if (w1.has(str) ||
@@ -386,7 +386,7 @@ export default class example6_3 {
         const action = allActionTmp[i];
         const desknow = this.doAction(new GameData6_3(1, JSON.parse(JSON.stringify(value))), action);
         if (desknow[0] == -1) {
-          console.info(1)
+          //          console.info(1)
         }
         const str = this.deskToStr(desknow[1].desk);
         if (l1.has(str) ||
@@ -412,7 +412,7 @@ export default class example6_3 {
         const action = allActionTmp[i];
         const desknow = this.doAction(new GameData6_3(1, JSON.parse(JSON.stringify(value))), action);
         if (desknow[0] == -1) {
-          console.info(1)
+          //          console.info(1)
         }
         const str = this.deskToStr(desknow[1].desk);
         if (w1.has(str) ||
@@ -438,7 +438,7 @@ export default class example6_3 {
         const action = allActionTmp[i];
         const desknow = this.doAction(new GameData6_3(1, JSON.parse(JSON.stringify(value))), action);
         if (desknow[0] == -1) {
-          console.info(1)
+          //          console.info(1)
         }
         const str = this.deskToStr(desknow[1].desk);
         if (l1.has(str) ||
@@ -465,7 +465,7 @@ export default class example6_3 {
         const action = allActionTmp[i];
         const desknow = this.doAction(new GameData6_3(1, JSON.parse(JSON.stringify(value))), action);
         if (desknow[0] == -1) {
-          console.info(1)
+          //          console.info(1)
         }
         const str = this.deskToStr(desknow[1].desk);
         if (w1.has(str) ||
@@ -494,7 +494,7 @@ export default class example6_3 {
         const action = allActionTmp[i];
         const desknow = this.doAction(new GameData6_3(1, JSON.parse(JSON.stringify(value))), action);
         if (desknow[0] == -1) {
-          console.info(1)
+          //          console.info(1)
         }
         const str = this.deskToStr(desknow[1].desk);
         if (l1.has(str) ||
@@ -522,7 +522,7 @@ export default class example6_3 {
         const action = allActionTmp[i];
         const desknow = this.doAction(new GameData6_3(1, JSON.parse(JSON.stringify(value))), action);
         if (desknow[0] == -1) {
-          console.info(1)
+          //          console.info(1)
         }
         const str = this.deskToStr(desknow[1].desk);
         if (w1.has(str) ||
@@ -550,7 +550,7 @@ export default class example6_3 {
         const action = allActionTmp[i];
         const desknow = this.doAction(new GameData6_3(1, JSON.parse(JSON.stringify(value))), action);
         if (desknow[0] == -1) {
-          console.info(1)
+          //          console.info(1)
         }
         const str = this.deskToStr(desknow[1].desk);
         if (l1.has(str) ||
@@ -579,7 +579,7 @@ export default class example6_3 {
         const action = allActionTmp[i];
         const desknow = this.doAction(new GameData6_3(1, JSON.parse(JSON.stringify(value))), action);
         if (desknow[0] == -1) {
-          console.info(1)
+          //          console.info(1)
         }
         const str = this.deskToStr(desknow[1].desk);
         if (w1.has(str) ||
@@ -608,7 +608,7 @@ export default class example6_3 {
         const action = allActionTmp[i];
         const desknow = this.doAction(new GameData6_3(1, JSON.parse(JSON.stringify(value))), action);
         if (desknow[0] == -1) {
-          console.info(1)
+          //          console.info(1)
         }
         const str = this.deskToStr(desknow[1].desk);
         if (l1.has(str) ||
@@ -638,7 +638,7 @@ export default class example6_3 {
         const action = allActionTmp[i];
         const desknow = this.doAction(new GameData6_3(1, JSON.parse(JSON.stringify(value))), action);
         if (desknow[0] == -1) {
-          console.info(1)
+          //          console.info(1)
         }
         const str = this.deskToStr(desknow[1].desk);
         if (w1.has(str) ||
@@ -668,7 +668,7 @@ export default class example6_3 {
         const action = allActionTmp[i];
         const desknow = this.doAction(new GameData6_3(1, JSON.parse(JSON.stringify(value))), action);
         if (desknow[0] == -1) {
-          console.info(1)
+          //          console.info(1)
         }
         const str = this.deskToStr(desknow[1].desk);
         if (l1.has(str) ||
@@ -699,7 +699,7 @@ export default class example6_3 {
         const action = allActionTmp[i];
         const desknow = this.doAction(new GameData6_3(1, JSON.parse(JSON.stringify(value))), action);
         if (desknow[0] == -1) {
-          console.info(1)
+          //          console.info(1)
         }
         const str = this.deskToStr(desknow[1].desk);
         if (w1.has(str) ||
@@ -730,7 +730,7 @@ export default class example6_3 {
         const action = allActionTmp[i];
         const desknow = this.doAction(new GameData6_3(1, JSON.parse(JSON.stringify(value))), action);
         if (desknow[0] == -1) {
-          console.info(1)
+          //          console.info(1)
         }
         const str = this.deskToStr(desknow[1].desk);
         if (l1.has(str) ||
@@ -762,7 +762,7 @@ export default class example6_3 {
         const action = allActionTmp[i];
         const desknow = this.doAction(new GameData6_3(1, JSON.parse(JSON.stringify(value))), action);
         if (desknow[0] == -1) {
-          console.info(1)
+          //          console.info(1)
         }
         const str = this.deskToStr(desknow[1].desk);
         if (w1.has(str) ||
@@ -794,7 +794,7 @@ export default class example6_3 {
         const action = allActionTmp[i];
         const desknow = this.doAction(new GameData6_3(1, JSON.parse(JSON.stringify(value))), action);
         if (desknow[0] == -1) {
-          console.info(1)
+          //          console.info(1)
         }
         const str = this.deskToStr(desknow[1].desk);
         if (l1.has(str) ||
@@ -827,7 +827,7 @@ export default class example6_3 {
         const action = allActionTmp[i];
         const desknow = this.doAction(new GameData6_3(1, JSON.parse(JSON.stringify(value))), action);
         if (desknow[0] == -1) {
-          console.info(1)
+          //          console.info(1)
         }
         const str = this.deskToStr(desknow[1].desk);
         if (w1.has(str) ||
