@@ -917,7 +917,7 @@ export default class example6_3 {
       lwMap.set('l10', l10)
     }
     this.writer("d" + n, lwMap)
-    console.info("DONE")
+    console.info("d" + n + " DONE")
   }
 
   getAllAction(desk: number[]): GameAction6_3[] {

@@ -6,6 +6,7 @@ import { example2_2, GameData2_2 } from './module2_2/index';
 import example4_1, { GameConfig4_1, GameData4_1 } from './module4_1/index';
 import example4_2, { GameAction4_2, GameData4_2 } from './module4_2/index';
 import example4_3, { GameAction4_3, GameConfig4_3, GameData4_3 } from './module4_3/index';
+import example4_5, { GameAction4_5, GameData4_5 } from './module4_5/index';
 import example6_1 from './module6_1/index';
 import { example6_2, GameAction6_2, GameData6_2 } from './module6_2/index';
 import example6_3 from './module6_3/index';
@@ -100,7 +101,7 @@ let i = 0
 // console.info()
 // 8_2
 
-let test8_2 = new example8_2();
+// let test8_2 = new example8_2();
 // let result = { "desk": [[9, 9, 0, 0, 9, 9], [9, 0, 2, 0, 0, 9], [0, 1, 4, 5, 0, 0], [9, 0, 0, 3, 6, 9], [9, 9, 0, 0, 9, 9]], "p1chesslog": [1, 1], "p2chesslog": [2, 4], "p1chesslogAction": 2, "p2chesslogAction": 6, "player": 2 }
 // let action = test8_2.getActionAuto(result)
 // let r1 = test8_2.doAction(result, action.best)
@@ -110,31 +111,31 @@ let test8_2 = new example8_2();
 // console.info(JSON.stringify(r1))
 // console.info(JSON.stringify(rd))
 
-for (i = 0; i < 1; i++) {
-    let result = new GameData8_2(1);
-    let flagResult = 0
-    let count = 1
-    console.info("开始棋盘：" + JSON.stringify(result))
-    while (flagResult == 0) {
-        let action = test8_2.getActionAuto(result)
-        let tmp = test8_2.doAction(result, action.best)
-        result = tmp[1]
-        flagResult = tmp[0]
-        console.info("%s %s | \n操作：%s \n%s\n%s\n%s\n%s\n%s\n  结果 %s ", count++, player, JSON.stringify(action), JSON.stringify(result.desk[0]), JSON.stringify(result.desk[1]), JSON.stringify(result.desk[2]), JSON.stringify(result.desk[3]), JSON.stringify(result.desk[4]), flagResult)
-        console.info(JSON.stringify(result))
-        if (flagResult == 1) {
-            console.info("P1 WIN")
-        }
-        if (flagResult == 2) {
-            console.info("P2 WIN")
-        }
-        if (player == "P1") {
-            player = "P2"
-        } else {
-            player = "P1"
-        }
-    }
-}
+// for (i = 0; i < 1; i++) {
+//     let result = new GameData8_2(1);
+//     let flagResult = 0
+//     let count = 1
+//     console.info("开始棋盘：" + JSON.stringify(result))
+//     while (flagResult == 0) {
+//         let action = test8_2.getActionAuto(result)
+//         let tmp = test8_2.doAction(result, action.best)
+//         result = tmp[1]
+//         flagResult = tmp[0]
+//         console.info("%s %s | \n操作：%s \n%s\n%s\n%s\n%s\n%s\n  结果 %s ", count++, player, JSON.stringify(action), JSON.stringify(result.desk[0]), JSON.stringify(result.desk[1]), JSON.stringify(result.desk[2]), JSON.stringify(result.desk[3]), JSON.stringify(result.desk[4]), flagResult)
+//         console.info(JSON.stringify(result))
+//         if (flagResult == 1) {
+//             console.info("P1 WIN")
+//         }
+//         if (flagResult == 2) {
+//             console.info("P2 WIN")
+//         }
+//         if (player == "P1") {
+//             player = "P2"
+//         } else {
+//             player = "P1"
+//         }
+//     }
+// }
 // 8_1
 // [1,  2,  3,  4,  5,  6],
 // [7,  8,  9,  10, 12, 14],
@@ -182,16 +183,13 @@ for (i = 0; i < 1; i++) {
 //     }
 // 6_3
 // let test6_3 = new example6_3();
-// let res6_3 = test6_3.doAction(
-//   { "desk": [3, 4, 4, 9], "player": 1 },
-//   { "action": [[2, 4], [0, 3]], "actionAfter": [[4, 7]] }
-// )
-// let res6_3 = test6_3.getActionAuto({ "desk": [3, 4, 1, 9, 1, 1, 1], "player": 2 })
 // let res6_3 = test6_3.getAllDesk(30)
 // console.log(res6_3)
-// for (let i = 12; i < 13; i++) {
-//     let s1 = test6_3.getAllDesk(i);
+// for (let i = 1; i < 15; i++) {
+// let s1 = test6_3.getAllDesk(i);
 // }
+// let s1 = test6_3.getAllDesk(12);
+
 // console.info()
 
 // 6_2
@@ -299,69 +297,37 @@ for (i = 0; i < 1; i++) {
 //         }
 //     }
 // }
-// 4_3
-// [1, 2, 3, 4, 5, 6],
-// [7, 8, 9, 10, 11, 12],
-// [13, 14, 15, 16, 17, 18],
-// [19, 20, 21, 22, 23, 24],
-// [13, 14, 15, 16, 17, 18],
-// [4, 19, 5, 20, 6, 21]
-// let test4_3 = new example4_3();
-// let test4 = test4_3.getActionAuto({
-//     "desk": [
-//         [0, 0, 0, 0, 0, 0],
-//         [0, 0, 0, 0, 0, 0],
-//         [0, 0, 0, 0, 0, 0],
-//         [0, 0, 0, 0, 0, 0],
-//         [0, 0, 0, 0, 0, 0],
-//         [0, 0, 0, 0, 0, 0]],
-//     "chess1": 6,
-//     "chess2": 8,
-//     "player": 2
-// })
-// let action = test4_3.getActionAuto({
-//     "desk": [
-//         [0, 0, 0, 0, 0, 0],
-//         [0, 0, 2, 2, 1, 1],
-//         [0, 2, 1, 1, 1, 0],
-//         [0, 0, 2, 0, 0, 0],
-//         [0, 0, 0, 2, 0, 0],
-//         [0, 0, 0, 0, 0, 0]],
-//     "chess1": 7,
-//     "chess2": 9,
-//     "player": 2
-// })
-// let asda = test4_3.checkAction({
-//     "desk": [
-//         [0, 0, 0, 0, 2, 0],
-//         [0, 2, 2, 1, 1, 0],
-//         [0, 2, 1, 1, 0, 0],
-//         [0, 2, 0, 0, 0, 0],
-//         [0, 0, 0, 1, 0, 0],
-//         [0, 0, 0, 0, 0, 0]],
-//     "chess1": 1,
-//     "chess2": 9,
-//     "player": 2
-// }, {
-//     "chessNum": 2,
-//     "chessPosition": 8,
-//     "move": [1, 3],
-//     "score": 1
-// })
+// 4_5
+let test4_5 = new example4_5();
+let result = new GameData4_5(1);
+let action = test4_5.doAction(result, { "k1": 3, "k2": 6, "o": 1 })
+console.info(action)
 
-// let action = test4_3.checkRiddle({
-//     "desk": [
-//         [0, 0, 0, 0, 0, 0],
-//         [0, 0, 2, 0, 1, 1],
-//         [1, 0, 0, 0, 0, 0],
-//         [0, 0, 2, 0, 0, 0],
-//         [0, 0, 2, 0, 0, 0],
-//         [0, 0, 0, 0, 0, 0]],
-//     "chess1": 7,
-//     "chess2": 9,
-//     "player": 1
-// })
-// console.info(JSON.stringify(action))
+for (i = 0; i < 1; i++) {
+    let result = new GameData4_5(1);
+    let flagResult = 0
+    let count = 1
+    console.info("开始棋盘：" + JSON.stringify(result))
+    while (flagResult == 0) {
+        let action = test4_5.getActionAuto(result)
+        let tmp = test4_5.doAction(result, action.best)
+        result = tmp[1]
+        flagResult = tmp[0]
+        console.info("%s %s | 操作：%s %s\n  结果 %s ", count++, player, result.n, JSON.stringify(action.best), flagResult)
+        if (flagResult == 1) {
+            console.info("P1 WIN")
+        }
+        if (flagResult == 2) {
+            console.info("P2 WIN")
+        }
+        if (player == "P1") {
+            player = "P2"
+        } else {
+            player = "P1"
+        }
+    }
+}
+// 4_3
 
 // 4_2
 // let test4_2 = new example4_2();
