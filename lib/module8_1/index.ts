@@ -344,13 +344,11 @@ export default class example8_1 {
         }
       }
     }
-
-
-
-
+    if (p2 != p1) {
+      return -1
+    }
     return 1
   }
-
   doAction(deskData: GameData8_1, dataAction: GameAction8_1): [flagResult: number, dataResult: GameData8_1] {
     if (this.checkAction(deskData, dataAction) == -1) {
       return [-1, deskData];

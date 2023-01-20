@@ -55,6 +55,8 @@ import RandomGenerater from '../util/RandomGenerater';
 import OtherUtil from '../util/OtherUtil';
 import { Console } from 'console';
 import exampleData10_2 from './data';
+import exampleData8_3d2 from './datad2';
+
 import { FileWriter } from '../common/FileWriter';
 //todo
 export class GameData6_3 {
@@ -242,13 +244,59 @@ export default class example6_3 {
   }
 
   getActionAuto(deskData: GameData6_3): GameAutoWay {
-    let listAll = this.getAllAction(deskData.desk);
-    if (listAll.length >= 2) {
-      return new GameAutoWay(listAll[0], listAll[1])
-    } else if (listAll.length >= 1) {
-      return new GameAutoWay(listAll[0], listAll[0])
+  }
+  getActionAutoW1(deskData: GameData6_3): GameAutoWay {
+    const rg = new RandomGenerater(0)
+    let deskTmp = JSON.parse(JSON.stringify(deskData.desk));
+    const allAction: GameAction8_3[] = this.getAllAction(deskTmp)
+    let deskStr = this.deskToStr(deskData.desk)
+    const deskDatas = new DeskData()
+    let best = new GameAction8_3([], 0)
+    let nobest = new GameAction8_3([], 0)
+    if (deskDatas.d30w15.has(deskStr) ||
+      deskDatas.d30w14.has(deskStr) ||
+      deskDatas.d30w13.has(deskStr) ||
+      deskDatas.d30w12.has(deskStr) ||
+      deskDatas.d30w11.has(deskStr) ||
+      deskDatas.d30w10.has(deskStr) ||
+      deskDatas.d30w9.has(deskStr) ||
+      deskDatas.d30w8.has(deskStr) ||
+      deskDatas.d30w7.has(deskStr) ||
+      deskDatas.d30w6.has(deskStr) ||
+      deskDatas.d30w5.has(deskStr) ||
+      deskDatas.d30w4.has(deskStr) ||
+      deskDatas.d30w3.has(deskStr) ||
+      deskDatas.d30w2.has(deskStr) ||
+      deskDatas.d30w1.has(deskStr)) {
+      best = allAction[rg.RangeInteger(0, allAction.length - 1)]
+      nobest = allAction[rg.RangeInteger(1, allAction.length - 1)]
+    } else {
+      for (let i = 0; i < allAction.length; i++) {
+        const action = allAction[i];
+        const dd = this.doAction(JSON.parse(JSON.stringify(deskData)), action);
+        const dds = this.deskToStr(dd[1].desk);
+        if (deskDatas.d30l15.has(deskStr) ||
+          deskDatas.d30l14.has(deskStr) ||
+          deskDatas.d30l13.has(deskStr) ||
+          deskDatas.d30l12.has(deskStr) ||
+          deskDatas.d30l11.has(deskStr) ||
+          deskDatas.d30l10.has(deskStr) ||
+          deskDatas.d30l9.has(deskStr) ||
+          deskDatas.d30l8.has(deskStr) ||
+          deskDatas.d30l7.has(deskStr) ||
+          deskDatas.d30l6.has(deskStr) ||
+          deskDatas.d30l5.has(deskStr) ||
+          deskDatas.d30l4.has(deskStr) ||
+          deskDatas.d30l3.has(deskStr) ||
+          deskDatas.d30l2.has(deskStr) ||
+          deskDatas.d30w1.has(deskStr)) {
+          best = action
+          break
+        }
+      }
+      nobest = allAction[rg.RangeInteger(1, allAction.length - 1)]
     }
-    return new GameAutoWay(undefined, undefined)
+    return new GameAutoWay(best, nobest)
   }
 
 
