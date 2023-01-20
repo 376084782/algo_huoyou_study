@@ -21,21 +21,21 @@ let player = "P1"
 let i = 0
 // FileWriter.setFile('./file/a.ts', 'let a=3;')
 // 10_2
-// let test10_2 = new example10_2();
+let test10_2 = new example10_2();
 
 // let action = test10_2.getAllDesk()
-// let action = test10_2.getActionAuto({
-//     "p1": 0,
-//     "p2": 0,
-//     "desk": [
-//         [0, 0, 0, 0],
-//         [0, 0, 1, 0],
-//         [1, 0, 0, 0],
-//         [1, 0, 0, 0],
-//     ],
-//     "player": 1
-// })
-// console.info(JSON.stringify(action))
+let action = test10_2.getActionAuto({
+    "p1": 0,
+    "p2": 0,
+    "desk": [
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 1, 0, 0],
+        [0, 1, 0, 0],
+    ],
+    "player": 1
+})
+console.info(JSON.stringify(action))
 // 8_3
 // let test8_3 = new example8_3();
 // let action = test8_3.getActionAuto({ "desk": [6, 2, 2], "player": 2 })
@@ -107,10 +107,8 @@ let i = 0
 // }
 // 8_3
 // let test8_3 = new example8_3();
-// for (let i = 2; i <=30; i++) {
-//     let s1 = test8_3.getAllDesk(i);
-// }
-// console.info()
+// let s1 = test8_3.getActionAuto({ "desk": [2, 0, 10], "player": 2 });
+// console.info(JSON.stringify(s1))
 // 8_2
 
 // let test8_2 = new example8_2();

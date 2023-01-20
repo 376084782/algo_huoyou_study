@@ -247,7 +247,7 @@ export default class example10_2 {
     const deskDatas = new DeskData()
     let best = new GameAction10_2()
     let nobest = new GameAction10_2()
-    if (deskDatas.d3w4.has(deskStr) ||
+    if (
       deskDatas.d3w3.has(deskStr) ||
       deskDatas.d3w2.has(deskStr) ||
       deskDatas.d3w1.has(deskStr)) {
@@ -258,10 +258,10 @@ export default class example10_2 {
         const action = allAction[i];
         const dd = this.doAction(JSON.parse(JSON.stringify(deskData)), action);
         const dds = this.deskArrTostring(dd[1].desk);
-        if (deskDatas.d3l4.has(deskStr) ||
-          deskDatas.d3l3.has(deskStr) ||
-          deskDatas.d3l2.has(deskStr) ||
-          deskDatas.d3l1.has(deskStr)) {
+        if (
+          deskDatas.d3w3.has(deskStr) ||
+          deskDatas.d3w2.has(deskStr) ||
+          deskDatas.d3w1.has(deskStr)) {
           best = action
           break
         }
@@ -279,9 +279,7 @@ export default class example10_2 {
     const deskDatas = new DeskData()
     let best = new GameAction10_2()
     let nobest = new GameAction10_2()
-    if (deskDatas.d4w7.has(deskStr) ||
-      deskDatas.d4w6.has(deskStr) ||
-      deskDatas.d4w5.has(deskStr) ||
+    if (deskDatas.d4w5.has(deskStr) ||
       deskDatas.d4w4.has(deskStr) ||
       deskDatas.d4w3.has(deskStr) ||
       deskDatas.d4w2.has(deskStr) ||
@@ -289,17 +287,17 @@ export default class example10_2 {
       best = allAction[rg.RangeInteger(0, allAction.length - 1)]
       nobest = allAction[rg.RangeInteger(1, allAction.length - 1)]
     } else {
+      best = allAction[0]
       for (let i = 0; i < allAction.length; i++) {
         const action = allAction[i];
         const dd = this.doAction(JSON.parse(JSON.stringify(deskData)), action);
         const dds = this.deskArrTostring(dd[1].desk);
-        if (deskDatas.d4l7.has(deskStr) ||
-          deskDatas.d4l6.has(deskStr) ||
-          deskDatas.d4l5.has(deskStr) ||
-          deskDatas.d4l4.has(deskStr) ||
-          deskDatas.d4l3.has(deskStr) ||
-          deskDatas.d4l2.has(deskStr) ||
-          deskDatas.d4l1.has(deskStr)) {
+        if (
+          deskDatas.d4w5.has(dds) ||
+          deskDatas.d4w4.has(dds) ||
+          deskDatas.d4w3.has(dds) ||
+          deskDatas.d4w2.has(dds) ||
+          deskDatas.d4w1.has(dds)) {
           best = action
           break
         }
@@ -322,6 +320,8 @@ export default class example10_2 {
                 for (let i7 = 0; i7 < 2; i7++) {
                   for (let i8 = 0; i8 < 2; i8++) {
                     for (let i9 = 0; i9 < 2; i9++) {
+                      // let deskTmp = [i1, i2, i3, i4, i5, i6, i7, i8, i9]
+                      // allDesk.set(this.deskTostring(deskTmp), deskTmp)
                       for (let i10 = 0; i10 < 2; i10++) {
                         for (let i11 = 0; i11 < 2; i11++) {
                           for (let i12 = 0; i12 < 2; i12++) {
@@ -349,6 +349,8 @@ export default class example10_2 {
     }
     let l1: Set<string> = new Set<string>(["0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_"])
     let w1: Set<string> = new Set<string>(["1_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_", "0_1_0_0_0_0_0_0_0_0_0_0_0_0_0_0_", "0_0_1_0_0_0_0_0_0_0_0_0_0_0_0_0_", "0_0_0_1_0_0_0_0_0_0_0_0_0_0_0_0_", "0_0_0_0_1_0_0_0_0_0_0_0_0_0_0_0_", "0_0_0_0_0_1_0_0_0_0_0_0_0_0_0_0_", "0_0_0_0_0_0_1_0_0_0_0_0_0_0_0_0_", "0_0_0_0_0_0_0_1_0_0_0_0_0_0_0_0_", "0_0_0_0_0_0_0_0_1_0_0_0_0_0_0_0_", "0_0_0_0_0_0_0_0_0_1_0_0_0_0_0_0_", "0_0_0_0_0_0_0_0_0_0_1_0_0_0_0_0_", "0_0_0_0_0_0_0_0_0_0_0_1_0_0_0_0_", "0_0_0_0_0_0_0_0_0_0_0_0_1_0_0_0_", "0_0_0_0_0_0_0_0_0_0_0_0_0_1_0_0_", "0_0_0_0_0_0_0_0_0_0_0_0_0_0_1_0_", "0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_1_",])
+    // let l1: Set<string> = new Set<string>(["0_0_0_0_0_0_0_0_0_"])
+    // let w1: Set<string> = new Set<string>(["0_0_0_0_0_0_0_0_1_", "0_0_0_0_0_0_0_1_0_", "0_0_0_0_0_0_1_0_0_", "0_0_0_0_0_1_0_0_0_", "0_0_0_0_1_0_0_0_0_", "0_0_0_1_0_0_0_0_0_", "0_0_1_0_0_0_0_0_0_", "0_1_0_0_0_0_0_0_0_", "1_0_0_0_0_0_0_0_0_"])
     let l2: Set<string> = new Set<string>()
     let w2: Set<string> = new Set<string>()
     let l3: Set<string> = new Set<string>()
@@ -383,7 +385,8 @@ export default class example10_2 {
         const action = allActionTmp[i];
         const desknow = this.doAction(new GameData10_2(1, JSON.parse(JSON.stringify(deskArr))), action);
         const str = this.deskArrTostring(desknow[1].desk);
-        if (w1.has(str)
+        if (
+          w1.has(str)
         ) {
           l2.add(key)
           break
@@ -392,13 +395,11 @@ export default class example10_2 {
     })
     desks = new Map<string, number[]>
     allDesk.forEach((value, key) => {
-      const deskTmp = value
-      const deskArr = this.deskToArr(deskTmp as number[])
-      const allAction: GameAction10_2[] = this.getAllAction(deskArr);
-      if (!w1.has(key) && !l1.has(key)) {
-        actionMap.set(key, allAction)
-        desks.set(key, value)
-      }
+      if (
+        !l1.has(key)
+        && !w1.has(key)
+        && !l2.has(key)
+      ) desks.set(key, value)
     })
     desks.forEach((value, key) => {
       const deskTmp = value
@@ -422,11 +423,378 @@ export default class example10_2 {
         w2.add(key)
       }
     })
+    desks = new Map<string, number[]>
+    allDesk.forEach((value, key) => {
+      if (
+        !l1.has(key)
+        && !w1.has(key)
+        && !l2.has(key)
+        && !w2.has(key)
+      ) desks.set(key, value)
+    })
+    desks.forEach((value, key) => {
+      const deskTmp = value
+      const deskArr = this.deskToArr(deskTmp as number[])
+      const allActionTmp: GameAction10_2[] = actionMap.get(key) as GameAction10_2[];
+      //存在变更为W的操作，则为L
+      for (let i = 0; i < allActionTmp.length; i++) {
+        const action = allActionTmp[i];
+        const desknow = this.doAction(new GameData10_2(1, JSON.parse(JSON.stringify(deskArr))), action);
+        const str = this.deskArrTostring(desknow[1].desk);
+        if (
+          w1.has(str) ||
+          w2.has(str)
+        ) {
+          l3.add(key)
+          break
+        }
+      }
+    })
+    //w3
+    desks = new Map<string, number[]>
+    allDesk.forEach((value, key) => {
+      if (
+        !l1.has(key)
+        && !w1.has(key)
+        && !l2.has(key)
+        && !w2.has(key)
+        && !l3.has(key)
+      ) desks.set(key, value)
+    })
+    desks.forEach((value, key) => {
+      const deskTmp = value
+      const deskArr = this.deskToArr(deskTmp as number[])
+      const allActionTmp: GameAction10_2[] = actionMap.get(key) as GameAction10_2[];
 
+      //所有操作都将变为L的操作，则为W
+      let count: number = 0;
+      for (let i = 0; i < allActionTmp.length; i++) {
+        const action = allActionTmp[i];
+        const desknow = this.doAction(new GameData10_2(1, JSON.parse(JSON.stringify(deskArr))), action);
+        const str = this.deskArrTostring(desknow[1].desk);
+        if (
+          l3.has(str) ||
+          l2.has(str) ||
+          l1.has(str)
+        ) {
+          count++
+        }
+      }
+      if (count == allActionTmp.length) {
+        w3.add(key)
+      }
+    })
+    desks = new Map<string, number[]>
+    allDesk.forEach((value, key) => {
+      if (
+        !l1.has(key)
+        && !w1.has(key)
+        && !l2.has(key)
+        && !w2.has(key)
+        && !l3.has(key)
+      )
+        desks.set(key, value)
+    })
+    desks.forEach((value, key) => {
+      const deskTmp = value
+      const deskArr = this.deskToArr(deskTmp as number[])
+      const allActionTmp: GameAction10_2[] = actionMap.get(key) as GameAction10_2[];
+      //存在变更为W的操作，则为L
+      for (let i = 0; i < allActionTmp.length; i++) {
+        const action = allActionTmp[i];
+        const desknow = this.doAction(new GameData10_2(1, JSON.parse(JSON.stringify(deskArr))), action);
+        const str = this.deskArrTostring(desknow[1].desk);
+        if (
+          w3.has(str) ||
+          w2.has(str) ||
+          w1.has(str)
+        ) {
+          l4.add(key)
+          break
+        }
+      }
+    })
+    //w4
+    desks = new Map<string, number[]>
+    allDesk.forEach((value, key) => {
+      if (
+        !l1.has(key)
+        && !w1.has(key)
+        && !l2.has(key)
+        && !w2.has(key)
+        && !l3.has(key)
+        && !w3.has(key)
+        && !l4.has(key)
+      ) desks.set(key, value)
+    })
+    desks.forEach((value, key) => {
+      const deskTmp = value
+      const deskArr = this.deskToArr(deskTmp as number[])
+      const allActionTmp: GameAction10_2[] = actionMap.get(key) as GameAction10_2[];
 
-    console.info("l1.length:" + l1.size)
-    console.info("w1.length:" + w1.size)
-    console.info("l2.length:" + l2.size)
+      //所有操作都将变为L的操作，则为W
+      let count: number = 0;
+      for (let i = 0; i < allActionTmp.length; i++) {
+        const action = allActionTmp[i];
+        const desknow = this.doAction(new GameData10_2(1, JSON.parse(JSON.stringify(deskArr))), action);
+        const str = this.deskArrTostring(desknow[1].desk);
+        if (
+          l4.has(str) ||
+          l3.has(str) ||
+          l2.has(str) ||
+          l1.has(str)
+        ) {
+          count++
+        }
+      }
+      if (count == allActionTmp.length) {
+        w4.add(key)
+      }
+    })
+    desks = new Map<string, number[]>
+    allDesk.forEach((value, key) => {
+      if (
+        !l1.has(key)
+        && !w1.has(key)
+        && !l2.has(key)
+        && !w2.has(key)
+        && !l3.has(key)
+        && !w3.has(key)
+        && !l4.has(key)
+        && !w4.has(key)
+      )
+        desks.set(key, value)
+    })
+    desks.forEach((value, key) => {
+      const deskTmp = value
+      const deskArr = this.deskToArr(deskTmp as number[])
+      const allActionTmp: GameAction10_2[] = actionMap.get(key) as GameAction10_2[];
+      //存在变更为W的操作，则为L
+      for (let i = 0; i < allActionTmp.length; i++) {
+        const action = allActionTmp[i];
+        const desknow = this.doAction(new GameData10_2(1, JSON.parse(JSON.stringify(deskArr))), action);
+        const str = this.deskArrTostring(desknow[1].desk);
+        if (
+          w4.has(str) ||
+          w3.has(str) ||
+          w2.has(str) ||
+          w1.has(str)
+        ) {
+          l5.add(key)
+          break
+        }
+      }
+    })
+    //w5
+    desks = new Map<string, number[]>
+    allDesk.forEach((value, key) => {
+      if (
+        !l1.has(key)
+        && !w1.has(key)
+        && !l2.has(key)
+        && !w2.has(key)
+        && !l3.has(key)
+        && !w3.has(key)
+        && !l4.has(key)
+        && !w4.has(key)
+        && !l5.has(key)
+      ) desks.set(key, value)
+    })
+    desks.forEach((value, key) => {
+      const deskTmp = value
+      const deskArr = this.deskToArr(deskTmp as number[])
+      const allActionTmp: GameAction10_2[] = actionMap.get(key) as GameAction10_2[];
+
+      //所有操作都将变为L的操作，则为W
+      let count: number = 0;
+      for (let i = 0; i < allActionTmp.length; i++) {
+        const action = allActionTmp[i];
+        const desknow = this.doAction(new GameData10_2(1, JSON.parse(JSON.stringify(deskArr))), action);
+        const str = this.deskArrTostring(desknow[1].desk);
+        if (
+          l5.has(str) ||
+          l4.has(str) ||
+          l3.has(str) ||
+          l2.has(str) ||
+          l1.has(str)
+        ) {
+          count++
+        }
+      }
+      if (count == allActionTmp.length) {
+        w5.add(key)
+      }
+    })
+    desks = new Map<string, number[]>
+    allDesk.forEach((value, key) => {
+      if (
+        !l1.has(key)
+        && !w1.has(key)
+        && !l2.has(key)
+        && !w2.has(key)
+        && !l3.has(key)
+        && !w3.has(key)
+        && !l4.has(key)
+        && !w4.has(key)
+        && !l5.has(key)
+        && !w5.has(key)
+      )
+        desks.set(key, value)
+    })
+    desks.forEach((value, key) => {
+      const deskTmp = value
+      const deskArr = this.deskToArr(deskTmp as number[])
+      const allActionTmp: GameAction10_2[] = actionMap.get(key) as GameAction10_2[];
+      //存在变更为W的操作，则为L
+      for (let i = 0; i < allActionTmp.length; i++) {
+        const action = allActionTmp[i];
+        const desknow = this.doAction(new GameData10_2(1, JSON.parse(JSON.stringify(deskArr))), action);
+        const str = this.deskArrTostring(desknow[1].desk);
+        if (
+          w5.has(str) ||
+          w4.has(str) ||
+          w3.has(str) ||
+          w2.has(str) ||
+          w1.has(str)
+        ) {
+          l6.add(key)
+          break
+        }
+      }
+    })
+    //w6
+    desks = new Map<string, number[]>
+    allDesk.forEach((value, key) => {
+      if (
+        !l1.has(key)
+        && !w1.has(key)
+        && !l2.has(key)
+        && !w2.has(key)
+        && !l3.has(key)
+        && !w3.has(key)
+        && !l4.has(key)
+        && !w4.has(key)
+        && !l5.has(key)
+        && !w5.has(key)
+        && !l6.has(key)
+      ) desks.set(key, value)
+    })
+    desks.forEach((value, key) => {
+      const deskTmp = value
+      const deskArr = this.deskToArr(deskTmp as number[])
+      const allActionTmp: GameAction10_2[] = actionMap.get(key) as GameAction10_2[];
+
+      //所有操作都将变为L的操作，则为W
+      let count: number = 0;
+      for (let i = 0; i < allActionTmp.length; i++) {
+        const action = allActionTmp[i];
+        const desknow = this.doAction(new GameData10_2(1, JSON.parse(JSON.stringify(deskArr))), action);
+        const str = this.deskArrTostring(desknow[1].desk);
+        if (
+          l6.has(str) ||
+          l5.has(str) ||
+          l4.has(str) ||
+          l3.has(str) ||
+          l2.has(str) ||
+          l1.has(str)
+        ) {
+          count++
+        }
+      }
+      if (count == allActionTmp.length) {
+        w6.add(key)
+      }
+    })
+    desks = new Map<string, number[]>
+    allDesk.forEach((value, key) => {
+      if (
+        !l1.has(key)
+        && !w1.has(key)
+        && !l2.has(key)
+        && !w2.has(key)
+        && !l3.has(key)
+        && !w3.has(key)
+        && !l4.has(key)
+        && !w4.has(key)
+        && !l5.has(key)
+        && !w5.has(key)
+        && !l6.has(key)
+        && !w6.has(key)
+      )
+        desks.set(key, value)
+    })
+    desks.forEach((value, key) => {
+      const deskTmp = value
+      const deskArr = this.deskToArr(deskTmp as number[])
+      const allActionTmp: GameAction10_2[] = actionMap.get(key) as GameAction10_2[];
+      //存在变更为W的操作，则为L
+      for (let i = 0; i < allActionTmp.length; i++) {
+        const action = allActionTmp[i];
+        const desknow = this.doAction(new GameData10_2(1, JSON.parse(JSON.stringify(deskArr))), action);
+        const str = this.deskArrTostring(desknow[1].desk);
+        if (
+          w6.has(str) ||
+          w5.has(str) ||
+          w4.has(str) ||
+          w3.has(str) ||
+          w2.has(str) ||
+          w1.has(str)
+        ) {
+          l7.add(key)
+          break
+        }
+      }
+    })
+    //w7
+    desks = new Map<string, number[]>
+    allDesk.forEach((value, key) => {
+      if (
+        !l1.has(key)
+        && !w1.has(key)
+        && !l2.has(key)
+        && !w2.has(key)
+        && !l3.has(key)
+        && !w3.has(key)
+        && !l4.has(key)
+        && !w4.has(key)
+        && !l5.has(key)
+        && !w5.has(key)
+        && !l6.has(key)
+        && !w6.has(key)
+        && !l7.has(key)
+      ) desks.set(key, value)
+    })
+    desks.forEach((value, key) => {
+      const deskTmp = value
+      const deskArr = this.deskToArr(deskTmp as number[])
+      const allActionTmp: GameAction10_2[] = actionMap.get(key) as GameAction10_2[];
+
+      //所有操作都将变为L的操作，则为W
+      let count: number = 0;
+      for (let i = 0; i < allActionTmp.length; i++) {
+        const action = allActionTmp[i];
+        const desknow = this.doAction(new GameData10_2(1, JSON.parse(JSON.stringify(deskArr))), action);
+        const str = this.deskArrTostring(desknow[1].desk);
+        if (
+          l7.has(str) ||
+          l6.has(str) ||
+          l5.has(str) ||
+          l4.has(str) ||
+          l3.has(str) ||
+          l2.has(str) ||
+          l1.has(str)
+        ) {
+          count++
+        }
+      }
+      if (count == allActionTmp.length) {
+        w7.add(key)
+      }
+    })
+
+    console.info("l1.size:" + l1.size)
+    console.info("w1.size:" + w1.size)
+    console.info("l2.size:" + l2.size)
     console.info("w2.size:" + w2.size)
     console.info("l3.size:" + l3.size)
     console.info("w3.size:" + w3.size)
@@ -439,10 +807,8 @@ export default class example10_2 {
     console.info("l7.size:" + l7.size)
     console.info("w7.size:" + w7.size)
     console.info("all:" + (l1.size + w1.size + l2.size + w2.size + l3.size + w3.size + l4.size + w4.size + l5.size + w5.size + l6.size + w6.size + l7.size + w7.size))
-    console.info("all:" + (l1.size + w1.size + l2.size + w2.size + l3.size + w3.size + l4.size + w4.size + l5.size + w5.size + l6.size + w6.size + l7.size + w7.size + desks.size))    // const tmptmptmp = Array.from(l7.values());
-    //todo 需要重新组装data.ts
-    // ④更新差集ΔS=S-L1-W1后，对ΔS 中的每一个元素进行规则遍历，即对ΔS 中每一个游戏状态逐一实行所有可能的操作，若某个状态 ai（i 可能不唯一）在实行规则遍历的过程中，存在某一种操作使得实行该操作后所得到的新状态 ai’属于 W1,则这个状态ai属于败点集，将这个状态存入 L2；
-    // ⑤更新差集ΔS=ΔS-L2后，继续对ΔS 中的每一个元素进行规则遍历，如果某个状态ai（i有可能不唯一）实行任意一合法操作之后，所得到的状态都属于 L2，则该状态也属于必胜集，将其存入 W2；
+    console.info("all:" + (l1.size + w1.size + l2.size + w2.size + l3.size + w3.size + l4.size + w4.size + l5.size + w5.size + l6.size + w6.size + l7.size + w7.size + desks.size))
+    // const tmptmptmp = Array.from(l7.values());
     let lwMap: Map<string, Set<string>> = new Map<string, Set<string>>
     lwMap.set('l1', l1)
     lwMap.set('w1', w1)
@@ -473,7 +839,7 @@ export default class example10_2 {
           let base = new GameAction10_2([[i, j]]);
           allaction.push(new GameAction10_2([[i, j]]))
           for (let x = 1; x < row.length; x++) {
-            if (i + x <= 3) {
+            if (i + x <= desk.length - 1) {
               const cellTmp = desk[i + x][j];
               if (cellTmp == 1) {
                 let tmp: GameAction10_2 = JSON.parse(JSON.stringify(base));
@@ -487,7 +853,7 @@ export default class example10_2 {
           }
           base = new GameAction10_2([[i, j]]);
           for (let y = 1; y < row.length; y++) {
-            if (j + y <= 3) {
+            if (j + y <= desk.length - 1) {
               const cellTmp = desk[i][j + y];
               if (cellTmp == 1) {
                 let tmp: GameAction10_2 = JSON.parse(JSON.stringify(base));
