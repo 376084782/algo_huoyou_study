@@ -20,7 +20,7 @@ import OtherUtil from '../util/OtherUtil';
 import { Console } from 'console';
 
 export class GameData10_1 {
-  typeSet = 1;//前端用的，存是否是自定义棋盘
+  typeSet? = 1;//前端用的，存是否是自定义棋盘
   //参数
   desk: number[][] = [
     [0, 0, 0, 0, 0, 0],
