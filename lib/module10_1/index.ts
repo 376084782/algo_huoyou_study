@@ -108,9 +108,14 @@ export default class example10_1 {
 
   getActionAuto(deskData: GameData10_1): GameAutoWay {
     const rg = new RandomGenerater(0)
-    const x = rg.RangeInteger(1, 6)
-    const y = rg.RangeInteger(1, 6)
-    console.info(x + "_" + y)
+    let x = rg.RangeInteger(1, 6)
+    let y = rg.RangeInteger(1, 6)
+    let cando = deskData.desk[x][y] == deskData.player && deskData.desk[y][x] == deskData.player
+    while (cando) {
+      x = rg.RangeInteger(1, 6)
+      y = rg.RangeInteger(1, 6)
+      cando = deskData.desk[x][y] == deskData.player && deskData.desk[y][x] == deskData.player
+    }
     let bs = this.calculateTheWeightXy(deskData, x, y)
     let nbs = this.calculateTheWeightXy(deskData, y, x)
     // if (this.lurd(deskDataTmp, x, y) || this.ruld(deskDataTmp, x, y) || this.leftRight(deskDataTmp, x, y) || this.upDown(deskDataTmp, x, y)) {
