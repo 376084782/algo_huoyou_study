@@ -22,6 +22,7 @@ import OtherUtil from '../util/OtherUtil';
 import RandomGenerater from '../util/RandomGenerater';
 
 export class GameData8_2 {
+  typeSet = 1;//前端用的，存是否是自定义棋盘
   //棋盘 x由左0至右4 y由上0至下4  
   desk: number[][] = [
     [9, 9, 0, 0, 9, 9],

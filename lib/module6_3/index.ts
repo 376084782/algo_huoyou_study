@@ -58,6 +58,7 @@ import exampleData10_2 from './data';
 import { FileWriter } from '../common/FileWriter';
 //todo
 export class GameData6_3 {
+  typeSet = 1;//前端用的，存是否是自定义棋盘
   //参数
   desk: number[] = []
   player: number = 1

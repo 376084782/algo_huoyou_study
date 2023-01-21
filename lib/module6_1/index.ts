@@ -23,6 +23,7 @@ import OtherUtil from '../util/OtherUtil';
 import RandomGenerater from '../util/RandomGenerater';
 
 export class GameData6_1 {
+  typeSet = 1;//前端用的，存是否是自定义棋盘
   //棋盘 由上至下 由左至右
   p1: number[][] = [];
   p2: number[][] = []

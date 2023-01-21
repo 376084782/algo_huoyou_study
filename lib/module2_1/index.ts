@@ -33,7 +33,8 @@ export class GameData2_1 {
   p2 = 6;
   player = 1;
   //点位 二维数组 一共十二个点位，第二层数组 0-2为底至顶123
-  positions: number[][] = [[], [], [], [], [], [], [], [], [], [], [], []]
+  positions: number[][] = [[], [], [], [], [], [], [], [], [], [], [], []];
+  typeSet = 1;//前端用的，存是否是自定义棋盘
   constructor() { }
 }
 

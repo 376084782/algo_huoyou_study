@@ -313,6 +313,15 @@ let i = 0
 //     }
 // }
 // 4_3
+let test4_3 = new example4_3()
+let res4_3 = test4_3.getActionAuto(
+  {
+    "typeSet": 1,
+    "desk": [[0, 0, 0, 0, 0, 0], [0, 1, 2, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]],
+    "chess1": 7, "chess2": 7, "player": 1
+  })
+console.log(res4_3)
+
 
 // 4_2
 // let test4_2 = new example4_2();
