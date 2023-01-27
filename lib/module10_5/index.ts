@@ -20,7 +20,7 @@
  */
 
 
-class GameData10_5{
+export class GameData10_5{
   typeSet? = 1;//前端用的，存是否是自定义棋盘
   // // 步数
     step = 0;
@@ -360,7 +360,7 @@ class GameData10_5{
 }
 
 
-class GameAction10_5{
+export class GameAction10_5{
 
     // 下一个操作区域
     nextArea:number;
@@ -434,8 +434,8 @@ export default class  example10_5 {
      */
     checkAction(deskData:GameData10_5,act:GameAction10_5):number{
         let nextPlane = deskData.desk[deskData.nextArea-1];
-        if(nextPlane[act.yPos-1][act.xPos-1]!=0||act.step!=deskData.step)
-        {
+        if(nextPlane[act.yPos-1][act.xPos-1]!=0||act.step!=deskData.step){
+            console.log(deskData.nextArea-1,nextPlane,act.yPos,act.xPos,nextPlane[act.yPos-1][act.xPos-1])
             return -1
         }
         return 1;
