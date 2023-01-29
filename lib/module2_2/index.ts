@@ -44,6 +44,7 @@ export class GameData2_2 {
   player = 1;
   //点位
   positions: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  typeSet? = 1;//前端用的，存是否是自定义棋盘
   constructor(data?: {
     sum?: number,
     warehouse?: number,

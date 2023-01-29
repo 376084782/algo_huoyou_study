@@ -39,6 +39,7 @@ import { Console } from 'console';
 import { FileWriter } from '../common/FileWriter';
 
 export class GameData10_2 {
+  typeSet? = 1;//前端用的，存是否是自定义棋盘
   p1: number = 0;
   p2: number = 0;
   //参数

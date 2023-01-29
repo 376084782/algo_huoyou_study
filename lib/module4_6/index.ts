@@ -6,12 +6,13 @@
 // 3.过程记录：无
 import RandomGenerater from '../util/RandomGenerater';
 
-interface GameData4_6 {
+export interface GameData4_6 {
+  typeSet?: number;//前端用的，存是否是自定义棋盘
   player: 1 | 2; // 当前选手 先手1 后手2
   stack: Array<number>; // 堆数据
 }
 
-interface GameData4_6_action {
+export interface GameData4_6_action {
   index: number; // 取的堆序号
   num: number; // 取的数量
 }
@@ -59,10 +60,11 @@ export const doAction = (dataDesk: GameData4_6, dataAction: GameData4_6_action):
   } else {
     let arr = stack;
     arr[index] = arr[index] - num;
+    // fix by 钱：0的堆不删除
     if (arr[index] === 0) {
-      arr.splice(index, 1);
+      // arr.splice(index, 1);
     }
-    if (arr.length === 0) {
+    if (arr.length === 0 || arr.every(e => e == 0)) {
       // 堆取完，获胜
       return { flagResult: player, dataResult: { player, stack: [] } };
     } else {
@@ -103,9 +105,26 @@ export const checkDesk = (dataDesk: GameData4_6): number => {
     return -1;
   }
 }
+// 改动by qian 2023/1/25  为了使stack0的堆不被删除且不破坏现有逻辑，额外包一层转化
+export const getActionAuto = (dataDesk: GameData4_6): { best: GameData4_6_action, nobest: GameData4_6_action } => {
+  let idxMap: any = {};
+  let idxNew = 0;
+  dataDesk.stack.forEach((n, idx) => {
+    idxMap[idxNew] = idx;
+    if (n > 0) {
+      idxNew++;
+    }
+  })
+  dataDesk.stack = dataDesk.stack.filter(e => e > 0);
+  let res = getActionAuto1(dataDesk);
+  res.best.index = idxMap[res.best.index];
+  res.nobest.index = idxMap[res.nobest.index];
+  return res;
+}
 
 // 获取当前最佳应对策略，即机器人算法
-export const getActionAuto = (dataDesk: GameData4_6): { best: GameData4_6_action, nobest: GameData4_6_action } => {
+export const getActionAuto1 = (dataDesk: GameData4_6): { best: GameData4_6_action, nobest: GameData4_6_action } => {
+
   let { stack = [] } = dataDesk;
 
   if (stack.length === 1) {
@@ -163,12 +182,12 @@ const failPoint = [
   '[1,1,1]', '[1,1,2]', '[2,1,1]', '[1,2,1]'
 ]
 
-const getResult = (arr:Array<number>, appendArr:Array<any>, resArr:Array<any>) => {
+const getResult = (arr: Array<number>, appendArr: Array<any>, resArr: Array<any>) => {
   if (!appendArr.length) appendArr.push(arr);
   let len = arr.length
   let res = getStep(arr)
   let array = resArr
-  res.forEach(ii => {
+  res && res.forEach(ii => {
     let i = ii.node;
     let a = appendArr.concat([i])
     if (a.length === 2) {
@@ -214,7 +233,7 @@ const getStep = (stack: Array<any>) => {
   let arr = [] as any[];
   stack.forEach((item, index) => {
     let res = step[item];
-    res.forEach((r: number) => {
+    res && res.forEach((r: number) => {
       // @ts-ignore
       let _arr: any = [].concat(stack);
       _arr[index] = item - r;
