@@ -484,9 +484,9 @@ console.info(JSON.stringify(action1))
 //   }
 // }
 //// 2_2
-// let test2_2 = new example2_2();
-// let action = test2_2.getActionAuto({ "player": 1, "positions": [1, 0, 0, 0, 0, 0, 0, 0, 0, 1], "sum": 2, "warehouse": 0 })
-// console.info(JSON.stringify(action))
+let test2_2 = new example2_2();
+let action = test2_2.getActionAuto({ "player": 1, "positions": [1, 0, 0, 0, 0, 0, 0, 0, 0, 1], "sum": 2, "warehouse": 0 })
+console.info(JSON.stringify(action))
 // for (i = 0; i < 10; i++) {
 //     let result = test2_2.getRiddleByLev(0, null);
 //     let flagResult = -1
