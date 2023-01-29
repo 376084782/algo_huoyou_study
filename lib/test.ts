@@ -17,11 +17,11 @@ import example10_1, { GameData10_1, GameAction10_1 } from './module10_1/index';
 import example10_2 from './module10_2/index';
 import RandomGenerater from './util/RandomGenerater';
 
-// let player = "P1"
-// let i = 0
+let player = "P1"
+let i = 0
 // // FileWriter.setFile('./file/a.ts', 'let a=3;')
 // // 10_2
-let test10_2 = new example10_2();
+// let test10_2 = new example10_2();
 // let action = test10_2.getAllDesk()
 // let r = test10_2.getActionAuto({
 //     "p1": 0,
@@ -47,18 +47,18 @@ let test10_2 = new example10_2();
 //     "player": 1
 // }, r.best)
 // console.info(JSON.stringify(r1))
-let r2 = test10_2.checkAction({
-    "p1": 0,
-    "p2": 0,
-    "desk": [
-        [0, 0, 0, 0],
-        [1, 1, 1, 1],
-        [1, 1, 1, 1],
-        [1, 1, 1, 1],
-    ],
-    "player": 1
-}, { "move": [[2, 0], [2, 2], [2, 1]] })
-console.info(JSON.stringify(r2))
+// let r2 = test10_2.checkAction({
+//     "p1": 0,
+//     "p2": 0,
+//     "desk": [
+//         [0, 0, 0, 0],
+//         [1, 1, 1, 1],
+//         [1, 1, 1, 1],
+//         [1, 1, 1, 1],
+//     ],
+//     "player": 1
+// }, { "move": [[2, 0], [2, 2], [2, 1]] })
+// console.info(JSON.stringify(r2))
 
 // let a2 = test10_2.doAction({
 //     "p1": 0,
@@ -259,17 +259,43 @@ console.info(JSON.stringify(r2))
 //         }
 //     }
 // 6_3
-let test6_3 = new example6_3();
 // for (let i = 2; i <= 30; i++) {
 //     let s1 = test6_3.getAllDesk(i);
 // }
-let action1 = test6_3.getActionAuto({
-    "desk": [3, 4, 4, 9],
-    "player": 1
-})
-console.info(JSON.stringify(action1))
-
-
+let test6_3 = new example6_3();
+// let action1 = test6_3.doAction(
+//     {
+//         "desk": [0, 4, 0, 3, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//         "player": 1
+//     }, { "action": [[1, 4], [3, 3]], "actionAfter": [[0, 7]] })
+// console.info(JSON.stringify(action1))
+for (i = 0; i < 1; i++) {
+    let result = {
+        "desk": [3, 4, 4, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "player": 1
+    }
+    let flagResult = 0
+    let count = 1
+    console.info("开始棋盘：" + JSON.stringify(result))
+    while (flagResult == 0) {
+        let action = test6_3.getActionAuto(JSON.parse(JSON.stringify(result)))
+        let tmp = test6_3.doAction(result, action.best)
+        result = tmp[1]
+        flagResult = tmp[0]
+        console.info("%s %s | 操作：%s \n%s  结果 %s ", count++, player, JSON.stringify(action.best), JSON.stringify(result.desk), flagResult)
+        if (flagResult == 1) {
+            console.info("P1 WIN")
+        }
+        if (flagResult == 2) {
+            console.info("P2 WIN")
+        }
+        if (player == "P1") {
+            player = "P2"
+        } else {
+            player = "P1"
+        }
+    }
+}
 
 // 6_2
 // let test6_2 = new example6_2();

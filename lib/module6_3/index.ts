@@ -56,11 +56,11 @@ import OtherUtil from '../util/OtherUtil';
 import { Console } from 'console';
 import exampleData10_2 from './data';
 // import exampleData8_3d2 from './datad2';
-
+import DeskData from './dataA';
 import { FileWriter } from '../common/FileWriter';
 //todo
 export class GameData6_3 {
-  typeSet? = 1;//前端用的，存是否是自定义棋盘
+  typeSet?= 1;//前端用的，存是否是自定义棋盘
   //参数
   desk: number[] = []
   player: number = 1
@@ -127,7 +127,6 @@ export default class example6_3 {
     [28, [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [14, 14], [7, 7, 7, 7], [4, 4, 4, 4, 4, 4, 4]]],
     [29, [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]],
     [30, [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [15, 15], [3, 3, 3, 3, 3, 3, 3, 3, 3, 3,], [5, 5, 5, 5, 5, 5], [10, 10, 10], [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,]]],
-
   ]);
 
   persistenceData: exampleData10_2 = new exampleData10_2()
@@ -157,16 +156,29 @@ export default class example6_3 {
     let gd = new GameData6_3(1, desk);
     return gd
   }
+
   checkRiddle(deskData: GameData6_3): number {
     let count = 0
+    let allOne = true
     for (let i = 0; i < deskData.desk.length; i++) {
+      if (deskData.desk[i] != 1) {
+        allOne = false
+      }
       count += deskData.desk[i]
+    }
+    if (allOne) {
+      return -1
     }
     if (count < 2 || count > 30) {
       // 总数2-30
       return -1
     }
-    if (count == deskData.desk.length) {
+    //（去掉当 n=11，17，23，27，29 等游戏不收敛的数据）
+    if (count == 11 || count == 17 || count == 23 || count == 27 || count == 29) {
+      // 总数2-30
+      return -1
+    }
+    if (count != deskData.desk.length) {
       // 堆数1到n-1，即不能所有堆都是1
       return -1
     }
@@ -215,7 +227,6 @@ export default class example6_3 {
 
   checkAction(deskData: GameData6_3, dataAction: GameAction6_3): number {
     if (dataAction.action.length == 0) {
-      console.info(1)
       return -1
     } else if (dataAction.action.length == 1) {
       let sum = 0
@@ -245,8 +256,272 @@ export default class example6_3 {
   }
 
   getActionAuto(deskData: GameData6_3): GameAutoWay {
-    return new GameAutoWay(undefined, undefined)
+    let chess = 0
+    for (let i = 0; i < deskData.desk.length; i++) {
+      const tmpChess = deskData.desk[i];
+      chess += tmpChess
+    }
+    let dw: Set<string> = this.getDw(chess)
+    let dl: Set<string> = this.getDl(chess)
+
+    return this.getActionAutoCommon(deskData, dw, dl)
   }
+
+  getDw(chess: number): Set<string> {
+    const deskDatas = new DeskData()
+
+    let dw: Set<string> = new Set<string>
+    if (chess == 2) {
+      deskDatas.d2w1.forEach(key => dw.add(key))
+    } else if (chess == 3) {
+      deskDatas.d3w1.forEach(key => dw.add(key))
+    } else if (chess == 4) {
+      deskDatas.d4w1.forEach(key => dw.add(key))
+      deskDatas.d4w2.forEach(key => dw.add(key))
+    } else if (chess == 5) {
+      deskDatas.d5w1.forEach(key => dw.add(key))
+      deskDatas.d5w2.forEach(key => dw.add(key))
+    } else if (chess == 6) {
+      deskDatas.d6w1.forEach(key => dw.add(key))
+      deskDatas.d6w2.forEach(key => dw.add(key))
+      deskDatas.d6w3.forEach(key => dw.add(key))
+      deskDatas.d6w4.forEach(key => dw.add(key))
+    } else if (chess == 7) {
+      deskDatas.d7w1.forEach(key => dw.add(key))
+      deskDatas.d7w2.forEach(key => dw.add(key))
+      deskDatas.d7w3.forEach(key => dw.add(key))
+      deskDatas.d7w4.forEach(key => dw.add(key))
+      deskDatas.d7w5.forEach(key => dw.add(key))
+    } else if (chess == 8) {
+      deskDatas.d8w1.forEach(key => dw.add(key))
+      deskDatas.d8w2.forEach(key => dw.add(key))
+      deskDatas.d8w3.forEach(key => dw.add(key))
+      deskDatas.d8w4.forEach(key => dw.add(key))
+      deskDatas.d8w5.forEach(key => dw.add(key))
+    } else if (chess == 9) {
+      deskDatas.d9w1.forEach(key => dw.add(key))
+      deskDatas.d9w2.forEach(key => dw.add(key))
+      deskDatas.d9w3.forEach(key => dw.add(key))
+      deskDatas.d9w4.forEach(key => dw.add(key))
+      deskDatas.d9w5.forEach(key => dw.add(key))
+      deskDatas.d9w6.forEach(key => dw.add(key))
+      deskDatas.d9w7.forEach(key => dw.add(key))
+      deskDatas.d9w8.forEach(key => dw.add(key))
+    } else if (chess == 10) {
+      deskDatas.d10w1.forEach(key => dw.add(key))
+      deskDatas.d10w2.forEach(key => dw.add(key))
+      deskDatas.d10w3.forEach(key => dw.add(key))
+      deskDatas.d10w4.forEach(key => dw.add(key))
+      deskDatas.d10w5.forEach(key => dw.add(key))
+      deskDatas.d10w6.forEach(key => dw.add(key))
+      deskDatas.d10w7.forEach(key => dw.add(key))
+      deskDatas.d10w8.forEach(key => dw.add(key))
+    } else if (chess == 12) {
+      deskDatas.d12w1.forEach(key => dw.add(key))
+      deskDatas.d12w2.forEach(key => dw.add(key))
+      deskDatas.d12w3.forEach(key => dw.add(key))
+      deskDatas.d21w4.forEach(key => dw.add(key))
+    } else if (chess == 13) {
+      deskDatas.d13w1.forEach(key => dw.add(key))
+      deskDatas.d13w2.forEach(key => dw.add(key))
+    } else if (chess == 14) {
+      deskDatas.d14w1.forEach(key => dw.add(key))
+      deskDatas.d14w2.forEach(key => dw.add(key))
+    } else if (chess == 15) {
+      deskDatas.d15w1.forEach(key => dw.add(key))
+      deskDatas.d15w2.forEach(key => dw.add(key))
+      deskDatas.d15w3.forEach(key => dw.add(key))
+      deskDatas.d15w4.forEach(key => dw.add(key))
+    } else if (chess == 16) {
+      deskDatas.d16w1.forEach(key => dw.add(key))
+      deskDatas.d16w2.forEach(key => dw.add(key))
+      deskDatas.d16w3.forEach(key => dw.add(key))
+    } else if (chess == 18) {
+      deskDatas.d18w1.forEach(key => dw.add(key))
+      deskDatas.d18w2.forEach(key => dw.add(key))
+      deskDatas.d18w3.forEach(key => dw.add(key))
+    } else if (chess == 19) {
+      deskDatas.d19w1.forEach(key => dw.add(key))
+      deskDatas.d19w2.forEach(key => dw.add(key))
+    } else if (chess == 20) {
+      deskDatas.d20w1.forEach(key => dw.add(key))
+      deskDatas.d20w2.forEach(key => dw.add(key))
+    } else if (chess == 21) {
+      deskDatas.d21w1.forEach(key => dw.add(key))
+      deskDatas.d21w2.forEach(key => dw.add(key))
+      deskDatas.d21w3.forEach(key => dw.add(key))
+      deskDatas.d21w4.forEach(key => dw.add(key))
+    } else if (chess == 22) {
+      deskDatas.d22w1.forEach(key => dw.add(key))
+      deskDatas.d22w2.forEach(key => dw.add(key))
+      deskDatas.d22w3.forEach(key => dw.add(key))
+    } else if (chess == 24) {
+      deskDatas.d24w1.forEach(key => dw.add(key))
+      deskDatas.d24w2.forEach(key => dw.add(key))
+      deskDatas.d24w3.forEach(key => dw.add(key))
+    } else if (chess == 25) {
+      deskDatas.d25w1.forEach(key => dw.add(key))
+      deskDatas.d25w2.forEach(key => dw.add(key))
+    } else if (chess == 26) {
+      deskDatas.d26w1.forEach(key => dw.add(key))
+      deskDatas.d26w2.forEach(key => dw.add(key))
+    } else if (chess == 28) {
+      deskDatas.d28w1.forEach(key => dw.add(key))
+      deskDatas.d28w2.forEach(key => dw.add(key))
+    } else if (chess == 30) {
+      deskDatas.d30w1.forEach(key => dw.add(key))
+      deskDatas.d30w2.forEach(key => dw.add(key))
+      deskDatas.d30w3.forEach(key => dw.add(key))
+    }
+    return dw
+  }
+
+  getDl(chess: number): Set<string> {
+    const deskDatas = new DeskData()
+
+    let dl: Set<string> = new Set<string>
+    if (chess == 2) {
+      deskDatas.d2l1.forEach(key => dl.add(key))
+    } else if (chess == 3) {
+      deskDatas.d3l1.forEach(key => dl.add(key))
+    } else if (chess == 4) {
+      deskDatas.d4l1.forEach(key => dl.add(key))
+    } else if (chess == 5) {
+      deskDatas.d5l1.forEach(key => dl.add(key))
+      deskDatas.d5l2.forEach(key => dl.add(key))
+    } else if (chess == 6) {
+      deskDatas.d6l1.forEach(key => dl.add(key))
+      deskDatas.d6l2.forEach(key => dl.add(key))
+      deskDatas.d6l3.forEach(key => dl.add(key))
+    } else if (chess == 7) {
+      deskDatas.d7l1.forEach(key => dl.add(key))
+      deskDatas.d7l2.forEach(key => dl.add(key))
+      deskDatas.d7l3.forEach(key => dl.add(key))
+      deskDatas.d7l4.forEach(key => dl.add(key))
+    } else if (chess == 8) {
+      deskDatas.d8l1.forEach(key => dl.add(key))
+      deskDatas.d8l2.forEach(key => dl.add(key))
+      deskDatas.d8l3.forEach(key => dl.add(key))
+      deskDatas.d8l4.forEach(key => dl.add(key))
+      deskDatas.d8l5.forEach(key => dl.add(key))
+    } else if (chess == 9) {
+      deskDatas.d9l1.forEach(key => dl.add(key))
+      deskDatas.d9l2.forEach(key => dl.add(key))
+      deskDatas.d9l3.forEach(key => dl.add(key))
+      deskDatas.d9l4.forEach(key => dl.add(key))
+      deskDatas.d9l5.forEach(key => dl.add(key))
+      deskDatas.d9l6.forEach(key => dl.add(key))
+      deskDatas.d9l7.forEach(key => dl.add(key))
+    } else if (chess == 10) {
+      deskDatas.d10l1.forEach(key => dl.add(key))
+      deskDatas.d10l2.forEach(key => dl.add(key))
+      deskDatas.d10l3.forEach(key => dl.add(key))
+      deskDatas.d10l4.forEach(key => dl.add(key))
+      deskDatas.d10l5.forEach(key => dl.add(key))
+      deskDatas.d10l6.forEach(key => dl.add(key))
+      deskDatas.d10l7.forEach(key => dl.add(key))
+      deskDatas.d10l8.forEach(key => dl.add(key))
+    } else if (chess == 12) {
+      deskDatas.d12l1.forEach(key => dl.add(key))
+      deskDatas.d12l2.forEach(key => dl.add(key))
+      deskDatas.d12l3.forEach(key => dl.add(key))
+      deskDatas.d21l4.forEach(key => dl.add(key))
+    } else if (chess == 13) {
+      deskDatas.d13l1.forEach(key => dl.add(key))
+      deskDatas.d13l2.forEach(key => dl.add(key))
+    } else if (chess == 14) {
+      deskDatas.d14l1.forEach(key => dl.add(key))
+      deskDatas.d14l2.forEach(key => dl.add(key))
+    } else if (chess == 15) {
+      deskDatas.d15l1.forEach(key => dl.add(key))
+      deskDatas.d15l2.forEach(key => dl.add(key))
+      deskDatas.d15l3.forEach(key => dl.add(key))
+      deskDatas.d15l4.forEach(key => dl.add(key))
+    } else if (chess == 16) {
+      deskDatas.d16l1.forEach(key => dl.add(key))
+      deskDatas.d16l2.forEach(key => dl.add(key))
+      deskDatas.d16l3.forEach(key => dl.add(key))
+    } else if (chess == 18) {
+      deskDatas.d18l1.forEach(key => dl.add(key))
+      deskDatas.d18l2.forEach(key => dl.add(key))
+      deskDatas.d18l3.forEach(key => dl.add(key))
+    } else if (chess == 19) {
+      deskDatas.d19l1.forEach(key => dl.add(key))
+      deskDatas.d19l2.forEach(key => dl.add(key))
+    } else if (chess == 20) {
+      deskDatas.d20l1.forEach(key => dl.add(key))
+      deskDatas.d20l2.forEach(key => dl.add(key))
+    } else if (chess == 21) {
+      deskDatas.d21l1.forEach(key => dl.add(key))
+      deskDatas.d21l2.forEach(key => dl.add(key))
+      deskDatas.d21l3.forEach(key => dl.add(key))
+      deskDatas.d21l4.forEach(key => dl.add(key))
+    } else if (chess == 22) {
+      deskDatas.d22l1.forEach(key => dl.add(key))
+      deskDatas.d22l2.forEach(key => dl.add(key))
+      deskDatas.d22l3.forEach(key => dl.add(key))
+    } else if (chess == 24) {
+      deskDatas.d24l1.forEach(key => dl.add(key))
+      deskDatas.d24l2.forEach(key => dl.add(key))
+      deskDatas.d24l3.forEach(key => dl.add(key))
+    } else if (chess == 25) {
+      deskDatas.d25l1.forEach(key => dl.add(key))
+      deskDatas.d25l2.forEach(key => dl.add(key))
+    } else if (chess == 26) {
+      deskDatas.d26l1.forEach(key => dl.add(key))
+      deskDatas.d26l2.forEach(key => dl.add(key))
+    } else if (chess == 28) {
+      deskDatas.d28l1.forEach(key => dl.add(key))
+      deskDatas.d28l2.forEach(key => dl.add(key))
+    } else if (chess == 30) {
+      deskDatas.d30l1.forEach(key => dl.add(key))
+      deskDatas.d30l2.forEach(key => dl.add(key))
+      deskDatas.d30l3.forEach(key => dl.add(key))
+    }
+    return dl
+  }
+  getActionAutoCommon(deskData: GameData6_3, dw: Set<string>, dl: Set<string>): GameAutoWay {
+    const rg = new RandomGenerater(0)
+    let deskTmp = JSON.parse(JSON.stringify(deskData.desk));
+    const allAction: GameAction6_3[] = this.getAllAction(deskTmp)
+    let deskStr = this.deskToStr(deskData.desk)
+    const deskDatas = new DeskData()
+    let best = null
+    let nobest = null
+    if (dw.has(deskStr)) {
+      best = allAction[rg.RangeInteger(0, allAction.length - 1)]
+      nobest = allAction[rg.RangeInteger(1, allAction.length - 1)]
+    } else {
+      for (let i = 0; i < allAction.length; i++) {
+        const action = allAction[i];
+        const dd = this.doAction(JSON.parse(JSON.stringify(deskData)), action);
+        const dds = this.deskToStr(dd[1].desk);
+        if (dw.has(deskStr)) {
+          best = action
+          break
+        }
+      }
+      nobest = allAction[rg.RangeInteger(1, allAction.length - 1)]
+    }
+    //如果无索引,查一个不会输的
+    if (best == null) {
+      for (let i = 0; i < allAction.length; i++) {
+        const actionTmp = allAction[i];
+        const dd = this.doAction(JSON.parse(JSON.stringify(deskData)), actionTmp);
+        const dds = this.deskToStr(dd[1].desk);
+        if (!dl.has(deskStr)) {
+          best = actionTmp
+          break
+        }
+      }
+    }
+    //如果都输那就G
+    if (best == null) {
+      best = nobest
+    }
+    return new GameAutoWay(best, nobest)
+  }
+
   // getActionAutoW1(deskData: GameData6_3): GameAutoWay {
   //   const rg = new RandomGenerater(0)
   //   let deskTmp = JSON.parse(JSON.stringify(deskData.desk));
