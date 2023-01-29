@@ -67,7 +67,8 @@ console.info(JSON.stringify(a2))
 console.info(JSON.stringify(a3))
 // 8_3
 // let test8_3 = new example8_3();
-// let action = test8_3.getActionAuto({ "desk": [2, 0, 10], "player": 2 })
+// let action = test8_3.checkRiddle({"typeSet":2,"desk":[5,3,70],"player":1})
+// console.log(action,'actionactionactionaction')
 // let s1 = test8_3.doAction({ "desk": [2, 0, 10], "player": 2 }, action.best)
 // let s2 = test8_3.doAction({ "desk": [2, 0, 10], "player": 2 }, action.nobest)
 // console.info(JSON.stringify(action))
@@ -467,14 +468,14 @@ console.log(res4_3)
 //     }
 // }
 // 2_1
-// let test2_1 = new example2_1();
+let test2_1 = new example2_1();
 // let desk = new GameData2_1()
 // desk.p1 = 0
 // desk.p2 = 0
 // desk.player = 2
 // desk.positions = [[2, 1], [2, 1], [2, 1], [1, 2], [2], [1, 1, 2], [], [], [], [], [], []]
-// let tmp = test2_1.checkRiddle(desk)
-// console.info(JSON.stringify(tmp))
+let tmp = test2_1.checkRiddle({"p1":2,"p2":2,"player":1,"positions":[[1,1,1,1],[2],[2],[2],[2],[],[],[],[],[],[],[]],"typeSet":2})
+console.info(tmp,'tmptmptmp')
 
 // for (i = 0; i < 1; i++) {
 //     let result = test2_1.getRiddle(undefined);
