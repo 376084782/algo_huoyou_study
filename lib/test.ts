@@ -22,49 +22,86 @@ import RandomGenerater from './util/RandomGenerater';
 // // FileWriter.setFile('./file/a.ts', 'let a=3;')
 // // 10_2
 let test10_2 = new example10_2();
-// // let action = test10_2.getAllDesk()
-let a2 = test10_2.doAction({
+// let action = test10_2.getAllDesk()
+// let r = test10_2.getActionAuto({
+//     "p1": 0,
+//     "p2": 0,
+//     "desk": [
+//         [0, 0, 0, 0],
+//         [1, 1, 1, 1],
+//         [1, 1, 1, 1],
+//         [1, 1, 1, 1],
+//     ],
+//     "player": 1
+// })
+// console.info(JSON.stringify(r))
+// let r1 = test10_2.doAction({
+//     "p1": 0,
+//     "p2": 0,
+//     "desk": [
+//         [0, 0, 0, 0],
+//         [1, 1, 1, 1],
+//         [1, 1, 1, 1],
+//         [1, 1, 1, 1],
+//     ],
+//     "player": 1
+// }, r.best)
+// console.info(JSON.stringify(r1))
+let r2 = test10_2.checkAction({
     "p1": 0,
     "p2": 0,
     "desk": [
-        [1, 1, 1, 1],
+        [0, 0, 0, 0],
         [1, 1, 1, 1],
         [1, 1, 1, 1],
         [1, 1, 1, 1],
     ],
     "player": 1
-}, {
-    "move": [[0, 0], [0, 1]]
-})
-let a1 = test10_2.doAction({
-    "p1": 0,
-    "p2": 0,
-    "desk": [
-        [1, 1, 1, 1],
-        [1, 1, 1, 1],
-        [1, 1, 1, 1],
-        [1, 1, 1, 1],
-    ],
-    "player": 1
-}, {
-    "move": [[0, 0], [1, 0]]
-})
-let a3 = test10_2.doAction({
-    "p1": 0,
-    "p2": 0,
-    "desk": [
-        [1, 1, 1, 1],
-        [1, 1, 1, 1],
-        [1, 1, 1, 1],
-        [1, 1, 1, 1],
-    ],
-    "player": 1
-}, {
-    "move": [[0, 0], [1, 0], [1, 1]]
-})
-console.info(JSON.stringify(a1))
-console.info(JSON.stringify(a2))
-console.info(JSON.stringify(a3))
+}, { "move": [[2, 0], [2, 2], [2, 1]] })
+console.info(JSON.stringify(r2))
+
+// let a2 = test10_2.doAction({
+//     "p1": 0,
+//     "p2": 0,
+//     "desk": [
+//         [1, 1, 1, 1],
+//         [1, 1, 1, 1],
+//         [1, 1, 1, 1],
+//         [1, 1, 1, 1],
+//     ],
+//     "player": 1
+// }, {
+//     "move": [[0, 0], [0, 1]]
+// })
+// let a1 = test10_2.doAction({
+//     "p1": 0,
+//     "p2": 0,
+//     "desk": [
+//         [1, 1, 1, 1],
+//         [1, 1, 1, 1],
+//         [1, 1, 1, 1],
+//         [1, 1, 1, 1],
+//     ],
+//     "player": 1
+// }, {
+//     "move": [[0, 0], [1, 0]]
+// })
+// let a3 = test10_2.doAction({
+//     "p1": 0,
+//     "p2": 0,
+//     "desk": [
+//         [1, 1, 1, 1],
+//         [1, 1, 1, 1],
+//         [1, 1, 1, 1],
+//         [1, 1, 1, 1],
+//     ],
+//     "player": 1
+// }, {
+//     "move": [[0, 0], [1, 0], [1, 1]]
+// })
+// console.info(JSON.stringify(a1))
+// console.info(JSON.stringify(a2))
+// console.info(JSON.stringify(a3))
 // 8_3
 // let test8_3 = new example8_3();
 // let action = test8_3.getActionAuto({ "desk": [2, 0, 10], "player": 2 })
@@ -222,11 +259,15 @@ console.info(JSON.stringify(a3))
 //         }
 //     }
 // 6_3
-// let test6_3 = new example6_3();
+let test6_3 = new example6_3();
 // for (let i = 2; i <= 30; i++) {
 //     let s1 = test6_3.getAllDesk(i);
 // }
-// console.info()
+let action1 = test6_3.getActionAuto({
+    "desk": [3, 4, 4, 9],
+    "player": 1
+})
+console.info(JSON.stringify(action1))
 
 
 
@@ -366,14 +407,14 @@ console.info(JSON.stringify(a3))
 //     }
 // }
 // 4_3
-let test4_3 = new example4_3()
-let res4_3 = test4_3.getActionAuto(
-  {
-    "typeSet": 1,
-    "desk": [[0, 0, 0, 0, 0, 0], [0, 1, 2, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]],
-    "chess1": 7, "chess2": 7, "player": 1
-  })
-console.log(res4_3)
+// let test4_3 = new example4_3()
+// let res4_3 = test4_3.getActionAuto(
+//   {
+//     "typeSet": 1,
+//     "desk": [[0, 0, 0, 0, 0, 0], [0, 1, 2, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]],
+//     "chess1": 7, "chess2": 7, "player": 1
+//   })
+// console.log(res4_3)
 
 
 // 4_2
