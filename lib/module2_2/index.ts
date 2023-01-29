@@ -44,7 +44,7 @@ export class GameData2_2 {
   player = 1;
   //点位
   positions: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-  typeSet? = 1;//前端用的，存是否是自定义棋盘
+  typeSet?= 1;//前端用的，存是否是自定义棋盘
   constructor(data?: {
     sum?: number,
     warehouse?: number,
@@ -211,7 +211,7 @@ export class example2_2 {
     }
     const rg = new RandomGenerater(0)
     let count = this.computeDeskBin(deskData);
-    if (count == 2) {
+    if (positions.length == 2) {
       let f = 0
       let s = 0
       for (let i = deskData.positions.length - 1; i >= 0; i--) {
@@ -231,7 +231,7 @@ export class example2_2 {
     }
 
     let allAction = this.randomAction(deskData)
-    if (count % 2 == 0 && count > 2) {
+    if (positions.length % 2 == 0 && positions.length > 2) {
       let tmp = 0
       for (let i = deskData.positions.length - 1; i >= 0; i--) {
         const element = deskData.positions[i];
