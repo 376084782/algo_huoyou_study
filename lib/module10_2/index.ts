@@ -39,7 +39,7 @@ import { Console } from 'console';
 import { FileWriter } from '../common/FileWriter';
 
 export class GameData10_2 {
-  typeSet? = 1;//前端用的，存是否是自定义棋盘
+  typeSet?= 1;//前端用的，存是否是自定义棋盘
   p1: number = 0;
   p2: number = 0;
   //参数
@@ -176,7 +176,7 @@ export default class example10_2 {
       const x = dataAction.move[0][0];
       for (let i = 0; i < dataAction.move.length; i++) {
         const element = dataAction.move[i];
-        if (element[0] == y) {
+        if (element[0] == x) {
           xcount++
         } else {
           break
