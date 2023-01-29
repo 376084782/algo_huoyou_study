@@ -103,9 +103,9 @@ let i = 0
 // console.info(JSON.stringify(a2))
 // console.info(JSON.stringify(a3))
 // 8_3
-// let test8_3 = new example8_3();
-// let action = test8_3.checkRiddle({"typeSet":2,"desk":[5,3,70],"player":1})
-// console.log(action,'actionactionactionaction')
+let test8_3 = new example8_3();
+let action11 = test8_3.checkRiddle({"typeSet":2,"desk":[5,3,3,3],"player":1})
+console.log(action11,'actionactionactionaction')
 // let s1 = test8_3.doAction({ "desk": [2, 0, 10], "player": 2 }, action.best)
 // let s2 = test8_3.doAction({ "desk": [2, 0, 10], "player": 2 }, action.nobest)
 // console.info(JSON.stringify(action))
