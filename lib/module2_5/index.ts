@@ -48,6 +48,7 @@ export class GameData2_5 {
   config: GameConfig2_5
   //
   positions: number[][] = []
+  typeSet?: number = 1;
   constructor(config: GameConfig2_5) {
     this.config = config
     if (config.borderSize < 2 || config.borderSize > 4) {
@@ -98,7 +99,7 @@ export class GameData2_5 {
     return obj
   }
 
-  checkPosition(position: Position): Boolean {
+  checkPosition(position: Position2_5): Boolean {
     if (position.x < 0 || position.x >= this.positions.length) {
       return false
     }
@@ -131,11 +132,12 @@ export class GameData2_5 {
     } else {
       this.palyer2Fishes.push(action)
     }
-    this.positions[action.headPosition.x][action.headPosition.x] = this.curPlayer
+    this.positions[action.headPosition.y][action.headPosition.x] = this.curPlayer
     let bodyPosition = action.getBodyPosition()
     let tailPosition = action.getTailPosition()
-    this.positions[bodyPosition.x][bodyPosition.x] = this.curPlayer
-    this.positions[tailPosition.x][tailPosition.x] = this.curPlayer
+    this.positions[bodyPosition.y][bodyPosition.x] = this.curPlayer
+    this.positions[tailPosition.y][tailPosition.x] = this.curPlayer
+    console.log('finsdada')
     if (this.checkOver()) {
       return this.curPlayer
     }
@@ -146,7 +148,7 @@ export class GameData2_5 {
     for (let i = 0; i < this.positions.length; i++) {
       for (let j = 0; j < this.positions[i].length; j++) {
         if (this.positions[i][j] == 0) {
-          let position = new Position(i, j)
+          let position = new Position2_5(i, j)
           let actions = position.generateAllAction()
           for (let idx in actions) {
             if (this.checkAction(actions[idx])) {
@@ -159,12 +161,12 @@ export class GameData2_5 {
     return true
   }
 
-  getAllBlankPosition(): Position[]{
-    let positions: Position[] = []
+  getAllBlankPosition(): Position2_5[] {
+    let positions: Position2_5[] = []
     for (let i = 0; i < this.positions.length; i++) {
       for (let j = 0; j < this.positions[i].length; j++) {
         if (this.positions[i][j] == 0) {
-          let position = new Position(i, j)
+          let position = new Position2_5(i, j)
           positions.push(position)
         }
       }
@@ -174,7 +176,7 @@ export class GameData2_5 {
 
 
   getAllLegalAction(): GameAction2_5[] {
-    let positions  = this.getAllBlankPosition()
+    let positions = this.getAllBlankPosition()
     let result: GameAction2_5[] = []
     for (let i = 0; i < positions.length; i++) {
       let actions = positions[i].generateAllAction()
@@ -188,7 +190,7 @@ export class GameData2_5 {
   }
 }
 
-export class Position {
+export class Position2_5 {
   x: number
   y: number
 
@@ -217,60 +219,60 @@ export class GameConfig2_5 {
 
 export class GameAction2_5 {
   // 通过鱼头的坐标和方向，确定一条鱼的位置
-  headPosition: Position
+  headPosition: Position2_5
   direct: number
 
-  constructor(position: Position, direct: number) {
+  constructor(position: Position2_5, direct: number) {
     this.headPosition = position
     this.direct = direct
   }
 
-  getBodyPosition(): Position {
-    if (this.headPosition.y % 2 == 0) {
+  getBodyPosition(): Position2_5 {
+    if (this.headPosition.y % 2 == 1) {
       switch (this.direct) {
         case 0:
-          return new Position(this.headPosition.x + 1, this.headPosition.y + 1)
+          return new Position2_5(this.headPosition.x - 1, this.headPosition.y - 1)
         case 2:
-          return new Position(this.headPosition.x, this.headPosition.y + 1)
+          return new Position2_5(this.headPosition.x, this.headPosition.y + 1)
         case 4:
-          return new Position(this.headPosition.x, this.headPosition.y - 1)
+          return new Position2_5(this.headPosition.x, this.headPosition.y - 1)
         default:
           throw new Error("illegal direct")
       }
     } else {
       switch (this.direct) {
         case 1:
-          return new Position(this.headPosition.x, this.headPosition.y + 1)
+          return new Position2_5(this.headPosition.x, this.headPosition.y + 1)
         case 3:
-          return new Position(this.headPosition.x - 1, this.headPosition.y - 1)
+          return new Position2_5(this.headPosition.x + 1, this.headPosition.y + 1)
         case 5:
-          return new Position(this.headPosition.x, this.headPosition.y - 1)
+          return new Position2_5(this.headPosition.x, this.headPosition.y - 1)
         default:
           throw new Error("illegal direct")
       }
     }
   }
 
-  getTailPosition(): Position {
-    if (this.headPosition.y % 2 == 0) {
+  getTailPosition(): Position2_5 {
+    if (this.headPosition.y % 2 == 1) {
       switch (this.direct) {
         case 0:
-          return new Position(this.headPosition.x + 2, this.headPosition.y + 2)
+          return new Position2_5(this.headPosition.x - 2, this.headPosition.y - 2)
         case 2:
-          return new Position(this.headPosition.x - 1, this.headPosition.y + 1)
+          return new Position2_5(this.headPosition.x + 1, this.headPosition.y + 4)
         case 4:
-          return new Position(this.headPosition.x - 1, this.headPosition.y - 4)
+          return new Position2_5(this.headPosition.x + 1, this.headPosition.y - 2)
         default:
           throw new Error("illegal direct")
       }
     } else {
       switch (this.direct) {
         case 1:
-          return new Position(this.headPosition.x + 1, this.headPosition.y + 4)
+          return new Position2_5(this.headPosition.x - 1, this.headPosition.y + 2)
         case 3:
-          return new Position(this.headPosition.x - 2, this.headPosition.y - 2)
+          return new Position2_5(this.headPosition.x + 2, this.headPosition.y + 2)
         case 5:
-          return new Position(this.headPosition.x + 1, this.headPosition.y - 2)
+          return new Position2_5(this.headPosition.x - 1, this.headPosition.y - 4)
         default:
           throw new Error("illegal direct")
       }
@@ -295,7 +297,7 @@ class PossibleAction {
   }
 
   isWorst(): Boolean {
-    for(let i = 0; i < this.rivalPossibleAction.length; i++) {
+    for (let i = 0; i < this.rivalPossibleAction.length; i++) {
       return (this.rivalPossibleAction[i].isBest())
     }
     return false
@@ -372,7 +374,7 @@ export default class example2_5 {
     for (let i = 0; i < normaActions.length; i++) {
       let action = actions[i]
       for (let j = 0; j < action.rivalPossibleAction.length; j++) {
-        let rivalAction =  action.rivalPossibleAction[j]
+        let rivalAction = action.rivalPossibleAction[j]
         if (rivalAction.isWorst()) {
           betterActions.push(action.action)
         } else {
@@ -380,10 +382,10 @@ export default class example2_5 {
         }
       }
     }
-    if(betterActions.length == 0) {
+    if (betterActions.length == 0) {
       return new GameAutoWay(worseActions[rg.RangeInteger(1, bestActions.length) - 1], worseActions[rg.RangeInteger(1, bestActions.length) - 1])
     }
-    if(worseActions.length == 0) {
+    if (worseActions.length == 0) {
       return new GameAutoWay(betterActions[rg.RangeInteger(1, bestActions.length) - 1], betterActions[rg.RangeInteger(1, bestActions.length) - 1])
     }
     return new GameAutoWay(betterActions[rg.RangeInteger(1, bestActions.length) - 1], worseActions[rg.RangeInteger(1, bestActions.length) - 1])
@@ -406,7 +408,7 @@ export default class example2_5 {
         result.push(new PossibleAction(actions[i], newGameData, 0, rivalPossibleActions))
       }
     }
-    
+
     return result
   }
 }
