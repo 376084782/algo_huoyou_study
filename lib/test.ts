@@ -17,29 +17,62 @@ import example10_1, { GameData10_1, GameAction10_1 } from './module10_1/index';
 import example10_2 from './module10_2/index';
 import RandomGenerater from './util/RandomGenerater';
 
-let player = "P1"
-let i = 0
-// FileWriter.setFile('./file/a.ts', 'let a=3;')
-// 10_2
+// let player = "P1"
+// let i = 0
+// // FileWriter.setFile('./file/a.ts', 'let a=3;')
+// // 10_2
 let test10_2 = new example10_2();
-
-// let action = test10_2.getAllDesk()
-let action = test10_2.getActionAuto({
+// // let action = test10_2.getAllDesk()
+let a2 = test10_2.doAction({
     "p1": 0,
     "p2": 0,
     "desk": [
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        [0, 1, 0, 0],
-        [0, 1, 0, 0],
+        [1, 1, 1, 1],
+        [1, 1, 1, 1],
+        [1, 1, 1, 1],
+        [1, 1, 1, 1],
     ],
     "player": 1
+}, {
+    "move": [[0, 0], [0, 1]]
 })
-console.info(JSON.stringify(action))
+let a1 = test10_2.doAction({
+    "p1": 0,
+    "p2": 0,
+    "desk": [
+        [1, 1, 1, 1],
+        [1, 1, 1, 1],
+        [1, 1, 1, 1],
+        [1, 1, 1, 1],
+    ],
+    "player": 1
+}, {
+    "move": [[0, 0], [1, 0]]
+})
+let a3 = test10_2.doAction({
+    "p1": 0,
+    "p2": 0,
+    "desk": [
+        [1, 1, 1, 1],
+        [1, 1, 1, 1],
+        [1, 1, 1, 1],
+        [1, 1, 1, 1],
+    ],
+    "player": 1
+}, {
+    "move": [[0, 0], [1, 0], [1, 1]]
+})
+console.info(JSON.stringify(a1))
+console.info(JSON.stringify(a2))
+console.info(JSON.stringify(a3))
 // 8_3
 // let test8_3 = new example8_3();
-// let action = test8_3.getActionAuto({ "desk": [6, 2, 2], "player": 2 })
+// let action = test8_3.getActionAuto({ "desk": [2, 0, 10], "player": 2 })
+// let s1 = test8_3.doAction({ "desk": [2, 0, 10], "player": 2 }, action.best)
+// let s2 = test8_3.doAction({ "desk": [2, 0, 10], "player": 2 }, action.nobest)
 // console.info(JSON.stringify(action))
+// console.info(JSON.stringify(s1))
+// console.info(JSON.stringify(s2))
 
 // 10_1
 // let test10_1 = new example10_1();
@@ -47,7 +80,7 @@ console.info(JSON.stringify(action))
 //     {
 //         "desk": [
 //             [1, 1, 1, 1, 1, 1],
-//             [1, 1, 1, 1, 1, 1],
+//             [1, 1, 0, 1, 1, 1],
 //             [1, 1, 1, 1, 1, 1],
 //             [1, 1, 1, 1, 1, 1],
 //             [1, 1, 1, 1, 1, 1],
@@ -57,7 +90,6 @@ console.info(JSON.stringify(action))
 //     }
 // )
 // console.info(JSON.stringify(res10_1))
-
 // for (let index = 0; index < 20; index++) {
 //     let action = test10_1.getActionAuto({
 //         "desk": [
@@ -402,14 +434,8 @@ console.info(JSON.stringify(action))
 // }
 //// 2_2
 // let test2_2 = new example2_2();
-// let gd = new GameData2_2();
-// gd.player = 1
-// // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-// gd.positions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
-// gd.sum = 4
-// gd.warehouse = 3
-// let action = test2_2.checkRiddle(gd)
-// console.info(action)
+// let action = test2_2.getActionAuto({ "player": 1, "positions": [1, 0, 0, 0, 0, 0, 0, 0, 0, 1], "sum": 2, "warehouse": 0 })
+// console.info(JSON.stringify(action))
 // for (i = 0; i < 10; i++) {
 //     let result = test2_2.getRiddleByLev(0, null);
 //     let flagResult = -1
@@ -438,7 +464,7 @@ console.info(JSON.stringify(action))
 // desk.p2 = 0
 // desk.player = 2
 // desk.positions = [[2, 1], [2, 1], [2, 1], [1, 2], [2], [1, 1, 2], [], [], [], [], [], []]
-// let tmp = test2_1.getActionAuto(desk)
+// let tmp = test2_1.checkRiddle(desk)
 // console.info(JSON.stringify(tmp))
 
 // for (i = 0; i < 1; i++) {

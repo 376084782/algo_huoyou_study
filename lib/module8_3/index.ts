@@ -83,6 +83,11 @@ export default class example8_3 {
 
   checkRiddle(deskData: GameData8_3): number {
     let zeroCount = 0
+
+    if (deskData.desk[0] < 0 || deskData.desk[0] > 15 || deskData.desk[1] < 0 || deskData.desk[1] > 15 || deskData.desk[2] < 0 || deskData.desk[2] > 15) {
+      return -1
+    }
+
     if (deskData.desk[0] == 0) {
       zeroCount++
     }

@@ -101,6 +101,9 @@ export default class example2_1 {
         return -1
       }
     }
+    if (p1 > 6 || p2 > 6) {
+      return -1
+    }
     return 0
   }
 
