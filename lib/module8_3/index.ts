@@ -40,7 +40,7 @@ import { FileWriter } from '../common/FileWriter';
 //todo
 
 export class GameData8_3 {
-  typeSet? = 1;//前端用的，存是否是自定义棋盘
+  typeSet?= 1;//前端用的，存是否是自定义棋盘
   //参数
   desk: number[] = [5, 3, 7]
   player: number = 1
@@ -99,6 +99,9 @@ export default class example8_3 {
       zeroCount++
     }
     if (zeroCount >= 2) {
+      return -1
+    }
+    if (deskData.desk.length != 3) {
       return -1
     }
     return 1;
