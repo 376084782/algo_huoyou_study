@@ -95,7 +95,7 @@ export default class example4_5 {
     if (this.checkDesk(deskData) != 0) {
       return -1
     }
-    if (deskData.n < 10 || deskData.n > 20) {
+    if (deskData.max < 10 || deskData.max > 20) {
       return -1
     }
     return 1
@@ -108,9 +108,9 @@ export default class example4_5 {
     let flagResult = 0
     const n = this.getActionNumber(dataAction)
     if (deskData.player == 1 && (deskData.n + n) <= deskData.max) {
-      deskData.n += n
-    } else if (deskData.player == 2 && (deskData.n - n) >= (deskData.max * -1)) {
       deskData.n -= n
+    } else if (deskData.player == 2 && (deskData.n - n) >= (deskData.max * -1)) {
+      deskData.n += n
     } else {
       return [-1, deskData];
     }
@@ -167,7 +167,7 @@ export default class example4_5 {
 
   getActionAuto(deskData: GameData4_5): GameAutoWay {
 
-    let toEnd = deskData.player == 1 ? deskData.max - deskData.n : deskData.max + deskData.n;
+    let toEnd = deskData.player == 2 ? deskData.max - deskData.n : deskData.max + deskData.n;
 
     const rg = new RandomGenerater(0)
     const k1 = rg.RangeInteger(1, 7)
