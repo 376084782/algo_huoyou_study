@@ -3,6 +3,7 @@ import { json } from 'stream/consumers';
 import { FileWriter } from './common/FileWriter';
 import example2_1, { GameAction2_1, GameData2_1 } from './module2_1/index';
 import { example2_2, GameData2_2 } from './module2_2/index';
+import example2_5, { Position2_5, GameData2_5, GameAction2_5, GameConfig2_5 } from './module2_5/index';
 import example4_1, { GameConfig4_1, GameData4_1 } from './module4_1/index';
 import example4_2, { GameAction4_2, GameData4_2 } from './module4_2/index';
 import example4_3, { GameAction4_3, GameConfig4_3, GameData4_3 } from './module4_3/index';
@@ -574,3 +575,41 @@ for (let i = 0; i < 10; i++) {
 //         player = player == "P1" ? "P2" : "P1"
 //     }
 // }
+
+let test2_5 = new example2_5();
+let config2_5 = new GameConfig2_5();
+config2_5.borderSize = 2;
+let data = test2_5.getRiddle(config2_5);
+console.info(JSON.stringify(data))
+
+let action = new GameAction2_5(new Position2_5(0,1), 1);
+console.info(JSON.stringify(action.getBodyPosition()), JSON.stringify(action.getTailPosition()))
+
+console.info(data.doAction(action), JSON.stringify(data))
+
+let action2 = new GameAction2_5(new Position2_5(1,1), 1);
+console.info(data.doAction(action2), JSON.stringify(data))
+action = new GameAction2_5(new Position2_5(2,1), 1);
+console.info(JSON.stringify(action.getBodyPosition()), JSON.stringify(action.getTailPosition()))
+console.info(data.doAction(action), JSON.stringify(data))
+action = new GameAction2_5(new Position2_5(1,4), 4);
+console.info(JSON.stringify(action.getBodyPosition()), JSON.stringify(action.getTailPosition()))
+console.info(data.doAction(action), JSON.stringify(data))
+action = new GameAction2_5(new Position2_5(2,4), 4);
+console.info(JSON.stringify(action.getBodyPosition()), JSON.stringify(action.getTailPosition()))
+console.info(data.doAction(action), JSON.stringify(data))
+
+
+// let data2 = test2_5.doAction(data, action)
+// console.info(JSON.stringify(data2))
+config2_5.borderSize = 3;
+data = test2_5.getRiddle(config2_5);
+for (let i = 0; i < 10; i++) {
+    let action = test2_5.getActionAuto(data)
+    console.info(action)
+    let result = data.doAction(action.best)
+    console.info(result, JSON.stringify(data))
+    if (result != 0) {
+        break
+    }
+}
