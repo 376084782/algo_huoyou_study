@@ -86,7 +86,7 @@ export class GameAction6_3 {
 }
 
 export class GameConfig6_3 {
-  n: number = 20
+  n: number = 19
   desk: number[] = [3, 4, 4, 9]
   constructor(n: number, desk: number[]) {
     this.n = n
