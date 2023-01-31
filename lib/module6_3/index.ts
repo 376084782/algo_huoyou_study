@@ -2,8 +2,8 @@
  * @author jiutou
  * @updateTime 2022/12/02
  * @tip 6-3 平均分与大小配对
- * @description 
- * 
+ * @description
+ *
 5,0,0,0,0
 4,1,0,0,0
 3,2,0,0,0
@@ -48,7 +48,7 @@ an表示当棋子颗数为 n 时，游戏状态的个数，具体得到每一个
 ⑤更新差集ΔS=ΔS-W2后，对ΔS 中的每一个元素进行规则遍历，即对ΔS 中每一个游戏状态逐一实行所有可能的操作，若某个状态 ai（i 可能不唯一）在实行规则遍历的过程中，存在某一种操作使得实行该操作后所得到的新状态 ai’属于 W2,则这个状态ai属于败点集，将这个状态存入 L2；
 ⑥重复④和⑤，直至ΔS 为空。】
 
- * 
+ *
  */
 import { GameStep, GameWay, GameAutoWay } from '../common/pojo';
 import RandomGenerater from '../util/RandomGenerater';
@@ -75,7 +75,7 @@ export class GameData6_3 {
 export class GameAction6_3 {
   //拆解下标0-29
   action: number[][]
-  //对数组中点位拆解之后的数据 
+  //对数组中点位拆解之后的数据
   actionAfter: number[][]
   // 如把desk[3]上的5个，拆分到desk[4]上2个,desk[5]上3个，这为action=[[3,5]] actionAfter=[[4,2],[5,3]]
   // 如把desk[4]上2个,desk[5]上的3个，合到desk[3]上，这为action=[[4,2],[5,3]] actionAfter=[[3,5]]
@@ -87,7 +87,7 @@ export class GameAction6_3 {
 
 export class GameConfig6_3 {
   n: number = 20
-  desk: number[] = [3, 4, 4, 9]
+  desk: number[] = [3, 4, 4, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   constructor(n: number, desk: number[]) {
     this.n = n
     if (desk != undefined) {
