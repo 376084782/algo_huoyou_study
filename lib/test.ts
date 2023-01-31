@@ -275,8 +275,8 @@ console.log(action11, 'actionactionactionaction')
 //     let s1 = test6_3.getAllDesk(i);
 // }
 let test6_3 = new example6_3();
-console.log(2222222222222,test6_3.checkRiddle({
-    desk: [3, 4, 4, 9],
+console.log(2222222222222, test6_3.checkRiddle({
+    desk: test6_3.fillZero([3, 4, 4, 9], 20),
     typeSet: 1,
     player: 1
 }))
