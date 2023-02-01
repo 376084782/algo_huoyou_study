@@ -143,10 +143,14 @@ export default class example6_1 {
         }
       }
     }
-    if (p1Count > p2Count) {
-      return 1
-    } else if (p1Count < p2Count) {
+    let p1s = Math.abs(100 - p1Count)
+    let p2s = Math.abs(100 - p2Count)
+    if (p1s > p2s) {
       return 2
+    } else if (p1s < p2s) {
+      return 1
+    } else if (p1s == p2s) {
+      return 3
     } else {
       return 0
     }

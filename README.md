@@ -33,8 +33,6 @@ https://docs.qq.com/doc/DUmNlSXJTdG1nckpm
 
 # 开发中
 ## 黄涛
-* 6-3
-    Doing
 * 10-3 五连方游戏
 * 2-7	俄罗斯方块
     没想好机器人策略怎么写
