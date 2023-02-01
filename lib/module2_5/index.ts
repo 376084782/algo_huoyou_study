@@ -44,7 +44,7 @@ export class GameData2_5 {
   palyer1Fishes: GameAction2_5[] = []
   palyer2Fishes: GameAction2_5[] = []
   //当前玩家
-  curPlayer = 1
+  curPlayer = 2
   config: GameConfig2_5
   //
   positions: number[][] = []
@@ -64,13 +64,14 @@ export class GameData2_5 {
         if (i < config.borderSize) {
           signleLevel.push(0)
         } else {
-          if ((j < 2 * (i - config.borderSize) + 1) || (j > 4 * config.borderSize - 2)) {
+          if ((j < 2 * (i - config.borderSize) + 1) || (j > 4 * config.borderSize - 1)) {
             signleLevel.push(-1)
           } else {
             signleLevel.push(0)
           }
         }
       }
+      this.positions.push(signleLevel)
     }
     for (let i = 0; i < config.initPalyer1Fishes.length; i++) {
       if (this.doAction(config.initPalyer1Fishes[i]) != 0) {
@@ -86,13 +87,13 @@ export class GameData2_5 {
   copy(): GameData2_5 {
     let obj = new GameData2_5(this.config)
     for (let i = 0; i < this.palyer1Fishes.length; i++) {
-      if (this.doAction(this.palyer1Fishes[i]) != 0) {
+      if (obj.doAction(this.palyer1Fishes[i]) != 0) {
         throw new Error("illegal init palyer fishes[2].");
       }
       if (i >= this.palyer2Fishes.length) {
         continue
       }
-      if (this.doAction(this.palyer2Fishes[i]) != 0) {
+      if (obj.doAction(this.palyer2Fishes[i]) != 0) {
         throw new Error("illegal init palyer fishes[3].");
       }
     }
@@ -110,13 +111,13 @@ export class GameData2_5 {
   }
 
   checkAction(action: GameAction2_5): Boolean {
-    if (this.checkPosition(action.headPosition)) {
+    if (!this.checkPosition(action.headPosition)) {
       return false
     }
-    if (this.checkPosition(action.getBodyPosition())) {
+    if (!this.checkPosition(action.getBodyPosition())) {
       return false
     }
-    if (this.checkPosition(action.getTailPosition())) {
+    if (!this.checkPosition(action.getTailPosition())) {
       return false
     }
     return true
@@ -132,12 +133,11 @@ export class GameData2_5 {
     } else {
       this.palyer2Fishes.push(action)
     }
-    this.positions[action.headPosition.y][action.headPosition.x] = this.curPlayer
+    this.positions[action.headPosition.x][action.headPosition.y] = this.curPlayer
     let bodyPosition = action.getBodyPosition()
     let tailPosition = action.getTailPosition()
-    this.positions[bodyPosition.y][bodyPosition.x] = this.curPlayer
-    this.positions[tailPosition.y][tailPosition.x] = this.curPlayer
-    console.log('finsdada')
+    this.positions[bodyPosition.x][bodyPosition.y] = this.curPlayer
+    this.positions[tailPosition.x][tailPosition.y] = this.curPlayer
     if (this.checkOver()) {
       return this.curPlayer
     }
@@ -228,10 +228,10 @@ export class GameAction2_5 {
   }
 
   getBodyPosition(): Position2_5 {
-    if (this.headPosition.y % 2 == 1) {
+    if (this.headPosition.y % 2 == 0) {
       switch (this.direct) {
         case 0:
-          return new Position2_5(this.headPosition.x - 1, this.headPosition.y - 1)
+          return new Position2_5(this.headPosition.x + 1, this.headPosition.y + 1)
         case 2:
           return new Position2_5(this.headPosition.x, this.headPosition.y + 1)
         case 4:
@@ -244,7 +244,7 @@ export class GameAction2_5 {
         case 1:
           return new Position2_5(this.headPosition.x, this.headPosition.y + 1)
         case 3:
-          return new Position2_5(this.headPosition.x + 1, this.headPosition.y + 1)
+          return new Position2_5(this.headPosition.x - 1, this.headPosition.y - 1)
         case 5:
           return new Position2_5(this.headPosition.x, this.headPosition.y - 1)
         default:
@@ -254,25 +254,25 @@ export class GameAction2_5 {
   }
 
   getTailPosition(): Position2_5 {
-    if (this.headPosition.y % 2 == 1) {
+    if (this.headPosition.y % 2 == 0) {
       switch (this.direct) {
         case 0:
-          return new Position2_5(this.headPosition.x - 2, this.headPosition.y - 2)
+          return new Position2_5(this.headPosition.x + 2, this.headPosition.y + 2)
         case 2:
-          return new Position2_5(this.headPosition.x + 1, this.headPosition.y + 4)
+          return new Position2_5(this.headPosition.x - 1, this.headPosition.y + 2)
         case 4:
-          return new Position2_5(this.headPosition.x + 1, this.headPosition.y - 2)
+          return new Position2_5(this.headPosition.x - 1, this.headPosition.y - 4)
         default:
           throw new Error("illegal direct")
       }
     } else {
       switch (this.direct) {
         case 1:
-          return new Position2_5(this.headPosition.x - 1, this.headPosition.y + 2)
+          return new Position2_5(this.headPosition.x + 1, this.headPosition.y + 4)
         case 3:
-          return new Position2_5(this.headPosition.x + 2, this.headPosition.y + 2)
+          return new Position2_5(this.headPosition.x - 2, this.headPosition.y - 2)
         case 5:
-          return new Position2_5(this.headPosition.x - 1, this.headPosition.y - 4)
+          return new Position2_5(this.headPosition.x + 1, this.headPosition.y - 2)
         default:
           throw new Error("illegal direct")
       }
@@ -367,7 +367,7 @@ export default class example2_5 {
       return new GameAutoWay(result, result)
     }
     if (normaActions.length == 0) {
-      return new GameAutoWay(worstActions[rg.RangeInteger(1, bestActions.length) - 1], worstActions[rg.RangeInteger(1, bestActions.length) - 1])
+      return new GameAutoWay(worstActions[rg.RangeInteger(1, worstActions.length) - 1], worstActions[rg.RangeInteger(1, worstActions.length) - 1])
     }
     let betterActions: GameAction2_5[] = []
     let worseActions: GameAction2_5[] = []
@@ -383,12 +383,12 @@ export default class example2_5 {
       }
     }
     if (betterActions.length == 0) {
-      return new GameAutoWay(worseActions[rg.RangeInteger(1, bestActions.length) - 1], worseActions[rg.RangeInteger(1, bestActions.length) - 1])
+      return new GameAutoWay(worseActions[rg.RangeInteger(1, worseActions.length) - 1], worseActions[rg.RangeInteger(1, worseActions.length) - 1])
     }
     if (worseActions.length == 0) {
-      return new GameAutoWay(betterActions[rg.RangeInteger(1, bestActions.length) - 1], betterActions[rg.RangeInteger(1, bestActions.length) - 1])
+      return new GameAutoWay(betterActions[rg.RangeInteger(1, betterActions.length) - 1], betterActions[rg.RangeInteger(1, betterActions.length) - 1])
     }
-    return new GameAutoWay(betterActions[rg.RangeInteger(1, bestActions.length) - 1], worseActions[rg.RangeInteger(1, bestActions.length) - 1])
+    return new GameAutoWay(betterActions[rg.RangeInteger(1, betterActions.length) - 1], worseActions[rg.RangeInteger(1, worseActions.length) - 1])
   }
 
 

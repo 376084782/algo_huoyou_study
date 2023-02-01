@@ -3,6 +3,7 @@ import { json } from 'stream/consumers';
 import { FileWriter } from './common/FileWriter';
 import example2_1, { GameAction2_1, GameData2_1 } from './module2_1/index';
 import { example2_2, GameData2_2 } from './module2_2/index';
+import example2_5, { Position2_5, GameData2_5, GameAction2_5, GameConfig2_5 } from './module2_5/index';
 import example4_1, { GameConfig4_1, GameData4_1 } from './module4_1/index';
 import example4_2, { GameAction4_2, GameData4_2 } from './module4_2/index';
 import example4_3, { GameAction4_3, GameConfig4_3, GameData4_3 } from './module4_3/index';
@@ -16,6 +17,16 @@ import example8_3 from './module8_3/index';
 import example10_1, { GameData10_1, GameAction10_1 } from './module10_1/index';
 import example10_2 from './module10_2/index';
 import RandomGenerater from './util/RandomGenerater';
+import example10_5 from './module10_5';
+
+let test10_5 = new example10_5();
+console.log('222',
+    test10_5.doAction(
+        { "typeSet": 1, "step": 0, "currentPlayer": 1, "nextArea": 5, "desk": [[[0, 0, 0], [0, 0, 0], [0, 0, 0]], [[0, 0, 0], [0, 0, 0], [0, 0, 0]], [[0, 0, 0], [0, 0, 0], [0, 0, 0]], [[0, 0, 0], [0, 0, 0], [0, 0, 0]], [[0, 0, 0], [0, 0, 0], [0, 0, 0]], [[0, 0, 0], [0, 0, 0], [0, 0, 0]], [[0, 0, 0], [0, 0, 0], [0, 0, 0]], [[0, 0, 0], [0, 0, 0], [0, 0, 0]], [[0, 0, 0], [0, 0, 0], [0, 0, 0]]], "rowList": [[[0, 0, 0], [0, 0, 0]], [[0, 0, 0], [0, 0, 0]], [[0, 0, 0], [0, 0, 0]], [[0, 0, 0], [0, 0, 0]], [[0, 0, 0], [0, 0, 0]], [[0, 0, 0], [0, 0, 0]], [[0, 0, 0], [0, 0, 0]], [[0, 0, 0], [0, 0, 0]], [[0, 0, 0], [0, 0, 0]]], "colList": [[[0, 0, 0], [0, 0, 0]], [[0, 0, 0], [0, 0, 0]], [[0, 0, 0], [0, 0, 0]], [[0, 0, 0], [0, 0, 0]], [[0, 0, 0], [0, 0, 0]], [[0, 0, 0], [0, 0, 0]], [[0, 0, 0], [0, 0, 0]], [[0, 0, 0], [0, 0, 0]], [[0, 0, 0], [0, 0, 0]]], "x1or7": [[[0, 0], [0, 0]], [[0, 0], [0, 0]], [[0, 0], [0, 0]], [[0, 0], [0, 0]], [[0, 0], [0, 0]], [[0, 0], [0, 0]], [[0, 0], [0, 0]], [[0, 0], [0, 0]], [[0, 0], [0, 0]]], "bigRowList": [[0, 0, 0], [0, 0, 0]], "bigColList": [[0, 0, 0], [0, 0, 0]], "bigX1or7": [[0, 0], [0, 0]], "areaBig": [[-1, -1, 100, 100], [-1, -1, 100, 100], [-1, -1, 100, 100], [-1, -1, 100, 100], [-1, -1, 100, 100], [-1, -1, 100, 100], [-1, -1, 100, 100], [-1, -1, 100, 100], [-1, -1, 100, 100]] }
+        , { "nextArea": 5, "step": 0, "xPos": 2, "yPos": 2, "player": 1 },
+    )
+)
+
 
 let player = "P1"
 let i = 0
@@ -103,9 +114,9 @@ let i = 0
 // console.info(JSON.stringify(a2))
 // console.info(JSON.stringify(a3))
 // 8_3
-// let test8_3 = new example8_3();
-// let action = test8_3.checkRiddle({"typeSet":2,"desk":[5,3,70],"player":1})
-// console.log(action,'actionactionactionaction')
+let test8_3 = new example8_3();
+let action11 = test8_3.checkRiddle({ "typeSet": 2, "desk": [5, 3, 3, 3], "player": 1 })
+console.log(action11, 'actionactionactionaction')
 // let s1 = test8_3.doAction({ "desk": [2, 0, 10], "player": 2 }, action.best)
 // let s2 = test8_3.doAction({ "desk": [2, 0, 10], "player": 2 }, action.nobest)
 // console.info(JSON.stringify(action))
@@ -263,7 +274,12 @@ let i = 0
 // for (let i = 2; i <= 30; i++) {
 //     let s1 = test6_3.getAllDesk(i);
 // }
-// let test6_3 = new example6_3();
+let test6_3 = new example6_3();
+console.log(2222222222222, test6_3.checkRiddle({
+    desk: test6_3.fillZero([3, 4, 4, 9], 20),
+    typeSet: 1,
+    player: 1
+}))
 // let action1 = test6_3.doAction(
 //     {
 //         "desk": [0, 4, 0, 3, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -562,5 +578,43 @@ for (let i = 0; i < 10; i++) {
 //             console.info(player + " WIN")
 //         }
 //         player = player == "P1" ? "P2" : "P1"
+//     }
+// }
+
+// let test2_5 = new example2_5();
+// let config2_5 = new GameConfig2_5();
+// config2_5.borderSize = 2;
+// let data = test2_5.getRiddle(config2_5);
+// console.info(JSON.stringify(data))
+
+// let action = new GameAction2_5(new Position2_5(0,1), 1);
+// console.info(JSON.stringify(action.getBodyPosition()), JSON.stringify(action.getTailPosition()))
+
+// console.info(data.doAction(action), JSON.stringify(data))
+
+// let action2 = new GameAction2_5(new Position2_5(1,1), 1);
+// console.info(data.doAction(action2), JSON.stringify(data))
+// action = new GameAction2_5(new Position2_5(2,1), 1);
+// console.info(JSON.stringify(action.getBodyPosition()), JSON.stringify(action.getTailPosition()))
+// console.info(data.doAction(action), JSON.stringify(data))
+// action = new GameAction2_5(new Position2_5(1,4), 4);
+// console.info(JSON.stringify(action.getBodyPosition()), JSON.stringify(action.getTailPosition()))
+// console.info(data.doAction(action), JSON.stringify(data))
+// action = new GameAction2_5(new Position2_5(2,4), 4);
+// console.info(JSON.stringify(action.getBodyPosition()), JSON.stringify(action.getTailPosition()))
+// console.info(data.doAction(action), JSON.stringify(data))
+
+
+// // let data2 = test2_5.doAction(data, action)
+// // console.info(JSON.stringify(data2))
+// config2_5.borderSize = 3;
+// data = test2_5.getRiddle(config2_5);
+// for (let i = 0; i < 10; i++) {
+//     let action = test2_5.getActionAuto(data)
+//     console.info(action)
+//     let result = data.doAction(action.best)
+//     console.info(result, JSON.stringify(data))
+//     if (result != 0) {
+//         break
 //     }
 // }

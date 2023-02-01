@@ -217,146 +217,14 @@ export class GameData10_5{
         [0,0]
     ]
 
+    areaBig:number[][]=[
+        [-1,-1,100,100],[-1,-1,100,100],[-1,-1,100,100],
+        [-1,-1,100,100],[-1,-1,100,100],[-1,-1,100,100],
+        [-1,-1,100,100],[-1,-1,100,100],[-1,-1,100,100]]
+
     constructor() {
     }
 
-    initEndData(){
-        // 占据区域条件,行数到达3即占据
-        this.rowList=[
-            [
-                [0,0,0],
-                [0,0,0]
-            ],
-            [
-                [0,0,0],
-                [0,0,0]
-            ],
-            [
-                [0,0,0],
-                [0,0,0]
-            ],
-            [
-                [0,0,0],
-                [0,0,0]
-            ],
-            [
-                [0,0,0],
-                [0,0,0]
-            ],
-            [
-                [0,0,0],
-                [0,0,0]
-            ],
-            [
-                [0,0,0],
-                [0,0,0]
-            ],
-            [
-                [0,0,0],
-                [0,0,0]
-            ],
-            [
-                [0,0,0],
-                [0,0,0]
-            ]
-        ]
-
-        // 列数到达3即占据区域
-        this.colList=[
-            [
-                [0,0,0],
-                [0,0,0]
-            ],
-            [
-                [0,0,0],
-                [0,0,0]
-            ],
-            [
-                [0,0,0],
-                [0,0,0]
-            ],
-            [
-                [0,0,0],
-                [0,0,0]
-            ],
-            [
-                [0,0,0],
-                [0,0,0]
-            ],
-            [
-                [0,0,0],
-                [0,0,0]
-            ],
-            [
-                [0,0,0],
-                [0,0,0]
-            ],
-            [
-                [0,0,0],
-                [0,0,0]
-            ],
-            [
-                [0,0,0],
-                [0,0,0]
-            ]
-        ]
-        // 斜1到达3或者斜7到达3即占据区域
-        this.x1or7=[
-            [
-                [0,0],
-                [0,0]
-            ],
-            [
-                [0,0],
-                [0,0]
-            ],
-            [
-                [0,0],
-                [0,0]
-            ],
-            [
-                [0,0],
-                [0,0]
-            ],
-            [
-                [0,0],
-                [0,0]
-            ],
-            [
-                [0,0],
-                [0,0]
-            ],
-            [
-                [0,0],
-                [0,0]
-            ],
-            [
-                [0,0],
-                [0,0]
-            ],
-            [
-                [0,0],
-                [0,0]
-            ]
-        ]
-
-        //大区域行数达到3即胜利
-        this.bigRowList=[
-            [0,0,0],
-            [0,0,0]
-        ]
-
-        // 大区域列数到达3即胜利
-        this.bigColList=[
-            [0,0,0],
-            [0,0,0]
-        ]
-        // 大区域斜1到达3或者斜7到达3即胜利
-        this.bigX1or7=[
-            [0,0],
-            [0,0]
-        ]
-    }
 }
 
 
@@ -440,7 +308,149 @@ export default class  example10_5 {
         }
         return 1;
     }
+    initDeskDataEndData(deskData:GameData10_5){
+        // 占据区域条件,行数到达3即占据
+        deskData.rowList=[
+            [
+                [0,0,0],
+                [0,0,0]
+            ],
+            [
+                [0,0,0],
+                [0,0,0]
+            ],
+            [
+                [0,0,0],
+                [0,0,0]
+            ],
+            [
+                [0,0,0],
+                [0,0,0]
+            ],
+            [
+                [0,0,0],
+                [0,0,0]
+            ],
+            [
+                [0,0,0],
+                [0,0,0]
+            ],
+            [
+                [0,0,0],
+                [0,0,0]
+            ],
+            [
+                [0,0,0],
+                [0,0,0]
+            ],
+            [
+                [0,0,0],
+                [0,0,0]
+            ]
+        ]
 
+        // 列数到达3即占据区域
+        deskData.colList=[
+            [
+                [0,0,0],
+                [0,0,0]
+            ],
+            [
+                [0,0,0],
+                [0,0,0]
+            ],
+            [
+                [0,0,0],
+                [0,0,0]
+            ],
+            [
+                [0,0,0],
+                [0,0,0]
+            ],
+            [
+                [0,0,0],
+                [0,0,0]
+            ],
+            [
+                [0,0,0],
+                [0,0,0]
+            ],
+            [
+                [0,0,0],
+                [0,0,0]
+            ],
+            [
+                [0,0,0],
+                [0,0,0]
+            ],
+            [
+                [0,0,0],
+                [0,0,0]
+            ]
+        ]
+        // 斜1到达3或者斜7到达3即占据区域
+        deskData.x1or7=[
+            [
+                [0,0],
+                [0,0]
+            ],
+            [
+                [0,0],
+                [0,0]
+            ],
+            [
+                [0,0],
+                [0,0]
+            ],
+            [
+                [0,0],
+                [0,0]
+            ],
+            [
+                [0,0],
+                [0,0]
+            ],
+            [
+                [0,0],
+                [0,0]
+            ],
+            [
+                [0,0],
+                [0,0]
+            ],
+            [
+                [0,0],
+                [0,0]
+            ],
+            [
+                [0,0],
+                [0,0]
+            ]
+        ]
+
+        //大区域行数达到3即胜利
+        deskData.bigRowList=[
+            [0,0,0],
+            [0,0,0]
+        ]
+
+        // 大区域列数到达3即胜利
+        deskData.bigColList=[
+            [0,0,0],
+            [0,0,0]
+        ]
+        // 大区域斜1到达3或者斜7到达3即胜利
+        deskData.bigX1or7=[
+            [0,0],
+            [0,0]
+        ]
+
+        deskData.areaBig = [
+            [-1,-1,100,100],[-1,-1,100,100],[-1,-1,100,100],
+            [-1,-1,100,100],[-1,-1,100,100],[-1,-1,100,100],
+            [-1,-1,100,100],[-1,-1,100,100],[-1,-1,100,100]
+        ]
+    }
     /**
      * 查看当前桌面信息，是否有人获胜，存在平局的情况，当区域5的棋子满了后会出现无子可下
      * @param deskData
@@ -450,17 +460,20 @@ export default class  example10_5 {
 
 
         // 初始化计数
-        deskData.initEndData();
+        this.initDeskDataEndData(deskData);
 
 
 
         for(let area:number=0;area<9;area++)
         {
+            let tempStep:number[] = [-1,-1];
             for(let xPos:number=0;xPos<3;xPos++)
             {
                 for(let yPos:number=0;yPos<3;yPos++)
                 {
                     let player:number = deskData.desk[area][xPos][yPos].toString().charAt(0).replace('x',2).replace('y',3);
+
+
 
                        if(player == 2 || player == 3) {
                            if (xPos == yPos) //1 斜线
@@ -475,31 +488,126 @@ export default class  example10_5 {
                            deskData.rowList[area][player - 2][yPos]++;
 
 
-                           if ((deskData.x1or7[area][player - 2][0] == 3) || (deskData.x1or7[area][player - 2][1] == 3) || (deskData.colList[area][player - 2][xPos] == 3) || (deskData.rowList[area][player - 2][yPos] == 3)) {
-                               if ((area == 0 || area == 4 || area == 8) && deskData.bigX1or7[player - 2][99 - area] == undefined) // 斜线1
+                           // 独占规则
+                           if((deskData.x1or7[area][player - 2][0] == 3)) { //斜线1时判定最小满足三连的步数
+
+                               let one:number = parseInt(deskData.desk[area][0][0].toString().replace('x','').replace('y',''))
+                               let two:number = parseInt(deskData.desk[area][1][1].toString().replace('x','').replace('y',''))
+                               let three:number = parseInt(deskData.desk[area][2][2].toString().replace('x','').replace('y',''))
+                               if(one>=tempStep[player - 2])
                                {
-                                   deskData.bigX1or7[player - 2][0]++;
-                                   deskData.bigX1or7[player - 2][99 - area] = 1;
+                                   tempStep[player - 2] = one;
                                }
-                               if ((area == 6 || area == 4 || area == 2) && deskData.bigX1or7[player - 2][88 - area] == undefined) //斜线7
+                               if(two>=tempStep[player - 2])
                                {
-                                   deskData.bigX1or7[player - 2][1]++;
-                                   deskData.bigX1or7[player - 2][88 - area] = 1;
+                                   tempStep[player - 2] = two
                                }
-                               if (deskData.bigColList[player - 2][99 - (area)] == undefined) {
-                                   deskData.bigColList[player - 2][(area) % 3]++;
-                                   deskData.bigColList[player - 2][99 - (area)] = 1;
+                               if(three>=tempStep[player - 2])
+                               {
+                                   tempStep[player - 2] = three
                                }
-                               if (deskData.bigRowList[player - 2][99 - Math.floor(area)] == undefined) {
-                                   deskData.bigRowList[player - 2][Math.floor(area / 3)]++;
-                                   deskData.bigRowList[player - 2][99 - Math.floor(area)] = 1;
+
+                           }
+                           if((deskData.x1or7[area][player - 2][1] == 3) ) //斜线7时判定最小满足三连的步数
+                           {
+                               let one:number = parseInt(deskData.desk[area][0][2].toString().replace('x','').replace('y',''))
+                               let two:number = parseInt(deskData.desk[area][1][1].toString().replace('x','').replace('y',''))
+                               let three:number = parseInt(deskData.desk[area][2][0].toString().replace('x','').replace('y',''))
+                               if(one>=tempStep[player - 2])
+                               {
+                                   tempStep[player - 2] = one;
+                               }
+                               if(two>=tempStep[player - 2])
+                               {
+                                   tempStep[player - 2] = two
+                               }
+                               if(three>=tempStep[player - 2])
+                               {
+                                   tempStep[player - 2] = three
+                               }
+                           }
+                           if((deskData.colList[area][player - 2][xPos] == 3))
+                           {
+                               let one:number = parseInt(deskData.desk[area][xPos][0].toString().replace('x','').replace('y',''))
+                               let two:number = parseInt(deskData.desk[area][xPos][1].toString().replace('x','').replace('y',''))
+                               let three:number = parseInt(deskData.desk[area][xPos][2].toString().replace('x','').replace('y',''))
+                               if(one>=tempStep[player - 2])
+                               {
+                                   tempStep[player - 2] = one;
+                               }
+                               if(two>=tempStep[player - 2])
+                               {
+                                   tempStep[player - 2] = two
+                               }
+                               if(three>=tempStep[player - 2])
+                               {
+                                   tempStep[player - 2] = three
+                               }
+                           }
+                           if((deskData.rowList[area][player - 2][yPos] == 3))
+                           {
+                               let one:number = parseInt(deskData.desk[area][0][yPos].toString().replace('x','').replace('y',''))
+                               let two:number = parseInt(deskData.desk[area][1][yPos].toString().replace('x','').replace('y',''))
+                               let three:number = parseInt(deskData.desk[area][2][yPos].toString().replace('x','').replace('y',''))
+                               if(one>=tempStep[player - 2])
+                               {
+                                   tempStep[player - 2] = one;
+                               }
+                               if(two>=tempStep[player - 2])
+                               {
+                                   tempStep[player - 2] = two
+                               }
+                               if(three>=tempStep[player - 2])
+                               {
+                                   tempStep[player - 2] = three
                                }
                            }
 
+                           // deskData.areaBig[area][player - 2] = tempStep[player - 2] //独占该区域的
                        }
                 }
             }
+
+            deskData.areaBig[area][0] = tempStep[0] //独占该区域的先手玩家
+            deskData.areaBig[area][1] = tempStep[1] //独占该区域的后手玩家
         }
+
+
+        let winArr = [-1,-1,-1,-1,-1,-1,-1,-1,-1] //区域占领赋值
+        for(let area:number=0;area<9;area++)
+        {
+            if(deskData.areaBig[area][0]!=-1&&(deskData.areaBig[area][1]==-1!||(deskData.areaBig[area][0]<deskData.areaBig[area][1])))
+            {
+                winArr[area]=0;
+            }
+            if(deskData.areaBig[area][1]!=-1&&(deskData.areaBig[area][0]==-1!||(deskData.areaBig[area][1]<deskData.areaBig[area][0])))
+            {
+                winArr[area]=1;
+            }
+        }
+
+        // console.log(winArr)
+
+        for (let area:number=0;area<9;area++)
+        {
+
+            if ((area == 0 || area == 4 || area == 8)&& winArr[area]!=-1) // 斜线1
+            {
+                deskData.bigX1or7[winArr[area]][0]++;
+            }
+            if ((area == 6 || area == 4 || area == 2)&&winArr[area]!=-1) //斜线7
+            {
+                deskData.bigX1or7[winArr[area]][1]++;
+            }
+            if (winArr[area]!=-1) {
+                deskData.bigColList[winArr[area]][(area) % 3]++;
+            }
+            if (winArr[area]!=-1) {
+                deskData.bigRowList[winArr[area]][Math.floor(area / 3)]++;
+            }
+
+        }
+
 
 
 
@@ -893,6 +1001,7 @@ export default class  example10_5 {
 //     ge.doAction(gd,act[0]);
 //     if(ge.checkDesk(gd)!=-1) {
 //         console.log(ge.checkDesk(gd)+'win')
+//         console.log(gd.areaBig)
 //         break;
 //     }
 // }
