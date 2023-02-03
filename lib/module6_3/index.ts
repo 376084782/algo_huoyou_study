@@ -514,7 +514,7 @@ export default class example6_3 {
         const actionTmp = allAction[i];
         const dd = this.doAction(JSON.parse(JSON.stringify(deskData)), actionTmp);
         const dds = this.deskToStr(dd[1].desk);
-        if (!dl.has(deskStr)) {
+        if (!dl.has(dds)) {
           best = actionTmp
           break
         }
