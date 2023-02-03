@@ -183,21 +183,21 @@ export default class example8_3 {
         const action = allAction[i];
         const dd = this.doAction(JSON.parse(JSON.stringify(deskData)), action);
         const dds = this.deskToStr(dd[1].desk);
-        if (deskDatas.d30l15.has(deskStr) ||
-          deskDatas.d30l14.has(deskStr) ||
-          deskDatas.d30l13.has(deskStr) ||
-          deskDatas.d30l12.has(deskStr) ||
-          deskDatas.d30l11.has(deskStr) ||
-          deskDatas.d30l10.has(deskStr) ||
-          deskDatas.d30l9.has(deskStr) ||
-          deskDatas.d30l8.has(deskStr) ||
-          deskDatas.d30l7.has(deskStr) ||
-          deskDatas.d30l6.has(deskStr) ||
-          deskDatas.d30l5.has(deskStr) ||
-          deskDatas.d30l4.has(deskStr) ||
-          deskDatas.d30l3.has(deskStr) ||
-          deskDatas.d30l2.has(deskStr) ||
-          deskDatas.d30l1.has(deskStr)) {
+        if (deskDatas.d30l15.has(dds) ||
+          deskDatas.d30l14.has(dds) ||
+          deskDatas.d30l13.has(dds) ||
+          deskDatas.d30l12.has(dds) ||
+          deskDatas.d30l11.has(dds) ||
+          deskDatas.d30l10.has(dds) ||
+          deskDatas.d30l9.has(dds) ||
+          deskDatas.d30l8.has(dds) ||
+          deskDatas.d30l7.has(dds) ||
+          deskDatas.d30l6.has(dds) ||
+          deskDatas.d30l5.has(dds) ||
+          deskDatas.d30l4.has(dds) ||
+          deskDatas.d30l3.has(dds) ||
+          deskDatas.d30l2.has(dds) ||
+          deskDatas.d30l1.has(dds)) {
           best = action
           break
         }
@@ -206,7 +206,6 @@ export default class example8_3 {
     }
     return new GameAutoWay(best, nobest)
   }
-
 
   merge(n1: Set<number[]>, n2: Set<number[]>): Set<number[]> {
     n2.forEach(v => {

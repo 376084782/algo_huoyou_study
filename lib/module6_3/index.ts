@@ -492,16 +492,21 @@ export default class example6_3 {
       best = allAction[rg.RangeInteger(0, allAction.length - 1)]
       nobest = allAction[rg.RangeInteger(1, allAction.length - 1)]
     } else {
+      let dd = undefined
       for (let i = 0; i < allAction.length; i++) {
         const action = allAction[i];
         const dd = this.doAction(JSON.parse(JSON.stringify(deskData)), action);
         const dds = this.deskToStr(dd[1].desk);
-        if (dw.has(deskStr)) {
+        if (dw.has(dds)) {
           best = action
           break
         }
       }
-      nobest = allAction[rg.RangeInteger(1, allAction.length - 1)]
+      if (dd != undefined && this.checkDesk(dd) != 0) {
+        nobest = allAction[rg.RangeInteger(1, allAction.length - 1)]
+      } else {
+        nobest = allAction[rg.RangeInteger(1, allAction.length - 1)]
+      }
     }
     //如果无索引,查一个不会输的
     if (best == null) {
@@ -696,7 +701,6 @@ export default class example6_3 {
         }
       }
     })
-    //console.info("l2.size:" + l2.size)
     desks = new Map<string, number[]>
     allDesk.forEach((value, key) => {
       if (!w10.has(key) && !l10.has(key) && !w9.has(key) && !l9.has(key) && !w8.has(key) && !l8.has(key) && !w7.has(key) && !l7.has(key) && !w6.has(key) && !l6.has(key) && !w5.has(key) && !l5.has(key) && !w4.has(key) && !l4.has(key) && !w3.has(key) && !l3.has(key) && !w2.has(key) && !l2.has(key) && !w1.has(key) && !l1.has(key)) {
