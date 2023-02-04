@@ -226,7 +226,7 @@ export const getActionAuto = (dataDesk: GameData8_4): { best: GameData8_4_action
   const oppositeArr = player === 1 ? JSON.stringify(player_two) : JSON.stringify(player_one);
   let viableArr:any = [];
 
-  // 解的优先级：拦截对方形成三角形 > 能够形成三角形 > 能够组成双底座 > 靠近己方三角形
+  // 解的优先级：能够形成三角形 > 拦截对方形成三角形 > 能够组成双底座 > 靠近己方三角形
   let res1:any = [], res2:any = [], res3:any = [], res4:any = [];
 
   for (let i of allTriangle) {
@@ -262,16 +262,16 @@ const handlePriority = (triangle: Array<number>, sideLength: number, oppositeStr
   let triangleOther = getTriangleOther(triangle, sideLength);
   for(let sub of triangleOther){
     if(
-      oppositeStr.indexOf(JSON.stringify(sub[0])) > -1 &&
-      oppositeStr.indexOf(JSON.stringify(sub[1])) > -1
-    ){
-      return 1;
-    } else if(
       selfStr.indexOf(JSON.stringify(sub[0])) > -1 &&
       selfStr.indexOf(JSON.stringify(sub[1])) > -1
     ){
+      return 1;
+    } else if(
+      oppositeStr.indexOf(JSON.stringify(sub[0])) > -1 &&
+      oppositeStr.indexOf(JSON.stringify(sub[1])) > -1
+    ){
       return 2;
-    }
+    } 
   }
   return -1;
 }
