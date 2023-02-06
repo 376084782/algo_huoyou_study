@@ -484,7 +484,7 @@ export default class example6_3 {
     const rg = new RandomGenerater(0)
     let deskTmp = JSON.parse(JSON.stringify(deskData.desk));
     const allAction: GameAction6_3[] = this.getAllAction(deskTmp)
-    let deskStr = this.deskToStr(deskData.desk)
+    let deskStr = this.deskToStr(JSON.parse(JSON.stringify(deskData.desk)))
     const deskDatas = new DeskData()
     let best = null
     let nobest = null

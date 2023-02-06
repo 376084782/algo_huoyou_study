@@ -22,7 +22,7 @@ import OtherUtil from '../util/OtherUtil';
 import RandomGenerater from '../util/RandomGenerater';
 
 export class GameData8_2 {
-  typeSet? = 1;//前端用的，存是否是自定义棋盘
+  typeSet?= 1;//前端用的，存是否是自定义棋盘
   //棋盘 x由左0至右4 y由上0至下4  
   desk: number[][] = [
     [9, 9, 0, 0, 9, 9],
@@ -83,6 +83,8 @@ export default class example8_2 {
     // 各子有3
     let p1DeskChess = this.getDeskChess(deskData, 1)
     let p2DeskChess = this.getDeskChess(deskData, 2)
+
+    console.log(p1DeskChess, p2DeskChess)
 
     if (p1DeskChess != 3) {
       return -1
@@ -579,8 +581,11 @@ export default class example8_2 {
       const row = deskData.desk[i];
       for (let j = 0; j < row.length; j++) {
         const cell = row[j];
-        if (cell == player) {
-          result++
+        if (cell != 9 && cell != 0) {
+          let color = cell >= 4 ? 2 : 1
+          if (color == player) {
+            result++
+          }
         }
       }
     }
