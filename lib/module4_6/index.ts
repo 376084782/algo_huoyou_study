@@ -1,4 +1,5 @@
 // 4-6 先分后取
+// @author yuhuan
 // 一．挑战模式
 // 1.初始默认值：4，6，9
 // 2. 参数范围：①堆数：2~4；
@@ -19,9 +20,11 @@ export interface GameData4_6_action {
 
 // 普通获取题目
 export const getRiddle = (stackNum?: number): GameData4_6 => {
-  const rg = new RandomGenerater(0)
+  const rg = new RandomGenerater(0);
+  const reg = /^[1-9]\d*$/;
   // 随机生成堆
-  if (stackNum && stackNum >= 2 && stackNum <= 4) {
+  // 增加整数校验
+  if (stackNum && reg.test(stackNum.toString()) && stackNum >= 2 && stackNum <= 4) {
     let arr = [];
     for (let i = 0; i < stackNum; i++) {
       arr.push(rg.RangeInteger(1, 12));
