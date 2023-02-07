@@ -5,6 +5,7 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
+    "start": "webpack serve --mode development",
     "prepublish": "npm run build",
     "test": "mocha test/module2_1/**.js --reporter spec",
     "test_example": "mocha test/example/**.js --reporter spec",
@@ -37,5 +38,10 @@
   "bugs": {
     "url": "https://github.com/376084782/algo_huoyou_study/issues"
   },
-  "homepage": "https://github.com/376084782/algo_huoyou_study#readme"
+  "homepage": "https://github.com/376084782/algo_huoyou_study#readme",
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false
+  }
 }
