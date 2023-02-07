@@ -84,8 +84,6 @@ export default class example8_2 {
     let p1DeskChess = this.getDeskChess(deskData, 1)
     let p2DeskChess = this.getDeskChess(deskData, 2)
 
-    console.log(p1DeskChess, p2DeskChess)
-
     if (p1DeskChess != 3) {
       return -1
     }
@@ -137,14 +135,14 @@ export default class example8_2 {
     //保证不回走
     if (deskData.player == 1 &&
       deskData.p1chesslogAction == moveChess &&
-      deskData.p1chesslog[0] == dataAction.action[0] &&
-      deskData.p1chesslog[1] == dataAction.action[1]) {
+      deskData.p2chesslog[0] == dataAction.action[0] &&
+      deskData.p2chesslog[1] == dataAction.action[1]) {
       return -1
     }
     if (deskData.player == 2 &&
       deskData.p2chesslogAction == moveChess &&
-      deskData.p2chesslog[0] == dataAction.action[0] &&
-      deskData.p2chesslog[1] == dataAction.action[1]) {
+      deskData.p1chesslog[0] == dataAction.action[0] &&
+      deskData.p1chesslog[1] == dataAction.action[1]) {
       return -1
     }
     //保证相邻
@@ -356,12 +354,12 @@ export default class example8_2 {
           for (let x = 0; x < adjacents.length; x++) {
             let move = deskData.desk[adjacents[x][0]][adjacents[x][1]]
             if (deskData.player == 1 && move < 4 && move > 0) {
-              if (!(deskData.p1chesslogAction == move && deskData.p1chesslog[0] == i && deskData.p1chesslog[1] == j)) {
+              if (!(deskData.p1chesslogAction == move && deskData.p2chesslog[0] == i && deskData.p2chesslog[1] == j)) {
                 // canChessPositionMap.set(adjacents[x][0] + "_" + adjacents[x][1], adjacents[x])
                 canChessPositionMap.set(i + "_" + j, [i, j])
               }
             } else if (deskData.player == 2 && move >= 4) {
-              if (!(deskData.p2chesslogAction == move && deskData.p2chesslog[0] == i && deskData.p2chesslog[1] == j)) {
+              if (!(deskData.p2chesslogAction == move && deskData.p1chesslog[0] == i && deskData.p1chesslog[1] == j)) {
                 canChessPositionMap.set(i + "_" + j, [i, j])
               }
             }
@@ -526,9 +524,9 @@ export default class example8_2 {
         const tcell1 = deskData.desk[tx1][ty1]
         const tcell2 = deskData.desk[tx2][ty2]
         const tcell3 = deskData.desk[tx3][ty3]
-        if (tcell1 > 0 && tcell1 > 3 && tcell3 > 0 && tcell1 < 4 && tcell2 < 4 && tcell3 < 4) {
+        if (tcell1 > 0 && tcell2 > 0 && tcell3 > 0 && tcell3 < 4 && tcell2 < 4 && tcell2 < 4) {
           return 1
-        } else if (tcell1 >= 4 && tcell2 >= 4 && tcell3 >= 4 && tcell3 < 7 && tcell3 < 7 && tcell3 < 7) {
+        } else if (tcell1 >= 4 && tcell2 >= 4 && tcell3 >= 4 && tcell1 < 7 && tcell2 < 7 && tcell3 < 7) {
           return 2
         }
       }
