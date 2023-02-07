@@ -18,6 +18,8 @@ https://blog.csdn.net/u011587401/article/details/50877828
 电脑等级实现
  * 
  */
+
+// @ts-nocheck
 import { GameStep, GameWay, GameAutoWay } from '../common/pojo';
 import RandomGenerater from '../util/RandomGenerater';
 import OtherUtil from '../util/OtherUtil';
