@@ -9,6 +9,7 @@ import example4_3, { GameAction4_3, GameConfig4_3, GameData4_3 } from './module4
 import example4_5, { GameAction4_5, GameData4_5 } from './module4_5/index';
 import example6_1 from './module6_1/index';
 import { example6_2, GameAction6_2, GameData6_2 } from './module6_2/index';
+import example4_8, { GameAction4_8, GameData4_8 } from './module4_8/index';
 import example6_3 from './module6_3/index';
 import example6_8 from './module6_8/index';
 import example8_1, { GameConfig8_1 } from './module8_1/index';
@@ -195,41 +196,48 @@ let i = 0
 // console.info(JSON.stringify(s1))
 // 8_2
 
-// let test8_2 = new example8_2();
-// let result = { "desk": [[9, 9, 0, 0, 9, 9], [9, 0, 2, 0, 0, 9], [0, 1, 4, 5, 0, 0], [9, 0, 0, 3, 6, 9], [9, 9, 0, 0, 9, 9]], "p1chesslog": [1, 1], "p2chesslog": [2, 4], "p1chesslogAction": 2, "p2chesslogAction": 6, "player": 2 }
+let test8_2 = new example8_2();
+// let result = {
+//     "typeSet": 1, "desk": [
+//         [9, 9, 0, 0, 9, 9],
+//         [9, 1, 2, 3, 0, 9],
+//         [0, 0, 0, 0, 0, 6],
+//         [9, 4, 5, 0, 0, 9],
+//         [9, 9, 0, 0, 9, 9]], "p1chesslog": [2, 4], "p2chesslog": [2, 3], "p1chesslogAction": 3, "p2chesslogAction": 5, "player": 1
+// }
 // let action = test8_2.getActionAuto(result)
 // let r1 = test8_2.doAction(result, action.best)
 // let r1 = test8_2.doAction(result, { "move": [3, 4], "action": [2, 4], "score": 1600354 })
-// let rd = test8_2.checkDesk({ "desk": [[9, 9, 0, 0, 9, 9], [9, 2, 0, 0, 0, 9], [0, 1, 4, 5, 6, 0], [9, 0, 0, 0, 3, 9], [9, 9, 0, 0, 9, 9]], "p1chesslog": [2, 0], "p2chesslog": [3, 3], "p1chesslogAction": 1, "p2chesslogAction": 5, "player": 1 })
+// let rd = test8_2.checkDesk(result)
 // console.info(JSON.stringify(action))
 // console.info(JSON.stringify(r1))
 // console.info(JSON.stringify(rd))
 
-// for (i = 0; i < 1; i++) {
-//     let result = new GameData8_2(1);
-//     let flagResult = 0
-//     let count = 1
-//     console.info("开始棋盘：" + JSON.stringify(result))
-//     while (flagResult == 0) {
-//         let action = test8_2.getActionAuto(result)
-//         let tmp = test8_2.doAction(result, action.best)
-//         result = tmp[1]
-//         flagResult = tmp[0]
-//         console.info("%s %s | \n操作：%s \n%s\n%s\n%s\n%s\n%s\n  结果 %s ", count++, player, JSON.stringify(action), JSON.stringify(result.desk[0]), JSON.stringify(result.desk[1]), JSON.stringify(result.desk[2]), JSON.stringify(result.desk[3]), JSON.stringify(result.desk[4]), flagResult)
-//         console.info(JSON.stringify(result))
-//         if (flagResult == 1) {
-//             console.info("P1 WIN")
-//         }
-//         if (flagResult == 2) {
-//             console.info("P2 WIN")
-//         }
-//         if (player == "P1") {
-//             player = "P2"
-//         } else {
-//             player = "P1"
-//         }
-//     }
-// }
+for (i = 0; i < 1; i++) {
+    let result = new GameData8_2(1);
+    let flagResult = 0
+    let count = 1
+    console.info("开始棋盘：" + JSON.stringify(result))
+    while (flagResult == 0) {
+        let action = test8_2.getActionAuto(result)
+        let tmp = test8_2.doAction(result, action.best)
+        result = tmp[1]
+        flagResult = tmp[0]
+        console.info("%s %s | \n操作：%s \n%s\n%s\n%s\n%s\n%s\n  结果 %s ", count++, player, JSON.stringify(action), JSON.stringify(result.desk[0]), JSON.stringify(result.desk[1]), JSON.stringify(result.desk[2]), JSON.stringify(result.desk[3]), JSON.stringify(result.desk[4]), flagResult)
+        console.info(JSON.stringify(result))
+        if (flagResult == 1) {
+            console.info("P1 WIN")
+        }
+        if (flagResult == 2) {
+            console.info("P2 WIN")
+        }
+        if (player == "P1") {
+            player = "P2"
+        } else {
+            player = "P1"
+        }
+    }
+}
 // 8_1
 // [1,  2,  3,  4,  5,  6],
 // [7,  8,  9,  10, 12, 14],
@@ -284,13 +292,11 @@ let i = 0
 // console.info(JSON.stringify(action))
 
 // 6_3
-let test6_3 = new example6_3();
-let action1 = test6_3.getActionAuto(
-    {
-        "desk": test6_3.fillZero([18, 1, 1], 20),
-        "player": 1
-    })
-console.info(JSON.stringify(action1))
+// let test6_3 = new example6_3();
+// let action2 = test6_3.getActionAuto(
+//     { "typeSet": 1, "desk": [11, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "player": 1 }
+// )
+// console.info(JSON.stringify(action2))
 
 // let action1 = test6_3.doAction(
 //     {
@@ -428,6 +434,36 @@ console.info(JSON.stringify(action1))
 //         }
 //         if (flagResult != 0) {
 //             console.info(player + " WIN")
+//         }
+//     }
+// }
+// 4_8
+// let test4_8 = new example4_8();
+
+// for (i = 0; i < 1; i++) {
+//     let result = new GameData4_8();
+//     let flagResult = 0
+//     let count = 1
+//     console.info("开始棋盘：" + JSON.stringify(result))
+//     while (flagResult == 0) {
+//         let action = test4_8.getActionAuto(result)
+//         let tmp = test4_8.doAction(result, action.best)
+//         result = tmp[1]
+//         flagResult = tmp[0]
+//         console.info("%s %s | \n操作：%s \n P1 %s P2 %s \n 棋盘 %s 结果 %s ", count++, player, JSON.stringify(action), result.p1, result.p2, JSON.stringify(result.desk), flagResult)
+//         if (flagResult == 1) {
+//             console.info("P1 WIN")
+//         }
+//         if (flagResult == 2) {
+//             console.info("P2 WIN")
+//         }
+//         if (flagResult == 3) {
+//             console.info("WINWIN")
+//         }
+//         if (player == "P1") {
+//             player = "P2"
+//         } else {
+//             player = "P1"
 //         }
 //     }
 // }
