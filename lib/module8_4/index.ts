@@ -98,6 +98,24 @@ const getTriangleOther = (triangle: Array<number>, sideLength: number)=>{
   return res;
 }
 
+// 获取某个三角形周边的节点
+const getTriangleAround = (triangle: Array<number>, sideLength: number)=>{
+  let x = triangle[0], y = triangle[1];
+  let arr;
+  let res:any = [];
+  if(y % 2 === 0){
+    arr = [[x, y-1],[x, y+1],[x+1, y+1]];
+  } else {
+    arr = [[x, y-1],[x, y+1],[x-1, y-1]];
+  }
+  arr.forEach(i=>{
+    if(isTriangleIegal(i, sideLength)){
+      res.push(i)
+    }
+  })
+  return res;
+}
+
 // 判断是否形成目标三角形
 const isSuccess = (allTriangle: Array<any>, playerTriangle: Array<any>)=>{
   for (let i of allTriangle) {
@@ -263,6 +281,8 @@ export const getActionAuto = (dataDesk: GameData8_4): { best: GameData8_4_action
           res1.push(item);
         } else if(priorityNum === 2){
           res2.push(item);
+        } else if(priorityNum === 3){
+          res3.push(item);
         } else {
           res4.push(item);
         }
@@ -292,6 +312,15 @@ const handlePriority = (triangle: Array<number>, sideLength: number, oppositeStr
       return 2;
     } 
   }
+  // 获取这个三角形的周边节点，如果有两个在己方，则此三角形优先级为3，不可能有三个（三个为成功态）
+  let triangleAround = getTriangleAround(triangle, sideLength);
+  let num = 0;
+  for(let around of triangleAround){
+    if( selfStr.indexOf(JSON.stringify(around)) > -1){
+      num++;
+    }
+  }
+  if(num === 2) return 3;
   return -1;
 }
 
