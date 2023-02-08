@@ -38,7 +38,11 @@ export class Example10_4 {
   isWin(desk: number[]): boolean {
     return desk.every(item => this.isObverse(item));
   }
-  getActionsByDesk(desk: number[], flipCount: FlipCount): GameData10_4Action[] {
+
+  /**
+   * 通过桌面和翻棋子的个数来获取所有操作 actions
+   */
+  getActionsByDeskAndFlipCount(desk: number[], flipCount: FlipCount): GameData10_4Action[] {
     if (flipCount === FlipCount.ONE) {
       const result = desk.reduce((actions: number[][], direction: ChessDirection, i: number) => {
         if (this.isReverse(direction)) {
@@ -75,6 +79,20 @@ export class Example10_4 {
       return [{ flipCount, flipIndexArr: [] }];
     }
   }
+
+  /**
+   * 通过桌面来获取所有的操作 actions
+   */
+  getActionsByDesk(desk: number[]) {
+    const actions1 = this.getActionsByDeskAndFlipCount(desk, FlipCount.ONE);
+    const actions3 = this.getActionsByDeskAndFlipCount(desk, FlipCount.THREE);
+    const actions = [...actions1, ...actions3];
+    return {
+      desk,
+      actions
+    };
+  }
+
   getRiddle(chessCount: number): GameData10_4 {
     const isNumber = typeof chessCount === 'number';
     if (isNumber && chessCount && chessCount >= 3 && chessCount <= 15) {
@@ -177,13 +195,11 @@ export class Example10_4 {
     nobest: GameData10_4Action;
   } {
     const { desk } = dataDesk;
-    const actions1 = this.getActionsByDesk(desk, FlipCount.ONE);
-    const actions3 = this.getActionsByDesk(desk, FlipCount.THREE);
-    const actions = [...actions1, ...actions3];
+    const curDeskWithActions = this.getActionsByDesk(desk);
 
     // 必胜列表
-    const successActionList = actions.filter(({ flipIndexArr }) =>
-      this.isWin(this.getDeskAfterAction(desk, flipIndexArr))
+    const successActionList = curDeskWithActions.actions.filter(({ flipIndexArr }) =>
+      this.isWin(this.getDeskAfterAction(curDeskWithActions.desk, flipIndexArr))
     );
 
     // 可以马上获胜的列表
@@ -196,41 +212,40 @@ export class Example10_4 {
     }
 
     // 根据 actions 的每一种下法，生成下完之后桌子的状态列表
-    const deskListAfterActions = actions.reduce((deskList: number[][], action: GameData10_4Action) => {
-      deskList.push(this.getDeskAfterAction(desk, action.flipIndexArr));
-      return deskList;
-    }, []);
+    const deskListAfterActions = curDeskWithActions.actions.reduce(
+      (deskList: number[][], action: GameData10_4Action) => {
+        deskList.push(this.getDeskAfterAction(curDeskWithActions.desk, action.flipIndexArr));
+        return deskList;
+      },
+      []
+    );
 
     // 根据上面的桌面列表，递归每一种桌面对方可能走的所有可能
-    const possibleActionList1 = deskListAfterActions.map(desk => this.getActionsByDesk(desk, FlipCount.ONE));
-    const possibleActionList3 = deskListAfterActions.map(desk =>
-      this.getActionsByDesk(desk, FlipCount.THREE)
-    );
-    const possibleActionList = [...possibleActionList1, ...possibleActionList3].filter(
-      item => Array.isArray(item) && item.length
-    );
+    const posDeskWithActions = deskListAfterActions.map(desk => this.getActionsByDesk(desk));
 
     // 筛选对方再走一步可以马上获胜的可能列表
-    const badActionList = possibleActionList.reduce((badList, actionArr, index) => {
-      const successList = actionArr.filter(
-        ({ flipIndexArr }) =>
-          deskListAfterActions[index] &&
-          this.isWin(this.getDeskAfterAction(deskListAfterActions[index], flipIndexArr))
-      );
-      badList = [...badList, ...successList];
-      return badList;
-    }, []);
+    const badActionList = posDeskWithActions.reduce(
+      (badList: GameData10_4Action[], { desk, actions }, index) => {
+        const successList = actions.filter(({ flipIndexArr }) =>
+          this.isWin(this.getDeskAfterAction(desk, flipIndexArr))
+        );
+        badList = [...badList, ...successList];
+        return badList;
+      },
+      []
+    );
 
     // 常规可走列表
-    const normalActionList = possibleActionList.reduce((normalList, actionArr, index) => {
-      const list = actionArr.filter(
-        ({ flipIndexArr }) =>
-          deskListAfterActions[index] &&
-          !this.isWin(this.getDeskAfterAction(deskListAfterActions[index], flipIndexArr))
-      );
-      normalList = [...normalList, ...list];
-      return normalList;
-    }, []);
+    const normalActionList = posDeskWithActions.reduce(
+      (badList: GameData10_4Action[], { desk, actions }, index) => {
+        const successList = actions.filter(
+          ({ flipIndexArr }) => !this.isWin(this.getDeskAfterAction(desk, flipIndexArr))
+        );
+        badList = [...badList, ...successList];
+        return badList;
+      },
+      []
+    );
 
     if (!normalActionList.length) {
       return {
@@ -240,9 +255,9 @@ export class Example10_4 {
     }
 
     // console.log({
-    //   actions,
+    //   curDeskWithActions,
     //   deskListAfterActions,
-    //   possibleActionList,
+    //   posDeskWithActions,
     //   normalActionList,
     //   badActionList
     // });
