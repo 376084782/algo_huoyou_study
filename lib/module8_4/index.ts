@@ -20,7 +20,7 @@ export interface GameData8_4 {
   typeSet?: number;//前端用的，存是否是自定义棋盘
   player: 1 | 2; // 当前选手 先手1 后手2
   sideLength: number; // 棋盘边长
-  player_one: Array<Array<number>>; // 选手1占领的三角形
+  player_one: Array<Array<number>>; // 选手1占领的三角形，例如：[[1,1],[1,2]]
   player_two: Array<Array<number>>; // 选手2占领的三角形
 }
 
@@ -98,6 +98,24 @@ const getTriangleOther = (triangle: Array<number>, sideLength: number)=>{
   return res;
 }
 
+// 获取某个三角形周边的节点
+const getTriangleAround = (triangle: Array<number>, sideLength: number)=>{
+  let x = triangle[0], y = triangle[1];
+  let arr;
+  let res:any = [];
+  if(y % 2 === 0){
+    arr = [[x, y-1],[x, y+1],[x+1, y+1]];
+  } else {
+    arr = [[x, y-1],[x, y+1],[x-1, y-1]];
+  }
+  arr.forEach(i=>{
+    if(isTriangleIegal(i, sideLength)){
+      res.push(i)
+    }
+  })
+  return res;
+}
+
 // 判断是否形成目标三角形
 const isSuccess = (allTriangle: Array<any>, playerTriangle: Array<any>)=>{
   for (let i of allTriangle) {
@@ -138,9 +156,30 @@ export const checkRiddle = (dataDesk: GameData8_4): number => {
   const { player, player_one, player_two, sideLength } = dataDesk;
   if (player != 1 && player != 2) return -1;
   if (sideLength < 1) return -1;
+  // 双方数据是否符合棋盘
   const player1 = isPlayerIegal(player_one, sideLength);
   const player2 = isPlayerIegal(player_two, sideLength);
   if(player1 === -1 || player2 === -1) return -1;
+  // 双方是否有重复，当前所有三角形是否都有重合边
+  let allTriangle = player_one.concat(player_two);
+  let temp:any = [];
+  for (let i of allTriangle) {
+    let arr = getAdjacent(i);
+    if(
+      JSON.stringify(allTriangle).indexOf(JSON.stringify(arr[0])) < 0 &&
+      JSON.stringify(allTriangle).indexOf(JSON.stringify(arr[1])) < 0 &&
+      JSON.stringify(allTriangle).indexOf(JSON.stringify(arr[2])) < 0
+    ){
+      // 存在三角形无重合边
+      return -1;
+    }
+    if(JSON.stringify(temp).indexOf(JSON.stringify(i)) > -1){
+      // 存在重复三角形
+      return -1;
+    } else {
+      temp.push(i);
+    }
+  }
   return 1;
 }
 
@@ -220,30 +259,30 @@ export const checkDesk = (dataDesk: GameData8_4): number => {
 // 获取当前最佳应对策略，即机器人算法
 export const getActionAuto = (dataDesk: GameData8_4): { best: GameData8_4_action, nobest: GameData8_4_action } => {
   const { sideLength, player_one, player_two, player } = dataDesk;
-  // 获取当前玩家可行的节点集合--viableArr
   const allTriangle = player_one.concat(player_two);
   const selfArr = player === 1 ? JSON.stringify(player_one) : JSON.stringify(player_two);
   const oppositeArr = player === 1 ? JSON.stringify(player_two) : JSON.stringify(player_one);
-  let viableArr:any = [];
 
   // 解的优先级：能够形成三角形 > 拦截对方形成三角形 > 能够组成双底座 > 靠近己方三角形
   let res1:any = [], res2:any = [], res3:any = [], res4:any = [];
 
+  // 1、找到当前每个三角形的可用相邻节点作为选择集合
+  // 2、根据解的优先级排序
   for (let i of allTriangle) {
     let arr = getAdjacent(i);
     arr.forEach(item => {
       // 现有节点的可用相邻节点
       if(
         isTriangleIegal(item, sideLength) && 
-        JSON.stringify(allTriangle).indexOf(JSON.stringify(item)) < 0 && 
-        JSON.stringify(viableArr).indexOf(JSON.stringify(item)) < 0
+        JSON.stringify(allTriangle).indexOf(JSON.stringify(item)) < 0
       ){
-        viableArr.push(item);
         let priorityNum = handlePriority(item, sideLength, oppositeArr, selfArr);
         if(priorityNum === 1) {
           res1.push(item);
         } else if(priorityNum === 2){
           res2.push(item);
+        } else if(priorityNum === 3){
+          res3.push(item);
         } else {
           res4.push(item);
         }
@@ -273,6 +312,15 @@ const handlePriority = (triangle: Array<number>, sideLength: number, oppositeStr
       return 2;
     } 
   }
+  // 获取这个三角形的周边节点，如果有两个在己方，则此三角形优先级为3，不可能有三个（三个为成功态）
+  let triangleAround = getTriangleAround(triangle, sideLength);
+  let num = 0;
+  for(let around of triangleAround){
+    if( selfStr.indexOf(JSON.stringify(around)) > -1){
+      num++;
+    }
+  }
+  if(num === 2) return 3;
   return -1;
 }
 

@@ -17,6 +17,7 @@ import example8_2, { GameData8_2, GameAction8_2 } from './module8_2/index';
 import example8_3 from './module8_3/index';
 import example10_1, { GameData10_1, GameAction10_1 } from './module10_1/index';
 import example10_2 from './module10_2/index';
+import example10_3, { GameData10_3, GameAction10_3 } from './module10_3/index';
 import example10_8 from './module10_8/index';
 import RandomGenerater from './util/RandomGenerater';
 
@@ -34,22 +35,71 @@ let i = 0
 //     "player": 1
 // })
 // console.info(JSON.stringify(a))
+// 10_3
+// let test10_3 = new example10_3();
+// let e = {
+//     "desk": [
+//         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+//         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+//         [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
+//         [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
+//         [1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1],
+//         [1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1],
+//         [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
+//         [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
+//         [1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1],
+//         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+//     ],
+//     "chess1": [],
+//     "chess2": [],
+//     "player": 1
+// }
+// let a = test10_3.getActionAuto(e)
+// let as = test10_3.doAction(e, a.best)
+// console.info(JSON.stringify(a))
+// console.info(JSON.stringify(as))
+
+// let a = test10_3.doAction(
+//     {
+//         "desk": [
+//             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//         ],
+//         "chess1": [],
+//         "chess2": [],
+//         "player": 1
+//     },
+// {
+//     "square": 0,
+//     "action": [0, 0],
+//     "actionType": 2
+// }
+// )
+// console.info(JSON.stringify(a))
+
 
 // // 10_2
-// let test10_2 = new example10_2();
+let test10_2 = new example10_2();
 // let action = test10_2.getAllDesk()
-// let r = test10_2.getActionAuto({
-//     "p1": 0,
-//     "p2": 0,
-//     "desk": [
-//         [0, 0, 0, 0],
-//         [1, 1, 1, 1],
-//         [1, 1, 1, 1],
-//         [1, 1, 1, 1],
-//     ],
-//     "player": 1
-// })
-// console.info(JSON.stringify(r))
+let r = test10_2.getActionAuto({
+    "p1": 0,
+    "p2": 0,
+    "desk": [
+        [1, 1, 1],
+        [1, 1, 1],
+        [0, 0, 0],
+    ],
+    "player": 1
+})
+console.info(JSON.stringify(r))
 // let r1 = test10_2.doAction({
 //     "p1": 0,
 //     "p2": 0,
@@ -195,8 +245,7 @@ let i = 0
 // let s1 = test8_3.getActionAuto({ "desk": [2, 0, 10], "player": 2 });
 // console.info(JSON.stringify(s1))
 // 8_2
-
-let test8_2 = new example8_2();
+// let test8_2 = new example8_2();
 // let result = {
 //     "typeSet": 1, "desk": [
 //         [9, 9, 0, 0, 9, 9],
@@ -212,32 +261,31 @@ let test8_2 = new example8_2();
 // console.info(JSON.stringify(action))
 // console.info(JSON.stringify(r1))
 // console.info(JSON.stringify(rd))
-
-for (i = 0; i < 1; i++) {
-    let result = new GameData8_2(1);
-    let flagResult = 0
-    let count = 1
-    console.info("开始棋盘：" + JSON.stringify(result))
-    while (flagResult == 0) {
-        let action = test8_2.getActionAuto(result)
-        let tmp = test8_2.doAction(result, action.best)
-        result = tmp[1]
-        flagResult = tmp[0]
-        console.info("%s %s | \n操作：%s \n%s\n%s\n%s\n%s\n%s\n  结果 %s ", count++, player, JSON.stringify(action), JSON.stringify(result.desk[0]), JSON.stringify(result.desk[1]), JSON.stringify(result.desk[2]), JSON.stringify(result.desk[3]), JSON.stringify(result.desk[4]), flagResult)
-        console.info(JSON.stringify(result))
-        if (flagResult == 1) {
-            console.info("P1 WIN")
-        }
-        if (flagResult == 2) {
-            console.info("P2 WIN")
-        }
-        if (player == "P1") {
-            player = "P2"
-        } else {
-            player = "P1"
-        }
-    }
-}
+// for (i = 0; i < 1; i++) {
+//     let result = new GameData8_2(1);
+//     let flagResult = 0
+//     let count = 1
+//     console.info("开始棋盘：" + JSON.stringify(result))
+//     while (flagResult == 0) {
+//         let action = test8_2.getActionAuto(result)
+//         let tmp = test8_2.doAction(result, action.best)
+//         result = tmp[1]
+//         flagResult = tmp[0]
+//         console.info("%s %s | \n操作：%s \n%s\n%s\n%s\n%s\n%s\n  结果 %s ", count++, player, JSON.stringify(action), JSON.stringify(result.desk[0]), JSON.stringify(result.desk[1]), JSON.stringify(result.desk[2]), JSON.stringify(result.desk[3]), JSON.stringify(result.desk[4]), flagResult)
+//         console.info(JSON.stringify(result))
+//         if (flagResult == 1) {
+//             console.info("P1 WIN")
+//         }
+//         if (flagResult == 2) {
+//             console.info("P2 WIN")
+//         }
+//         if (player == "P1") {
+//             player = "P2"
+//         } else {
+//             player = "P1"
+//         }
+//     }
+// }
 // 8_1
 // [1,  2,  3,  4,  5,  6],
 // [7,  8,  9,  10, 12, 14],
