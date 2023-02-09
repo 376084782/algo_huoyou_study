@@ -25,10 +25,10 @@ import {getRiddle} from "../module4_6";
 
 
 export class GameData8_5{
-
+    typeSet?:number=1;
     desk:string[]=[];
 
-    player=2;
+    player=1;
 
     allRes:any = [];  //所有走法，满足条件时才有值
 

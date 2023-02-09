@@ -260,9 +260,9 @@ export default class example10_2 {
         const dd = this.doAction(JSON.parse(JSON.stringify(deskData)), action);
         const dds = this.deskArrTostring(dd[1].desk);
         if (
-          deskDatas.d3w3.has(deskStr) ||
-          deskDatas.d3w2.has(deskStr) ||
-          deskDatas.d3w1.has(deskStr)) {
+          deskDatas.d3w3.has(dds) ||
+          deskDatas.d3w2.has(dds) ||
+          deskDatas.d3w1.has(dds)) {
           best = action
           break
         }
