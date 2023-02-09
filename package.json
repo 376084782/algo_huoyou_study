@@ -1,6 +1,6 @@
 {
   "name": "algo_huoyou_study",
-  "version": "1.6.29",
+  "version": "1.6.30",
   "description": "思维游戏项目的算法包",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -11,7 +11,8 @@
     "test_example": "mocha test/example/**.js --reporter spec",
     "build": "tsc",
     "watch": "npm run build -- --watch",
-    "debug": "ts-node lib/test.ts"
+    "debug": "ts-node lib/test.ts",
+    "qly": "ts-node lib/testq.ts"
   },
   "author": "qly",
   "license": "ISC",
