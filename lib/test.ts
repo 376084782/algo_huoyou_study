@@ -36,28 +36,28 @@ let i = 0
 // })
 // console.info(JSON.stringify(a))
 // 10_3
-let test10_3 = new example10_3();
-let e = {
-    "desk": [
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
-        [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
-        [1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1],
-        [1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1],
-        [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
-        [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
-        [1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    ],
-    "chess1": [],
-    "chess2": [],
-    "player": 1
-}
-let a = test10_3.getActionAuto(e)
-let as = test10_3.doAction(e, a.best)
-console.info(JSON.stringify(a))
-console.info(JSON.stringify(as))
+// let test10_3 = new example10_3();
+// let e = {
+//     "desk": [
+//         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+//         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+//         [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
+//         [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
+//         [1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1],
+//         [1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1],
+//         [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
+//         [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
+//         [1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1],
+//         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+//     ],
+//     "chess1": [],
+//     "chess2": [],
+//     "player": 1
+// }
+// let a = test10_3.getActionAuto(e)
+// let as = test10_3.doAction(e, a.best)
+// console.info(JSON.stringify(a))
+// console.info(JSON.stringify(as))
 
 // let a = test10_3.doAction(
 //     {
@@ -87,20 +87,19 @@ console.info(JSON.stringify(as))
 
 
 // // 10_2
-// let test10_2 = new example10_2();
+let test10_2 = new example10_2();
 // let action = test10_2.getAllDesk()
-// let r = test10_2.getActionAuto({
-//     "p1": 0,
-//     "p2": 0,
-//     "desk": [
-//         [0, 0, 0, 0],
-//         [1, 1, 1, 1],
-//         [1, 1, 1, 1],
-//         [1, 1, 1, 1],
-//     ],
-//     "player": 1
-// })
-// console.info(JSON.stringify(r))
+let r = test10_2.getActionAuto({
+    "p1": 0,
+    "p2": 0,
+    "desk": [
+        [1, 1, 1],
+        [1, 1, 1],
+        [0, 0, 0],
+    ],
+    "player": 1
+})
+console.info(JSON.stringify(r))
 // let r1 = test10_2.doAction({
 //     "p1": 0,
 //     "p2": 0,
