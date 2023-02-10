@@ -45,11 +45,14 @@ export class GameData2_5 {
   palyer2Fishes: GameAction2_5[] = []
   //当前玩家
   curPlayer = 2
-  config: GameConfig2_5
+  config?: GameConfig2_5
   //
   positions: number[][] = []
   typeSet?: number = 1;
-  constructor(config: GameConfig2_5) {
+  constructor(config?: GameConfig2_5, autoInit = false) {
+    if (!config) {
+      return
+    }
     this.config = config
     if (config.borderSize < 2 || config.borderSize > 4) {
       throw new Error("illegal border size, must between 2 and 4.");
@@ -73,12 +76,16 @@ export class GameData2_5 {
       }
       this.positions.push(signleLevel)
     }
-    for (let i = 0; i < config.initPalyer1Fishes.length; i++) {
-      if (this.doAction(config.initPalyer1Fishes[i]) != 0) {
-        throw new Error("illegal init palyer fishes[2].");
-      }
-      if (this.doAction(config.initPalyer2Fishes[i]) != 0) {
-        throw new Error("illegal init palyer fishes[3].");
+    if (autoInit) {
+      for (let i = 0; i < config.initPalyer1Fishes.length; i++) {
+        this.curPlayer = 1;
+        if (this.doAction(config.initPalyer1Fishes[i]) != 0) {
+          throw new Error("illegal init palyer fishes[2].");
+        }
+        this.curPlayer = 2;
+        if (this.doAction(config.initPalyer2Fishes[i]) != 0) {
+          throw new Error("illegal init palyer fishes[3].");
+        }
       }
     }
 
@@ -127,7 +134,6 @@ export class GameData2_5 {
     if (!this.checkAction(action)) {
       return -1
     }
-    this.curPlayer = OtherUtil.getRival(this.curPlayer)
     if (this.curPlayer == 1) {
       this.palyer1Fishes.push(action)
     } else {
@@ -312,7 +318,7 @@ export default class example2_5 {
   }
 
   getRiddle(config: GameConfig2_5): GameData2_5 {
-    return new GameData2_5(config)
+    return new GameData2_5(config, true)
   }
 
   checkRiddle(deskData: GameData2_5): number {
@@ -398,6 +404,8 @@ export default class example2_5 {
       return result
     }
     let actions = deskData.getAllLegalAction()
+    let maxWayLen = 5
+    actions = actions.slice(0, maxWayLen)
     for (let i = 0; i < actions.length; i++) {
       let rivalPossibleActions: PossibleAction[] = []
       let newGameData = deskData.copy()
