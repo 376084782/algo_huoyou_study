@@ -87,19 +87,19 @@ let i = 0
 
 
 // // 10_2
-let test10_2 = new example10_2();
-// let action = test10_2.getAllDesk()
-let r = test10_2.getActionAuto({
-    "p1": 0,
-    "p2": 0,
-    "desk": [
-        [1, 1, 1],
-        [1, 1, 1],
-        [0, 0, 0],
-    ],
-    "player": 1
-})
-console.info(JSON.stringify(r))
+// let test10_2 = new example10_2();
+// // let action = test10_2.getAllDesk()
+// let r = test10_2.getActionAuto({
+//     "p1": 0,
+//     "p2": 0,
+//     "desk": [
+//         [1, 1, 1],
+//         [1, 1, 1],
+//         [0, 0, 0],
+//     ],
+//     "player": 1
+// })
+// console.info(JSON.stringify(r))
 // let r1 = test10_2.doAction({
 //     "p1": 0,
 //     "p2": 0,
@@ -245,22 +245,29 @@ console.info(JSON.stringify(r))
 // let s1 = test8_3.getActionAuto({ "desk": [2, 0, 10], "player": 2 });
 // console.info(JSON.stringify(s1))
 // 8_2
-// let test8_2 = new example8_2();
-// let result = {
-//     "typeSet": 1, "desk": [
-//         [9, 9, 0, 0, 9, 9],
-//         [9, 1, 2, 3, 0, 9],
-//         [0, 0, 0, 0, 0, 6],
-//         [9, 4, 5, 0, 0, 9],
-//         [9, 9, 0, 0, 9, 9]], "p1chesslog": [2, 4], "p2chesslog": [2, 3], "p1chesslogAction": 3, "p2chesslogAction": 5, "player": 1
-// }
+let test8_2 = new example8_2();
+let result = {
+    "typeSet": 1,
+    "desk": [
+        [9, 9, 0, 0, 9, 9],
+        [9, 0, 0, 0, 0, 9],
+        [1, 4, 0, 5, 0, 6],
+        [9, 2, 0, 0, 3, 9],
+        [9, 9, 3, 0, 9, 9]],
+    "p1chesslog": [2, 4],
+    "p2chesslog": [],
+    "p1chesslogAction": 3,
+    "p2chesslogAction": 5,
+    "player": 2
+}
+
 // let action = test8_2.getActionAuto(result)
 // let r1 = test8_2.doAction(result, action.best)
-// let r1 = test8_2.doAction(result, { "move": [3, 4], "action": [2, 4], "score": 1600354 })
-// let rd = test8_2.checkDesk(result)
+// let r1 = test8_2.doAction(result, { "move": [2, 4], "action": [3, 4], "score": 1600354 })
+let rd = test8_2.checkDesk(result)
 // console.info(JSON.stringify(action))
 // console.info(JSON.stringify(r1))
-// console.info(JSON.stringify(rd))
+console.info(JSON.stringify(rd))
 // for (i = 0; i < 1; i++) {
 //     let result = new GameData8_2(1);
 //     let flagResult = 0
