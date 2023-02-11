@@ -143,7 +143,7 @@ export class Example10_4 {
       return -1;
     }
     if (flipCount === FlipCount.ONE && flipIndexArr.length === 1) {
-      return 1;
+      return flipIndexArr[0] === ChessDirection.OBVERSE ? 1 : -1;
     }
     if (flipCount === FlipCount.THREE && flipIndexArr.length === 3) {
       const [first, second, third] = flipIndexArr;
