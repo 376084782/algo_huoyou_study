@@ -147,7 +147,12 @@ export default class Example10_4 {
       return 1;
     }
     if (flipCount === FlipCount.THREE && flipIndexArr.length === 3) {
-      return 1;
+      const [first, second, third] = flipIndexArr;
+      if (first === ChessDirection.REVERSE && second - first === third - second) {
+        return 1;
+      } else {
+        return -1;
+      }
     }
     return -1;
   }
