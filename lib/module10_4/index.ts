@@ -13,6 +13,7 @@ const rg = new RandomGenerater(0);
 export interface GameData10_4 {
   player: 1 | 2;
   desk: number[];
+  typeSet?: number
 }
 
 enum FlipCount {
@@ -28,7 +29,7 @@ export interface GameData10_4Action {
   flipIndexArr: number[]; // 翻的棋子下标，如：[1],[1,4,5]
 }
 
-export class Example10_4 {
+export default class Example10_4 {
   isObverse(direction: ChessDirection) {
     return direction === ChessDirection.OBVERSE;
   }

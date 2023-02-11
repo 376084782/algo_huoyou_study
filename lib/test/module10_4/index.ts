@@ -1,4 +1,4 @@
-import { Example10_4 } from '../../module10_4';
+import Example10_4 from '../../module10_4';
 
 test();
 
