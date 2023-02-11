@@ -13,7 +13,7 @@ const rg = new RandomGenerater(0);
 export interface GameData10_4 {
   player: 1 | 2;
   desk: number[];
-  typeSet?: number
+  typeSet?: number;
 }
 
 enum FlipCount {
@@ -144,11 +144,11 @@ export default class Example10_4 {
       return -1;
     }
     if (flipCount === FlipCount.ONE && flipIndexArr.length === 1) {
-      return 1;
+      return this.isReverse(desk[flipIndexArr[0]]) ? 1 : -1;
     }
     if (flipCount === FlipCount.THREE && flipIndexArr.length === 3) {
       const [first, second, third] = flipIndexArr;
-      if (first === ChessDirection.REVERSE && second - first === third - second) {
+      if (this.isReverse(desk[first]) && second - first === third - second) {
         return 1;
       } else {
         return -1;
