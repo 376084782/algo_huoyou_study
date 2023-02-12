@@ -77,122 +77,19 @@ export class GameData2_5 {
       this.positions.push(signleLevel)
     }
     if (autoInit) {
+      let operator = new example2_5()
       for (let i = 0; i < config.initPalyer1Fishes.length; i++) {
         this.curPlayer = 1;
-        if (this.doAction(config.initPalyer1Fishes[i]) != 0) {
+        if (operator.doAction(this, config.initPalyer1Fishes[i])[0] != 0) {
           throw new Error("illegal init palyer fishes[2].");
         }
         this.curPlayer = 2;
-        if (this.doAction(config.initPalyer2Fishes[i]) != 0) {
+        if (operator.doAction(this, config.initPalyer2Fishes[i])[0] != 0) {
           throw new Error("illegal init palyer fishes[3].");
         }
       }
     }
 
-  }
-
-  copy(): GameData2_5 {
-    let obj = new GameData2_5(this.config)
-    for (let i = 0; i < this.palyer1Fishes.length; i++) {
-      if (obj.doAction(this.palyer1Fishes[i]) != 0) {
-        throw new Error("illegal init palyer fishes[2].");
-      }
-      if (i >= this.palyer2Fishes.length) {
-        continue
-      }
-      if (obj.doAction(this.palyer2Fishes[i]) != 0) {
-        throw new Error("illegal init palyer fishes[3].");
-      }
-    }
-    return obj
-  }
-
-  checkPosition(position: Position2_5): Boolean {
-    if (position.x < 0 || position.x >= this.positions.length) {
-      return false
-    }
-    if (position.y < 0 || position.y >= this.positions[position.x].length) {
-      return false
-    }
-    return this.positions[position.x][position.y] == 0
-  }
-
-  checkAction(action: GameAction2_5): Boolean {
-    if (!this.checkPosition(action.headPosition)) {
-      return false
-    }
-    if (!this.checkPosition(action.getBodyPosition())) {
-      return false
-    }
-    if (!this.checkPosition(action.getTailPosition())) {
-      return false
-    }
-    return true
-  }
-
-  doAction(action: GameAction2_5): number {
-    if (!this.checkAction(action)) {
-      return -1
-    }
-    if (this.curPlayer == 1) {
-      this.palyer1Fishes.push(action)
-    } else {
-      this.palyer2Fishes.push(action)
-    }
-    this.positions[action.headPosition.x][action.headPosition.y] = this.curPlayer
-    let bodyPosition = action.getBodyPosition()
-    let tailPosition = action.getTailPosition()
-    this.positions[bodyPosition.x][bodyPosition.y] = this.curPlayer
-    this.positions[tailPosition.x][tailPosition.y] = this.curPlayer
-    if (this.checkOver()) {
-      return this.curPlayer
-    }
-    return 0
-  }
-
-  checkOver(): Boolean {
-    for (let i = 0; i < this.positions.length; i++) {
-      for (let j = 0; j < this.positions[i].length; j++) {
-        if (this.positions[i][j] == 0) {
-          let position = new Position2_5(i, j)
-          let actions = position.generateAllAction()
-          for (let idx in actions) {
-            if (this.checkAction(actions[idx])) {
-              return false
-            }
-          }
-        }
-      }
-    }
-    return true
-  }
-
-  getAllBlankPosition(): Position2_5[] {
-    let positions: Position2_5[] = []
-    for (let i = 0; i < this.positions.length; i++) {
-      for (let j = 0; j < this.positions[i].length; j++) {
-        if (this.positions[i][j] == 0) {
-          let position = new Position2_5(i, j)
-          positions.push(position)
-        }
-      }
-    }
-    return positions
-  }
-
-
-  getAllLegalAction(): GameAction2_5[] {
-    let positions = this.getAllBlankPosition()
-    let result: GameAction2_5[] = []
-    for (let i = 0; i < positions.length; i++) {
-      let actions = positions[i].generateAllAction()
-      for (let j in actions) {
-        if (this.checkAction(actions[j])) {
-          result.push(actions[j])
-        }
-      }
-    }
-    return result
   }
 }
 
@@ -201,20 +98,22 @@ export class Position2_5 {
   y: number
 
   constructor(x: number, y: number) {
+    //console.info("stats new Position2_5")
     this.x = x
     this.y = y
   }
-  generateAllAction(): GameAction2_5[] {
-    let actions: GameAction2_5[] = []
-    let startDirect = 0
-    if (this.y % 2 == 1) {
-      startDirect = 1
-    }
-    for (let i = 0; i < 3; i++) {
-      actions.push(new GameAction2_5(this, startDirect + i * 2))
-    }
-    return actions
+}
+
+function generateAllAction(position: Position2_5): GameAction2_5[] {
+  let actions: GameAction2_5[] = []
+  let startDirect = 0
+  if (position.y % 2 == 1) {
+    startDirect = 1
   }
+  for (let i = 0; i < 3; i++) {
+    actions.push(new GameAction2_5(position, startDirect + i * 2))
+  }
+  return actions
 }
 
 export class GameConfig2_5 {
@@ -229,60 +128,10 @@ export class GameAction2_5 {
   direct: number
 
   constructor(position: Position2_5, direct: number) {
+    
+    //console.info("stats new GameAction2_5")
     this.headPosition = position
     this.direct = direct
-  }
-
-  getBodyPosition(): Position2_5 {
-    if (this.headPosition.y % 2 == 0) {
-      switch (this.direct) {
-        case 0:
-          return new Position2_5(this.headPosition.x + 1, this.headPosition.y + 1)
-        case 2:
-          return new Position2_5(this.headPosition.x, this.headPosition.y + 1)
-        case 4:
-          return new Position2_5(this.headPosition.x, this.headPosition.y - 1)
-        default:
-          throw new Error("illegal direct")
-      }
-    } else {
-      switch (this.direct) {
-        case 1:
-          return new Position2_5(this.headPosition.x, this.headPosition.y + 1)
-        case 3:
-          return new Position2_5(this.headPosition.x - 1, this.headPosition.y - 1)
-        case 5:
-          return new Position2_5(this.headPosition.x, this.headPosition.y - 1)
-        default:
-          throw new Error("illegal direct")
-      }
-    }
-  }
-
-  getTailPosition(): Position2_5 {
-    if (this.headPosition.y % 2 == 0) {
-      switch (this.direct) {
-        case 0:
-          return new Position2_5(this.headPosition.x + 2, this.headPosition.y + 2)
-        case 2:
-          return new Position2_5(this.headPosition.x - 1, this.headPosition.y + 2)
-        case 4:
-          return new Position2_5(this.headPosition.x - 1, this.headPosition.y - 4)
-        default:
-          throw new Error("illegal direct")
-      }
-    } else {
-      switch (this.direct) {
-        case 1:
-          return new Position2_5(this.headPosition.x + 1, this.headPosition.y + 4)
-        case 3:
-          return new Position2_5(this.headPosition.x - 2, this.headPosition.y - 2)
-        case 5:
-          return new Position2_5(this.headPosition.x + 1, this.headPosition.y - 2)
-        default:
-          throw new Error("illegal direct")
-      }
-    }
   }
 }
 
@@ -292,6 +141,7 @@ class PossibleAction {
   result: number
   rivalPossibleAction: PossibleAction[]
   constructor(action: GameAction2_5, after: GameData2_5, result: number, rivalPossibleAction: PossibleAction[]) {
+    //console.info("stats new PossibleAction")
     this.action = action
     this.after = after
     this.result = result
@@ -332,17 +182,172 @@ export default class example2_5 {
   }
 
   doAction(deskData: GameData2_5, dataAction: GameAction2_5): [flagResult: number, dataResult: GameData2_5] {
-    return [deskData.doAction(dataAction), deskData]
+    
+    if (this.checkAction(deskData, dataAction) == -1) {
+      return [-1, deskData]
+    }
+    if (deskData.curPlayer == 1) {
+      deskData.palyer1Fishes.push(dataAction)
+    } else {
+      deskData.palyer2Fishes.push(dataAction)
+    }
+    deskData.positions[dataAction.headPosition.x][dataAction.headPosition.y] = deskData.curPlayer
+    let bodyPosition = this.getBodyPosition(dataAction)
+    let tailPosition = this.getTailPosition(dataAction)
+    deskData.positions[bodyPosition.x][bodyPosition.y] = deskData.curPlayer
+    deskData.positions[tailPosition.x][tailPosition.y] = deskData.curPlayer
+    if (this.checkDesk(deskData) > -1) {
+      return [deskData.curPlayer, deskData]
+    }
+    return [0, deskData]
   }
 
   checkAction(deskData: GameData2_5, dataAction: GameAction2_5): number {
-    return deskData.checkAction(dataAction) ? 1 : -1
+    
+    if (!this.checkPosition(deskData, dataAction.headPosition)) {
+      return -1
+    }
+    if (!this.checkPosition(deskData, this.getBodyPosition(dataAction))) {
+      return -1
+    }
+    if (!this.checkPosition(deskData, this.getTailPosition(dataAction))) {
+      return -1
+    }
+    return 1
   }
 
   checkDesk(deskData: GameData2_5): number {
-    return deskData.checkOver() ? deskData.curPlayer : -1
-
+    let position = new Position2_5(0, 0)
+    for (let i = 0; i < deskData.positions.length; i++) {
+      for (let j = 0; j < deskData.positions[i].length; j++) {
+        if (deskData.positions[i][j] == 0) {
+          position.x = i
+          position.y = j
+          let actions = generateAllAction(position)
+          for (let idx in actions) {
+            if (this.checkAction(deskData, actions[idx]) == 1) {
+              return -1
+            }
+          }
+        }
+      }
+    }
+    return deskData.curPlayer
   }
+  
+  copy(deskData: GameData2_5): GameData2_5 {
+    //console.info("stats copycopycopycopycopy")
+    let obj = new GameData2_5(deskData.config)
+    for (let i = 0; i < deskData.palyer1Fishes.length; i++) {
+      let [flag, res] = this.doAction(deskData, deskData.palyer1Fishes[i])
+      if (flag != 0) {
+        throw new Error("illegal init palyer fishes[2].");
+      }
+      if (i >= deskData.palyer2Fishes.length) {
+        continue
+      }
+      [flag, res] = this.doAction(deskData, deskData.palyer2Fishes[i])
+      if (flag != 0) {
+        throw new Error("illegal init palyer fishes[3].");
+      }
+    }
+    return obj
+  }
+
+  checkPosition(deskData: GameData2_5, position: Position2_5): Boolean {
+    if (position.x < 0 || position.x >= deskData.positions.length) {
+      return false
+    }
+    if (position.y < 0 || position.y >= deskData.positions[position.x].length) {
+      return false
+    }
+    return deskData.positions[position.x][position.y] == 0
+  }
+
+
+  getAllBlankPosition(deskData: GameData2_5): Position2_5[] {
+    let positions: Position2_5[] = []
+    for (let i = 0; i < deskData.positions.length; i++) {
+      for (let j = 0; j < deskData.positions[i].length; j++) {
+        if (deskData.positions[i][j] == 0) {
+          let position = new Position2_5(i, j)
+          positions.push(position)
+        }
+      }
+    }
+    return positions
+  }
+
+
+  getAllLegalAction(deskData: GameData2_5): GameAction2_5[] {
+    let positions = this.getAllBlankPosition(deskData)
+    let result: GameAction2_5[] = []
+    for (let i = 0; i < positions.length; i++) {
+      let actions = generateAllAction(positions[i])
+      for (let j in actions) {
+        if (this.checkAction(deskData, actions[j]) == 1) {
+          result.push(actions[j])
+          if (result.length >= 10) {
+              return result
+          }
+        }
+      }
+    }
+    return result
+  }
+
+  getBodyPosition(action: GameAction2_5): Position2_5 {
+    if (action.headPosition.y % 2 == 0) {
+      switch (action.direct) {
+        case 0:
+          return new Position2_5(action.headPosition.x + 1, action.headPosition.y + 1)
+        case 2:
+          return new Position2_5(action.headPosition.x, action.headPosition.y + 1)
+        case 4:
+          return new Position2_5(action.headPosition.x, action.headPosition.y - 1)
+        default:
+          throw new Error("illegal direct")
+      }
+    } else {
+      switch (action.direct) {
+        case 1:
+          return new Position2_5(action.headPosition.x, action.headPosition.y + 1)
+        case 3:
+          return new Position2_5(action.headPosition.x - 1, action.headPosition.y - 1)
+        case 5:
+          return new Position2_5(action.headPosition.x, action.headPosition.y - 1)
+        default:
+          throw new Error("illegal direct")
+      }
+    }
+  }
+  
+  getTailPosition(action: GameAction2_5): Position2_5 {
+    if (action.headPosition.y % 2 == 0) {
+      switch (action.direct) {
+        case 0:
+          return new Position2_5(action.headPosition.x + 2, action.headPosition.y + 2)
+        case 2:
+          return new Position2_5(action.headPosition.x - 1, action.headPosition.y + 2)
+        case 4:
+          return new Position2_5(action.headPosition.x - 1, action.headPosition.y - 4)
+        default:
+          throw new Error("illegal direct")
+      }
+    } else {
+      switch (action.direct) {
+        case 1:
+          return new Position2_5(action.headPosition.x + 1, action.headPosition.y + 4)
+        case 3:
+          return new Position2_5(action.headPosition.x - 2, action.headPosition.y - 2)
+        case 5:
+          return new Position2_5(action.headPosition.x + 1, action.headPosition.y - 2)
+        default:
+          throw new Error("illegal direct")
+      }
+    }
+  }
+  
 
 
   getActionAuto(deskData: GameData2_5): GameAutoWay {
@@ -403,13 +408,11 @@ export default class example2_5 {
     if (level < 0) {
       return result
     }
-    let actions = deskData.getAllLegalAction()
-    let maxWayLen = 5
-    actions = actions.slice(0, maxWayLen)
+    let actions = this.getAllLegalAction(deskData)
     for (let i = 0; i < actions.length; i++) {
       let rivalPossibleActions: PossibleAction[] = []
-      let newGameData = deskData.copy()
-      if (newGameData.doAction(actions[i]) == newGameData.curPlayer) {
+      let newGameData = this.copy(deskData)
+      if (this.doAction(newGameData, actions[i])[0] == newGameData.curPlayer) {
         result.push(new PossibleAction(actions[i], newGameData, 1, rivalPossibleActions))
       } else {
         rivalPossibleActions = this.getAllPossibleAction(newGameData, level - 1)
