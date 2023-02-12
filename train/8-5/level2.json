@@ -1,41 +1,51 @@
 [
   {
+    "typeSet":1,
     "desk": ["x","x","x","o","o","o","x","x","o","o","x","o"],
     "player": 1
   },
   {
+    "typeSet":1,
     "desk": ["o","o","o","x","x","x","o","o","x","x","o","x"],
     "player": 1
   },
   {
+    "typeSet":1,
     "desk": ["x","x","x","o","x","o","o","x","x","o","o","o"],
     "player": 1
   },
   {
+    "typeSet":1,
     "desk": ["o","o","o","x","o","x","x","o","o","x","x","x"],
     "player": 1
   },
   {
+    "typeSet":1,
     "desk": ["x","x","o","o","o","x","o","o","x","x","x","o"],
     "player": 1
   },
   {
+    "typeSet":1,
     "desk": ["x","o","x","x","x","o","o","x","x","o","o","o"],
     "player": 1
   },
   {
+    "typeSet":1,
     "desk": ["o","x","x","x","o","o","x","x","o","o","o","x"],
     "player": 1
   },
   {
+    "typeSet":1,
     "desk": ["x","x","o","o","x","o","o","o","x","x","x","o"],
     "player": 1
   },
   {
+    "typeSet":1,
     "desk": ["x","x","o","x","o","o","o","x","x","x","o","o"],
     "player": 1
   },
   {
+    "typeSet":1,
     "desk": ["o","o","x","x","x","o","x","x","o","o","o","x"],
     "player": 1
   }
