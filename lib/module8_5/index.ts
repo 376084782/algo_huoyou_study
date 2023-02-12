@@ -44,47 +44,6 @@ export class GameData8_5{
     }
 
 
-    // 三步可结束
-    easyDesk=[
-        ['x','x','o','x'],
-        ['o','o','x','o'],
-        ['x','x','x','o','x'],
-        ['o','o','o','x','o'],
-        ['x','o','x','x'],
-        ['o','x','o','o'],
-        ['x','o','o','x','o','x'],
-        ['x','o','o','x','x','o'],
-        ['x','o','x','o','x','o','x'],
-        ['o','x','o','x','o','x','o']
-    ]
-
-    //五步可结束
-    midDesk=[
-        ['x','x','x','o','o','o','x','x','o','o','x','o'],
-        ['o','o','o','x','x','x','o','o','x','x','o','x'],
-        ['x','x','x','o','x','o','o','x','x','o','o','o'],
-        ['o','o','o','x','o','x','x','o','o','x','x','x'],
-        ['x','x','o','o','o','x','o','o','x','x','x','o'],
-        ['x','o','x','x','x','o','o','x','x','o','o','o'],
-        ['o','x','x','x','o','o','x','x','o','o','o','x'],
-        ['x','x','o','o','x','o','o','o','x','x','x','o'],
-        ['x','x','o','x','o','o','o','x','x','x','o','o'],
-        ['o','o','x','x','x','o','x','x','o','o','o','x']
-    ]
-
-    //七步结束
-    hardDesk=[
-        ['x','x','x','x','o','o','o','o','x','x','x','o','o','o','x','x','o','o','x','o'],
-        ['o','o','o','o','x','x','x','x','o','o','o','x','x','x','o','o','x','x','o','x'],
-        ['x','x','x','x','o','x','o','o','x','x','o','o','o','o','x','x','x','o','o','o'],
-        ['o','o','o','o','x','o','x','x','o','o','x','x','x','x','o','o','o','x','x','x'],
-        ['x','o','o','x','x','o','o','o','o','x','x','x','x','o','o','o','x','x','x','o'],
-        ['o','x','x','o','o','x','x','x','x','o','o','o','o','x','x','x','o','o','o','x'],
-        ['x','x','o','o','x','x','x','o','o','o','x','x','x','x','o','o','o','o','x','o'],
-        ['o','o','x','x','o','o','o','x','x','x','o','o','o','o','x','x','x','x','o','x'],
-        ['x','x','x','o','x','o','o','o','o','x','x','x','x','o','o','o','x','x','o','o'],
-        ['o','o','o','x','o','x','x','x','x','o','o','o','o','x','x','x','o','o','x','x']
-    ]
 
 }
 
@@ -139,26 +98,8 @@ export default class  example8_5 {
      * @param config
      */
     getRiddleByLev(level: number,config?: any): GameData8_5 {
-        let gd = new GameData8_5();
-        if(level == 1)
-        {
-            gd.desk = JSON.parse(JSON.stringify(gd.easyDesk.sort(() => {
-                return 0.5 - Math.random()
-            })[0]))
-        }
-        else if(level == 2)
-        {
-            gd.desk = JSON.parse(JSON.stringify(gd.midDesk.sort(() => {
-                return 0.5 - Math.random()
-            })[0]))
-        }
-        else
-        {
-            gd.desk = JSON.parse(JSON.stringify(gd.hardDesk.sort(() => {
-                return 0.5 - Math.random()
-            })[0]))
-        }
-        return gd;
+        // let gd = new GameData8_5();
+        return this.getRiddle(config);
     }
 
     getRiddle(config:GameConfig8_5): GameData8_5{

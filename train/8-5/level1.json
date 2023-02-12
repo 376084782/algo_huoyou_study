@@ -1,0 +1,42 @@
+[
+  {
+    "desk": ["x","x","o","x"],
+    "player": 1
+  },
+  {
+    "desk": ["o","o","x","o"],
+    "player": 1
+  },
+  {
+    "desk": ["x","o","x","x"],
+    "player": 1
+  },
+  {
+    "desk": ["o","x","o","o"],
+    "player": 1
+  },
+  {
+    "desk": ["x","x","x","o","x"],
+    "player": 1
+  },
+  {
+    "desk": ["o","o","o","x","o"],
+    "player": 1
+  },
+  {
+    "desk": ["x","o","o","x","o","x"],
+    "player": 1
+  },
+  {
+    "desk": ["x","o","o","x","x","o"],
+    "player": 1
+  },
+  {
+    "desk": ["x","o","x","o","x","o","x"],
+    "player": 1
+  },
+  {
+    "desk": ["o","x","o","x","o","x","o"],
+    "player": 1
+  }
+]
