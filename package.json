@@ -12,7 +12,8 @@
     "build": "tsc",
     "watch": "npm run build -- --watch",
     "debug": "ts-node lib/test.ts",
-    "qly": "ts-node lib/testq.ts"
+    "qly": "ts-node lib/testq.ts",
+    "zx": "ts-node lib/test/module10_4/index.ts"
   },
   "author": "qly",
   "license": "ISC",
