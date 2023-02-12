@@ -1,4 +1,5 @@
 import example8_5, { GameData8_5, GameAction8_5 } from './module8_5/index';
+import example8_2, { GameData8_2, GameAction8_2 } from './module8_2/index';
 import example2_5, { GameData2_5, GameConfig2_5, GameAction2_5, Position2_5 } from './module2_5/index';
 function test8_5() {
   let desk = { "typeSet": 1, "desk": ["x", "o", "o", "o", "o", "o", "x", "o", "x", "o", "o", "o", "x", "o", "x", "o"], "player": 1, "allRes": [], "step": 0, "dangerRes": [], "greatRes": [], "betterRes": [] }
@@ -36,4 +37,22 @@ function test2_5() {
 
 
 }
-test2_5()
+// test2_5()
+
+
+function test8_2() {
+  let desk = {
+    "typeSet": 1,
+    "desk": [
+      [9, 9, 0, 0, 9, 9],
+      [9, 0, 2, 0, 0, 9],
+      [1, 4, 0, 0, 0, 6],
+      [9, 0, 5, 0, 3, 9],
+      [9, 9, 0, 0, 9, 9]
+    ], "p1chesslog": [2, 2], "p2chesslog": [2, 3], "player": 1
+  }
+  let ctr = new example8_2()
+  let r = ctr.checkDesk(desk)
+  console.log(r)
+}
+test8_2()
