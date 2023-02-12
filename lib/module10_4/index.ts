@@ -144,13 +144,20 @@ export default class Example10_4 {
       return -1;
     }
     if (flipCount === FlipCount.ONE && flipIndexArr.length === 1) {
-      return this.isReverse(desk[flipIndexArr[0]]) ? 1 : -1;
+      if (this.isReverse(desk[flipIndexArr[0]])) {
+        return 1;
+      } else {
+        console.error('操作不合法：', { desk, flipIndexArr });
+        return -1;
+      }
     }
     if (flipCount === FlipCount.THREE && flipIndexArr.length === 3) {
       const [first, second, third] = flipIndexArr;
       if (this.isReverse(desk[first]) && second - first === third - second) {
         return 1;
       } else {
+        console.error('操作不合法：', { desk, flipIndexArr });
+
         return -1;
       }
     }
@@ -219,44 +226,60 @@ export default class Example10_4 {
 
     // 根据 actions 的每一种下法，生成下完之后桌子的状态列表
     const deskListAfterActions = curDeskWithActions.actions.reduce(
-      (deskList: number[][], action: GameData10_4Action) => {
-        deskList.push(this.getDeskAfterAction(curDeskWithActions.desk, action.flipIndexArr));
+      (deskList: { desk: number[]; action: GameData10_4Action }[], action: GameData10_4Action) => {
+        deskList.push({
+          desk: this.getDeskAfterAction(curDeskWithActions.desk, action.flipIndexArr),
+          action
+        });
         return deskList;
       },
       []
     );
 
     // 根据上面的桌面列表，递归每一种桌面对方可能走的所有可能
-    const posDeskWithActions = deskListAfterActions.map(desk => this.getActionsByDesk(desk));
+    const posDeskWithActions = deskListAfterActions.map(({ desk, action }) => ({
+      ...this.getActionsByDesk(desk),
+      lastAction: action
+    }));
+
+    const nobestActionList: GameData10_4Action[] = [];
 
     // 筛选对方再走一步可以马上获胜的可能列表
     const badActionList = posDeskWithActions.reduce(
-      (badList: GameData10_4Action[], { desk, actions }, index) => {
+      (badList: GameData10_4Action[], { desk, actions, lastAction }, index) => {
         const successList = actions.filter(({ flipIndexArr }) =>
           this.isWin(this.getDeskAfterAction(desk, flipIndexArr))
         );
+        if (successList.length) {
+          nobestActionList.push(lastAction);
+        }
         badList = [...badList, ...successList];
         return badList;
       },
       []
     );
 
+    const bestActionList: GameData10_4Action[] = [];
+
     // 常规可走列表
     const normalActionList = posDeskWithActions.reduce(
-      (badList: GameData10_4Action[], { desk, actions }, index) => {
-        const successList = actions.filter(
+      (normalList: GameData10_4Action[], { desk, actions, lastAction }, index) => {
+        const list = actions.filter(
           ({ flipIndexArr }) => !this.isWin(this.getDeskAfterAction(desk, flipIndexArr))
         );
-        badList = [...badList, ...successList];
-        return badList;
+        if (list.length) {
+          bestActionList.push(lastAction);
+        }
+        normalList = [...normalList, ...list];
+        return normalList;
       },
       []
     );
 
     if (!normalActionList.length) {
       return {
-        best: badActionList[rg.RangeInteger(0, badActionList.length)],
-        nobest: badActionList[rg.RangeInteger(0, badActionList.length)]
+        best: nobestActionList[rg.RangeInteger(0, nobestActionList.length)],
+        nobest: nobestActionList[rg.RangeInteger(0, nobestActionList.length)]
       };
     }
 
@@ -269,8 +292,10 @@ export default class Example10_4 {
     // });
 
     return {
-      best: normalActionList[rg.RangeInteger(0, normalActionList.length)],
-      nobest: normalActionList[rg.RangeInteger(0, normalActionList.length)]
+      best: bestActionList[rg.RangeInteger(0, bestActionList.length)],
+      nobest: nobestActionList.length
+        ? nobestActionList[rg.RangeInteger(0, nobestActionList.length)]
+        : bestActionList[rg.RangeInteger(0, bestActionList.length)]
     };
   }
 
