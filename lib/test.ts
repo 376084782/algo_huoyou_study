@@ -245,29 +245,15 @@ let i = 0
 // let s1 = test8_3.getActionAuto({ "desk": [2, 0, 10], "player": 2 });
 // console.info(JSON.stringify(s1))
 // 8_2
-let test8_2 = new example8_2();
-let result = {
-    "typeSet": 1,
-    "desk": [
-        [9, 9, 0, 0, 9, 9],
-        [9, 0, 0, 0, 0, 9],
-        [1, 4, 0, 5, 0, 6],
-        [9, 2, 0, 0, 3, 9],
-        [9, 9, 3, 0, 9, 9]],
-    "p1chesslog": [2, 4],
-    "p2chesslog": [],
-    "p1chesslogAction": 3,
-    "p2chesslogAction": 5,
-    "player": 2
-}
-
+// let test8_2 = new example8_2();
+// let result = { "typeSet": 1, "desk": [[9, 9, 0, 0, 9, 9], [9, 0, 2, 0, 0, 9], [1, 4, 0, 0, 0, 6], [9, 0, 5, 0, 3, 9], [9, 9, 0, 0, 9, 9]], "p1chesslog": [2, 2], "p2chesslog": [2, 3], "player": 1 }
 // let action = test8_2.getActionAuto(result)
 // let r1 = test8_2.doAction(result, action.best)
 // let r1 = test8_2.doAction(result, { "move": [2, 4], "action": [3, 4], "score": 1600354 })
-let rd = test8_2.checkDesk(result)
+// let rd = test8_2.checkDesk(result)
 // console.info(JSON.stringify(action))
 // console.info(JSON.stringify(r1))
-console.info(JSON.stringify(rd))
+// console.info(JSON.stringify(rd))
 // for (i = 0; i < 1; i++) {
 //     let result = new GameData8_2(1);
 //     let flagResult = 0
@@ -523,10 +509,16 @@ console.info(JSON.stringify(rd))
 //     }
 // }
 // 4_5
-// let test4_5 = new example4_5();
-// let result = new GameData4_5(1);
-// let action = test4_5.doAction(result, { "k1": 3, "k2": 6, "o": 1 })
-// console.info(action)
+let test4_5 = new example4_5();
+//doAction 这个应该是可以移动的{"typeSet":1,"n":-12,"max":13,"player":2} {"k1":3,"k2":4,"o":1}现在返回的是-1非法
+let result = { "typeSet": 1, "n": -9, "max": 13, "player": 2 }
+let action = test4_5.getActionAuto(result)
+console.info(JSON.stringify(action))
+let result1 = test4_5.doAction(result, action.best)
+// let action = test4_5.checkSkipAction(result, { "k1": 4, "k2": 2, "o": 1 })
+// let action = test4_5.getActionAuto(result)
+
+console.info(JSON.stringify(result1))
 
 // for (i = 0; i < 1; i++) {
 //     let result = new GameData4_5(1);

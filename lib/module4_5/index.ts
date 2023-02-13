@@ -28,7 +28,7 @@ import OtherUtil from '../util/OtherUtil';
 import { Console } from 'console';
 
 export class GameData4_5 {
-  typeSet? = 1;//前端用的，存是否是自定义棋盘
+  typeSet?= 1;//前端用的，存是否是自定义棋盘
   //参数
   n: number = 0
   max: number = 13
@@ -105,12 +105,17 @@ export default class example4_5 {
     if (this.checkAction(deskData, dataAction) == -1) {
       return [-1, deskData];
     }
+    if (dataAction.o == 0) {
+      deskData.player = OtherUtil.getRival(deskData.player)
+      return [0, deskData];
+    }
+
     let flagResult = 0
     const n = this.getActionNumber(dataAction)
-    if (deskData.player == 1 && (deskData.n + n) <= deskData.max) {
-      deskData.n -= n
-    } else if (deskData.player == 2 && (deskData.n - n) >= (deskData.max * -1)) {
+    if (deskData.player == 2 && (deskData.n + n) <= deskData.max) {
       deskData.n += n
+    } else if (deskData.player == 1 && (deskData.n - n) >= (deskData.max * -1)) {
+      deskData.n -= n
     } else {
       return [-1, deskData];
     }
@@ -120,6 +125,46 @@ export default class example4_5 {
     return [flagResult, deskData];
   }
 
+  checkSkipAction(deskData: GameData4_5, dataAction: GameAction4_5): number {
+    dataAction.o = 1
+    const n1 = this.getActionNumber(dataAction)
+    dataAction.o = 2
+    const n2 = this.getActionNumber(dataAction)
+    dataAction.o = 3
+    const n3 = this.getActionNumber(dataAction)
+    dataAction.o = 4
+    const n4 = this.getActionNumber(dataAction)
+
+    let isSkip = 1
+    if (deskData.player == 1) {
+      if ((deskData.n + n1) <= deskData.max) {
+        isSkip = 0
+      }
+      if ((deskData.n + n2) <= deskData.max) {
+        isSkip = 0
+      }
+      if ((deskData.n + n3) <= deskData.max) {
+        isSkip = 0
+      }
+      if ((deskData.n + n4) <= deskData.max) {
+        isSkip = 0
+      }
+    } else {
+      if ((deskData.n - n1) >= (deskData.max * -1)) {
+        isSkip = 0
+      }
+      if ((deskData.n - n2) >= (deskData.max * -1)) {
+        isSkip = 0
+      }
+      if ((deskData.n - n3) >= (deskData.max * -1)) {
+        isSkip = 0
+      }
+      if ((deskData.n - n4) >= (deskData.max * -1)) {
+        isSkip = 0
+      }
+    }
+    return isSkip
+  }
   checkAction(deskData: GameData4_5, dataAction: GameAction4_5): number {
     if (dataAction.k1 <= 0 || dataAction.k1 > 6) {
       return -1;
