@@ -1,14 +1,26 @@
-import { Example10_4 } from '../../module10_4';
+import Example10_4 from '../../module10_4';
+
+// let test10_4 = new Example10_4();
+// let result = test10_4.checkAction(
+//   { player: 2, desk: [1, 0, 1, 1, 1, 1, 1, 1, 1, 1] },
+//   { flipCount: 1, flipIndexArr: [3] }
+// );
+
+// console.log(result);
 
 test();
 
 function test() {
   let player = 'P1';
   let test10_4 = new Example10_4();
+  test10_4.checkAction(
+    { player: 2, desk: [1, 1, 0, 0, 0, 1, 0, 1, 0, 0] },
+    { flipCount: 3, flipIndexArr: [2, 4, 6] }
+  );
 
   let result = {
-    desk: Array.from({ length: 5 }, () => Math.round(Math.random())),
-    // desk: [1, 1, 1, 1, 1, 1, 0, 0, 1, 0],
+    desk: Array.from({ length: 10 }, () => Math.round(Math.random())),
+    // desk: [0, 1, 0, 1, 1, 1, 1, 1, 1, 1],
     // desk: [0, 1, 1],
     // desk: [1, 0, 0],
     player: 1

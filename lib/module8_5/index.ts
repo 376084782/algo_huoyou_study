@@ -43,6 +43,8 @@ export class GameData8_5{
     constructor() {
     }
 
+
+
 }
 
 export class GameConfig8_5{
@@ -91,7 +93,7 @@ export default class  example8_5 {
 
 
     /**
-     * 题目还未设置
+     * 三个等级 1-3 从简答到难
      * @param level 1-3
      * @param config
      */
@@ -538,9 +540,10 @@ export default class  example8_5 {
 
 //走法测试用
 // let em = new example8_5();
-//
-// let gc = new GameConfig8_5(10,6)
-// let gd =em.getRiddle(gc)
+// //
+// // let gc = new GameConfig8_5(10,6)
+// let gd =em.getRiddleByLev(2)
+// console.log(gd.desk)
 //
 // for(let i = 0 ;i<30;i++)
 // {
