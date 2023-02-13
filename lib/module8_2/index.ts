@@ -468,7 +468,7 @@ export default class example8_2 {
         const tcell1 = deskData.desk[tx1][ty1]
         const tcell2 = deskData.desk[tx2][ty2]
         const tcell3 = deskData.desk[tx3][ty3]
-        if (tcell1 > 0 && tcell1 > 0 && tcell3 > 0 && tcell1 < 4 && tcell2 < 4 && tcell3 < 4) {
+        if (tcell1 > 0 && tcell2 > 0 && tcell3 > 0 && tcell1 < 4 && tcell2 < 4 && tcell3 < 4) {
           return 1
         } else if (tcell1 >= 4 && tcell2 >= 4 && tcell3 >= 4 && tcell3 < 7 && tcell3 < 7 && tcell3 < 7) {
           return 2
@@ -493,7 +493,7 @@ export default class example8_2 {
         const tcell1 = deskData.desk[tx1][ty1]
         const tcell2 = deskData.desk[tx2][ty2]
         const tcell3 = deskData.desk[tx3][ty3]
-        if (tcell1 > 0 && tcell1 > 0 && tcell3 > 0 && tcell1 < 4 && tcell2 < 4 && tcell3 < 4) {
+        if (tcell1 > 0 && tcell2 > 0 && tcell3 > 0 && tcell1 < 4 && tcell2 < 4 && tcell3 < 4) {
           return 1
         } else if (tcell1 >= 4 && tcell2 >= 4 && tcell3 >= 4 && tcell3 < 7 && tcell3 < 7 && tcell3 < 7) {
           return 2
@@ -518,7 +518,7 @@ export default class example8_2 {
         const tcell1 = deskData.desk[tx1][ty1]
         const tcell2 = deskData.desk[tx2][ty2]
         const tcell3 = deskData.desk[tx3][ty3]
-        if (tcell1 > 0 && tcell2 > 0 && tcell3 > 0 && tcell3 < 4 && tcell2 < 4 && tcell2 < 4) {
+        if (tcell1 > 0 && tcell2 > 0 && tcell3 > 0 && tcell1 < 4 && tcell2 < 4 && tcell3 < 4) {
           return 1
         } else if (tcell1 >= 4 && tcell2 >= 4 && tcell3 >= 4 && tcell1 < 7 && tcell2 < 7 && tcell3 < 7) {
           return 2
@@ -545,7 +545,7 @@ export default class example8_2 {
         const tcell3 = deskData.desk[tx3][ty3]
         if (tcell1 > 0 && tcell1 > 0 && tcell3 > 0 && tcell1 < 4 && tcell2 < 4 && tcell3 < 4) {
           return 1
-        } else if (tcell1 >= 4 && tcell2 >= 4 && tcell3 >= 4 && tcell3 < 7 && tcell3 < 7 && tcell3 < 7) {
+        } else if (tcell1 >= 4 && tcell2 >= 4 && tcell3 >= 4 && tcell1 < 7 && tcell2 < 7 && tcell3 < 7) {
           return 2
         }
       }

@@ -36,7 +36,6 @@ export class GameData10_8 {
     }
 }
 
-
 export default class example10_8 {
     //质数
     zhishuArr: number[] = [1, 2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
