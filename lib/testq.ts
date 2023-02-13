@@ -2,7 +2,9 @@ import example8_5, { GameData8_5, GameAction8_5 } from './module8_5/index';
 import example8_2, { GameData8_2, GameAction8_2 } from './module8_2/index';
 import example2_5, { GameData2_5, GameConfig2_5, GameAction2_5, Position2_5 } from './module2_5/index';
 function test8_5() {
-  let desk = { "typeSet": 1, "desk": ["x", "o", "o", "o", "o", "o", "x", "o", "x", "o", "o", "o", "x", "o", "x", "o"], "player": 1, "allRes": [], "step": 0, "dangerRes": [], "greatRes": [], "betterRes": [] }
+  let desk = new GameData8_5();
+  let deskData = { "typeSet": 1, "desk": ["x", "o", "o", "o", "o", "o", "x", "o", "x", "o", "o", "o", "x", "o", "x", "o"], "player": 1, "allRes": [], "step": 0, "dangerRes": [], "greatRes": [], "betterRes": [] }
+  Object.assign(desk, deskData)
   let action = { "beginSeat": 0, "endSeat": 2, "nextFlag": "r" }
   let ctr = new example8_5();
   // let res = ctr.getActionAuto(desk,1)
