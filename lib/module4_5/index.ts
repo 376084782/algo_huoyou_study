@@ -106,8 +106,12 @@ export default class example4_5 {
       return [-1, deskData];
     }
     if (dataAction.o == 0) {
-      deskData.player = OtherUtil.getRival(deskData.player)
-      return [0, deskData];
+      if (this.checkSkipAction(deskData, dataAction) == 1) {
+        deskData.player = OtherUtil.getRival(deskData.player)
+        return [0, deskData];
+      } else {
+        return [-1, deskData];
+      }
     }
 
     let flagResult = 0

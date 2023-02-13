@@ -29,14 +29,3 @@ https://docs.qq.com/doc/DUmNlSXJTdG1nckpm
 # 开发资源
 1. 资源汇总 [资源汇总](https://docs.qq.com/sheet/DUndTUG5KWldyVEZP?tab=BB08J2)
 2. 大致的机器人递归两步思路[腾讯文档](https://docs.qq.com/flowchart/DUklQc2ZLcklHbGhJ)
-
-
-# 开发中
-## 黄涛
-* 10-3 五连方游戏
-* 2-7	俄罗斯方块
-    没想好机器人策略怎么写
-* 8-4	三角形游戏
-    没想到数据结构
-* 10-6	萌芽
-    想不到怎么写
