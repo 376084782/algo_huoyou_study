@@ -24,7 +24,7 @@ import OtherUtil from '../util/OtherUtil';
 import { Console } from 'console';
 
 export class GameData10_3 {
-  typeSet: number = 1;
+  typeSet?: number = 1;
   //参数 10-12
   desk: number[][] = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -173,7 +173,11 @@ export default class example10_3 {
         }
       }
     }
-    deskData.chess1.push(dataAction.square)
+    if (deskData.player == 1) {
+      deskData.chess1.push(dataAction.square)
+    } else {
+      deskData.chess2.push(dataAction.square)
+    }
     flagResult = this.checkDesk(deskData);
     deskData.player = OtherUtil.getRival(deskData.player)
     return [flagResult, deskData];
@@ -307,7 +311,7 @@ export default class example10_3 {
     }
     let actionMap: Map<string, GameAction10_3> = new Map<string, GameAction10_3>
 
-    if (count / countA < 0.5) {
+    if (count / countA > 0.5) {
       let best = null
       let nobest = null
 
