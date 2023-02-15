@@ -354,7 +354,7 @@ export default class example10_3 {
             for (let j = 0; j < row.length; j++) {
               const element = row[j];
               if (element == 0) {
-                let tmp = this.doAction1(JSON.parse(JSON.stringify(deskData)), squareCode, square, [i, j])
+                let tmp = this.doAction1(JSON.parse(JSON.stringify(deskData)), squareCode, squaretmp, [i, j])
                 const flag = tmp[0]
                 const tmpDesk = tmp[1]
                 const key = i + "_" + j + "_" + squareCode + "_" + type
