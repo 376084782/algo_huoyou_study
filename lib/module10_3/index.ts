@@ -236,29 +236,29 @@ export default class example10_3 {
   checkDesk(deskData: GameData10_3): number {
     let p1s: Set<number> = new Set(deskData.chess1)
     let p2s: Set<number> = new Set(deskData.chess2)
-    let actionCount = 0
+    let actionCount1 = 0
+    let actionCount2 = 0
     for (let i = 0; i < this.deskSquare.length; i++) {
       if (!p1s.has(i)) {
         let actionTmpSet: Set<string> = this.getAllAction(deskData, i)
-        actionCount += actionTmpSet.size
+        actionCount1 += actionTmpSet.size
       }
       if (!p2s.has(i)) {
         let actionTmpSet: Set<string> = this.getAllAction(deskData, i)
-        actionCount += actionTmpSet.size
+        actionCount2 += actionTmpSet.size
       }
     }
 
-    if (actionCount != 0) {
+    if (actionCount1 != 0 && actionCount2 != 0) {
       return 0
-    } else {
-      if (deskData.chess1.length > deskData.chess2.length) {
-        return 1
-      } else if (deskData.chess1.length < deskData.chess2.length) {
-        return 2
-      } else {
-        return 3
-      }
+    } else if (actionCount1 == 0 && actionCount2 == 0) {
+      return 3
+    } else if (actionCount1 != 0 && actionCount2 == 0) {
+      return 1
+    } else if (actionCount1 == 0 && actionCount2 != 0) {
+      return 2
     }
+
     return 0
   }
 
