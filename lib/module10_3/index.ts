@@ -24,6 +24,7 @@ import OtherUtil from '../util/OtherUtil';
 import { Console } from 'console';
 
 export class GameData10_3 {
+  typeSet: number = 1;
   //参数 10-12
   desk: number[][] = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -193,7 +194,11 @@ export default class example10_3 {
         }
       }
     }
-    deskData.chess1.push(squareCode)
+    if (deskData.player == 1) {
+      deskData.chess1.push(squareCode)
+    } else {
+      deskData.chess2.push(squareCode)
+    }
     flagResult = this.checkDesk(deskData);
     deskData.player = OtherUtil.getRival(deskData.player)
     return [flagResult, deskData];
