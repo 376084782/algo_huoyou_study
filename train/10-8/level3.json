@@ -1,0 +1,47 @@
+[
+  {
+    "typeSet": 1,
+    "n": 21,
+    "p1": 0,
+    "p2": 0,
+    "residue": 21,
+    "rounds": 0,
+    "player": 1
+  },
+  {
+    "typeSet": 1,
+    "n": 23,
+    "p1": 0,
+    "p2": 0,
+    "residue": 23,
+    "rounds": 0,
+    "player": 1
+  },
+  {
+    "typeSet": 1,
+    "n": 25,
+    "p1": 0,
+    "p2": 0,
+    "residue": 25,
+    "rounds": 0,
+    "player": 1
+  },
+  {
+    "typeSet": 1,
+    "n": 27,
+    "p1": 0,
+    "p2": 0,
+    "residue": 27,
+    "rounds": 0,
+    "player": 1
+  },
+  {
+    "typeSet": 1,
+    "n": 29,
+    "p1": 0,
+    "p2": 0,
+    "residue": 29,
+    "rounds": 0,
+    "player": 1
+  }
+]
