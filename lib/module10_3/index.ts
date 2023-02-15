@@ -173,7 +173,11 @@ export default class example10_3 {
         }
       }
     }
-    deskData.chess1.push(dataAction.square)
+    if (deskData.player == 1) {
+      deskData.chess1.push(dataAction.square)
+    } else {
+      deskData.chess2.push(dataAction.square)
+    }
     flagResult = this.checkDesk(deskData);
     deskData.player = OtherUtil.getRival(deskData.player)
     return [flagResult, deskData];
@@ -307,7 +311,7 @@ export default class example10_3 {
     }
     let actionMap: Map<string, GameAction10_3> = new Map<string, GameAction10_3>
 
-    if (count / countA < 0.5) {
+    if (count / countA > 0.5) {
       let best = null
       let nobest = null
 
@@ -350,7 +354,7 @@ export default class example10_3 {
             for (let j = 0; j < row.length; j++) {
               const element = row[j];
               if (element == 0) {
-                let tmp = this.doAction1(JSON.parse(JSON.stringify(deskData)), squareCode, square, [i, j])
+                let tmp = this.doAction1(JSON.parse(JSON.stringify(deskData)), squareCode, squaretmp, [i, j])
                 const flag = tmp[0]
                 const tmpDesk = tmp[1]
                 const key = i + "_" + j + "_" + squareCode + "_" + type
