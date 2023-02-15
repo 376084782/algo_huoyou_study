@@ -24,7 +24,7 @@ import OtherUtil from '../util/OtherUtil';
 import { Console } from 'console';
 
 export class GameData10_3 {
-  typeSet: number = 1;
+  typeSet?: number = 1;
   //参数 10-12
   desk: number[][] = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
