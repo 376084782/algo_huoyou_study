@@ -281,8 +281,59 @@ export default class example10_3 {
 
   getActionAuto(deskData: GameData10_3): GameAutoWay {
 
-    let p1s: Set<number> = new Set(deskData.chess1)
+    let count = 0
+    let countA = 0
+    for (let i = 0; i < deskData.desk.length; i++) {
+      const row = deskData.desk[i];
+      for (let j = 0; j < row.length; j++) {
+        const element = row[j];
+        countA++
+        if (element == 0) {
+          count++
+        }
+      }
+    }
+
+    let p1s: Set<number> = new Set()
+    if (deskData.player == 1) {
+      p1s = new Set(deskData.chess1)
+    } else {
+      p1s = new Set(deskData.chess2)
+    }
     let actionMap: Map<string, GameAction10_3> = new Map<string, GameAction10_3>
+
+    if (count / countA < 0.5) {
+      let best = null
+      let nobest = null
+
+      for (let squareCode = 0; squareCode < this.deskSquare.length; squareCode++) {
+        if (!p1s.has(squareCode)) {
+          const square: number[][] = this.deskSquare[squareCode];
+          for (let type = 1; type <= 5; type++) {
+            const squaretmp = this.bian(square, type)
+            for (let i = 0; i < deskData.desk.length; i++) {
+              const row = deskData.desk[i];
+              for (let j = 0; j < row.length; j++) {
+                const element = row[j];
+                if (element == 0) {
+                  let tmp = this.checkAction1(JSON.parse(JSON.stringify(deskData)), square, [i, j])
+                  if (tmp == 1) {
+                    if (best == null) {
+                      best = new GameAction10_3(squareCode, [i, j], type, 99999)
+                    } else if (best != null && nobest == null) {
+                      nobest = new GameAction10_3(squareCode, [i, j], type, 99999)
+                    } else if (best != null && nobest != null) {
+                      return new GameAutoWay(best, nobest)
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    //过半，权重取值
 
     for (let squareCode = 0; squareCode < this.deskSquare.length; squareCode++) {
       if (!p1s.has(squareCode)) {

@@ -37,29 +37,28 @@ let i = 0
 // })
 // console.info(JSON.stringify(a))
 // 10_3
-// let test10_3 = new example10_3();
-// let e = {
-//     "desk": [
-//         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-//         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-//         [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
-//         [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
-//         [1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1],
-//         [1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1],
-//         [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
-//         [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
-//         [1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1],
-//         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-//     ],
-//     "chess1": [],
-//     "chess2": [],
-//     "player": 1
-// }
-// let a = test10_3.getActionAuto(e)
-// let as = test10_3.doAction(e, a.best)
-// console.info(JSON.stringify(a))
-// console.info(JSON.stringify(as))
-
+let test10_3 = new example10_3();
+let e = {
+    "desk": [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    ],
+    "chess1": [],
+    "chess2": [],
+    "player": 1
+}
+console.info(Date.parse(new Date().toString()))
+let a = test10_3.getActionAuto(e)
+console.info(JSON.stringify(a))
+console.info(Date.parse(new Date().toString()))
 // let a = test10_3.doAction(
 //     {
 //         "desk": [
@@ -246,13 +245,13 @@ let i = 0
 // let s1 = test8_3.getActionAuto({ "desk": [2, 0, 10], "player": 2 });
 // console.info(JSON.stringify(s1))
 // 8_2
-let test8_2 = new example8_2();
-let result = { "typeSet": 1, "desk": [[9, 9, 2, 6, 9, 9], [9, 0, 0, 0, 4, 9], [1, 0, 3, 0, 0, 0], [9, 5, 0, 0, 0, 9], [9, 9, 0, 0, 9, 9]], "p1chesslog": [2, 3], "p2chesslog": [2, 1], "player": 1 }
+// let test8_2 = new example8_2();
+// let result = { "typeSet": 1, "desk": [[9, 9, 2, 6, 9, 9], [9, 0, 0, 0, 4, 9], [1, 0, 3, 0, 0, 0], [9, 5, 0, 0, 0, 9], [9, 9, 0, 0, 9, 9]], "p1chesslog": [2, 3], "p2chesslog": [2, 1], "player": 1 }
 // let action = test8_2.getActionAuto(result)
 // let r1 = test8_2.doAction(result, action.best)
 // let r1 = test8_2.doAction(result, { "move": [2, 4], "action": [3, 4], "score": 1600354 })
-let rd = test8_2.checkDesk(result)
-console.info(JSON.stringify(rd))
+// let rd = test8_2.checkDesk(result)
+// console.info(JSON.stringify(rd))
 // console.info(JSON.stringify(r1))
 // console.info(JSON.stringify(rd))
 // for (i = 0; i < 1; i++) {
