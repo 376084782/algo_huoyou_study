@@ -1,0 +1,12 @@
+[
+    { "player": 1, "stack": [4, 6, 9] },
+    { "player": 1, "stack": [4, 4, 4] },
+    { "player": 1, "stack": [4, 8, 2] },
+    { "player": 1, "stack": [4, 7, 1] },
+    { "player": 1, "stack": [5, 1, 4] },
+    { "player": 1, "stack": [5, 1, 9] },
+    { "player": 1, "stack": [5, 2, 3] },
+    { "player": 1, "stack": [5, 3, 1] },
+    { "player": 1, "stack": [5, 5] },
+    { "player": 1, "stack": [5, 4, 6] }
+]
