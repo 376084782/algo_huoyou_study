@@ -98,9 +98,25 @@ export default class  example8_6 {
         return  gd;
     }
 
+    /**
+     * 返回 1 表示合法，-1不合法
+     * @param deskData
+     */
     checkRiddle(deskData:GameData8_6): number {
 
-        return 0;
+        let leni = deskData.desk.length
+
+        for(let i = 0 ;i < leni ;i++)
+        {
+            for(let j = 0 ; j<leni ;j ++)
+            {
+                if(deskData.desk[i][j]=='o')
+                {
+                    return 1;
+                }
+            }
+        }
+        return -1;
     }
 
 
