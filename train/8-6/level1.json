@@ -1,0 +1,87 @@
+[
+  {
+    "typeSet":1,
+    "desk": [
+      ["x","o"],
+      ["o","x"]
+    ],
+    "player": 1
+  },
+  {
+    "typeSet":1,
+    "desk": [
+      ["x","o"],
+      ["o","o"]
+    ],
+    "player": 1
+  },
+  {
+    "typeSet":1,
+    "desk": [
+      ["o","o"],
+      ["o","x"]
+    ],
+    "player": 1
+  },
+  {
+    "typeSet":1,
+    "desk": [
+      ["o","o"],
+      ["o","o"]
+    ],
+    "player": 1
+  },
+  {
+    "typeSet":1,
+    "desk": [
+      ["o","x"],
+      ["x","o"]
+    ],
+    "player": 1
+  },
+  {
+    "typeSet":1,
+    "desk": [
+      ["x","o","x"],
+      ["x","x","x"],
+      ["x","x","o"]
+    ],
+    "player": 1
+  },
+  {
+    "typeSet":1,
+    "desk":  [
+      ["x","o","x"],
+      ["x","o","x"],
+      ["x","x","o"]
+    ],
+    "player": 1
+  },
+  {
+    "typeSet":1,
+    "desk":  [
+      ["o","x","x"],
+      ["o","x","x"],
+      ["x","x","o"]
+    ],
+    "player": 1
+  },
+  {
+    "typeSet":1,
+    "desk":  [
+      ["x","x","x"],
+      ["o","x","x"],
+      ["o","x","o"]
+    ],
+    "player": 1
+  },
+  {
+    "typeSet":1,
+    "desk":  [
+      ["x","x","o"],
+      ["x","x","o"],
+      ["x","x","o"]
+    ],
+    "player": 1
+  }
+]
