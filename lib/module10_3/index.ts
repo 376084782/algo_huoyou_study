@@ -249,9 +249,9 @@ export default class example10_3 {
       }
     }
     // 轮到哪一边就检查他是否有位置可以下，没有就判负
-    if (deskData.player == 1 && actionCount1 != 0) {
+    if (deskData.player == 1 && actionCount1 == 0) {
       return 1
-    } else if (deskData.player == 2 && actionCount2 != 0) {
+    } else if (deskData.player == 2 && actionCount2 == 0) {
       return 2
     }
     return 0
