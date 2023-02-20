@@ -24,7 +24,7 @@
 
 游戏策略：
 考虑棋子颗数的奇偶性，
-如果是偶数颗，则按从前（位置数越小就是前）往后 2 颗一组，每组两颗棋子之间的间隔数就是这两颗棋子所对应的一个数，
+如果是偶数颗，则按从前（置位数越小就是前）往后 2 颗一组，每组两颗棋子之间的间隔数就是这两颗棋子所对应的一个数，
 如果是奇数颗棋子，则第一个数是离仓库最近的棋子所在的格子位置是几，就对应数几，其余又从前往后按 2 颗一组，该两颗棋子之间的间隔数就是这两颗棋子所对应的一个数。
 这样不管是几颗棋子，都可以按上述方式得到一个数组。
 
@@ -205,12 +205,14 @@ export class example2_2 {
 
   getActionAuto(deskData: GameData2_2): GameAutoWay {
 
+    //统计棋盘总数
     let positions = deskData.positions.filter(x => x == 1);
     if (positions.length == 1) {
       return new GameAutoWay([deskData.positions.findIndex(x => x == 1), 10], [deskData.positions.findIndex(x => x == 1), 10]);
     }
     const rg = new RandomGenerater(0)
-    let count = this.computeDeskBin(deskData);
+    //棋盘二进制和
+    //等于两颗并有一颗为9，就贴边走
     if (positions.length == 2) {
       let f = 0
       let s = 0
@@ -231,6 +233,7 @@ export class example2_2 {
     }
 
     let allAction = this.randomAction(deskData)
+    //为偶数，并大于2颗 则直接最外的到10
     if (positions.length % 2 == 0 && positions.length > 2) {
       let tmp = 0
       for (let i = deskData.positions.length - 1; i >= 0; i--) {
@@ -244,6 +247,9 @@ export class example2_2 {
     }
     let vaildAction: number[][] = new Array;
     let i: number;
+
+    // 如非以上的情况，循环所有操作，满足二进制求和结果为偶数为止。
+    let count = null;
     for (i = 0; i < allAction.length; i++) {
       let tmp = allAction[i]
       let tmpDeskData = JSON.parse(JSON.stringify(deskData));
@@ -255,6 +261,7 @@ export class example2_2 {
       }
     }
     let best
+    //若无满足，则随机
     if (vaildAction.length > 0) {
       best = vaildAction[rg.RangeInteger(0, vaildAction.length - 1)]
     }
