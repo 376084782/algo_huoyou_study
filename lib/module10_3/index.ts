@@ -320,19 +320,33 @@ export default class example10_3 {
           const square: number[][] = this.deskSquare[squareCode];
           for (let type = 1; type <= 5; type++) {
             const squaretmp = this.bian(square, type)
+            //寻找方块起点xy
+            let sx = 0
+            let sy = 0
+            for (let si = 0; si < squaretmp.length; si++) {
+              const srow = deskData.desk[si];
+              for (let sj = 0; sj < srow.length; sj++) {
+                if (squaretmp[si][sj]) {
+                  sx = si
+                  sy = sj
+                }
+              }
+            }
             for (let i = 0; i < deskData.desk.length; i++) {
               const row = deskData.desk[i];
               for (let j = 0; j < row.length; j++) {
-                const element = row[j];
-                if (element == 0) {
-                  let tmp = this.checkAction1(JSON.parse(JSON.stringify(deskData)), square, [i, j])
-                  if (tmp == 1) {
-                    if (best == null) {
-                      best = new GameAction10_3(squareCode, [i, j], type, 99999)
-                    } else if (best != null && nobest == null) {
-                      nobest = new GameAction10_3(squareCode, [i, j], type, 99999)
-                    } else if (best != null && nobest != null) {
-                      return new GameAutoWay(best, nobest)
+                if (this.vaildXy(i + sx, j + sy) == 1) {
+                  const element = deskData.desk[i + sx][j + sy];
+                  if (element == 0) {
+                    let tmp = this.checkAction1(JSON.parse(JSON.stringify(deskData)), square, [i, j])
+                    if (tmp == 1) {
+                      if (best == null) {
+                        best = new GameAction10_3(squareCode, [i, j], type, 99999)
+                      } else if (best != null && nobest == null) {
+                        nobest = new GameAction10_3(squareCode, [i, j], type, 99999)
+                      } else if (best != null && nobest != null) {
+                        return new GameAutoWay(best, nobest)
+                      }
                     }
                   }
                 }
@@ -349,21 +363,41 @@ export default class example10_3 {
         const square: number[][] = this.deskSquare[squareCode];
         for (let type = 1; type <= 5; type++) {
           const squaretmp = this.bian(square, type)
+          //寻找方块起点xy
+          let sx = -1
+          let sy = -1
+          for (let si = 0; si < squaretmp.length; si++) {
+            const srow = deskData.desk[si];
+            if (sx != -1) {
+              break
+            }
+            for (let sj = 0; sj < srow.length; sj++) {
+              if (squaretmp[si][sj] != 0) {
+                sx = si
+                sy = sj
+                break
+              }
+            }
+          }
           for (let i = 0; i < deskData.desk.length; i++) {
             const row = deskData.desk[i];
             for (let j = 0; j < row.length; j++) {
-              const element = row[j];
-              if (element == 0) {
-                let tmp = this.doAction1(JSON.parse(JSON.stringify(deskData)), squareCode, squaretmp, [i, j])
-                const flag = tmp[0]
-                const tmpDesk = tmp[1]
-                const key = i + "_" + j + "_" + squareCode + "_" + type
-                if (flag == 0) {
-                  actionMap.set(key, new GameAction10_3(squareCode, [i, j], type, -this.getScore(tmpDesk)))
-                } else if (flag == deskData.player) {
-                  actionMap.set(key, new GameAction10_3(squareCode, [i, j], type, 99999))
-                } else if (flag == OtherUtil.getRival(deskData.player)) {
-                  actionMap.set(key, new GameAction10_3(squareCode, [i, j], type, 99999))
+              if (this.vaildXy(i + sx, j + sy) == 1) {
+                const element = deskData.desk[i + sx][j + sy];
+                if (element == 0) {
+                  let tmp = this.doAction1(JSON.parse(JSON.stringify(deskData)), squareCode, squaretmp, [i, j])
+                  const flag = tmp[0]
+                  const tmpDesk = tmp[1]
+                  const key = i + "_" + j + "_" + squareCode + "_" + type
+                  if (flag == 0) {
+                    actionMap.set(key, new GameAction10_3(squareCode, [i, j], type, -this.getScore(tmpDesk)))
+                  } else if (flag == deskData.player) {
+                    actionMap.set(key, new GameAction10_3(squareCode, [i, j], type, 99999))
+                  } else if (flag == OtherUtil.getRival(deskData.player)) {
+                    actionMap.set(key, new GameAction10_3(squareCode, [i, j], type, 99999))
+                  } else if (flag == 3) {
+                    actionMap.set(key, new GameAction10_3(squareCode, [i, j], type, 0))
+                  }
                 }
               }
             }
@@ -402,7 +436,9 @@ export default class example10_3 {
         return -1;
       return 0;
     });
-
+    if (actionSMap.size == 0) {
+      return new GameAutoWay(undefined, undefined)
+    }
     let bests: GameAction10_3[] = actionSMap.get(scores[0]) as GameAction10_3[]
     const rg = new RandomGenerater(0)
     let nobests: GameAction10_3[] = actionSMap.get(scores[rg.RangeInteger(0, scores.length)]) as GameAction10_3[]
