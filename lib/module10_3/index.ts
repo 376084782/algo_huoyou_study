@@ -266,9 +266,11 @@ export default class example10_3 {
     }
     // 轮到哪一边就检查他是否有位置可以下，没有就判负
     if (deskData.player == 1 && actionCount1 == 0) {
-      return 1
-    } else if (deskData.player == 2 && actionCount2 == 0) {
+      console.log('结算1')
       return 2
+    } else if (deskData.player == 2 && actionCount2 == 0) {
+      console.log('结算2')
+      return 1
     }
     return 0
 
@@ -543,94 +545,94 @@ export default class example10_3 {
     }
     return []
   }
-  //
-  // bian(square: number[][], type: number): number[][] {
-  //   // console.info(JSON.stringify(square) + "_" + type)
-  //   if (type == 1) {
-  //     return square
-  //   } else if (type == 2) {
-  //     return this.bian2(square)
-  //   } else if (type == 3) {
-  //     return this.bian3(square)
-  //   } else if (type == 4) {
-  //     return this.bian4(square)
-  //   } else if (type == 5) {
-  //     return this.bian5(square)
-  //   }
-  //   return square
-  // }
-  //
-  // //操作方式 1 原样放置 2 水平翻转 3 垂直翻转 4左旋转90° 5右旋转90°】
-  // bian2(square: number[][]): number[][] {
-  //   let result: number[][] = []
-  //   // 水平翻转
-  //   for (let i = 0; i < square.length; i++) {
-  //     const row = square[i];
-  //     let tmprow: number[] = []
-  //     for (let j = row.length - 1; j >= 0; j--) {
-  //       const tmp = row[j];
-  //       tmprow.push(tmp)
-  //     }
-  //     result.push(tmprow)
-  //   }
-  //   return result
-  // }
-  // bian3(square: number[][]): number[][] {
-  //   let result: number[][] = []
-  //   for (let i = square.length - 1; i >= 0; i--) {
-  //     const row = square[i];
-  //     let tmprow: number[] = []
-  //     for (let j = 0; j < row.length; j++) {
-  //       const tmp = row[j];
-  //       tmprow.push(tmp)
-  //     }
-  //     result.push(tmprow)
-  //   }
-  //   return result
-  // }
-  //
-  // // 左旋转90°
-  // bian4(square: number[][]): number[][] {
-  //   let result: number[][] = []
-  //   for (let i = 0; i < square[0].length; i++) {
-  //     let tmprow: number[] = []
-  //     for (let j = 0; j < square.length; j++) {
-  //       tmprow.push(0)
-  //     }
-  //     result.push(tmprow)
-  //   }
-  //
-  //   for (let i = 0; i < square.length; i++) {
-  //     const row = square[i];
-  //     for (let x = 0, j = row.length - 1; j >= 0; j--, x++) {
-  //       // for (let j = 0; j < row.length; j++) {
-  //       const tmp = row[x];
-  //       result[j][i] = tmp
-  //     }
-  //   }
-  //   return result
-  // }
-  // // 右旋转90°
-  // bian5(square: number[][]): number[][] {
-  //   let result: number[][] = []
-  //   for (let i = 0; i < square[0].length; i++) {
-  //     let tmprow: number[] = []
-  //     for (let j = 0; j < square.length; j++) {
-  //       tmprow.push(0)
-  //     }
-  //     result.push(tmprow)
-  //   }
-  //
-  //   for (let y = 0, i = square.length - 1; i >= 0; i--, y++) {
-  //     const row = square[i];
-  //     for (let x = 0, j = row.length - 1; j >= 0; j--, x++) {
-  //       // for (let j = 0; j < row.length; j++) {
-  //       const tmp = row[x];
-  //       result[x][y] = tmp
-  //     }
-  //   }
-  //   return result
-  // }
+
+  bian(square: number[][], type: number): number[][] {
+    // console.info(JSON.stringify(square) + "_" + type)
+    if (type == 1) {
+      return square
+    } else if (type == 2) {
+      return this.bian2(square)
+    } else if (type == 3) {
+      return this.bian3(square)
+    } else if (type == 4) {
+      return this.bian4(square)
+    } else if (type == 5) {
+      return this.bian5(square)
+    }
+    return square
+  }
+
+  //操作方式 1 原样放置 2 水平翻转 3 垂直翻转 4左旋转90° 5右旋转90°】
+  bian2(square: number[][]): number[][] {
+    let result: number[][] = []
+    // 水平翻转
+    for (let i = 0; i < square.length; i++) {
+      const row = square[i];
+      let tmprow: number[] = []
+      for (let j = row.length - 1; j >= 0; j--) {
+        const tmp = row[j];
+        tmprow.push(tmp)
+      }
+      result.push(tmprow)
+    }
+    return result
+  }
+  bian3(square: number[][]): number[][] {
+    let result: number[][] = []
+    for (let i = square.length - 1; i >= 0; i--) {
+      const row = square[i];
+      let tmprow: number[] = []
+      for (let j = 0; j < row.length; j++) {
+        const tmp = row[j];
+        tmprow.push(tmp)
+      }
+      result.push(tmprow)
+    }
+    return result
+  }
+
+  // 左旋转90°
+  bian4(square: number[][]): number[][] {
+    let result: number[][] = []
+    for (let i = 0; i < square[0].length; i++) {
+      let tmprow: number[] = []
+      for (let j = 0; j < square.length; j++) {
+        tmprow.push(0)
+      }
+      result.push(tmprow)
+    }
+
+    for (let i = 0; i < square.length; i++) {
+      const row = square[i];
+      for (let x = 0, j = row.length - 1; j >= 0; j--, x++) {
+        // for (let j = 0; j < row.length; j++) {
+        const tmp = row[x];
+        result[j][i] = tmp
+      }
+    }
+    return result
+  }
+  // 右旋转90°
+  bian5(square: number[][]): number[][] {
+    let result: number[][] = []
+    for (let i = 0; i < square[0].length; i++) {
+      let tmprow: number[] = []
+      for (let j = 0; j < square.length; j++) {
+        tmprow.push(0)
+      }
+      result.push(tmprow)
+    }
+
+    for (let y = 0, i = square.length - 1; i >= 0; i--, y++) {
+      const row = square[i];
+      for (let x = 0, j = row.length - 1; j >= 0; j--, x++) {
+        // for (let j = 0; j < row.length; j++) {
+        const tmp = row[x];
+        result[x][y] = tmp
+      }
+    }
+    return result
+  }
   vaildXy(x: number, y: number): number {
     if (x >= 10 || x < 0) {
       return -1
