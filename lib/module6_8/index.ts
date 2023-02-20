@@ -78,9 +78,10 @@ export default class example6_8 {
 
   checkRiddle(deskData: GameData6_8): number {
     if (deskData.desk.length >= 1 && deskData.desk.length <= 6) {
-      return -1
+      return 1
+    } else {
+      return -1;
     }
-    return 1;
   }
 
   checkDesk(deskData: GameData6_8): number {
