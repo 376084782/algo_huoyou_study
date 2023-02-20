@@ -11,7 +11,7 @@ import RandomGenerater from '../util/RandomGenerater';
 
 const rg = new RandomGenerater(0);
 
-export interface GameData10_4 {
+export interface GameData4_11 {
   player: 1 | 2;
   desk: number[];
   typeSet?: number;
@@ -21,11 +21,11 @@ enum ChessDirection {
   OBVERSE = 1, // 正面
   REVERSE = 0 // 反面
 }
-export interface GameData10_4Action {
+export interface GameData4_11Action {
   indexArr: number[]; // 翻的棋子下标，如：[1],[1,4,5]
 }
 
-export default class Example10_4 {
+export default class Example4_11 {
   isObverse(direction: ChessDirection) {
     return direction === ChessDirection.OBVERSE;
   }
@@ -40,7 +40,7 @@ export default class Example10_4 {
   /**
    * 通过桌面来获取所有的操作 actions
    */
-  getActionsByDesk(desk: number[]): { desk: number[]; actions: GameData10_4Action[] } {
+  getActionsByDesk(desk: number[]): { desk: number[]; actions: GameData4_11Action[] } {
     const result = [];
     for (let firstIndex = 0; firstIndex < desk.length; firstIndex++) {
       if (desk[firstIndex] !== 0) {
@@ -74,7 +74,7 @@ export default class Example10_4 {
     return originalDesk.map((item, index) => (action.includes(index) ? Number(!item) : item));
   }
 
-  getRiddle(chessCount: number): GameData10_4 {
+  getRiddle(chessCount: number): GameData4_11 {
     const isNumber = typeof chessCount === 'number';
     if (isNumber && chessCount && chessCount >= 3 && chessCount <= 12) {
       return {
@@ -93,7 +93,7 @@ export default class Example10_4 {
    * 判断题目是否合法
    * @return 1: 合法 -1: 不合法
    */
-  checkRiddle(dataDesk: GameData10_4): number {
+  checkRiddle(dataDesk: GameData4_11): number {
     const player = Number(dataDesk.player);
     const desk = dataDesk.desk;
     if (player !== 1 && player !== 2) {
@@ -108,7 +108,7 @@ export default class Example10_4 {
   /**
    * 判断操作是否合法
    */
-  checkAction(dataDesk: GameData10_4, dataAction: GameData10_4Action): number {
+  checkAction(dataDesk: GameData4_11, dataAction: GameData4_11Action): number {
     const player = Number(dataDesk.player);
     const desk = dataDesk.desk;
     const { indexArr } = dataAction;
@@ -140,11 +140,11 @@ export default class Example10_4 {
    * 执行操作：-1不合法不可执行 0未结束 1先手获胜 2后手获胜
    */
   doAction(
-    dataDesk: GameData10_4,
-    dataAction: GameData10_4Action
+    dataDesk: GameData4_11,
+    dataAction: GameData4_11Action
   ): {
     flagResult: number;
-    dataResult: GameData10_4;
+    dataResult: GameData4_11;
   } {
     const result = this.checkAction(dataDesk, dataAction);
     if (result === -1) {
@@ -166,7 +166,7 @@ export default class Example10_4 {
   /**
    * 检查桌面状态
    */
-  checkDesk(dataDesk: GameData10_4): number {
+  checkDesk(dataDesk: GameData4_11): number {
     const { desk, player } = dataDesk;
     if (this.isWin(desk)) {
       return player;
@@ -175,9 +175,9 @@ export default class Example10_4 {
     }
   }
 
-  getActionAuto(dataDesk: GameData10_4): {
-    best: GameData10_4Action;
-    nobest: GameData10_4Action;
+  getActionAuto(dataDesk: GameData4_11): {
+    best: GameData4_11Action;
+    nobest: GameData4_11Action;
   } {
     const { desk } = dataDesk;
     // 当前桌面的所有 actions
@@ -199,7 +199,7 @@ export default class Example10_4 {
 
     // 根据当前桌面的所有 actions ，生成下完之后桌子 list
     const deskListAfterActions = curDeskWithActions.actions.reduce(
-      (deskList: { desk: number[]; action: GameData10_4Action }[], action: GameData10_4Action) => {
+      (deskList: { desk: number[]; action: GameData4_11Action }[], action: GameData4_11Action) => {
         deskList.push({
           desk: this.getDeskAfterAction(curDeskWithActions.desk, action.indexArr),
           action
@@ -215,7 +215,7 @@ export default class Example10_4 {
       lastAction: action
     }));
 
-    const nobestActionList: GameData10_4Action[] = [];
+    const nobestActionList: GameData4_11Action[] = [];
 
     // 筛选对方再走一步可以马上获胜的可能列表
     posDeskWithActions.forEach(({ desk, actions, lastAction }) => {
@@ -227,11 +227,11 @@ export default class Example10_4 {
       }
     });
 
-    const bestActionList: GameData10_4Action[] = [];
+    const bestActionList: GameData4_11Action[] = [];
 
     // 常规可走列表
     const normalActionList = posDeskWithActions.reduce(
-      (normalList: GameData10_4Action[], { desk, actions, lastAction }, index) => {
+      (normalList: GameData4_11Action[], { desk, actions, lastAction }, index) => {
         const list = actions.filter(({ indexArr }) => !this.isWin(this.getDeskAfterAction(desk, indexArr)));
         if (list.length) {
           bestActionList.push(lastAction);
