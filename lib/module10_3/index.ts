@@ -248,18 +248,25 @@ export default class example10_3 {
         actionCount2 += actionTmpSet.size
       }
     }
-
-    if (actionCount1 != 0 && actionCount2 != 0) {
-      return 0
-    } else if (actionCount1 == 0 && actionCount2 == 0) {
-      return 3
-    } else if (actionCount1 != 0 && actionCount2 == 0) {
+    // 轮到哪一边就检查他是否有位置可以下，没有就判负
+    if (deskData.player == 1 && actionCount1 != 0) {
       return 1
-    } else if (actionCount1 == 0 && actionCount2 != 0) {
+    } else if (deskData.player == 2 && actionCount2 != 0) {
       return 2
     }
-
     return 0
+
+    // if (actionCount1 != 0 && actionCount2 != 0) {
+    //   return 0
+    // } else if (actionCount1 == 0 && actionCount2 == 0) {
+    //   return 3
+    // } else if (actionCount1 != 0 && actionCount2 == 0) {
+    //   return 1
+    // } else if (actionCount1 == 0 && actionCount2 != 0) {
+    //   return 2
+    // }
+
+    // return 0
   }
 
   getSquareAction(deskData: GameData10_3, square: number[][], squareCode: number, type: number): Set<string> {
