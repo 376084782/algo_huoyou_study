@@ -38,6 +38,28 @@ let i = 0
 // console.info(JSON.stringify(a))
 // 10_3
 let test10_3 = new example10_3();
+// for (let s1 = 0; s1 < test10_3.deskSquare.length; s1++) {
+//     let arr: number[][][] = []
+//     let map: Map<string, number[][]> = new Map
+//     const s = test10_3.deskSquare[s1];
+//     for (let i: number = 0; i <= 5; i++) {
+//         const st1 = test10_3.bian(JSON.parse(JSON.stringify(s)), i)
+//         map.set(JSON.stringify(st1), st1)
+//         for (let j: number = 0; j <= 5; j++) {
+//             const st2 = test10_3.bian(JSON.parse(JSON.stringify(st1)), j)
+//             map.set(JSON.stringify(st2), st2)
+//         }
+//     }
+//     let iterator = map.values();
+//     let r: IteratorResult<number[][]>;
+//     while (r = iterator.next(), !r.done) {
+//         arr.push(r.value)
+//     }
+//     console.info(JSON.stringify(arr))
+
+// }
+
+
 let e = {
     "typeSet": 1,
     "desk": [

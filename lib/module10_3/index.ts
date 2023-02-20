@@ -60,16 +60,18 @@ export class GameData10_3 {
 
 export class GameAction10_3 {
   //下面的deskSquare方块类型，依次0-11
+  // square: number = -1
   square: number = -1
+  squareArr: number[][] = []
   //起手点位。图形0，0的位置。
   action: number[] = []
   //操作方式 1 原样放置 2 水平翻转 3 垂直翻转 4旋转90°】
-  actionType: number = 2
+  // actionType: number = 2
   score?: number = 0
-  constructor(square: number, action: number[], actionType: number, score?: number) {
+  constructor(square: number, action: number[], squareArr: number[][], score?: number) {
     this.square = square
     this.action = action
-    this.actionType = actionType
+    this.squareArr = squareArr
     if (score != undefined) {
       this.score = score
     }
@@ -98,6 +100,20 @@ export default class example10_3 {
   // [1, 1, 1,],
   // [1, 0, 0,],
   // [1, 0, 0,]],
+
+  deskSquareAll: number[][][] = [[[0, 0, 1], [1, 1, 1], [1, 0, 0]], [[1, 0, 0], [1, 1, 1], [0, 0, 1]], [[1, 1, 0], [0, 1, 0], [0, 1, 1]], [[0, 1, 1], [0, 1, 0], [1, 1, 0]], [[1, 1, 1], [0, 1, 1]], [[1, 1, 1], [1, 1, 0]], [[0, 1, 1], [1, 1, 1]], [[1, 1], [1, 1], [1, 0]], [[0, 1], [1, 1], [1, 1]], [[1, 1, 0], [1, 1, 1]], [[1, 0], [1, 1], [1, 1]], [[1, 1], [1, 1], [0, 1]], [[1, 0, 0, 0], [1, 1, 1, 1]], [[0, 0, 0, 1], [1, 1, 1, 1]], [[1, 1, 1, 1], [1, 0, 0, 0]], [[0, 1], [0, 1], [0, 1], [1, 1]], [[1, 1], [1, 0], [1, 0], [1, 0]], [[1, 1, 1, 1], [0, 0, 0, 1]], [[1, 1], [0, 1], [0, 1], [0, 1]], [[1, 0], [1, 0], [1, 0], [1, 1]], [[1, 1, 1, 1, 1]], [[1], [1], [1], [1], [1]], [[0, 0, 1, 0], [1, 1, 1, 1]], [[0, 1, 0, 0], [1, 1, 1, 1]], [[1, 1, 1, 1], [0, 0, 1, 0]], [[0, 1], [1, 1], [0, 1], [0, 1]], [[1, 0], [1, 0], [1, 1], [1, 0]], [[1, 1, 1, 1], [0, 1, 0, 0]], [[0, 1], [0, 1], [1, 1], [0, 1]], [[1, 0], [1, 1], [1, 0], [1, 0]], [[1, 1], [1, 0], [1, 1]], [[1, 1], [0, 1], [1, 1]], [[1, 0, 1], [1, 1, 1]], [[1, 1, 1], [1, 0, 1]], [[0, 1, 0], [1, 1, 1], [1, 0, 0]], [[0, 1, 0], [1, 1, 1], [0, 0, 1]], [[1, 0, 0], [1, 1, 1], [0, 1, 0]], [[0, 1, 0], [1, 1, 0], [0, 1, 1]], [[1, 1, 0], [0, 1, 1], [0, 1, 0]], [[0, 0, 1], [1, 1, 1], [0, 1, 0]], [[0, 1, 1], [1, 1, 0], [0, 1, 0]], [[0, 1, 0], [0, 1, 1], [1, 1, 0]], [[0, 1, 0], [1, 1, 1], [0, 1, 0]], [[0, 1, 1], [1, 1, 0], [1, 0, 0]], [[1, 1, 0], [0, 1, 1], [0, 0, 1]], [[1, 0, 0], [1, 1, 0], [0, 1, 1]], [[0, 0, 1], [0, 1, 1], [1, 1, 0]], [[0, 1, 0], [0, 1, 0], [1, 1, 1]], [[1, 1, 1], [0, 1, 0], [0, 1, 0]], [[0, 0, 1], [1, 1, 1], [0, 0, 1]], [[1, 0, 0], [1, 1, 1], [1, 0, 0]], [[0, 0, 1], [0, 0, 1], [1, 1, 1]], [[1, 0, 0], [1, 0, 0], [1, 1, 1]], [[1, 1, 1], [0, 0, 1], [0, 0, 1]], [[1, 1, 1], [1, 0, 0], [1, 0, 0]], [[0, 1], [0, 1], [1, 1], [1, 0]], [[1, 0], [1, 0], [1, 1], [0, 1]], [[1, 0], [1, 1], [0, 1], [0, 1]], [[1, 1, 1, 0], [0, 0, 1, 1]], [[1, 1, 0, 0], [0, 1, 1, 1]], [[0, 1], [1, 1], [1, 0], [1, 0]], [[0, 0, 1, 1], [1, 1, 1, 0]], [[0, 1, 1, 1], [1, 1, 0, 0]]]
+  deskSquareAll0: number[][][] = [[[0, 0, 1], [1, 1, 1], [1, 0, 0]], [[1, 0, 0], [1, 1, 1], [0, 0, 1]], [[1, 1, 0], [0, 1, 0], [0, 1, 1]], [[0, 1, 1], [0, 1, 0], [1, 1, 0]]]
+  deskSquareAll1: number[][][] = [[[1, 1, 1], [0, 1, 1]], [[1, 1, 1], [1, 1, 0]], [[0, 1, 1], [1, 1, 1]], [[1, 1], [1, 1], [1, 0]], [[0, 1], [1, 1], [1, 1]], [[1, 1, 0], [1, 1, 1]], [[1, 0], [1, 1], [1, 1]], [[1, 1], [1, 1], [0, 1]]]
+  deskSquareAll2: number[][][] = [[[1, 0, 0, 0], [1, 1, 1, 1]], [[0, 0, 0, 1], [1, 1, 1, 1]], [[1, 1, 1, 1], [1, 0, 0, 0]], [[0, 1], [0, 1], [0, 1], [1, 1]], [[1, 1], [1, 0], [1, 0], [1, 0]], [[1, 1, 1, 1], [0, 0, 0, 1]], [[1, 1], [0, 1], [0, 1], [0, 1]], [[1, 0], [1, 0], [1, 0], [1, 1]]]
+  deskSquareAll3: number[][][] = [[[1, 1, 1, 1, 1]], [[1], [1], [1], [1], [1]]]
+  deskSquareAll4: number[][][] = [[[0, 0, 1, 0], [1, 1, 1, 1]], [[0, 1, 0, 0], [1, 1, 1, 1]], [[1, 1, 1, 1], [0, 0, 1, 0]], [[0, 1], [1, 1], [0, 1], [0, 1]], [[1, 0], [1, 0], [1, 1], [1, 0]], [[1, 1, 1, 1], [0, 1, 0, 0]], [[0, 1], [0, 1], [1, 1], [0, 1]], [[1, 0], [1, 1], [1, 0], [1, 0]]]
+  deskSquareAll5: number[][][] = [[[1, 1], [1, 0], [1, 1]], [[1, 1], [0, 1], [1, 1]], [[1, 0, 1], [1, 1, 1]], [[1, 1, 1], [1, 0, 1]]]
+  deskSquareAll6: number[][][] = [[[0, 1, 0], [1, 1, 1], [1, 0, 0]], [[0, 1, 0], [1, 1, 1], [0, 0, 1]], [[1, 0, 0], [1, 1, 1], [0, 1, 0]], [[0, 1, 0], [1, 1, 0], [0, 1, 1]], [[1, 1, 0], [0, 1, 1], [0, 1, 0]], [[0, 0, 1], [1, 1, 1], [0, 1, 0]], [[0, 1, 1], [1, 1, 0], [0, 1, 0]], [[0, 1, 0], [0, 1, 1], [1, 1, 0]]]
+  deskSquareAll7: number[][][] = [[[0, 1, 0], [1, 1, 1], [0, 1, 0]]]
+  deskSquareAll8: number[][][] = [[[0, 1, 1], [1, 1, 0], [1, 0, 0]], [[1, 1, 0], [0, 1, 1], [0, 0, 1]], [[1, 0, 0], [1, 1, 0], [0, 1, 1]], [[0, 0, 1], [0, 1, 1], [1, 1, 0]]]
+  deskSquareAll9: number[][][] = [[[0, 1, 0], [0, 1, 0], [1, 1, 1]], [[1, 1, 1], [0, 1, 0], [0, 1, 0]], [[0, 0, 1], [1, 1, 1], [0, 0, 1]], [[1, 0, 0], [1, 1, 1], [1, 0, 0]]]
+  deskSquareAll10: number[][][] = [[[0, 0, 1], [0, 0, 1], [1, 1, 1]], [[1, 0, 0], [1, 0, 0], [1, 1, 1]], [[1, 1, 1], [0, 0, 1], [0, 0, 1]], [[1, 1, 1], [1, 0, 0], [1, 0, 0]]]
+  deskSquareAll11: number[][][] = [[[0, 1], [0, 1], [1, 1], [1, 0]], [[1, 0], [1, 0], [1, 1], [0, 1]], [[1, 0], [1, 1], [0, 1], [0, 1]], [[1, 1, 1, 0], [0, 0, 1, 1]], [[1, 1, 0, 0], [0, 1, 1, 1]], [[0, 1], [1, 1], [1, 0], [1, 0]], [[0, 0, 1, 1], [1, 1, 1, 0]], [[0, 1, 1, 1], [1, 1, 0, 0]]]
 
   deskSquare: number[][][] = [
     [[0, 0, 1,],
@@ -163,7 +179,7 @@ export default class example10_3 {
     }
     let flagResult = 0
     //获取方块
-    const square = this.bian(this.deskSquare[dataAction.square], dataAction.actionType)
+    const square = dataAction.squareArr
     for (let i = 0; i < square.length; i++) {
       const row = square[i];
       for (let j = 0; j < row.length; j++) {
@@ -210,7 +226,7 @@ export default class example10_3 {
 
 
   checkAction(deskData: GameData10_3, dataAction: GameAction10_3): number {
-    const square = this.bian(this.deskSquare[dataAction.square], dataAction.actionType)
+    const square = dataAction.squareArr
     return this.checkAction1(deskData, square, dataAction.action)
   }
 
@@ -269,7 +285,7 @@ export default class example10_3 {
     // return 0
   }
 
-  getSquareAction(deskData: GameData10_3, square: number[][], squareCode: number, type: number): Set<string> {
+  getSquareAction(deskData: GameData10_3, square: number[][]): Set<string> {
     let actionSet: Set<string> = new Set
     for (let i = 0; i < deskData.desk.length; i++) {
       const row = deskData.desk[i];
@@ -284,12 +300,13 @@ export default class example10_3 {
   }
 
   getAllAction(deskData: GameData10_3, squareCode: number): Set<string> {
-    const square: number[][] = this.deskSquare[squareCode];
     let actionSet: Set<string> = new Set
-    for (let i = 1; i <= 5; i++) {
-      const squaretmp = this.bian(square, i)
-      let actionTmpSet: Set<string> = this.getSquareAction(deskData, squaretmp, squareCode, i);
-      actionTmpSet.forEach(value => { actionSet.add(value + "_" + squareCode + "_" + i) });
+
+    const squares = this.getAllSquares(squareCode)
+    for (let type = 0; type < squares.length; type++) {
+      const squareTmp = squares[type]
+      let actionTmpSet: Set<string> = this.getSquareAction(deskData, squareTmp);
+      actionTmpSet.forEach(value => { actionSet.add(value + "_" + squareCode + "_" + JSON.stringify(squareTmp)) });
     }
     return actionSet
   }
@@ -324,9 +341,10 @@ export default class example10_3 {
 
       for (let squareCode = 0; squareCode < this.deskSquare.length; squareCode++) {
         if (!p1s.has(squareCode)) {
-          const square: number[][] = this.deskSquare[squareCode];
-          for (let type = 1; type <= 5; type++) {
-            const squaretmp = this.bian(square, type)
+
+          const squares = this.getAllSquares(squareCode)
+          for (let type = 0; type < squares.length; type++) {
+            const squaretmp = squares[type]
             //寻找方块起点xy
             let sx = 0
             let sy = 0
@@ -345,12 +363,12 @@ export default class example10_3 {
                 if (this.vaildXy(i + sx, j + sy) == 1) {
                   const element = deskData.desk[i + sx][j + sy];
                   if (element == 0) {
-                    let tmp = this.checkAction1(JSON.parse(JSON.stringify(deskData)), square, [i, j])
+                    let tmp = this.checkAction1(JSON.parse(JSON.stringify(deskData)), squaretmp, [i, j])
                     if (tmp == 1) {
                       if (best == null) {
-                        best = new GameAction10_3(squareCode, [i, j], type, 99999)
+                        best = new GameAction10_3(squareCode, [i, j], squaretmp)
                       } else if (best != null && nobest == null) {
-                        nobest = new GameAction10_3(squareCode, [i, j], type, 99999)
+                        nobest = new GameAction10_3(squareCode, [i, j], squaretmp, 99999)
                       } else if (best != null && nobest != null) {
                         return new GameAutoWay(best, nobest)
                       }
@@ -367,19 +385,20 @@ export default class example10_3 {
 
     for (let squareCode = 0; squareCode < this.deskSquare.length; squareCode++) {
       if (!p1s.has(squareCode)) {
-        const square: number[][] = this.deskSquare[squareCode];
-        for (let type = 1; type <= 5; type++) {
-          const squaretmp = this.bian(square, type)
+
+        const squares = this.getAllSquares(squareCode)
+        for (let type = 0; type < squares.length; type++) {
+          const squareTmp = squares[type]
           //寻找方块起点xy
           let sx = -1
           let sy = -1
-          for (let si = 0; si < squaretmp.length; si++) {
+          for (let si = 0; si < squareTmp.length; si++) {
             const srow = deskData.desk[si];
             if (sx != -1) {
               break
             }
             for (let sj = 0; sj < srow.length; sj++) {
-              if (squaretmp[si][sj] != 0) {
+              if (squareTmp[si][sj] != 0) {
                 sx = si
                 sy = sj
                 break
@@ -392,18 +411,18 @@ export default class example10_3 {
               if (this.vaildXy(i + sx, j + sy) == 1) {
                 const element = deskData.desk[i + sx][j + sy];
                 if (element == 0) {
-                  let tmp = this.doAction1(JSON.parse(JSON.stringify(deskData)), squareCode, squaretmp, [i, j])
+                  let tmp = this.doAction1(JSON.parse(JSON.stringify(deskData)), squareCode, squareTmp, [i, j])
                   const flag = tmp[0]
                   const tmpDesk = tmp[1]
                   const key = i + "_" + j + "_" + squareCode + "_" + type
                   if (flag == 0) {
-                    actionMap.set(key, new GameAction10_3(squareCode, [i, j], type, -this.getScore(tmpDesk)))
+                    actionMap.set(key, new GameAction10_3(squareCode, [i, j], squareTmp, -this.getScore(tmpDesk)))
                   } else if (flag == deskData.player) {
-                    actionMap.set(key, new GameAction10_3(squareCode, [i, j], type, 99999))
+                    actionMap.set(key, new GameAction10_3(squareCode, [i, j], squareTmp, 99999))
                   } else if (flag == OtherUtil.getRival(deskData.player)) {
-                    actionMap.set(key, new GameAction10_3(squareCode, [i, j], type, 99999))
+                    actionMap.set(key, new GameAction10_3(squareCode, [i, j], squareTmp, 99999))
                   } else if (flag == 3) {
-                    actionMap.set(key, new GameAction10_3(squareCode, [i, j], type, 0))
+                    actionMap.set(key, new GameAction10_3(squareCode, [i, j], squareTmp, 0))
                   }
                 }
               }
@@ -464,14 +483,15 @@ export default class example10_3 {
       if (!ps.has(squareCode)) {
         const square: number[][] = this.deskSquare[squareCode];
         let hasAction = false
-        for (let type = 1; type <= 5; type++) {
-          const squaretmp = this.bian(square, type)
+        const squares = this.getAllSquares(squareCode)
+        for (let type = 0; type < squares.length; type++) {
+          const squareTmp = squares[type]
           for (let i = 0; i < deskData.desk.length; i++) {
             const row = deskData.desk[i];
             for (let j = 0; j < row.length; j++) {
               const element = row[j];
               if (element == 0) {
-                let tmp = this.checkAction1(JSON.parse(JSON.stringify(deskData)), square, [i, j])
+                let tmp = this.checkAction1(JSON.parse(JSON.stringify(deskData)), squareTmp, [i, j])
                 if (tmp == 1) {
                   hasAction = true
                   score++
@@ -494,93 +514,123 @@ export default class example10_3 {
     return score
   }
 
-  bian(square: number[][], type: number): number[][] {
+  getAllSquares(squareCode: number): number[][][] {
     // console.info(JSON.stringify(square) + "_" + type)
-    if (type == 1) {
-      return square
-    } else if (type == 2) {
-      return this.bian2(square)
-    } else if (type == 3) {
-      return this.bian3(square)
-    } else if (type == 4) {
-      return this.bian4(square)
-    } else if (type == 5) {
-      return this.bian5(square)
+    if (squareCode == 0) {
+      return this.deskSquareAll0
+    } else if (squareCode == 1) {
+      return this.deskSquareAll1
+    } else if (squareCode == 2) {
+      return this.deskSquareAll2
+    } else if (squareCode == 3) {
+      return this.deskSquareAll3
+    } else if (squareCode == 4) {
+      return this.deskSquareAll4
+    } else if (squareCode == 5) {
+      return this.deskSquareAll5
+    } else if (squareCode == 6) {
+      return this.deskSquareAll6
+    } else if (squareCode == 7) {
+      return this.deskSquareAll7
+    } else if (squareCode == 8) {
+      return this.deskSquareAll8
+    } else if (squareCode == 9) {
+      return this.deskSquareAll9
+    } else if (squareCode == 10) {
+      return this.deskSquareAll10
+    } else if (squareCode == 11) {
+      return this.deskSquareAll11
     }
-    return square
+    return []
   }
-
-  //操作方式 1 原样放置 2 水平翻转 3 垂直翻转 4左旋转90° 5右旋转90°】
-  bian2(square: number[][]): number[][] {
-    let result: number[][] = []
-    // 水平翻转
-    for (let i = 0; i < square.length; i++) {
-      const row = square[i];
-      let tmprow: number[] = []
-      for (let j = row.length - 1; j >= 0; j--) {
-        const tmp = row[j];
-        tmprow.push(tmp)
-      }
-      result.push(tmprow)
-    }
-    return result
-  }
-  bian3(square: number[][]): number[][] {
-    let result: number[][] = []
-    for (let i = square.length - 1; i >= 0; i--) {
-      const row = square[i];
-      let tmprow: number[] = []
-      for (let j = 0; j < row.length; j++) {
-        const tmp = row[j];
-        tmprow.push(tmp)
-      }
-      result.push(tmprow)
-    }
-    return result
-  }
-
-  // 左旋转90°
-  bian4(square: number[][]): number[][] {
-    let result: number[][] = []
-    for (let i = 0; i < square[0].length; i++) {
-      let tmprow: number[] = []
-      for (let j = 0; j < square.length; j++) {
-        tmprow.push(0)
-      }
-      result.push(tmprow)
-    }
-
-    for (let i = 0; i < square.length; i++) {
-      const row = square[i];
-      for (let x = 0, j = row.length - 1; j >= 0; j--, x++) {
-        // for (let j = 0; j < row.length; j++) {
-        const tmp = row[x];
-        result[j][i] = tmp
-      }
-    }
-    return result
-  }
-  // 右旋转90°
-  bian5(square: number[][]): number[][] {
-    let result: number[][] = []
-    for (let i = 0; i < square[0].length; i++) {
-      let tmprow: number[] = []
-      for (let j = 0; j < square.length; j++) {
-        tmprow.push(0)
-      }
-      result.push(tmprow)
-    }
-
-    for (let y = 0, i = square.length - 1; i >= 0; i--, y++) {
-      const row = square[i];
-      for (let x = 0, j = row.length - 1; j >= 0; j--, x++) {
-        // for (let j = 0; j < row.length; j++) {
-        const tmp = row[x];
-        result[x][y] = tmp
-      }
-    }
-    return result
-  }
+  //
+  // bian(square: number[][], type: number): number[][] {
+  //   // console.info(JSON.stringify(square) + "_" + type)
+  //   if (type == 1) {
+  //     return square
+  //   } else if (type == 2) {
+  //     return this.bian2(square)
+  //   } else if (type == 3) {
+  //     return this.bian3(square)
+  //   } else if (type == 4) {
+  //     return this.bian4(square)
+  //   } else if (type == 5) {
+  //     return this.bian5(square)
+  //   }
+  //   return square
+  // }
+  //
+  // //操作方式 1 原样放置 2 水平翻转 3 垂直翻转 4左旋转90° 5右旋转90°】
+  // bian2(square: number[][]): number[][] {
+  //   let result: number[][] = []
+  //   // 水平翻转
+  //   for (let i = 0; i < square.length; i++) {
+  //     const row = square[i];
+  //     let tmprow: number[] = []
+  //     for (let j = row.length - 1; j >= 0; j--) {
+  //       const tmp = row[j];
+  //       tmprow.push(tmp)
+  //     }
+  //     result.push(tmprow)
+  //   }
+  //   return result
+  // }
+  // bian3(square: number[][]): number[][] {
+  //   let result: number[][] = []
+  //   for (let i = square.length - 1; i >= 0; i--) {
+  //     const row = square[i];
+  //     let tmprow: number[] = []
+  //     for (let j = 0; j < row.length; j++) {
+  //       const tmp = row[j];
+  //       tmprow.push(tmp)
+  //     }
+  //     result.push(tmprow)
+  //   }
+  //   return result
+  // }
+  //
+  // // 左旋转90°
+  // bian4(square: number[][]): number[][] {
+  //   let result: number[][] = []
+  //   for (let i = 0; i < square[0].length; i++) {
+  //     let tmprow: number[] = []
+  //     for (let j = 0; j < square.length; j++) {
+  //       tmprow.push(0)
+  //     }
+  //     result.push(tmprow)
+  //   }
+  //
+  //   for (let i = 0; i < square.length; i++) {
+  //     const row = square[i];
+  //     for (let x = 0, j = row.length - 1; j >= 0; j--, x++) {
+  //       // for (let j = 0; j < row.length; j++) {
+  //       const tmp = row[x];
+  //       result[j][i] = tmp
+  //     }
+  //   }
+  //   return result
+  // }
+  // // 右旋转90°
+  // bian5(square: number[][]): number[][] {
+  //   let result: number[][] = []
+  //   for (let i = 0; i < square[0].length; i++) {
+  //     let tmprow: number[] = []
+  //     for (let j = 0; j < square.length; j++) {
+  //       tmprow.push(0)
+  //     }
+  //     result.push(tmprow)
+  //   }
+  //
+  //   for (let y = 0, i = square.length - 1; i >= 0; i--, y++) {
+  //     const row = square[i];
+  //     for (let x = 0, j = row.length - 1; j >= 0; j--, x++) {
+  //       // for (let j = 0; j < row.length; j++) {
+  //       const tmp = row[x];
+  //       result[x][y] = tmp
+  //     }
+  //   }
+  //   return result
+  // }
   vaildXy(x: number, y: number): number {
     if (x >= 10 || x < 0) {
       return -1
@@ -590,496 +640,4 @@ export default class example10_3 {
     }
     return 1
   }
-  // getActionAuto3(deskData: GameData10_3): GameAction10_3 {
-  // let tmp = this.getActionAutoRecursive(deskData)
-  // return new GameAction10_3(1, 1)
-  // }
-  // getActionAutoRecursive(deskData: GameData10_3, lastTimeSteps: GameAction10_3[], count: number, countn: number): GameAction10_3 {
-  // getActionAutoRecursive(deskData: GameData10_3): GameAction10_3 {
-  //   let weight: number[][] = []
-  //   let canChessPositionMap = new Map<number, GameAction10_3[]>()
-  //   let canChessPosition = new Set<number>()
-  //   for (let index = 1; index <= 9; index++) {
-  //     if (index != deskData.chess1) {
-  //       let tmp = index * deskData.chess1;
-  //       if (!this.deskHas(deskData, tmp)) {
-  //         canChessPosition.add(tmp)
-  //         if (canChessPositionMap.has(tmp)) {
-  //           canChessPositionMap.get(tmp)?.push(new GameAction10_3(2, index))
-  //         } else {
-  //           canChessPositionMap.set(tmp, [new GameAction10_3(2, index)])
-  //         }
-  //       }
-  //     }
-  //     if (index != deskData.chess2) {
-  //       let tmp = index * deskData.chess2;
-  //       if (!this.deskHas(deskData, tmp)) {
-  //         canChessPosition.add(tmp)
-  //         if (canChessPositionMap.has(tmp)) {
-  //           canChessPositionMap.get(tmp)?.push(new GameAction10_3(1, index))
-  //         } else {
-  //           canChessPositionMap.set(tmp, [new GameAction10_3(1, index)])
-  //         }
-  //       }
-  //     }
-  //   }
-  //   canChessPosition.forEach(key => {
-  //     const xy = this.getPosition(key)
-  //     weight.push([key, this.calculateTheWeightXy(deskData, xy[0], xy[1])])
-  //   })
-  //   let steps = weight.sort((a, b) => {
-  //     if (a[1] < b[1])
-  //       return 1;
-  //     if (a[1] > b[1])
-  //       return -1
-  //     return 0;
-  //   });
-  //   if (steps.length == 0) {
-  //     throw new Error("死局");
-  //   }
-  //   let best: number = steps[0][0];
-  //   if (canChessPositionMap.has(best)) {
-  //     const tmpArr = canChessPositionMap.get(best) as GameAction10_3[]
-  //     const rg = new RandomGenerater(0)
-  //     const s = tmpArr[rg.RangeInteger(0, tmpArr.length)]
-  //     return s
-  //   }
-  //   throw new Error("Method not implemented.");
-  // }
-
-
-  // getActionAuto(deskData: GameData10_3): GameAutoWay {
-  //   let weight: number[][] = []
-  //   let canChessPositionMap = new Map<number, GameAction10_3[]>()
-  //   let canChessPosition = new Set<number>()
-  //   for (let index = 1; index <= 9; index++) {
-  //     if (index != deskData.chess1) {
-  //       let tmp = index * deskData.chess1;
-  //       if (!this.deskHas(deskData, tmp)) {
-  //         canChessPosition.add(tmp)
-  //         if (canChessPositionMap.has(tmp)) {
-  //           canChessPositionMap.get(tmp)?.push(new GameAction10_3(2, index))
-  //         } else {
-  //           canChessPositionMap.set(tmp, [new GameAction10_3(2, index)])
-  //         }
-  //       }
-  //     }
-  //     if (index != deskData.chess2) {
-  //       let tmp = index * deskData.chess2;
-  //       if (!this.deskHas(deskData, tmp)) {
-  //         canChessPosition.add(tmp)
-  //         if (canChessPositionMap.has(tmp)) {
-  //           canChessPositionMap.get(tmp)?.push(new GameAction10_3(1, index))
-  //         } else {
-  //           canChessPositionMap.set(tmp, [new GameAction10_3(1, index)])
-  //         }
-  //       }
-  //     }
-  //   }
-  //   canChessPosition.forEach(key => {
-  //     const xy = this.getPosition(key)
-  //     weight.push([key, this.calculateTheWeightXy(deskData, xy[0], xy[1])])
-  //   })
-  //   let steps = weight.sort((a, b) => {
-  //     if (a[1] < b[1])
-  //       return 1;
-  //     if (a[1] > b[1])
-  //       return -1
-  //     return 0;
-  //   });
-  //   if (steps.length == 0) {
-  //     throw new Error("死局");
-  //   }
-  //   let best: number = steps[0][0];
-  //   let nobest: number = -1
-  //   if (steps[0][0] > 1000) {
-  //     nobest = steps[0][0];
-  //   }
-
-  //   if (canChessPositionMap.has(best)) {
-  //     const tmpArr = canChessPositionMap.get(best) as GameAction10_3[]
-  //     const rg = new RandomGenerater(0)
-  //     const s = tmpArr[rg.RangeInteger(0, tmpArr.length)]
-  //     return new GameAutoWay(s, s)
-  //   }
-  //   throw new Error("Method not implemented.");
-  // }
-
-  // // ==============================================================================================================================
-
-  // calculateTheWeightXy(deskData: GameData10_3, x: number, y: number): number {
-  //   let tmp = 0
-  //   tmp += this.lurdWeight(deskData, x, y)
-  //   tmp += this.ruldWeight(deskData, x, y)
-  //   tmp += this.leftRightWeight(deskData, x, y)
-  //   tmp += this.upDownWeight(deskData, x, y)
-  //   return tmp
-  // }
-
-  // getWeight(player: number, cell1: number, cell2: number, cell3: number, cell4: number): number {
-  //   let tmpp = 0
-  //   let tmpb = 0
-  //   let tmpe = 0
-  //   if (player == cell1) {
-  //     tmpp++
-  //   } else if (OtherUtil.getRival(player) == cell1) {
-  //     tmpe++
-  //   } else if (cell1 == 0) {
-  //     tmpb++
-  //   }
-  //   if (player == cell2) {
-  //     tmpp++
-  //   } else if (OtherUtil.getRival(player) == cell2) {
-  //     tmpe++
-  //   } else if (cell2 == 0) {
-  //     tmpb++
-  //   }
-  //   if (player == cell3) {
-  //     tmpp++
-  //   } else if (OtherUtil.getRival(player) == cell3) {
-  //     tmpe++
-  //   } else if (cell3 == 0) {
-  //     tmpb++
-  //   }
-  //   if (player == cell4) {
-  //     tmpp++
-  //   } else if (OtherUtil.getRival(player) == cell4) {
-  //     tmpe++
-  //   } else if (cell4 == 0) {
-  //     tmpb++
-  //   }
-
-  //   if (tmpp == 1 && tmpb == 3) {
-  //     return this.deskWeight[1]
-  //   }
-  //   if (tmpp == 2 && tmpb == 2) {
-  //     return this.deskWeight[2]
-  //   }
-  //   if (tmpp == 3 && tmpb == 3) {
-  //     return this.deskWeight[3]
-  //   }
-  //   if (tmpe == 1 && tmpb == 3) {
-  //     return this.deskWeight[4]
-  //   }
-  //   if (tmpe == 2 && tmpb == 2) {
-  //     return this.deskWeight[5]
-  //   }
-  //   if (tmpe == 3 && tmpb == 3) {
-  //     return this.deskWeight[6]
-  //   }
-  //   if (tmpb == 4) {
-  //     return this.deskWeight[0]
-  //   }
-  //   return 0
-  // }
-
-  // //左上右下
-  // lurdWeight(deskData: GameData10_3, x: number, y: number): number {
-  //   let tmp = 0
-  //   for (let i = -3; i <= 0; i++) {
-  //     //查询四元组
-  //     let x1 = x + i
-  //     let x2 = x + i + 1
-  //     let x3 = x + i + 2
-  //     let x4 = x + i + 3
-  //     let y1 = y + i
-  //     let y2 = y + i + 1
-  //     let y3 = y + i + 2
-  //     let y4 = y + i + 3
-  //     if (!(this.vaildXy(x1, y1) == -1 ||
-  //       this.vaildXy(x2, y2) == -1 ||
-  //       this.vaildXy(x3, y3) == -1 ||
-  //       this.vaildXy(x4, y4) == -1)) {
-
-  //       const tcell1 = deskData.desk[x1][y1]
-  //       const tcell2 = deskData.desk[x2][y2]
-  //       const tcell3 = deskData.desk[x3][y3]
-  //       const tcell4 = deskData.desk[x4][y4]
-  //       tmp += this.getWeight(deskData.player, tcell1, tcell2, tcell3, tcell4)
-  //       // console.info("点位 %s %s 校验四元组：%s_%s,%s_%s,%s_%s,%s_%s 得分：%s ", x, y, x1, y1, x2, y2, x3, y3, x4, y4, tmp)
-  //       // } else {
-  //       // console.info("点位 %s %s 校验四元组：%s_%s,%s_%s,%s_%s,%s_%s 不合规", x, y, x1, y1, x2, y2, x3, y3, x4, y4)
-  //     }
-  //   }
-  //   return tmp
-  // }
-
-  // ruldWeight(deskData: GameData10_3, x: number, y: number): number {
-  //   let tmp = 0
-  //   for (let i = -3; i <= 0; i++) {
-  //     let x1 = x + i
-  //     let x2 = x + i + 1
-  //     let x3 = x + i + 2
-  //     let x4 = x + i + 3
-  //     let y1 = y - i
-  //     let y2 = y - i - 1
-  //     let y3 = y - i - 2
-  //     let y4 = y - i - 3
-  //     //查询四元组
-  //     if (!(this.vaildXy(x1, y1) == -1 ||
-  //       this.vaildXy(x2, y2) == -1 ||
-  //       this.vaildXy(x3, y3) == -1 ||
-  //       this.vaildXy(x4, y4) == -1)) {
-  //       const tcell1 = deskData.desk[x1][y1]
-  //       const tcell2 = deskData.desk[x2][y2]
-  //       const tcell3 = deskData.desk[x3][y3]
-  //       const tcell4 = deskData.desk[x4][y4]
-  //       tmp += this.getWeight(deskData.player, tcell1, tcell2, tcell3, tcell4)
-  //       //   console.info("点位 %s %s 校验四元组：%s_%s,%s_%s,%s_%s,%s_%s 得分：%s ", x, y, x1, y1, x2, y2, x3, y3, x4, y4, tmp)
-  //       // } else {
-  //       //   console.info("点位 %s %s 校验四元组：%s_%s,%s_%s,%s_%s,%s_%s 不合规", x, y, x1, y1, x2, y2, x3, y3, x4, y4)
-  //     }
-  //   }
-  //   return tmp
-  // }
-
-  // leftRightWeight(deskData: GameData10_3, x: number, y: number): number {
-  //   let tmp = 0
-  //   for (let i = -3; i <= 0; i++) {
-  //     let y1 = y + i
-  //     let y2 = y + 1
-  //     let y3 = y + 2
-  //     let y4 = y + 3
-  //     //查询四元组
-  //     if (!(this.vaildXy(x, y1) == -1 ||
-  //       this.vaildXy(x, y2) == -1 ||
-  //       this.vaildXy(x, y3) == -1 ||
-  //       this.vaildXy(x, y4) == -1)) {
-
-  //       const tcell1 = deskData.desk[x][y1]
-  //       const tcell2 = deskData.desk[x][y2]
-  //       const tcell3 = deskData.desk[x][y3]
-  //       const tcell4 = deskData.desk[x][y4]
-  //       tmp += this.getWeight(deskData.player, tcell1, tcell2, tcell3, tcell4)
-  //       //   console.info("点位 %s %s 校验四元组：%s_%s,%s_%s,%s_%s,%s_%s 得分：%s ", x, y, x, y1, x, y2, x, y3, x, y4, tmp)
-  //       // } else {
-  //       //   console.info("点位 %s %s 校验四元组：%s_%s,%s_%s,%s_%s,%s_%s 不合规", x, y, x, y1, x, y2, x, y3, x, y4)
-  //     }
-  //   }
-  //   return tmp
-  // }
-
-  // upDownWeight(deskData: GameData10_3, x: number, y: number): number {
-  //   let tmp = 0
-  //   for (let i = -3; i <= 0; i++) {
-  //     //查询四元组
-  //     let x1 = x + i
-  //     let x2 = x + i + 1
-  //     let x3 = x + i + 2
-  //     let x4 = x + i + 3
-  //     if (!(this.vaildXy(x1, y) == -1 ||
-  //       this.vaildXy(x2, y) == -1 ||
-  //       this.vaildXy(x3, y) == -1 ||
-  //       this.vaildXy(x4, y) == -1)) {
-
-  //       const tcell1 = deskData.desk[x1][y]
-  //       const tcell2 = deskData.desk[x2][y]
-  //       const tcell3 = deskData.desk[x3][y]
-  //       const tcell4 = deskData.desk[x4][y]
-  //       tmp += this.getWeight(deskData.player, tcell1, tcell2, tcell3, tcell4)
-  //       //   console.info("点位 %s %s 校验四元组：%s_%s,%s_%s,%s_%s,%s_%s 得分：%s ", x, y, x1, y, x2, y, x3, y, x4, y, tmp)
-  //       // } else {
-  //       //   console.info("点位 %s %s 校验四元组：%s_%s,%s_%s,%s_%s,%s_%s 不合规", x, y, x1, y, x2, y, x3, y, x4, y)
-  //     }
-  //   }
-  //   return tmp
-  // }
-
-
-
-  // check(deskData: GameData10_3, x: number, y: number): number {
-  //   let tmp = 0
-  //   tmp = this.lurd(deskData, x, y)
-  //   if (tmp != 0) {
-  //     return tmp
-  //   }
-  //   tmp = this.ruld(deskData, x, y)
-  //   if (tmp != 0) {
-  //     return tmp
-  //   }
-  //   tmp = this.leftRight(deskData, x, y)
-  //   if (tmp != 0) {
-  //     return tmp
-  //   }
-  //   tmp = this.upDown(deskData, x, y)
-  //   if (tmp != 0) {
-  //     return tmp
-  //   }
-  //   return 0
-  // }
-
-  // //左上右下
-  // lurd(deskData: GameData10_3, x: number, y: number): number {
-  //   let cell = deskData.desk[x][y]
-  //   let link = 0
-  //   if (cell != 0) {
-  //     for (let index = 1; index <= 3; index++) {
-  //       const tx = x + 1
-  //       const ty = y + 1
-  //       if (this.vaildXy(tx, ty) == -1) {
-  //         break;
-  //       }
-  //       const tcell = deskData.desk[tx][ty]
-  //       if (cell != tcell) {
-  //         break;
-  //       } else {
-  //         link++
-  //       }
-  //     }
-  //     if (link == 4) {
-  //       return cell
-  //     } else {
-  //       link = 0
-  //     }
-  //     for (let index = 1; index <= 3; index++) {
-  //       const tx = x - 1
-  //       const ty = y - 1
-  //       if (this.vaildXy(tx, ty) == -1) {
-  //         break;
-  //       }
-  //       const tcell = deskData.desk[tx][ty]
-  //       if (cell != tcell) {
-  //         break;
-  //       } else {
-  //         link++
-  //       }
-  //     }
-  //     if (link == 4) {
-  //       return cell
-  //     }
-  //   } else {
-  //     return 0
-  //   }
-  //   return 0
-  // }
-  // ruld(deskData: GameData10_3, x: number, y: number): number {
-  //   let cell = deskData.desk[x][y]
-  //   let link = 0
-  //   if (cell != 0) {
-  //     for (let index = 1; index <= 3; index++) {
-  //       const tx = x + 1
-  //       const ty = y - 1
-  //       if (this.vaildXy(tx, ty) == -1) {
-  //         break;
-  //       }
-  //       const tcell = deskData.desk[tx][ty]
-  //       if (cell != tcell) {
-  //         break;
-  //       } else {
-  //         link++
-  //       }
-  //     }
-  //     if (link == 4) {
-  //       return cell
-  //     } else {
-  //       link = 0
-  //     }
-  //     for (let index = 1; index <= 3; index++) {
-  //       const tx = x - 1
-  //       const ty = y + 1
-  //       if (this.vaildXy(tx, ty) == -1) {
-  //         break;
-  //       }
-  //       const tcell = deskData.desk[tx][ty]
-  //       if (cell != tcell) {
-  //         break;
-  //       } else {
-  //         link++
-  //       }
-  //     }
-  //     if (link == 4) {
-  //       return cell
-  //     }
-  //   } else {
-  //     return 0
-  //   }
-  //   return 0
-  // }
-  // leftRight(deskData: GameData10_3, x: number, y: number): number {
-  //   let cell = deskData.desk[x][y]
-  //   let link = 0
-  //   if (cell != 0) {
-  //     for (let index = 1; index <= 3; index++) {
-  //       const tx = x + 1
-  //       const ty = y
-  //       if (this.vaildXy(tx, ty) == -1) {
-  //         break;
-  //       }
-  //       const tcell = deskData.desk[tx][ty]
-  //       if (cell != tcell) {
-  //         break;
-  //       } else {
-  //         link++
-  //       }
-  //     }
-  //     if (link == 4) {
-  //       return cell
-  //     } else {
-  //       link = 0
-  //     }
-  //     for (let index = 1; index <= 3; index++) {
-  //       const tx = x - 1
-  //       const ty = y
-  //       if (this.vaildXy(tx, ty) == -1) {
-  //         break;
-  //       }
-  //       const tcell = deskData.desk[tx][ty]
-  //       if (cell != tcell) {
-  //         break;
-  //       } else {
-  //         link++
-  //       }
-  //     }
-  //     if (link == 4) {
-  //       return cell
-  //     }
-  //   } else {
-  //     return 0
-  //   }
-  //   return 0
-  // }
-  // upDown(deskData: GameData10_3, x: number, y: number): number {
-  //   let cell = deskData.desk[x][y]
-  //   let link = 0
-  //   if (cell != 0) {
-  //     for (let index = 1; index <= 3; index++) {
-  //       const tx = x
-  //       const ty = y + 1
-  //       if (this.vaildXy(tx, ty) == -1) {
-  //         break;
-  //       }
-  //       const tcell = deskData.desk[tx][ty]
-  //       if (cell != tcell) {
-  //         break;
-  //       } else {
-  //         link++
-  //       }
-  //     }
-  //     if (link == 4) {
-  //       return cell
-  //     } else {
-  //       link = 0
-  //     }
-  //     for (let index = 1; index <= 3; index++) {
-  //       const tx = x
-  //       const ty = y - 1
-  //       const tcell = deskData.desk[tx][ty]
-  //       if (this.vaildXy(tx, ty) == -1) {
-  //         break;
-  //       }
-  //       if (cell != tcell) {
-  //         break;
-  //       } else {
-  //         link++
-  //       }
-  //     }
-  //     if (link == 4) {
-  //       return cell
-  //     }
-  //   } else {
-  //     return 0
-  //   }
-  //   return 0
-  // }
-
 }
