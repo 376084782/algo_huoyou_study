@@ -4,23 +4,9 @@ test();
 
 function test() {
   let player = 'P1';
-  // prettier-ignore
-  const desk = [
-    { index: 0, line: [[0, 5],[0, 7]], isTake: false },
-    { index: 1, line: [[1, 6],[1, 8]], isTake: false },
-    { index: 2, line: [[2, 7],[2, 9]], isTake: false },
-    { index: 3, line: [[3, 8],[3, 10]], isTake: false },
-    { index: 4, line: [[4, 9],[4, 11]], isTake: false },
-    { index: 5, line: [[5, 0],[5, 10]], isTake: false },
-    { index: 6, line: [[6, 1],[6, 11]], isTake: false },
-    { index: 7, line: [[7, 0],[7, 2]], isTake: false },
-    { index: 8, line: [[8, 1],[8, 3]], isTake: false },
-    { index: 9, line: [[9, 2],[9, 4]], isTake: false },
-    { index: 10, line: [[10, 3],[10, 5]], isTake: false },
-    { index: 11, line: [[11, 4],[11, 6]], isTake: false },
-  ];
   let test2_11 = new Example2_11();
-  // console.log('actions', test2_11.getActionsByDeskAndTakeCount(desk, 1));
+  const desk = test2_11.generateDeskByCount(11);
+  // console.log('actions', test2_11.getActionsByDeskAndTakeCount(desk, 2));
   // console.log('getDeskAfterAction', test2_11.getDeskAfterAction(desk, [0, 5]));
 
   // test2_11.checkAction({ player: 2, desk }, { indexArr: [2, 4, 6] });
@@ -32,9 +18,9 @@ function test() {
   let flagResult = 0;
   let count = 1;
   console.info('初始化桌面', result.desk);
-  while (flagResult == 0 && count <= 1) {
+  while (flagResult == 0 && count <= 50) {
     let action = test2_11.getActionAuto(result);
-    // console.log('getActionAuto: ', action);
+    // console.log('getActionAuto: ', action.best);
 
     let tmp = test2_11.doAction(result, action.best);
     console.log(tmp.dataResult.desk);

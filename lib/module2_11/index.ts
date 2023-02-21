@@ -47,7 +47,7 @@ export default class Example2_11 {
   ]);
 
   /**
-   * 通过棋子数量生成桌面
+   * 通过棋子数量生成桌面 count: [3, 12]
    */
   generateDeskByCount(count: number) {
     const desk = [];
@@ -88,7 +88,31 @@ export default class Example2_11 {
         indexArr: item
       }));
     } else if (takeCount === TakeCount.TWO) {
-      return [{ takeCount, indexArr: [] }];
+      const existDesk = desk.filter(item => !item.isTake);
+      let lines = existDesk.reduce((acc: number[][], item) => {
+        if (item.line.length) {
+          acc = [...acc, ...item.line];
+        }
+        return acc;
+      }, []);
+      lines.forEach(line => {
+        line.sort((a, b) => a - b);
+      });
+
+      const obj: any = {};
+      lines = lines.reduce((acc: number[][], line) => {
+        const arrStr = JSON.stringify(line);
+        if (!obj[arrStr]) {
+          acc.push(line);
+        }
+        obj[arrStr] = true;
+        return acc;
+      }, []);
+
+      return lines.map(item => ({
+        takeCount,
+        indexArr: item
+      }));
     } else {
       return [{ takeCount, indexArr: [] }];
     }
@@ -111,7 +135,7 @@ export default class Example2_11 {
    * 获取 action 之后的桌面
    */
   getDeskAfterAction(originalDesk: DeskItem[], action: number[]): DeskItem[] {
-    const cloneDesk: DeskItem[] = JSON.parse(JSON.stringify(originalDesk));
+    const cloneDesk: DeskItem[] = structuredClone(originalDesk);
     cloneDesk.forEach(item => {
       if (action.includes(item.index)) {
         item.isTake = true;
@@ -173,17 +197,22 @@ export default class Example2_11 {
       return -1;
     }
 
+    // TODO: 还需要考虑 line 为空，但是 isTake 为 false 的情况
     if (indexArr.length === TakeCount.ONE) {
       const [first] = indexArr;
       if (desk[first].isTake) {
         console.error('操作不合法');
         return -1;
+      } else {
+        // if (desk.every(item => !item.line.length)) {
+        //   return 1;
+        // }
+        // if (!desk.some(item => item.line.some(pointArr => pointArr.includes(first)))) {
+        //   console.error('操作不合法');
+        //   return -1;
+        // }
+        return 1;
       }
-      if (!desk.some(item => item.line.some(pointArr => pointArr.includes(first)))) {
-        console.error('操作不合法');
-        return -1;
-      }
-      return 1;
     }
 
     if (indexArr.length === TakeCount.TWO) {
@@ -247,93 +276,91 @@ export default class Example2_11 {
     best: GameData2_11Action;
     nobest: GameData2_11Action;
   } {
-    return {
-      best: [] as any,
-      nobest: [] as any
-    };
-    // const { desk } = dataDesk;
-    // // 当前桌面的所有 actions
-    // const curDeskWithActions = this.getActionsByDesk(desk);
+    const { desk } = dataDesk;
+    // 当前桌面的所有 actions
+    const curDeskWithActions = this.getActionsByDesk(desk);
 
-    // // 必胜列表
-    // const successActionList = curDeskWithActions.actions.filter(({ indexArr }) =>
-    //   this.isWin(this.getDeskAfterAction(curDeskWithActions.desk, indexArr))
-    // );
+    // 必胜列表
+    const successActionList = curDeskWithActions.actions.filter(({ indexArr }) =>
+      this.isWin(this.getDeskAfterAction(curDeskWithActions.desk, indexArr))
+    );
 
-    // // 可以马上获胜的列表
-    // if (successActionList.length) {
-    //   const randomSuccessAction = successActionList[rg.RangeInteger(0, successActionList.length)];
-    //   return {
-    //     best: randomSuccessAction,
-    //     nobest: randomSuccessAction
-    //   };
-    // }
+    // 可以马上获胜的列表
+    if (successActionList.length) {
+      const randomSuccessAction = successActionList[rg.RangeInteger(0, successActionList.length)];
+      return {
+        best: randomSuccessAction,
+        nobest: randomSuccessAction
+      };
+    }
 
-    // // 根据当前桌面的所有 actions ，生成下完之后桌子 list
-    // const deskListAfterActions = curDeskWithActions.actions.reduce(
-    //   (deskList: { desk: number[]; action: GameData2_11Action }[], action: GameData2_11Action) => {
-    //     deskList.push({
-    //       desk: this.getDeskAfterAction(curDeskWithActions.desk, action.indexArr),
-    //       action
-    //     });
-    //     return deskList;
-    //   },
-    //   []
-    // );
+    // 根据当前桌面的所有 actions ，生成下完之后桌子 list
+    const deskListAfterActions = curDeskWithActions.actions.reduce(
+      (deskList: { desk: DeskItem[]; action: GameData2_11Action }[], action: GameData2_11Action) => {
+        deskList.push({
+          desk: this.getDeskAfterAction(curDeskWithActions.desk, action.indexArr),
+          action
+        });
+        return deskList;
+      },
+      []
+    );
 
-    // // 根据上面的桌面列表，递归每一种桌面对方可能走的所有可能
-    // const posDeskWithActions = deskListAfterActions.map(({ desk, action }) => ({
-    //   ...this.getActionsByDesk(desk),
-    //   lastAction: action
-    // }));
+    // 根据上面的桌面列表，递归每一种桌面对方可能走的所有可能
+    const posDeskWithActions = deskListAfterActions.map(({ desk, action }) => ({
+      ...this.getActionsByDesk(desk),
+      lastAction: action
+    }));
 
-    // const nobestActionList: GameData2_11Action[] = [];
+    const nobestActionList: GameData2_11Action[] = [];
 
-    // // 筛选对方再走一步可以马上获胜的可能列表
-    // posDeskWithActions.forEach(({ desk, actions, lastAction }) => {
-    //   const successList = actions.filter(({ indexArr }) =>
-    //     this.isWin(this.getDeskAfterAction(desk, indexArr))
-    //   );
-    //   if (successList.length) {
-    //     nobestActionList.push(lastAction);
-    //   }
+    // 筛选对方再走一步可以马上获胜的可能列表
+    posDeskWithActions.forEach(({ desk, actions, lastAction }) => {
+      const successList = actions.filter(({ indexArr }) =>
+        this.isWin(this.getDeskAfterAction(desk, indexArr))
+      );
+      if (successList.length) {
+        nobestActionList.push(lastAction);
+      }
+    });
+
+    const bestActionList: GameData2_11Action[] = [];
+
+    // 常规可走列表
+    const normalActionList = posDeskWithActions.reduce(
+      (normalList: GameData2_11Action[], { desk, actions, lastAction }, index) => {
+        const list = actions.filter(({ indexArr }) => !this.isWin(this.getDeskAfterAction(desk, indexArr)));
+        if (list.length) {
+          bestActionList.push(lastAction);
+        }
+        normalList = [...normalList, ...list];
+        return normalList;
+      },
+      []
+    );
+
+    if (!normalActionList.length) {
+      return {
+        best: nobestActionList[rg.RangeInteger(0, nobestActionList.length)],
+        nobest: nobestActionList[rg.RangeInteger(0, nobestActionList.length)]
+      };
+    }
+
+    // console.log({
+    // curDeskWithActions,
+    // deskListAfterActions,
+    // posDeskWithActions,
+    // normalActionList,
+    // bestActionList,
+    // nobestActionList
     // });
 
-    // const bestActionList: GameData2_11Action[] = [];
-
-    // // 常规可走列表
-    // const normalActionList = posDeskWithActions.reduce(
-    //   (normalList: GameData2_11Action[], { desk, actions, lastAction }, index) => {
-    //     const list = actions.filter(({ indexArr }) => !this.isWin(this.getDeskAfterAction(desk, indexArr)));
-    //     if (list.length) {
-    //       bestActionList.push(lastAction);
-    //     }
-    //     normalList = [...normalList, ...list];
-    //     return normalList;
-    //   },
-    //   []
-    // );
-
-    // if (!normalActionList.length) {
-    //   return {
-    //     best: nobestActionList[rg.RangeInteger(0, nobestActionList.length)],
-    //     nobest: nobestActionList[rg.RangeInteger(0, nobestActionList.length)]
-    //   };
-    // }
-
-    // // console.log({
-    // //   curDeskWithActions,
-    // //   deskListAfterActions,
-    // //   posDeskWithActions,
-    // //   normalActionList
-    // // });
-
-    // return {
-    //   best: bestActionList[rg.RangeInteger(0, bestActionList.length)],
-    //   nobest: nobestActionList.length
-    //     ? nobestActionList[rg.RangeInteger(0, nobestActionList.length)]
-    //     : bestActionList[rg.RangeInteger(0, bestActionList.length)]
-    // };
+    return {
+      best: bestActionList[rg.RangeInteger(0, bestActionList.length)],
+      nobest: nobestActionList.length
+        ? nobestActionList[rg.RangeInteger(0, nobestActionList.length)]
+        : bestActionList[rg.RangeInteger(0, bestActionList.length)]
+    };
   }
 }
 
