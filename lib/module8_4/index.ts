@@ -176,12 +176,20 @@ const isSuccess = (allTriangle: Array<any>, playerTriangle: Array<any>)=>{
 export const checkRiddle = (dataDesk: GameData8_4): number => {
   const { player, player_one, player_two } = dataDesk;
   if (player != 1 && player != 2) return -1;
+  // 双方棋子数
+  if(player_one.length != player_two.length) return -1;
   // 双方数据是否符合棋盘
   const player1 = isPlayerIegal(player_one);
   const player2 = isPlayerIegal(player_two);
   if(player1 === -1 || player2 === -1) return -1;
-  // 双方是否有重复，当前所有三角形是否都有重合边
   let allTriangle = player_one.concat(player_two);
+  
+  // 不可以一开始就赢
+  const success1 = isSuccess(allTriangle, player_one);
+  const success2 = isSuccess(allTriangle, player_two);
+  if(success1 === 1 || success2 === 1) return -1;
+  
+  // 双方是否有重复，当前所有三角形是否都有重合边
   let temp:any = [];
   for (let i of allTriangle) {
     let arr = getAdjacent(i);
@@ -242,6 +250,9 @@ export const checkAction = (dataDesk: GameData8_4, dataAction: GameData8_4_actio
   const { player_one, player_two } = dataDesk;
   const _triangle = JSON.stringify(triangle);
   const allTriangle = player_one.concat(player_two);
+  // 空棋盘随便放一个
+  if(allTriangle.length === 0) return 1;
+  // 非空棋盘
   if(!isTriangleIegal(triangle)){
     return -1;
   } else if(
