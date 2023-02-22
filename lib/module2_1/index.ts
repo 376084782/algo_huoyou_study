@@ -358,7 +358,7 @@ export default class example2_1 {
         if (best1.length == 3) {
           best1 = best
         }
-        if (best.length != 3 && this.isFailureMove(deskData, best1[0]) != -1) {
+        if (best.length != 3 && best1.length != 0 && this.isFailureMove(deskData, best1[0]) != -1) {
           result = new GameAutoWay(tmpAction, tmpAction1)
         } else {
           for (let i = 0; i < deskData.positions.length; i++) {
@@ -372,12 +372,8 @@ export default class example2_1 {
           result = new GameAutoWay(tmpAction, tmpAction)
         }
       } else {
-
-
         let tmpRow = randomP[rg.RangeInteger(0, randomP.length - 1)]
         let tmpRow1 = randomP[rg.RangeInteger(0, randomP.length - 1)]
-
-
         let best = this.getBestMove(deskData, tmpRow);
         let best1 = this.getBestMove(deskData, tmpRow1);
         let tmpAction = new GameAction2_1([tmpRow, deskData.positions[tmpRow].length], best);
