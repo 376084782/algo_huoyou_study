@@ -275,7 +275,7 @@ export const checkAction = (dataDesk: GameData8_4, dataAction: GameData8_4_actio
 }
 
 // 检查桌面状态
-// 返回-1未结束 1先手获胜 2后手获胜
+// 返回-1未结束 1先手获胜 2后手获胜 3平局
 export const checkDesk = (dataDesk: GameData8_4): number => {
   const { player_one, player_two } = dataDesk;
   const allTriangle = player_one.concat(player_two);
@@ -283,6 +283,9 @@ export const checkDesk = (dataDesk: GameData8_4): number => {
   const success2 = isSuccess(allTriangle, player_two);
   if(success1 === 1) return 1;
   if(success2 === 1) return 2;
+  if(player_one.length === 25 || player_two.length === 25 || allTriangle.length === 78){
+    return 3;
+  }
   return -1;
 }
 
