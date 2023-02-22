@@ -122,15 +122,9 @@ function formatQues10_2(strList: string[], level: number) {
 
 
 function test8_4() {
-  let desk: any = {
-    typeSet: 1,
-    player: 1,
-    player_one: [[7, 6], [7, 5]],
-    player_two: [[7, 7]],
-
-  }
-  let res = module8_4.checkDesk(desk);
-  console.log(res)
+  let desk: any = {"typeSet":2,"player":1,"player_one":[[6,6],[7,6],[7,7],[7,8]],"player_two":[]}
+  let res = module8_4.checkRiddle(desk);
+  console.log(res,'4444444444')
 }
 test8_4()
 

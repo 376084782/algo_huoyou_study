@@ -64,30 +64,30 @@ export default class example10_8 {
         return 1
     }
 
-    doAction(deskData: GameData10_8, dataAction: number): [flagResult: number, dataResult: GameData10_8] {
+    doAction(deskData: GameData10_8, dataAction: number[]): [flagResult: number, dataResult: GameData10_8] {
         if (this.checkAction(deskData, dataAction) == -1) {
             return [-1, deskData];
         }
         let flagResult = 0
 
-        deskData.residue = deskData.residue - dataAction
+        deskData.residue = deskData.residue - dataAction.length
         if (deskData.player == 1) {
-            deskData.p1 += dataAction
+            deskData.p1 += dataAction.length
         } else {
-            deskData.p2 += dataAction
+            deskData.p2 += dataAction.length
         }
         deskData.player = OtherUtil.getRival(deskData.player)
         return [this.checkDesk(deskData), deskData];
     }
 
-    checkAction(deskData: GameData10_8, dataAction: number): number {
-        if (deskData.residue < dataAction) {
+    checkAction(deskData: GameData10_8, dataAction: number[]): number {
+        if (deskData.residue < dataAction.length) {
             return -1;
         }
-        if (!this.zhishuSet.has(dataAction)) {
+        if (!this.zhishuSet.has(dataAction.length)) {
             return -1;
         }
-        if (dataAction <= 0) {
+        if (dataAction.length <= 0) {
             return -1;
         }
         return 1;
