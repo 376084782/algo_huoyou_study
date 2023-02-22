@@ -25,8 +25,7 @@
 
 export class GameData8_6{
     typeSet?:number=1;
-    desk:string[][]=[
-    ];
+    desk:string[][]=[];
 
     player=1;
 
