@@ -264,37 +264,49 @@ export default class example10_3 {
         actionCount2 += actionTmpSet.size
       }
     }
+    console.log(actionCount1,actionCount2,'count')
     // 轮到哪一边就检查他是否有位置可以下，没有就判负
     if (deskData.player == 1 && actionCount1 == 0) {
-      console.log('结算1')
       return 2
     } else if (deskData.player == 2 && actionCount2 == 0) {
-      console.log('结算2')
       return 1
     }
     return 0
 
-    // if (actionCount1 != 0 && actionCount2 != 0) {
-    //   return 0
-    // } else if (actionCount1 == 0 && actionCount2 == 0) {
-    //   return 3
-    // } else if (actionCount1 != 0 && actionCount2 == 0) {
-    //   return 1
-    // } else if (actionCount1 == 0 && actionCount2 != 0) {
-    //   return 2
-    // }
+    if (actionCount1 != 0 && actionCount2 != 0) {
+      return 0
+    } else if (actionCount1 == 0 && actionCount2 == 0) {
+      return 3
+    } else if (actionCount1 != 0 && actionCount2 == 0) {
+      return 1
+    } else if (actionCount1 == 0 && actionCount2 != 0) {
+      return 2
+    }
 
-    // return 0
+    return 0
   }
 
   getSquareAction(deskData: GameData10_3, square: number[][]): Set<string> {
     let actionSet: Set<string> = new Set
+    let sx = 0
+    let sy = 0
+    for (let si = 0; si < square.length; si++) {
+      const srow = deskData.desk[si];
+      for (let sj = 0; sj < srow.length; sj++) {
+        if (square[si][sj]) {
+          sx = si
+          sy = sj
+        }
+      }
+    }
     for (let i = 0; i < deskData.desk.length; i++) {
       const row = deskData.desk[i];
       for (let j = 0; j < row.length; j++) {
-        const element = row[j];
-        if (element == 0 && this.checkAction1(deskData, square, [i, j]) == 1) {
-          actionSet.add(i + "_" + j)
+        if (this.vaildXy(i + sx, j + sy) == 1) {
+          const element = deskData.desk[i + sx][j + sy];
+          if (element == 0 && this.checkAction1(deskData, square, [i, j]) == 1) {
+            actionSet.add(i + "_" + j)
+          }
         }
       }
     }
@@ -545,7 +557,7 @@ export default class example10_3 {
     }
     return []
   }
-
+  
   bian(square: number[][], type: number): number[][] {
     // console.info(JSON.stringify(square) + "_" + type)
     if (type == 1) {
@@ -561,7 +573,7 @@ export default class example10_3 {
     }
     return square
   }
-
+  
   //操作方式 1 原样放置 2 水平翻转 3 垂直翻转 4左旋转90° 5右旋转90°】
   bian2(square: number[][]): number[][] {
     let result: number[][] = []
@@ -590,7 +602,7 @@ export default class example10_3 {
     }
     return result
   }
-
+  
   // 左旋转90°
   bian4(square: number[][]): number[][] {
     let result: number[][] = []
@@ -601,7 +613,7 @@ export default class example10_3 {
       }
       result.push(tmprow)
     }
-
+  
     for (let i = 0; i < square.length; i++) {
       const row = square[i];
       for (let x = 0, j = row.length - 1; j >= 0; j--, x++) {
@@ -622,7 +634,7 @@ export default class example10_3 {
       }
       result.push(tmprow)
     }
-
+  
     for (let y = 0, i = square.length - 1; i >= 0; i--, y++) {
       const row = square[i];
       for (let x = 0, j = row.length - 1; j >= 0; j--, x++) {
