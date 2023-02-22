@@ -177,13 +177,21 @@ const isSuccess = (allTriangle: Array<any>, playerTriangle: Array<any>) => {
 export const checkRiddle = (dataDesk: GameData8_4): number => {
   const { player, player_one, player_two } = dataDesk;
   if (player != 1 && player != 2) return -1;
+  // 双方棋子数
+  if(player_one.length != player_two.length) return -1;
   // 双方数据是否符合棋盘
   const player1 = isPlayerIegal(player_one);
   const player2 = isPlayerIegal(player_two);
-  if (player1 === -1 || player2 === -1) return -1;
-  // 双方是否有重复，当前所有三角形是否都有重合边
+  if(player1 === -1 || player2 === -1) return -1;
   let allTriangle = player_one.concat(player_two);
-  let temp: any = [];
+  
+  // 不可以一开始就赢
+  const success1 = isSuccess(allTriangle, player_one);
+  const success2 = isSuccess(allTriangle, player_two);
+  if(success1 === 1 || success2 === 1) return -1;
+  
+  // 双方是否有重复，当前所有三角形是否都有重合边
+  let temp:any = [];
   for (let i of allTriangle) {
     let arr = getAdjacent(i);
     if (
@@ -243,7 +251,10 @@ export const checkAction = (dataDesk: GameData8_4, dataAction: GameData8_4_actio
   const { player_one, player_two } = dataDesk;
   const _triangle = JSON.stringify(triangle);
   const allTriangle = player_one.concat(player_two);
-  if (!isTriangleIegal(triangle)) {
+  // 空棋盘随便放一个
+  if(allTriangle.length === 0) return 1;
+  // 非空棋盘
+  if(!isTriangleIegal(triangle)){
     return -1;
   } else if (
     (player === 1 && player_one.length >= 25) ||
@@ -270,8 +281,8 @@ export const checkDesk = (dataDesk: GameData8_4): number => {
   const allTriangle = player_one.concat(player_two);
   const success1 = isSuccess(allTriangle, player_one);
   const success2 = isSuccess(allTriangle, player_two);
-  if (success1) return 1;
-  if (success2) return 2;
+  if(success1 === 1) return 1;
+  if(success2 === 1) return 2;
   return -1;
 }
 
@@ -282,38 +293,44 @@ export const getActionAuto = (dataDesk: GameData8_4): { best: GameData8_4_action
   const selfArr = player === 1 ? JSON.stringify(player_one) : JSON.stringify(player_two);
   const oppositeArr = player === 1 ? JSON.stringify(player_two) : JSON.stringify(player_one);
 
-  // 解的优先级：能够形成三角形 > 拦截对方形成三角形 > 能够组成双底座 > 靠近己方三角形
-  let res1: any = [], res2: any = [], res3: any = [], res4: any = [];
-
-  // 1、找到当前每个三角形的可用相邻节点作为选择集合
-  // 2、根据解的优先级排序
-  console.log(allTriangle, 'allTriangleallTriangleallTriangle')
-  for (let i of allTriangle) {
-    let arr = getAdjacent(i);
-    arr.forEach(item => {
-      // 现有节点的可用相邻节点
-      if (
-        isTriangleIegal(item) &&
-        JSON.stringify(allTriangle).indexOf(JSON.stringify(item)) < 0
-      ) {
-        let priorityNum = handlePriority(item, oppositeArr, selfArr);
-        if (priorityNum === 1) {
-          res1.push(item);
-        } else if (priorityNum === 2) {
-          res2.push(item);
-        } else if (priorityNum === 3) {
-          res3.push(item);
-        } else {
-          res4.push(item);
+  if(allTriangle.length === 0){
+    return {
+      best: { player, triangle: [7,7] },
+      nobest: { player, triangle: [8,9] },
+    }
+  } else {
+    // 解的优先级：能够形成三角形 > 拦截对方形成三角形 > 能够组成双底座 > 靠近己方三角形
+    let res1:any = [], res2:any = [], res3:any = [], res4:any = [];
+  
+    // 1、找到当前每个三角形的可用相邻节点作为选择集合
+    // 2、根据解的优先级排序
+    for (let i of allTriangle) {
+      let arr = getAdjacent(i);
+      arr.forEach(item => {
+        // 现有节点的可用相邻节点
+        if(
+          isTriangleIegal(item) && 
+          JSON.stringify(allTriangle).indexOf(JSON.stringify(item)) < 0
+        ){
+          let priorityNum = handlePriority(item, oppositeArr, selfArr);
+          if(priorityNum === 1) {
+            res1.push(item);
+          } else if(priorityNum === 2){
+            res2.push(item);
+          } else if(priorityNum === 3){
+            res3.push(item);
+          } else {
+            res4.push(item);
+          }
         }
-      }
-    })
-  }
-
-  const priority = res1.concat(res2).concat(res3).concat(res4);
-  return {
-    best: { player, triangle: priority[0] },
-    nobest: { player, triangle: priority[1] },
+      })
+    }
+  
+    const priority = res1.concat(res2).concat(res3).concat(res4);
+    return {
+      best: { player, triangle:priority[0] },
+      nobest: { player, triangle:priority[1] },
+    }
   }
 }
 
