@@ -64,7 +64,7 @@ export class GameData4_8 {
 
 export class GameAction4_8 {
   action: number[] = []
-  line: number[][][] = []
+  line: number[][] = []
   score: number = 0
 
   constructor(action: number[], score?: number) {
