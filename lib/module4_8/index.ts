@@ -32,7 +32,6 @@ import { threadId } from 'worker_threads';
 import { GameAutoWay } from '../common/pojo';
 import OtherUtil from '../util/OtherUtil';
 import RandomGenerater from '../util/RandomGenerater';
-
 export class GameData4_8 {
   typeSet?= 1;//前端用的，存是否是自定义棋盘
   //棋盘 由上至下 由左至右

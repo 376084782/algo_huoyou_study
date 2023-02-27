@@ -126,6 +126,9 @@ export default class example10_8 {
                 }
             }
         }
+        if (best == undefined) {
+            best = this.getRandomAction(deskData.residue)
+        }
         return new GameAutoWay(best, nobest)
     }
 
