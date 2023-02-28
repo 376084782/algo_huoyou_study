@@ -107,7 +107,7 @@ export default class example10_8 {
         while (residue < this.zhishuArr[n]) {
             n = rg.RangeInteger(0, this.zhishuArr.length - 1);
         }
-        return n
+        return this.zhishuArr[n]
     }
 
     getActionAuto(deskData: GameData10_8): GameAutoWay {

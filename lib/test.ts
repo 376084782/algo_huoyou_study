@@ -26,21 +26,20 @@ let player = "P1"
 let i = 0
 // // FileWriter.setFile('./file/a.ts', 'let a=3;')
 // // 10_8
-// let test10_8 = new example10_8();
-// let a = test10_8.getActionAuto({
-//     "n": 24,
-//     "p1": 0,
-//     "p2": 0,
-//     "residue": 24,
-//     "rounds": 0,
-//     "player": 1
-// })
-// console.info(JSON.stringify(a))
+let test10_8 = new example10_8();
+for (let index = 0; index < 10; index++) {
+    let a = test10_8.getActionAuto({
+        "n": 5,
+        "p1": 3,
+        "p2": 1,
+        "residue": 1,
+        "rounds": 0,
+        "player": 1
+    })
+    console.info(JSON.stringify(a))
+}
 // 10_3
 // let test10_3 = new example10_3();
-// let s = test10_3.checkDesk({ "typeSet": 1, "desk": [[0, 1, 1, 1, 1, 2, 2, 2, 2, 0, 1, 0], [0, 1, 1, 2, 2, 2, 0, 2, 2, 1, 1, 1], [1, 1, 1, 2, 1, 1, 1, 1, 1, 0, 1, 0], [1, 0, 2, 0, 2, 2, 2, 2, 2, 0, 2, 0], [0, 0, 2, 2, 2, 2, 0, 0, 2, 2, 2, 2], [0, 1, 1, 0, 2, 2, 0, 0, 2, 2, 0, 0], [1, 1, 0, 0, 2, 0, 0, 1, 1, 2, 2, 0], [1, 1, 1, 1, 2, 2, 1, 1, 0, 2, 0, 1], [2, 2, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1], [0, 2, 2, 2, 0, 1, 1, 1, 0, 1, 0, 0]], "chess1": [11, 10, 3, 7, 8, 5, 1, 9, 0], "chess2": [0, 1, 2, 3, 4, 5, 6, 11], "player": 1 })
-// console.info(JSON.stringify(s))
-
 // for (let s1 = 0; s1 < test10_3.deskSquare.length; s1++) {
 //     let arr: number[][][] = []
 //     let map: Map<string, number[][]> = new Map
@@ -653,8 +652,8 @@ let i = 0
 // console.info(JSON.stringify(test2_2.binArr[1]))
 // console.info(JSON.stringify(test2_2.binAdd([0, 1, 0, 1], [0, 0, 0, 1])))
 // for (let i = 0; i < 10; i++) {
-//     let action = test2_2.getActionAuto({ "player": 1, "positions": [1, 0, 0, 1, 0, 1, 0, 1, 0, 0], "sum": 2, "warehouse": 0 })
-// console.info(JSON.stringify(action))
+//     let action = test2_2.getActionAuto({ "player": 1, "positions": [1, 1, 0, 1, 0, 1, 0, 1, 0, 0], "sum": 5, "warehouse": 0 })
+//     console.info(JSON.stringify(action))
 // }
 // for (i = 0; i < 10; i++) {
 //     let result = test2_2.getRiddleByLev(0, null);
@@ -679,14 +678,13 @@ let i = 0
 // }
 // 2_1
 // let test2_1 = new example2_1();
-// let desk = { "p1": 0, "p2": 0, "player": 1, "positions": [[1], [], [1], [2, 1], [1], [2], [1], [2], [1], [2], [1], [],], "typeSet": 1 }
-// // let tmp = test2_1.getActionAuto(desk)
-// let tmp = test2_1.doAction(desk, new GameAction2_1([0, 0],[1, 0]))
-// console.info(JSON.stringify(tmp))
-// for (i = 0; i < 10; i++) {
-//     let tmp = test2_1.getActionAuto(desk)
-//     console.info(JSON.stringify(tmp))
-// }
+// let move = { "move": [3, 0], "score": 0, "action": [2, 0] }
+// let desk = { "p1": 0, "p2": 0, "player": 2, "positions": [[1, 1], [2], [], [2], [1], [2], [1], [2], [1], [2], [1], [2]], "typeSet": 1 }
+// let res = test2_1.checkAction(desk, move);
+// console.info(JSON.stringify(res))
+
+
+
 // for (i = 0; i < 1; i++) {
 //     let result = test2_1.getRiddle(undefined);
 //     let flagResult = 0
