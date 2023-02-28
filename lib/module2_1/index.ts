@@ -185,6 +185,9 @@ export default class example2_1 {
         if (deskData.positions[dataAction!.action[0]].length > 2) {
           return -1
         }
+        if (dataAction.move[1] == 0 && dataAction.action[1] == 0) {
+          return -1
+        }
       }
       if (dataAction!.action[1] > 2) {
         return -1
