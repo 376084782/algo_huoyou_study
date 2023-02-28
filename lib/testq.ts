@@ -3,7 +3,7 @@ import example8_2, { GameData8_2, GameAction8_2 } from './module8_2/index';
 import example2_5, { GameData2_5, GameConfig2_5, GameAction2_5, Position2_5 } from './module2_5/index';
 import { FileWriter } from './common/FileWriter';
 import example10_3 from './module10_3';
-import { module8_4 } from '.';
+import { module2_1, module8_4 } from '.';
 function test8_5() {
   let desk = new GameData8_5();
   let deskData = { "typeSet": 1, "desk": ["x", "o", "o", "o", "o", "o", "x", "o", "x", "o", "o", "o", "x", "o", "x", "o"], "player": 1, "allRes": [], "step": 0, "dangerRes": [], "greatRes": [], "betterRes": [] }
@@ -122,12 +122,19 @@ function formatQues10_2(strList: string[], level: number) {
 
 
 function test8_4() {
-  let desk: any = {"typeSet":2,"player":1,"player_one":[[6,6],[7,6],[7,7],[7,8]],"player_two":[]}
+  let desk: any = { "typeSet": 2, "player": 1, "player_one": [[6, 6], [7, 6], [7, 7], [7, 8]], "player_two": [] }
   let res = module8_4.checkRiddle(desk);
-  console.log(res,'4444444444')
+  console.log(res, '4444444444')
 }
-test8_4()
+// test8_4()
 
-
+function test2_1() {
+  let move = { "move": [3, 0], "score": 0, "action": [2, 0] }
+  let desk = { "p1": 0, "p2": 0, "player": 2, "positions": [[1, 1], [2], [], [2], [1], [2], [1], [2], [1], [2], [1], [2]], "typeSet": 1 }
+  let ctr = new module2_1()
+  let res = ctr.checkAction(desk, move);
+  console.log(res)
+}
+test2_1()
 
 

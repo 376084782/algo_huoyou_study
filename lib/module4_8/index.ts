@@ -50,6 +50,8 @@ export class GameData4_8 {
   p1 = 0;
   p2 = 0;
   player = 1;
+  lines1: number[][][] = []
+  lines2: number[][][] = []
   constructor(player?: number, desk?: number[][]) {
     if (player != undefined) {
       this.player = player
@@ -62,6 +64,7 @@ export class GameData4_8 {
 
 export class GameAction4_8 {
   action: number[] = []
+  line: number[][] = []
   score: number = 0
 
   constructor(action: number[], score?: number) {
