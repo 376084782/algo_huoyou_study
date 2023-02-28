@@ -77,7 +77,7 @@ export default class example6_8 {
   }
 
   checkRiddle(deskData: GameData6_8): number {
-    if (deskData.desk.length >= 1 && deskData.desk.length <= 6) {
+    if (deskData.desk.length >= 1 && deskData.desk.length <= 5) {
       return 1
     } else {
       return -1;
