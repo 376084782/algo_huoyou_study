@@ -40,9 +40,10 @@ import { FileWriter } from '../common/FileWriter';
 export class GameData6_9 {
   typeSet?= 1;//前端用的，存是否是自定义棋盘
   //参数
-  desk: number[][][] = []
+  desk: number[][] = []
+  player:number=1;
 
-  constructor(desk: number[][][]) {
+  constructor(desk: number[][]) {
     this.desk = desk
   }
 }

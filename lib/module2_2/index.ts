@@ -24,7 +24,7 @@
 
 游戏策略：
 考虑棋子颗数的奇偶性，
-如果是偶数颗，则按从前（位置数越小就是前）往后 2 颗一组，每组两颗棋子之间的间隔数就是这两颗棋子所对应的一个数，
+如果是偶数颗，则按从前（置位数越小就是前）往后 2 颗一组，每组两颗棋子之间的间隔数就是这两颗棋子所对应的一个数，
 如果是奇数颗棋子，则第一个数是离仓库最近的棋子所在的格子位置是几，就对应数几，其余又从前往后按 2 颗一组，该两颗棋子之间的间隔数就是这两颗棋子所对应的一个数。
 这样不管是几颗棋子，都可以按上述方式得到一个数组。
 
@@ -204,64 +204,105 @@ export class example2_2 {
 
 
   getActionAuto(deskData: GameData2_2): GameAutoWay {
-
-    let positions = deskData.positions.filter(x => x == 1);
-    if (positions.length == 1) {
-      return new GameAutoWay([deskData.positions.findIndex(x => x == 1), 10], [deskData.positions.findIndex(x => x == 1), 10]);
-    }
     const rg = new RandomGenerater(0)
     let count = this.computeDeskBin(deskData);
-    if (positions.length == 2) {
-      let f = 0
-      let s = 0
-      for (let i = deskData.positions.length - 1; i >= 0; i--) {
-        const cell = deskData.positions[i];
-        if (cell == 1) {
-          if (f == 0) {
-            f = i
-          } else {
-            s = i
-            break
-          }
-        }
-      }
-      if (s + 1 != f) {
-        return new GameAutoWay([s, f - 1], [s, f - 1]);
-      }
+    let allAction = this.randomAction(deskData)
+    if (count % 2 == 0) {
+      return new GameAutoWay(allAction[rg.RangeInteger(0, allAction.length - 1)], allAction[rg.RangeInteger(0, allAction.length - 1)])
     }
 
-    let allAction = this.randomAction(deskData)
-    if (positions.length % 2 == 0 && positions.length > 2) {
-      let tmp = 0
-      for (let i = deskData.positions.length - 1; i >= 0; i--) {
-        const element = deskData.positions[i];
-        if (element == 1) {
-          tmp = i
-          break
-        }
-      }
-      return new GameAutoWay([tmp, 10], [tmp, 10]);
-    }
+    // 如非以上的情况，循环所有操作，满足二进制求和结果为偶数为止。
+    let countTmp = null;
     let vaildAction: number[][] = new Array;
-    let i: number;
-    for (i = 0; i < allAction.length; i++) {
+    for (let i = 0; i < allAction.length; i++) {
       let tmp = allAction[i]
       let tmpDeskData = JSON.parse(JSON.stringify(deskData));
       tmpDeskData.positions[tmp[0]] = 0
       tmpDeskData.positions[tmp[1]] = 1
-      count = this.computeDeskBin(deskData);
-      if (count % 2 == 0) {
-        vaildAction.push(allAction[i])
+      countTmp = this.computeDeskBin(tmpDeskData);
+      if (countTmp % 2 == 0) {
+        vaildAction.push(tmp)
       }
     }
     let best
+    let unbest
+    //若无满足，则随机
     if (vaildAction.length > 0) {
       best = vaildAction[rg.RangeInteger(0, vaildAction.length - 1)]
+    } else {
+      best = allAction[rg.RangeInteger(0, allAction.length - 1)]
     }
-    best = allAction[rg.RangeInteger(0, allAction.length - 1)]
+    unbest = allAction[rg.RangeInteger(0, allAction.length - 1)]
 
-    return new GameAutoWay(best, best)
+    return new GameAutoWay(best, unbest)
   }
+
+
+  // getActionAuto1(deskData: GameData2_2): GameAutoWay {
+  //   //统计棋盘总数
+  //   let positions = deskData.positions.filter(x => x == 1);
+  //   if (positions.length == 1) {
+  //     return new GameAutoWay([deskData.positions.findIndex(x => x == 1), 10], [deskData.positions.findIndex(x => x == 1), 10]);
+  //   }
+  //   const rg = new RandomGenerater(0)
+  //   //棋盘二进制和
+  //   //等于两颗并有一颗为9，就贴边走
+  //   if (positions.length == 2) {
+  //     let f = 0
+  //     let s = 0
+  //     for (let i = deskData.positions.length - 1; i >= 0; i--) {
+  //       const cell = deskData.positions[i];
+  //       if (cell == 1) {
+  //         if (f == 0) {
+  //           f = i
+  //         } else {
+  //           s = i
+  //           break
+  //         }
+  //       }
+  //     }
+  //     if (s + 1 != f) {
+  //       return new GameAutoWay([s, f - 1], [s, f - 1]);
+  //     }
+  //   }
+
+  //   let allAction = this.randomAction(deskData)
+  //   //为偶数，并大于2颗 则直接最外的到10
+  //   if (positions.length % 2 == 0 && positions.length > 2) {
+  //     let tmp = 0
+  //     for (let i = deskData.positions.length - 1; i >= 0; i--) {
+  //       const element = deskData.positions[i];
+  //       if (element == 1) {
+  //         tmp = i
+  //         break
+  //       }
+  //     }
+  //     return new GameAutoWay([tmp, 10], [tmp, 10]);
+  //   }
+  //   let vaildAction: number[][] = new Array;
+  //   let i: number;
+
+  //   // 如非以上的情况，循环所有操作，满足二进制求和结果为偶数为止。
+  //   let count = null;
+  //   for (i = 0; i < allAction.length; i++) {
+  //     let tmp = allAction[i]
+  //     let tmpDeskData = JSON.parse(JSON.stringify(deskData));
+  //     tmpDeskData.positions[tmp[0]] = 0
+  //     tmpDeskData.positions[tmp[1]] = 1
+  //     count = this.computeDeskBin(deskData);
+  //     if (count % 2 == 0) {
+  //       vaildAction.push(allAction[i])
+  //     }
+  //   }
+  //   let best
+  //   //若无满足，则随机
+  //   if (vaildAction.length > 0) {
+  //     best = vaildAction[rg.RangeInteger(0, vaildAction.length - 1)]
+  //   }
+  //   best = allAction[rg.RangeInteger(0, allAction.length - 1)]
+
+  //   return new GameAutoWay(best, best)
+  // }
 
   computeDeskBin(deskData: GameData2_2): number {
     let tmp: number[][] = []
@@ -284,24 +325,9 @@ export class example2_2 {
       }
     }
     if (tmpPoint1 != -1) {
-      tmp.push(this.binArr[tmpPoint1])
+      tmp.push(this.binArr[10 - tmpPoint1])
     }
-    let bin: number[] = []
-
-    if (tmp.length == 1) {
-      bin = tmp[0]
-    } else {
-      bin = this.binAdd(tmp[0], tmp[1])
-    }
-
-    let count = 0
-    for (i = 0; i < bin.length; i++) {
-      if (bin[i] == 1) {
-        count = count + 1
-      }
-    }
-
-    return count
+    return this.binAdd(tmp)
   }
 
   randomAction(deskData: GameData2_2): number[][] {
@@ -328,21 +354,19 @@ export class example2_2 {
     return allAction;
   }
 
-  binAdd(binArr1: number[], binArr2: number[]): number[] {
-    let bin: number[] = [0, 0, 0, 0, 0, 0, 0]
+  binAdd(binArr: number[][]): number {
+    let count: number = 0
     let i: number;
-    binArr1 = binArr1.reverse()
-    binArr2 = binArr2.reverse()
-    for (i = 0; i < 4; i++) {
-      bin[i] = bin[i] + binArr1[i] + binArr2[i]
-    }
-
-    for (i = 0; i < 4; i++) {
-      if (bin[i] > 1) {
-        bin[i + 1] = bin[i + 1] + bin[i] - 1
-        bin[i] = 1
+    for (let i = 0; i < binArr.length; i++) {
+      const arr = binArr[i];
+      for (let j = 0; j < arr.length; j++) {
+        const element = arr[j];
+        if (element == 1) {
+          count++
+        }
       }
     }
-    return bin
+
+    return count
   }
 }

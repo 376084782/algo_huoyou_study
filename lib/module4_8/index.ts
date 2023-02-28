@@ -32,7 +32,6 @@ import { threadId } from 'worker_threads';
 import { GameAutoWay } from '../common/pojo';
 import OtherUtil from '../util/OtherUtil';
 import RandomGenerater from '../util/RandomGenerater';
-
 export class GameData4_8 {
   typeSet?= 1;//前端用的，存是否是自定义棋盘
   //棋盘 由上至下 由左至右
@@ -51,6 +50,8 @@ export class GameData4_8 {
   p1 = 0;
   p2 = 0;
   player = 1;
+  lines1: number[][][] = []
+  lines2: number[][][] = []
   constructor(player?: number, desk?: number[][]) {
     if (player != undefined) {
       this.player = player
@@ -63,6 +64,7 @@ export class GameData4_8 {
 
 export class GameAction4_8 {
   action: number[] = []
+  line: number[][] = []
   score: number = 0
 
   constructor(action: number[], score?: number) {

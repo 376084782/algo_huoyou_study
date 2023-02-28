@@ -37,32 +37,57 @@ let i = 0
 // })
 // console.info(JSON.stringify(a))
 // 10_3
-let test10_3 = new example10_3();
-let e = {
-    "typeSet": 1,
-    "desk": [
-        [0, 1, 0, 0, 0, 2, 2, 2, 2, 2, 0, 0],
-        [0, 1, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0],
-        [1, 1, 0, 2, 2, 2, 2, 2, 2, 2, 2, 1],
-        [1, 1, 0, 2, 2, 2, 2, 2, 0, 1, 1, 1],
-        [0, 1, 0, 1, 0, 1, 0, 0, 0, 2, 1, 0],
-        [1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 0],
-        [0, 1, 1, 1, 0, 1, 2, 2, 0, 2, 0, 0],
-        [1, 1, 1, 1, 1, 0, 2, 0, 2, 2, 2, 0],
-        [1, 1, 1, 1, 0, 0, 2, 2, 2, 1, 0, 0],
-        [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0]
-    ],
-    "chess1": [11, 9, 10, 3, 7, 1, 2, 4, 6],
-    "chess2": [0, 1, 2, 3, 4, 5, 6, 10],
-    "player": 1
-}
+// let test10_3 = new example10_3();
+// let s = test10_3.checkDesk({ "typeSet": 1, "desk": [[0, 1, 1, 1, 1, 2, 2, 2, 2, 0, 1, 0], [0, 1, 1, 2, 2, 2, 0, 2, 2, 1, 1, 1], [1, 1, 1, 2, 1, 1, 1, 1, 1, 0, 1, 0], [1, 0, 2, 0, 2, 2, 2, 2, 2, 0, 2, 0], [0, 0, 2, 2, 2, 2, 0, 0, 2, 2, 2, 2], [0, 1, 1, 0, 2, 2, 0, 0, 2, 2, 0, 0], [1, 1, 0, 0, 2, 0, 0, 1, 1, 2, 2, 0], [1, 1, 1, 1, 2, 2, 1, 1, 0, 2, 0, 1], [2, 2, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1], [0, 2, 2, 2, 0, 1, 1, 1, 0, 1, 0, 0]], "chess1": [11, 10, 3, 7, 8, 5, 1, 9, 0], "chess2": [0, 1, 2, 3, 4, 5, 6, 11], "player": 1 })
+// console.info(JSON.stringify(s))
+
+// for (let s1 = 0; s1 < test10_3.deskSquare.length; s1++) {
+//     let arr: number[][][] = []
+//     let map: Map<string, number[][]> = new Map
+//     const s = test10_3.deskSquare[s1];
+//     for (let i: number = 0; i <= 5; i++) {
+//         const st1 = test10_3.bian(JSON.parse(JSON.stringify(s)), i)
+//         map.set(JSON.stringify(st1), st1)
+//         for (let j: number = 0; j <= 5; j++) {
+//             const st2 = test10_3.bian(JSON.parse(JSON.stringify(st1)), j)
+//             map.set(JSON.stringify(st2), st2)
+//         }
+//     }
+//     let iterator = map.values();
+//     let r: IteratorResult<number[][]>;
+//     while (r = iterator.next(), !r.done) {
+//         arr.push(r.value)
+//     }
+//     console.info(JSON.stringify(arr))
+
+// }
+
+
+// let e = {
+//     "typeSet": 1,
+//     "desk": [
+//         [0, 0, 1, 0, 0, 2, 0, 1, 1, 1, 1, 1],
+//         [1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 1, 0],
+//         [1, 1, 0, 2, 0, 0, 2, 2, 2, 2, 1, 1],
+//         [0, 1, 1, 1, 1, 0, 2, 2, 2, 2, 2, 0],
+//         [1, 1, 1, 1, 1, 0, 0, 1, 0, 2, 2, 2],
+//         [0, 1, 0, 0, 1, 1, 1, 1, 1, 2, 0, 0],
+//         [0, 1, 1, 1, 0, 1, 2, 0, 0, 2, 0, 0],
+//         [1, 2, 0, 0, 1, 2, 2, 0, 2, 2, 2, 2],
+//         [2, 2, 2, 0, 2, 2, 0, 0, 0, 0, 2, 0],
+//         [0, 2, 0, 0, 2, 0, 0, 0, 2, 2, 2, 2]
+//     ],
+//     "chess1": [0, 1, 2, 3, 4, 5, 6, 7],
+//     "chess2": [0, 1, 2, 4, 5, 6, 7, 8],
+//     "player": 1
+// }
 // let cd = test10_3.checkDesk(e)
 // console.info(JSON.stringify(cd))
-console.info(Date.parse(new Date().toString()))
-let a = test10_3.getActionAuto(e)
-// let a = test10_3.doAction1(e, 5, [[1, 1], [0, 1], [1, 1]], [6, 10])
-console.info(JSON.stringify(a))
-console.info(Date.parse(new Date().toString()))
+// console.info(Date.parse(new Date().toString()))
+// let a = test10_3.getActionAuto(e)
+// let a = test10_3.doAction1(e, 9, [[0, 1, 0], [0, 1, 0], [1, 1, 1]], [6, 6])
+// console.info(JSON.stringify(a))
+// console.info(Date.parse(new Date().toString()))
 // let a = test10_3.doAction(
 //     {
 //         "desk": [
@@ -246,7 +271,7 @@ console.info(Date.parse(new Date().toString()))
 // }
 // 8_3
 // let test8_3 = new example8_3();
-// let s1 = test8_3.getActionAuto({ "desk": [2, 0, 10], "player": 2 });
+// let s1 = test8_3.getActionAuto({ "desk": [4, 2, 2], "player": 2 });
 // console.info(JSON.stringify(s1))
 // 8_2
 // let test8_2 = new example8_2();
@@ -624,9 +649,12 @@ console.info(Date.parse(new Date().toString()))
 // }
 //// 2_2
 // let test2_2 = new example2_2();
+// console.info(JSON.stringify(test2_2.binArr[5]))
+// console.info(JSON.stringify(test2_2.binArr[1]))
+// console.info(JSON.stringify(test2_2.binAdd([0, 1, 0, 1], [0, 0, 0, 1])))
 // for (let i = 0; i < 10; i++) {
 //     let action = test2_2.getActionAuto({ "player": 1, "positions": [1, 0, 0, 1, 0, 1, 0, 1, 0, 0], "sum": 2, "warehouse": 0 })
-//     console.info(JSON.stringify(action))
+// console.info(JSON.stringify(action))
 // }
 // for (i = 0; i < 10; i++) {
 //     let result = test2_2.getRiddleByLev(0, null);
@@ -651,14 +679,14 @@ console.info(Date.parse(new Date().toString()))
 // }
 // 2_1
 // let test2_1 = new example2_1();
-// let desk = new GameData2_1()
-// desk.p1 = 0
-// desk.p2 = 0
-// desk.player = 2
-// desk.positions = [[2, 1], [2, 1], [2, 1], [1, 2], [2], [1, 1, 2], [], [], [], [], [], []]
-// let tmp = test2_1.checkRiddle({"p1":2,"p2":2,"player":1,"positions":[[1,1,1,1],[2],[2],[2],[2],[],[],[],[],[],[],[]],"typeSet":2})
-// console.info(tmp,'tmptmptmp')
-
+// let desk = { "p1": 0, "p2": 0, "player": 1, "positions": [[1], [], [1], [2, 1], [1], [2], [1], [2], [1], [2], [1], [],], "typeSet": 1 }
+// // let tmp = test2_1.getActionAuto(desk)
+// let tmp = test2_1.doAction(desk, new GameAction2_1([0, 0],[1, 0]))
+// console.info(JSON.stringify(tmp))
+// for (i = 0; i < 10; i++) {
+//     let tmp = test2_1.getActionAuto(desk)
+//     console.info(JSON.stringify(tmp))
+// }
 // for (i = 0; i < 1; i++) {
 //     let result = test2_1.getRiddle(undefined);
 //     let flagResult = 0
@@ -677,7 +705,6 @@ console.info(Date.parse(new Date().toString()))
 //         player = player == "P1" ? "P2" : "P1"
 //     }
 // }
-
 // let test2_5 = new example2_5();
 // let config2_5 = new GameConfig2_5();
 // config2_5.borderSize = 2;

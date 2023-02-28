@@ -298,7 +298,7 @@ export default class example2_1 {
       } else if (row.length == 2 && row[0] == deskData.player) {
         towP.push(i);
       }
-      if (row[row.length - 1] != deskData.player || row.length == 0) {
+      if ((row[row.length - 1] != deskData.player && row.length != 3) || (row.length == 0)) {
         randomP.push(i);
       }
     }
@@ -318,21 +318,22 @@ export default class example2_1 {
     }
     let result = new GameAutoWay(undefined, undefined)
     //当对手有手持，平铺自己棋子，（为保证棋子后期不被锁定，不主动建立二连）
-    if (emptyP.length != 0 && rival != 0) {
-      let tmpRow = emptyP[rg.RangeInteger(0, emptyP.length - 1)]
-      let tmpRow1 = emptyP[rg.RangeInteger(0, emptyP.length - 1)]
-      let best = this.getBestMove(deskData, tmpRow);
-      let best1 = this.getBestMove(deskData, tmpRow1);
+    // if (emptyP.length != 0 && rival != 0) {
+    //   let tmpRow = emptyP[rg.RangeInteger(0, emptyP.length - 1)]
+    //   let tmpRow1 = emptyP[rg.RangeInteger(0, emptyP.length - 1)]
+    //   let best = this.getBestMove(deskData, tmpRow);
+    //   let best1 = this.getBestMove(deskData, tmpRow1);
 
-      let tmpAction = new GameAction2_1([tmpRow, deskData.positions[tmpRow].length], best);
-      let tmpAction1 = new GameAction2_1([tmpRow1, deskData.positions[tmpRow1].length], best1);
-      if (best1.length == 3) {
-        best1 = best
-      }
-      if (best.length != 3) {
-        result = new GameAutoWay(tmpAction, tmpAction1)
-      }
-    } else if (towP.length != 0 && rival != 0) {
+    //   let tmpAction = new GameAction2_1([tmpRow, deskData.positions[tmpRow].length], best);
+    //   let tmpAction1 = new GameAction2_1([tmpRow1, deskData.positions[tmpRow1].length], best1);
+    //   if (best1.length == 3) {
+    //     best1 = best
+    //   }
+    //   if (best.length != 3) {
+    //     result = new GameAutoWay(tmpAction, tmpAction1)
+    //   }
+    // } else if (towP.length != 0 && rival != 0) {
+    if (towP.length != 0 && rival != 0) {
       let tmpRow = towP[rg.RangeInteger(0, towP.length - 1)]
       let tmpRow1 = towP[rg.RangeInteger(0, towP.length - 1)]
       let best = this.getBestMove(deskData, tmpRow);
@@ -357,7 +358,7 @@ export default class example2_1 {
         if (best1.length == 3) {
           best1 = best
         }
-        if (best.length != 3 && this.isFailureMove(deskData, best1[0]) != -1) {
+        if (best.length != 3 && best1.length != 0 && this.isFailureMove(deskData, best1[0]) != -1) {
           result = new GameAutoWay(tmpAction, tmpAction1)
         } else {
           for (let i = 0; i < deskData.positions.length; i++) {

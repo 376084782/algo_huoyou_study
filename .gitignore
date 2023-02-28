@@ -22,3 +22,6 @@ agoraAddonlog.txt*
 *.njsproj
 *.sln
 *.sw?
+package-lock.json
+package.json
+yarn.lock
