@@ -180,13 +180,18 @@ export default class Example2_11 {
 
   /**
    * 判断操作是否合法
+   * 1: 合法
+   * -1: 不合法
    */
   checkAction(dataDesk: GameData2_11, dataAction: GameData2_11Action): number {
     const player = Number(dataDesk.player);
     const desk = dataDesk.desk;
-    const { indexArr } = dataAction;
+    const { indexArr, takeCount } = dataAction;
     const isValidIndex = (index: number) => index >= 0 && index <= desk.length - 1;
 
+    if (takeCount !== indexArr.length) {
+      return -1;
+    }
     if (!(Array.isArray(desk) && desk.length)) {
       return -1;
     }
@@ -204,13 +209,6 @@ export default class Example2_11 {
         console.error('操作不合法');
         return -1;
       } else {
-        // if (desk.every(item => !item.line.length)) {
-        //   return 1;
-        // }
-        // if (!desk.some(item => item.line.some(pointArr => pointArr.includes(first)))) {
-        //   console.error('操作不合法');
-        //   return -1;
-        // }
         return 1;
       }
     }
@@ -228,6 +226,20 @@ export default class Example2_11 {
         console.error('操作不合法');
         return -1;
       }
+
+      const allLines = desk.reduce((acc: number[][], item) => {
+        if (item.line.length) {
+          acc = [...acc, ...item.line];
+        }
+        return acc;
+      }, []);
+      const flagObj: any = {};
+      allLines.forEach(line => (flagObj[line.toString()] = true));
+      // 说明拿的两个棋子没有连线
+      if (!flagObj[indexArr.toString()]) {
+        return -1;
+      }
+
       return 1;
     }
     return -1;
@@ -277,6 +289,7 @@ export default class Example2_11 {
     nobest: GameData2_11Action;
   } {
     const { desk } = dataDesk;
+
     // 当前桌面的所有 actions
     const curDeskWithActions = this.getActionsByDesk(desk);
 
@@ -326,13 +339,24 @@ export default class Example2_11 {
 
     const bestActionList: GameData2_11Action[] = [];
 
+    const obj: any = {};
+    nobestActionList.forEach(({ indexArr }) => {
+      obj[indexArr.toString()] = true;
+    });
+
+    curDeskWithActions.actions.forEach(action => {
+      if (!obj[action.indexArr.toString()]) {
+        bestActionList.push(action);
+      }
+    });
+
     // 常规可走列表
     const normalActionList = posDeskWithActions.reduce(
       (normalList: GameData2_11Action[], { desk, actions, lastAction }, index) => {
         const list = actions.filter(({ indexArr }) => !this.isWin(this.getDeskAfterAction(desk, indexArr)));
-        if (list.length) {
-          bestActionList.push(lastAction);
-        }
+        // if (list.length) {
+        //   bestActionList.push(lastAction);
+        // }
         normalList = [...normalList, ...list];
         return normalList;
       },
@@ -347,12 +371,13 @@ export default class Example2_11 {
     }
 
     // console.log({
-    // curDeskWithActions,
-    // deskListAfterActions,
-    // posDeskWithActions,
-    // normalActionList,
-    // bestActionList,
-    // nobestActionList
+    //   successActionList,
+    //   curDeskWithActions,
+    //   deskListAfterActions,
+    //   posDeskWithActions,
+    //   normalActionList,
+    //   bestActionList,
+    //   nobestActionList
     // });
 
     return {
