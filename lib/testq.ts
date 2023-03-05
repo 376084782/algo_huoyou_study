@@ -4,6 +4,7 @@ import example2_5, { GameData2_5, GameConfig2_5, GameAction2_5, Position2_5 } fr
 import { FileWriter } from './common/FileWriter';
 import example10_3 from './module10_3';
 import { module2_1, module8_4 } from '.';
+import { Algo10_6 } from './module10_6';
 function test8_5() {
   let desk = new GameData8_5();
   let deskData = { "typeSet": 1, "desk": ["x", "o", "o", "o", "o", "o", "x", "o", "x", "o", "o", "o", "x", "o", "x", "o"], "player": 1, "allRes": [], "step": 0, "dangerRes": [], "greatRes": [], "betterRes": [] }
@@ -135,6 +136,62 @@ function test2_1() {
   let res = ctr.checkAction(desk, move);
   console.log(res)
 }
-test2_1()
+// test2_1()
 
+async function createQues10_6(stepList: number[], lev: number, count: number) {
+  let listQues: string[] = []
+  let ctr = new Algo10_6();
+  while (listQues.length < 10) {
+    let data = ctr.getRiddleByLev(count, stepList)
+    let quesStr = JSON.stringify(data);
+    if (listQues.indexOf(quesStr) == -1) {
+      listQues.push(quesStr)
+    }
+  }
+  let listData: any[] = []
+  listQues.forEach(e => {
+    listData.push(JSON.parse(e))
+  })
+  await FileWriter.setFile(`./train/10-6/level${lev}.json`, JSON.stringify(listData))
+}
+async function createQuesAll10_6() {
+  let map = [{
+    stepList: [2, 5],
+    count: 5,
+    lev: 1
+  }, {
+    stepList: [3, 6],
+    count: 6,
+    lev: 2,
+  }, {
+    stepList: [4, 7],
+    lev: 3,
+    count: 7
+  }, {
+    stepList: [4, 8],
+    lev: 4,
+    count: 8
+  }, {
+    stepList: [5, 9],
+    lev: 5,
+    count: 9
+  }, {
+    stepList: [5, 10],
+    lev: 6,
+    count: 10
+  }, {
+    stepList: [5, 11],
+    lev: 7,
+    count: 11
+  }, {
+    stepList: [6, 12],
+    lev: 8,
+    count: 12
+  }]
 
+  for (let i = 0; i < map.length; i++) {
+    let data = map[i];
+    await createQues10_6(data.stepList, data.lev, data.count)
+  }
+}
+createQuesAll10_6()
