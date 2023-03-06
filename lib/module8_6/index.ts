@@ -33,6 +33,82 @@ export class GameData8_6{
     step:number=0;  //当前步数
 
 
+    badDesk = [
+        [
+            ['o','x','o'],
+            ['x','x','x'],
+            ['x','x','o']
+        ],
+        [
+            ['o','x','x'],
+            ['x','x','x'],
+            ['o','x','o']
+        ],
+        [
+            ['o','x','x'],
+            ['x','o','x'],
+            ['x','x','o']
+        ],
+        [
+            ['x','x','x'],
+            ['x','o','x'],
+            ['o','x','o']
+        ],
+        [
+            ['x','x','o'],
+            ['x','x','x'],
+            ['o','x','o']
+        ],
+        [
+            ['x','x','o'],
+            ['x','o','x'],
+            ['x','x','o']
+        ],
+        [
+            ['x','x','x','o'],
+            ['x','x','x','x'],
+            ['x','x','o','x'],
+            ['x','x','x','o']
+        ],
+        [
+            ['x','x','x','o'],
+            ['x','x','x','x'],
+            ['x','x','x','x'],
+            ['x','o','x','o']
+        ],
+        [
+            ['x','x','x','o'],
+            ['x','x','x','o'],
+            ['x','x','x','x'],
+            ['x','x','x','o']
+        ],
+        [
+            ['x','x','x','o'],
+            ['x','o','x','x'],
+            ['x','x','x','x'],
+            ['x','x','x','o']
+        ],
+        [
+            ['x','x','o','o'],
+            ['x','x','x','x'],
+            ['x','x','x','x'],
+            ['x','x','x','o']
+        ],
+        [
+            ['x','x','x','o'],
+            ['x','x','x','x'],
+            ['o','x','x','x'],
+            ['x','x','x','o']
+        ],
+        [
+            ['o','x','x','o'],
+            ['x','x','x','x'],
+            ['x','x','x','x'],
+            ['x','x','x','o']
+        ]
+    ]
+
+
     constructor(config?:GameConfig8_6) {
 
         this.step = 0;
@@ -261,6 +337,8 @@ export default class  example8_6 {
         let greatRes:any[] = []
 
         let betterRes:any[] = []
+
+        // let oCount = 0
         // let lenj = deskData.desk[0].length
         for(let i=0;i<leni;i++)
         {
@@ -268,6 +346,7 @@ export default class  example8_6 {
             {
                 if(deskData.desk[i][j] == 'o')
                 {
+                    // oCount++;
                     let act = new GameAction8_6();
                     act.nextAct = [];
                     let thisStep = {
@@ -304,8 +383,14 @@ export default class  example8_6 {
                     {
 
                         let inPar = JSON.parse(JSON.stringify(tempDesk))
-                        if(this.getAutoStepNext(inPar)==false)
+
+                        if(this.getAutoStepNext(inPar)==false&&this.checkSpcStep(inPar,deskData.badDesk)==true)
                         {
+                            // if(inPar!=[
+                            //     ['o','x','o'],
+                            //     ['x','x','x'],
+                            //     ['x','x','o']
+                            // ]&&)
                             betterRes.push(act);
                         }
                     }
@@ -328,7 +413,7 @@ export default class  example8_6 {
                         //筛选优质步数
                         let tempDesk = JSON.parse(JSON.stringify(deskData.desk))
                         tempDesk[i][j] = 'x';
-                        tempDesk[i+1][j] = 'x';
+                        tempDesk[i+1][j] = xStep.val;
                         let finishi = true
                         for (let ii=0;ii<leni;ii++)
                         {
@@ -343,15 +428,15 @@ export default class  example8_6 {
 
                         if(finishi == true)
                         {
-                            greatRes.push(act);
+                            greatRes.push(actX);
                         }
                         else
                         {
 
                             let inPar = JSON.parse(JSON.stringify(tempDesk))
-                            if(this.getAutoStepNext(inPar)==false)
+                            if(this.getAutoStepNext(inPar)==false&&this.checkSpcStep(inPar,deskData.badDesk)==true)
                             {
-                                betterRes.push(act);
+                                betterRes.push(actX);
                             }
                         }
 
@@ -376,7 +461,7 @@ export default class  example8_6 {
                         //筛选优质步数
                         let tempDesk = JSON.parse(JSON.stringify(deskData.desk))
                         tempDesk[i][j] = 'x';
-                        tempDesk[i][j+1] = 'x';
+                        tempDesk[i][j+1] = yStep.val;
                         let finishj = true
                         for (let ii=0;ii<leni;ii++)
                         {
@@ -391,15 +476,15 @@ export default class  example8_6 {
 
                         if(finishj == true)
                         {
-                            greatRes.push(act);
+                            greatRes.push(actJ);
                         }
                         else
                         {
 
                             let inPar = JSON.parse(JSON.stringify(tempDesk))
-                            if(this.getAutoStepNext(inPar)==false)
+                            if(this.getAutoStepNext(inPar)==false&&this.checkSpcStep(inPar,deskData.badDesk)==true)
                             {
-                                betterRes.push(act);
+                                betterRes.push(actJ);
                             }
                         }
 
@@ -408,6 +493,8 @@ export default class  example8_6 {
                 }
             }
         }
+
+
 
         let sortAllRes= [...greatRes.sort(() => {
             return 0.5 - Math.random()
@@ -418,6 +505,27 @@ export default class  example8_6 {
         })]
         return [sortAllRes[0],sortAllRes[0]];
     }
+
+
+    /**
+     * 特殊处理，返回false表示坏步数
+     * @param deskDataNow
+     * @param badDesk
+     */
+    checkSpcStep(deskDataNow:any,badDesk:any):boolean
+    {
+        for(let i = 0;i<badDesk.length;i++)
+        {
+            if(deskDataNow==badDesk[i])
+            {
+                return false
+            }
+        }
+
+        return true
+    }
+
+
 
     /**
      * 下一手对面是否赢
@@ -537,24 +645,30 @@ export default class  example8_6 {
 
 
 //走法测试用
-// let em = new example8_6();
-// // //
-// let dd = [
-//     ['o','o'],
-//     ['x','o']
-// ]
-// let gc = new GameConfig8_6()
-// let gd =em.getRiddle(gc);
-// console.log(gd.desk)
+let em = new example8_6();
 // //
-// for(let i = 0 ;i<30;i++)
-// {
-//     if(em.checkDesk(gd)!=-1)
-//     {
-//         break;
-//     }
-//     em.doAction(gd,em.getActionAuto(gd,0)[0])
-//     console.log(gd.step)
-//     console.log(gd.desk)
-//     console.log(em.checkDesk(gd))
-// }
+let dd = [
+    ['o','o'],
+    ['x','x']
+]
+let gc = new GameConfig8_6()
+gc.desk=[
+    ['o','x','x','o'],
+    ['x','x','x','x'],
+    ['x','x','x','x'],
+    ['o','x','x','o']
+]
+let gd =em.getRiddle(gc);
+console.log(gd.desk)
+//
+for(let i = 0 ;i<30;i++)
+{
+    if(em.checkDesk(gd)!=-1)
+    {
+        break;
+    }
+    em.doAction(gd,em.getActionAuto(gd,0)[0])
+    console.log(gd.step)
+    console.log(gd.desk)
+    console.log(em.checkDesk(gd))
+}
