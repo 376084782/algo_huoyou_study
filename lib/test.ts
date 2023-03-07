@@ -26,18 +26,20 @@ let player = "P1"
 let i = 0
 // // FileWriter.setFile('./file/a.ts', 'let a=3;')
 // // 10_8
-let test10_8 = new example10_8();
-for (let index = 0; index < 10; index++) {
-    let a = test10_8.getActionAuto({
-        "n": 5,
-        "p1": 3,
-        "p2": 1,
-        "residue": 1,
-        "rounds": 0,
-        "player": 1
-    })
-    console.info(JSON.stringify(a))
-}
+// 自定义5个进去，高级机器人先手，机器人取5，我直接赢了
+// 这个棋面下机器人只能取1/3/5。5直接让玩家获胜了不可以，取1或取3都合理
+// let test10_8 = new example10_8();
+// for (let index = 0; index < 20; index++) {
+//     let a = test10_8.getActionAuto({
+//         "n": 5,
+//         "p1": 0,
+//         "p2": 0,
+//         "residue": 5,
+//         "rounds": 0,
+//         "player": 1
+//     })
+//     console.info(JSON.stringify(a))
+// }
 // 10_3
 // let test10_3 = new example10_3();
 // for (let s1 = 0; s1 < test10_3.deskSquare.length; s1++) {
@@ -357,8 +359,16 @@ for (let index = 0; index < 10; index++) {
 // let s3 = test6_8.getAllDesk(3)
 // let s2 = test6_8.getAllDesk(2)
 // let s1 = test6_8.getAllDesk(1)
-// let action = test6_8.getAllAction([])
+// let action = test6_8.getActionAuto({
+//     //参数
+//     "desk": [
+//         [0, 0, 0, 0, 1, 0],
+//         [0, 0, 0, 0, 0, 1]],
+//     "player": 1
+// })
 // console.info(JSON.stringify(action))
+// 这个情况（2,1）是必胜棋面，机器人走上面一个或者了俩个都走，会必败，只有走下面这个会必胜。要考虑进去，目前机器人走必败。
+// 三个棋子的俩步必胜策略也应该考虑进去。（2,2,2）（2,1,1）（2,1,2）（1,1,1,）
 
 // 6_3
 // let test6_3 = new example6_3();
@@ -647,8 +657,10 @@ for (let index = 0; index < 10; index++) {
 //   }
 // }
 //// 2_2
-// let test2_2 = new example2_2();
-// console.info(JSON.stringify(test2_2.binArr[5]))
+let test2_2 = new example2_2();
+for (let i = 0; i < 21; i++) {
+    console.info(JSON.stringify(test2_2.getActionAuto({ "player": 1, "positions": [0, 0, 0, 0, 0, 0, 1, 0, 1, 0], "sum": 4, "warehouse": 0 })))
+}
 // console.info(JSON.stringify(test2_2.binArr[1]))
 // console.info(JSON.stringify(test2_2.binAdd([0, 1, 0, 1], [0, 0, 0, 1])))
 // for (let i = 0; i < 10; i++) {
@@ -678,12 +690,10 @@ for (let index = 0; index < 10; index++) {
 // }
 // 2_1
 // let test2_1 = new example2_1();
-// let move = { "move": [3, 0], "score": 0, "action": [2, 0] }
-// let desk = { "p1": 0, "p2": 0, "player": 2, "positions": [[1, 1], [2], [], [2], [1], [2], [1], [2], [1], [2], [1], [2]], "typeSet": 1 }
-// let res = test2_1.checkAction(desk, move);
+// // let move = { "move": [3, 0], "score": 0, "action": [2, 0] }
+// let desk = { "p1": 0, "p2": 0, "player": 1, "positions": [[1, 2], [2], [2], [2], [1], [1, 1, 2], [1, 1, 2], [], [], [], [], []], "typeSet": 1 }
+// let res = test2_1.getActionAuto(desk);
 // console.info(JSON.stringify(res))
-
-
 
 // for (i = 0; i < 1; i++) {
 //     let result = test2_1.getRiddle(undefined);

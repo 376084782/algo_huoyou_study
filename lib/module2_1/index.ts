@@ -278,6 +278,7 @@ export default class example2_1 {
     const rg = new RandomGenerater(0)
     //枚举下法
     let oneP: number[] = []
+    let onePE: number[] = []
     let towP: number[] = []
     let randomP: number[] = []
     let emptyP: number[] = []
@@ -298,6 +299,8 @@ export default class example2_1 {
         emptyP.push(i);
       } else if (row.length == 1 && row[0] == deskData.player) {
         oneP.push(i);
+      } else if (row.length == 1 && row[0] == OtherUtil.getRival(deskData.player)) {
+        onePE.push(i);
       } else if (row.length == 2 && row[0] == deskData.player) {
         towP.push(i);
       }
@@ -364,14 +367,19 @@ export default class example2_1 {
         if (best.length != 3 && best1.length != 0 && this.isFailureMove(deskData, best1[0]) != -1) {
           result = new GameAutoWay(tmpAction, tmpAction1)
         } else {
-          for (let i = 0; i < deskData.positions.length; i++) {
-            const row = deskData.positions[i];
-            if (row.length == 0) {
-              tmpAction.action = [i, 0]
-              break
+          tmpAction.move = this.getBestMove(deskData, 0);
+          if (onePE.length != 0) {
+            tmpAction.action = [onePE[0], deskData.positions[onePE[0]].length]
+          } else {
+            for (let i = 0; i < deskData.positions.length; i++) {
+              const row = deskData.positions[i];
+              if (row.length != 0) {
+                tmpAction.action = [i, 0]
+                break
+              }
             }
           }
-          tmpAction.move = this.getBestMove(deskData, 0);
+          // tmpAction.move = this.getBestMove(deskData, 0, true);
           result = new GameAutoWay(tmpAction, tmpAction)
         }
       } else {
@@ -399,7 +407,7 @@ export default class example2_1 {
     }
     return 1
   }
-  getBestMove(deskData: GameData2_1, rowNum: number): number[] {
+  getBestMove(deskData: GameData2_1, rowNum: number, root?: boolean): number[] {
     if (deskData.player == 1 && deskData.p1 > 0) {
       return []
     }
@@ -415,6 +423,9 @@ export default class example2_1 {
       const cell = row[row.length - 1];
       if (rowNum != i) {
         if (cell == deskData.player) {
+          if (root && row.length == 1) {
+            continue
+          }
           if (row.length == 3 && row[0] == OtherUtil.getRival(deskData.player) && row[1] == OtherUtil.getRival(deskData.player)) {
             failureMove.push([i, row.length - 1])
           } else if (row.length == 2 && row[0] == deskData.player && row[1] == deskData.player) {
