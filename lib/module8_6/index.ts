@@ -33,6 +33,7 @@ export class GameData8_6{
     step:number=0;  //当前步数
 
 
+
     constructor(config?:GameConfig8_6) {
 
         this.step = 0;
@@ -258,9 +259,14 @@ export default class  example8_6 {
 
         let allRes:any[] = []
 
+        let mustWinRes:any[] = []
+
         let greatRes:any[] = []
 
         let betterRes:any[] = []
+
+        let oCount = []
+        let jCount = []
         // let lenj = deskData.desk[0].length
         for(let i=0;i<leni;i++)
         {
@@ -268,6 +274,23 @@ export default class  example8_6 {
             {
                 if(deskData.desk[i][j] == 'o')
                 {
+
+
+                    //必胜策略计数
+                        let joro = (leni-1-i)+(leni-1-j)
+                        if(joro%2==0)
+                        {
+                            oCount.push({x:i,y:j})
+                        }
+                        else
+                        {
+                            jCount.push({x:i,y:j})
+                        }
+
+
+
+
+
                     let act = new GameAction8_6();
                     act.nextAct = [];
                     let thisStep = {
@@ -304,6 +327,7 @@ export default class  example8_6 {
                     {
 
                         let inPar = JSON.parse(JSON.stringify(tempDesk))
+
                         if(this.getAutoStepNext(inPar)==false)
                         {
                             betterRes.push(act);
@@ -328,7 +352,7 @@ export default class  example8_6 {
                         //筛选优质步数
                         let tempDesk = JSON.parse(JSON.stringify(deskData.desk))
                         tempDesk[i][j] = 'x';
-                        tempDesk[i+1][j] = 'x';
+                        tempDesk[i+1][j] = xStep.val;
                         let finishi = true
                         for (let ii=0;ii<leni;ii++)
                         {
@@ -343,7 +367,7 @@ export default class  example8_6 {
 
                         if(finishi == true)
                         {
-                            greatRes.push(act);
+                            greatRes.push(actX);
                         }
                         else
                         {
@@ -351,7 +375,7 @@ export default class  example8_6 {
                             let inPar = JSON.parse(JSON.stringify(tempDesk))
                             if(this.getAutoStepNext(inPar)==false)
                             {
-                                betterRes.push(act);
+                                betterRes.push(actX);
                             }
                         }
 
@@ -376,7 +400,7 @@ export default class  example8_6 {
                         //筛选优质步数
                         let tempDesk = JSON.parse(JSON.stringify(deskData.desk))
                         tempDesk[i][j] = 'x';
-                        tempDesk[i][j+1] = 'x';
+                        tempDesk[i][j+1] = yStep.val;
                         let finishj = true
                         for (let ii=0;ii<leni;ii++)
                         {
@@ -391,7 +415,7 @@ export default class  example8_6 {
 
                         if(finishj == true)
                         {
-                            greatRes.push(act);
+                            greatRes.push(actJ);
                         }
                         else
                         {
@@ -399,7 +423,7 @@ export default class  example8_6 {
                             let inPar = JSON.parse(JSON.stringify(tempDesk))
                             if(this.getAutoStepNext(inPar)==false)
                             {
-                                betterRes.push(act);
+                                betterRes.push(actJ);
                             }
                         }
 
@@ -409,7 +433,48 @@ export default class  example8_6 {
             }
         }
 
-        let sortAllRes= [...greatRes.sort(() => {
+        //进入必胜棋局逻辑
+        if((oCount.length+jCount.length==3))
+        {
+            if(oCount.length%2==0)
+            {
+                let act = new GameAction8_6();
+                act.nextAct = [];
+                let sjStep = [...jCount.sort(() => {
+                    return 0.5 - Math.random()
+                })]
+                let thisStep = {
+                    x:sjStep[0].x,
+                    y:sjStep[0].y,
+                    val:'x'
+                }
+                act.nextAct.push(thisStep)
+                allRes.push(act)
+                mustWinRes.push(act)
+            }
+            else
+            {
+                let act = new GameAction8_6();
+                act.nextAct = [];
+                let sjStep = [...oCount.sort(() => {
+                    return 0.5 - Math.random()
+                })]
+                let thisStep = {
+                    x:sjStep[0].x,
+                    y:sjStep[0].y,
+                    val:'x'
+                }
+                act.nextAct.push(thisStep)
+                allRes.push(act)
+                mustWinRes.push(act)
+            }
+        }
+
+
+
+        let sortAllRes= [...mustWinRes.sort(() => {
+            return 0.5 - Math.random()
+        }),...greatRes.sort(() => {
             return 0.5 - Math.random()
         }),...betterRes.sort(() => {
             return 0.5 - Math.random()
@@ -418,6 +483,8 @@ export default class  example8_6 {
         })]
         return [sortAllRes[0],sortAllRes[0]];
     }
+
+
 
     /**
      * 下一手对面是否赢
@@ -541,11 +608,17 @@ export default class  example8_6 {
 // // //
 // let dd = [
 //     ['o','o'],
-//     ['x','o']
+//     ['x','x']
 // ]
 // let gc = new GameConfig8_6()
+// gc.desk=[
+//     ['x','o','o','x'],
+//     ['x','x','x','x'],
+//     ['x','x','o','x'],
+//     ['x','x','x','x']
+// ]
 // let gd =em.getRiddle(gc);
-// console.log(gd.desk)
+// // console.log(gd.desk)
 // //
 // for(let i = 0 ;i<30;i++)
 // {
@@ -554,7 +627,7 @@ export default class  example8_6 {
 //         break;
 //     }
 //     em.doAction(gd,em.getActionAuto(gd,0)[0])
-//     console.log(gd.step)
+//     // console.log(gd.step)
 //     console.log(gd.desk)
 //     console.log(em.checkDesk(gd))
 // }

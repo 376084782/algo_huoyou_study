@@ -5,7 +5,7 @@ test();
 function test() {
   let player = 'P1';
   let test2_11 = new Example2_11();
-  const desk = test2_11.generateDeskByCount(11);
+  const desk = test2_11.generateDeskByCount(12);
   // console.log('actions', test2_11.getActionsByDeskAndTakeCount(desk, 2));
   // console.log('getDeskAfterAction', test2_11.getDeskAfterAction(desk, [0, 5]));
 
@@ -18,12 +18,13 @@ function test() {
   let flagResult = 0;
   let count = 1;
   console.info('初始化桌面', result.desk);
+
   while (flagResult == 0 && count <= 50) {
     let action = test2_11.getActionAuto(result);
-    // console.log('getActionAuto: ', action.best);
+    console.log('getActionAuto: ', action.best);
 
     let tmp = test2_11.doAction(result, action.best);
-    console.log(tmp.dataResult.desk);
+    // console.log(tmp.dataResult.desk);
 
     result = tmp.dataResult;
     flagResult = tmp.flagResult;
