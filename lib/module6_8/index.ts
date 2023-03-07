@@ -198,12 +198,13 @@ export default class example6_8 {
         const action = allAction[i];
         const dd = this.doAction(JSON.parse(JSON.stringify(deskData)), action);
         const dds = this.deskToStr(dd[1].desk);
-        if (deskDatas.d2l1.has(dds) ||
-          deskDatas.d2l2.has(dds) ||
-          deskDatas.d2l3.has(dds) ||
-          deskDatas.d2l4.has(dds) ||
-          deskDatas.d2l5.has(dds) ||
-          deskDatas.d2l6.has(dds)) {
+        if (deskDatas.d2w1.has(dds) ||
+          deskDatas.d2w2.has(dds) ||
+          deskDatas.d2w3.has(dds) ||
+          deskDatas.d2w4.has(dds) ||
+          deskDatas.d2w5.has(dds) ||
+          deskDatas.d2w6.has(dds) ||
+          deskDatas.d2w7.has(dds)) {
           best = action
           break
         }

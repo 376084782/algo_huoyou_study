@@ -104,7 +104,10 @@ export default class example10_8 {
     getRandomAction(residue: number): number {
         const rg = new RandomGenerater(0)
         let n = rg.RangeInteger(0, this.zhishuArr.length - 1);
-        while (residue < this.zhishuArr[n]) {
+        if (residue == 1) {
+            return 1
+        }
+        while (residue <= this.zhishuArr[n]) {
             n = rg.RangeInteger(0, this.zhishuArr.length - 1);
         }
         return this.zhishuArr[n]

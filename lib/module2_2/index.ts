@@ -205,9 +205,8 @@ export class example2_2 {
 
   getActionAuto(deskData: GameData2_2): GameAutoWay {
     const rg = new RandomGenerater(0)
-    let count = this.computeDeskBin(deskData);
     let allAction = this.randomAction(deskData)
-    if (count % 2 == 0) {
+    if (this.computeDeskBin(deskData)) {
       return new GameAutoWay(allAction[rg.RangeInteger(0, allAction.length - 1)], allAction[rg.RangeInteger(0, allAction.length - 1)])
     }
 
@@ -219,8 +218,7 @@ export class example2_2 {
       let tmpDeskData = JSON.parse(JSON.stringify(deskData));
       tmpDeskData.positions[tmp[0]] = 0
       tmpDeskData.positions[tmp[1]] = 1
-      countTmp = this.computeDeskBin(tmpDeskData);
-      if (countTmp % 2 == 0) {
+      if (this.computeDeskBin(tmpDeskData)) {
         vaildAction.push(tmp)
       }
     }
@@ -304,7 +302,7 @@ export class example2_2 {
   //   return new GameAutoWay(best, best)
   // }
 
-  computeDeskBin(deskData: GameData2_2): number {
+  computeDeskBin(deskData: GameData2_2): boolean {
     let tmp: number[][] = []
     let tmpPoint1 = -1
     let tmpPoint2 = -1
@@ -354,19 +352,22 @@ export class example2_2 {
     return allAction;
   }
 
-  binAdd(binArr: number[][]): number {
+  binAdd(binArr: number[][]): boolean {
     let count: number = 0
     let i: number;
+    let bin: number[] = [0, 0, 0, 0]
     for (let i = 0; i < binArr.length; i++) {
       const arr = binArr[i];
       for (let j = 0; j < arr.length; j++) {
-        const element = arr[j];
-        if (element == 1) {
-          count++
-        }
+        bin[j] += arr[j]
       }
     }
 
-    return count
+    for (let j = 0; j < bin.length; j++) {
+      if (bin[j] % 2 != 0) {
+        return false
+      }
+    }
+    return true
   }
 }

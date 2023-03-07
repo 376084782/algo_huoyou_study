@@ -101,30 +101,45 @@ export default class example4_8 {
     }
 
     deskData.desk[dataAction.action[0]][dataAction.action[1]] = deskData.player
-    let lines: number[][][] = this.getAdjacentLine(deskData, dataAction.action[0], dataAction.action[1]);
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i];
-      if (deskData.desk[line[0][0]][line[0][1]] != 0 &&
-        deskData.desk[line[0][0]][line[0][1]] == deskData.desk[line[1][0]][line[1][1]] &&
-        deskData.desk[line[0][0]][line[0][1]] == deskData.desk[line[2][0]][line[2][1]] &&
-        deskData.desk[line[0][0]][line[0][1]] == deskData.desk[line[3][0]][line[3][1]]) {
-        if (deskData.player == 1) {
-          deskData.p1 += 1
-          deskData.desk[line[0][0]][line[0][1]] = 3
-          deskData.desk[line[1][0]][line[1][1]] = 3
-          deskData.desk[line[2][0]][line[2][1]] = 3
-          deskData.desk[line[3][0]][line[3][1]] = 3
-          break
-        } else {
-          deskData.p2 += 1
-          deskData.desk[line[0][0]][line[0][1]] = 4
-          deskData.desk[line[1][0]][line[1][1]] = 4
-          deskData.desk[line[2][0]][line[2][1]] = 4
-          deskData.desk[line[3][0]][line[3][1]] = 4
-          break
-        }
+    if (dataAction.line != undefined && dataAction.line.length == 4) {
+      if (deskData.player == 1) {
+        deskData.p1 += 1
+        deskData.desk[dataAction.line[0][0]][dataAction.line[0][1]] = 3
+        deskData.desk[dataAction.line[1][0]][dataAction.line[1][1]] = 3
+        deskData.desk[dataAction.line[2][0]][dataAction.line[2][1]] = 3
+        deskData.desk[dataAction.line[3][0]][dataAction.line[3][1]] = 3
+      } else {
+        deskData.p2 += 1
+        deskData.desk[dataAction.line[0][0]][dataAction.line[0][1]] = 4
+        deskData.desk[dataAction.line[1][0]][dataAction.line[1][1]] = 4
+        deskData.desk[dataAction.line[2][0]][dataAction.line[2][1]] = 4
+        deskData.desk[dataAction.line[3][0]][dataAction.line[3][1]] = 4
       }
     }
+    // let lines: number[][][] = this.getAdjacentLine(deskData, dataAction.action[0], dataAction.action[1]);
+    // for (let i = 0; i < lines.length; i++) {
+    //   const line = lines[i];
+    //   if (deskData.desk[line[0][0]][line[0][1]] != 0 &&
+    //     deskData.desk[line[0][0]][line[0][1]] == deskData.desk[line[1][0]][line[1][1]] &&
+    //     deskData.desk[line[0][0]][line[0][1]] == deskData.desk[line[2][0]][line[2][1]] &&
+    //     deskData.desk[line[0][0]][line[0][1]] == deskData.desk[line[3][0]][line[3][1]]) {
+    //     if (deskData.player == 1) {
+    //       deskData.p1 += 1
+    //       deskData.desk[line[0][0]][line[0][1]] = 3
+    //       deskData.desk[line[1][0]][line[1][1]] = 3
+    //       deskData.desk[line[2][0]][line[2][1]] = 3
+    //       deskData.desk[line[3][0]][line[3][1]] = 3
+    //       break
+    //     } else {
+    //       deskData.p2 += 1
+    //       deskData.desk[line[0][0]][line[0][1]] = 4
+    //       deskData.desk[line[1][0]][line[1][1]] = 4
+    //       deskData.desk[line[2][0]][line[2][1]] = 4
+    //       deskData.desk[line[3][0]][line[3][1]] = 4
+    //       break
+    //     }
+    //   }
+    // }
     let flag = this.checkDesk(deskData);
     deskData.player = OtherUtil.getRival(deskData.player)
     return [flag, deskData];
@@ -210,6 +225,27 @@ export default class example4_8 {
       nobest = canChessPosition[1]
     } else {
       nobest = best
+    }
+
+    let lines: number[][][] = this.getAdjacentLine(deskData, best.action[0], best.action[1]);
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      if (deskData.desk[line[0][0]][line[0][1]] != 0 &&
+        deskData.desk[line[0][0]][line[0][1]] == deskData.desk[line[1][0]][line[1][1]] &&
+        deskData.desk[line[0][0]][line[0][1]] == deskData.desk[line[2][0]][line[2][1]] &&
+        deskData.desk[line[0][0]][line[0][1]] == deskData.desk[line[3][0]][line[3][1]]) {
+        best.line = line
+      }
+    }
+    let lines2: number[][][] = this.getAdjacentLine(deskData, nobest.action[0], nobest.action[1]);
+    for (let i = 0; i < lines2.length; i++) {
+      const line = lines2[i];
+      if (deskData.desk[line[0][0]][line[0][1]] != 0 &&
+        deskData.desk[line[0][0]][line[0][1]] == deskData.desk[line[1][0]][line[1][1]] &&
+        deskData.desk[line[0][0]][line[0][1]] == deskData.desk[line[2][0]][line[2][1]] &&
+        deskData.desk[line[0][0]][line[0][1]] == deskData.desk[line[3][0]][line[3][1]]) {
+        best.line = line
+      }
     }
     return new GameAutoWay(best, nobest)
   }
