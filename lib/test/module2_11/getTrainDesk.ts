@@ -1,13 +1,19 @@
 import Example2_11 from '../../module2_11';
-// import './formatDesk';
-// import './getTrainDesk';
 
-// test();
+test1();
 
-function test(customDesk?: any) {
+const levelDeskObj: any = {
+  level1Desk: [],
+  level2Desk: [],
+  level3Desk: [],
+  level4Desk: [],
+  level5Desk: []
+};
+
+function test1() {
   let player = 'P1';
   let test2_11 = new Example2_11();
-  const desk = customDesk || test2_11.generateDeskByCount(9);
+  const desk = test2_11.generateDeskByCount(9);
   // console.log('actions', test2_11.getActionsByDeskAndTakeCount(desk, 2));
   // console.log('getDeskAfterAction', test2_11.getDeskAfterAction(desk, [0, 5]));
 
@@ -26,16 +32,21 @@ function test(customDesk?: any) {
     // console.log('getActionAuto: ', action.best);
 
     let tmp = test2_11.doAction(result, action.best);
-    // console.log(tmp.dataResult.desk, 'desk');
+    const deskList = (action as any).deskListAfterActions;
+    if (deskList) {
+      deskList.forEach((deskItem: any) => {
+        getLevelDesk1(deskItem.desk);
+      });
+    }
 
     result = tmp.dataResult;
     flagResult = tmp.flagResult;
     // console.info(count++, player, flagResult);
     if (flagResult == 1) {
-      console.info('P1 WIN', count);
+      // console.info('P1 WIN', count);
     }
     if (flagResult == 2) {
-      console.info('P2 WIN', count);
+      // console.info('P2 WIN', count);
     }
     if (player == 'P1') {
       player = 'P2';
@@ -47,10 +58,28 @@ function test(customDesk?: any) {
   }
 }
 
-function getLevelDeskByHand(handCount: number) {
+console.log(
+  {
+    level1Desk: levelDeskObj.level1Desk.slice(0, 10),
+    level2Desk: levelDeskObj.level2Desk.slice(0, 10),
+    level3Desk: levelDeskObj.level3Desk.slice(0, 10),
+    level4Desk: levelDeskObj.level4Desk.slice(0, 10),
+    level5Desk: levelDeskObj.level5Desk.slice(0, 10)
+  },
+  'levelDeskObj'
+);
+
+function getLevelDesk1(desk: any) {
+  getLevelDeskByHand1(desk, 2) && levelDeskObj.level1Desk.push(desk);
+  getLevelDeskByHand1(desk, 3) && levelDeskObj.level2Desk.push(desk);
+  getLevelDeskByHand1(desk, 4) && levelDeskObj.level3Desk.push(desk);
+  getLevelDeskByHand1(desk, 5) && levelDeskObj.level4Desk.push(desk);
+  getLevelDeskByHand1(desk, 6) && levelDeskObj.level5Desk.push(desk);
+}
+
+function getLevelDeskByHand1(desk: any, handCount: number) {
   let player = 'P1';
   let test10_4 = new Example2_11();
-  const desk = test10_4.generateDeskByCount(9);
 
   let result = {
     desk,
@@ -90,38 +119,4 @@ function getLevelDeskByHand(handCount: number) {
     return null;
   }
 }
-
-function getLevelDesk() {
-  const level1Desk = [];
-  const level2Desk = [];
-  const level3Desk = [];
-  for (let i = 0; i < 50; i++) {
-    const desk1 = getLevelDeskByHand(2);
-    desk1 && level1Desk.push(desk1);
-
-    const desk2 = getLevelDeskByHand(4);
-    desk2 && level2Desk.push(desk2);
-
-    const desk3 = getLevelDeskByHand(6);
-    desk3 && level3Desk.push(desk3);
-  }
-  return {
-    level1Desk: level1Desk.slice(0, 10),
-    level2Desk: level2Desk.slice(0, 10),
-    level3Desk: level3Desk.slice(0, 10)
-  };
-}
-
-// console.log(getLevelDesk());
-
-// const levelDeskFormatter = (desk: number[][]) =>
-//   desk.map(item => ({
-//     typeSet: 1,
-//     desk: item,
-//     player: 1
-//   }));
-
-// console.log(levelDeskFormatter(levelDesk.level1Desk));
-// console.log(levelDeskFormatter(levelDesk.level2Desk));
-// console.log(levelDeskFormatter(levelDesk.level3Desk));
 

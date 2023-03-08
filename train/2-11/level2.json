@@ -1,0 +1,521 @@
+[
+  {
+    "typeSet": 1,
+    "desk": [
+      {
+        "index": 0,
+        "line": [[0, 4]],
+        "isTake": false
+      },
+      {
+        "index": 1,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 2,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 3,
+        "line": [],
+        "isTake": false
+      },
+      {
+        "index": 4,
+        "line": [[0, 4]],
+        "isTake": false
+      },
+      {
+        "index": 5,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 6,
+        "line": [],
+        "isTake": false
+      },
+      {
+        "index": 7,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 8,
+        "line": [],
+        "isTake": true
+      }
+    ],
+    "player": 1
+  },
+  {
+    "typeSet": 1,
+    "desk": [
+      {
+        "index": 0,
+        "line": [
+          [0, 4],
+          [0, 5]
+        ],
+        "isTake": false
+      },
+      {
+        "index": 1,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 2,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 3,
+        "line": [],
+        "isTake": false
+      },
+      {
+        "index": 4,
+        "line": [[0, 4]],
+        "isTake": false
+      },
+      {
+        "index": 5,
+        "line": [[0, 5]],
+        "isTake": false
+      },
+      {
+        "index": 6,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 7,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 8,
+        "line": [],
+        "isTake": true
+      }
+    ],
+    "player": 1
+  },
+  {
+    "typeSet": 1,
+    "desk": [
+      {
+        "index": 0,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 1,
+        "line": [
+          [1, 5],
+          [1, 6]
+        ],
+        "isTake": false
+      },
+      {
+        "index": 2,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 3,
+        "line": [],
+        "isTake": false
+      },
+      {
+        "index": 4,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 5,
+        "line": [[1, 5]],
+        "isTake": false
+      },
+      {
+        "index": 6,
+        "line": [[1, 6]],
+        "isTake": false
+      },
+      {
+        "index": 7,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 8,
+        "line": [],
+        "isTake": true
+      }
+    ],
+    "player": 1
+  },
+  {
+    "typeSet": 1,
+    "desk": [
+      {
+        "index": 0,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 1,
+        "line": [[1, 6]],
+        "isTake": false
+      },
+      {
+        "index": 2,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 3,
+        "line": [],
+        "isTake": false
+      },
+      {
+        "index": 4,
+        "line": [],
+        "isTake": false
+      },
+      {
+        "index": 5,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 6,
+        "line": [[1, 6]],
+        "isTake": false
+      },
+      {
+        "index": 7,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 8,
+        "line": [],
+        "isTake": true
+      }
+    ],
+    "player": 1
+  },
+  {
+    "typeSet": 1,
+    "desk": [
+      {
+        "index": 0,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 1,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 2,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 3,
+        "line": [],
+        "isTake": false
+      },
+      {
+        "index": 4,
+        "line": [],
+        "isTake": false
+      },
+      {
+        "index": 5,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 6,
+        "line": [],
+        "isTake": false
+      },
+      {
+        "index": 7,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 8,
+        "line": [],
+        "isTake": true
+      }
+    ],
+    "player": 1
+  },
+  {
+    "typeSet": 1,
+    "desk": [
+      {
+        "index": 0,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 1,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 2,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 3,
+        "line": [],
+        "isTake": false
+      },
+      {
+        "index": 4,
+        "line": [],
+        "isTake": false
+      },
+      {
+        "index": 5,
+        "line": [],
+        "isTake": false
+      },
+      {
+        "index": 6,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 7,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 8,
+        "line": [],
+        "isTake": true
+      }
+    ],
+    "player": 1
+  },
+  {
+    "typeSet": 1,
+    "desk": [
+      {
+        "index": 0,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 1,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 2,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 3,
+        "line": [],
+        "isTake": false
+      },
+      {
+        "index": 4,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 5,
+        "line": [],
+        "isTake": false
+      },
+      {
+        "index": 6,
+        "line": [],
+        "isTake": false
+      },
+      {
+        "index": 7,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 8,
+        "line": [],
+        "isTake": true
+      }
+    ],
+    "player": 1
+  },
+  {
+    "typeSet": 1,
+    "desk": [
+      {
+        "index": 0,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 1,
+        "line": [
+          [1, 5],
+          [1, 6]
+        ],
+        "isTake": false
+      },
+      {
+        "index": 2,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 3,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 4,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 5,
+        "line": [[1, 5]],
+        "isTake": false
+      },
+      {
+        "index": 6,
+        "line": [[1, 6]],
+        "isTake": false
+      },
+      {
+        "index": 7,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 8,
+        "line": [],
+        "isTake": true
+      }
+    ],
+    "player": 1
+  },
+  {
+    "typeSet": 1,
+    "desk": [
+      {
+        "index": 0,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 1,
+        "line": [[1, 6]],
+        "isTake": false
+      },
+      {
+        "index": 2,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 3,
+        "line": [],
+        "isTake": false
+      },
+      {
+        "index": 4,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 5,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 6,
+        "line": [[1, 6]],
+        "isTake": false
+      },
+      {
+        "index": 7,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 8,
+        "line": [],
+        "isTake": true
+      }
+    ],
+    "player": 1
+  },
+  {
+    "typeSet": 1,
+    "desk": [
+      {
+        "index": 0,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 1,
+        "line": [[1, 5]],
+        "isTake": false
+      },
+      {
+        "index": 2,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 3,
+        "line": [],
+        "isTake": false
+      },
+      {
+        "index": 4,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 5,
+        "line": [[1, 5]],
+        "isTake": false
+      },
+      {
+        "index": 6,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 7,
+        "line": [],
+        "isTake": true
+      },
+      {
+        "index": 8,
+        "line": [],
+        "isTake": true
+      }
+    ],
+    "player": 1
+  }
+]
