@@ -374,8 +374,8 @@ export default class example2_1 {
             } else {
               for (let i = 0; i < deskData.positions.length; i++) {
                 const row = deskData.positions[i];
-                if (row.length != 0) {
-                  tmpAction.action = [i, 0]
+                if (row.length != 0 && row.length != 3 && i != tmpAction.move[0]) {
+                  tmpAction.action = [i, row.length]
                   break
                 }
               }
