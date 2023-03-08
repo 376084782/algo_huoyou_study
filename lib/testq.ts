@@ -6,6 +6,7 @@ import example10_3 from './module10_3';
 import { module2_1, module8_4 } from '.';
 import { Algo10_6 } from './module10_6';
 import { Algo2_7, GameAction2_7, GameData2_7 } from './module2_7';
+import { Algo4_9 } from './module4_9';
 function test8_5() {
   let desk = new GameData8_5();
   let deskData = { "typeSet": 1, "desk": ["x", "o", "o", "o", "o", "o", "x", "o", "x", "o", "o", "o", "x", "o", "x", "o"], "player": 1, "allRes": [], "step": 0, "dangerRes": [], "greatRes": [], "betterRes": [] }
@@ -131,10 +132,10 @@ function test8_4() {
 // test8_4()
 
 function test2_1() {
-  let move = { "move": [3, 0], "score": 0, "action": [2, 0] }
-  let desk = { "p1": 0, "p2": 0, "player": 2, "positions": [[1, 1], [2], [], [2], [1], [2], [1], [2], [1], [2], [1], [2]], "typeSet": 1 }
+  // let move = { "move": [3, 0], "score": 0, "action": [2, 0] }
+  let desk = { "p1": 0, "p2": 0, "player": 2, "positions": [[], [2, 1, 1], [], [1, 2, 1], [], [], [2], [2, 2, 1], [], [2, 1], [], []], "typeSet": 1 }
   let ctr = new module2_1()
-  let res = ctr.checkAction(desk, move);
+  let res = ctr.getActionAuto(desk);
   console.log(res)
 }
 // test2_1()
@@ -216,4 +217,14 @@ function test2_7() {
   let act = ctr.checkDesk(desk);
   console.log(act, 'act')
 }
-test2_7()
+// test2_7()
+
+
+
+function test4_9() {
+  let ctr = new Algo4_9();
+  let desk = ctr.getRiddle();
+  let paths = ctr.getAllPath(desk, 2, 1)
+  console.log(paths)
+}
+test4_9()

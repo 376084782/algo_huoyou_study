@@ -368,14 +368,16 @@ export default class example2_1 {
           result = new GameAutoWay(tmpAction, tmpAction1)
         } else {
           tmpAction.move = this.getBestMove(deskData, 0);
-          if (onePE.length != 0) {
-            tmpAction.action = [onePE[0], deskData.positions[onePE[0]].length]
-          } else {
-            for (let i = 0; i < deskData.positions.length; i++) {
-              const row = deskData.positions[i];
-              if (row.length != 0) {
-                tmpAction.action = [i, 0]
-                break
+          if (tmpAction.move.length != 0) {
+            if (onePE.length != 0) {
+              tmpAction.action = [onePE[0], deskData.positions[onePE[0]].length]
+            } else {
+              for (let i = 0; i < deskData.positions.length; i++) {
+                const row = deskData.positions[i];
+                if (row.length != 0) {
+                  tmpAction.action = [i, 0]
+                  break
+                }
               }
             }
           }
