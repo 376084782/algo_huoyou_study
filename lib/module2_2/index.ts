@@ -339,8 +339,8 @@ export class example2_2 {
         allAction.push([9, 10]);
       } else if (deskData.positions[i] == 1) {
         start = i;
-        for (j = i + 1; i < deskData.positions.length; j++) {
-          if (deskData.positions[j] == 0) {
+        for (j = i + 1; i <= deskData.positions.length; j++) {
+          if (deskData.positions[j] == 0 || j == deskData.positions.length) {
             end = j;
             allAction.push([start, end]);
           } else {

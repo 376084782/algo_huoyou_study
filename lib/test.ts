@@ -658,9 +658,27 @@ let i = 0
 // }
 //// 2_2
 let test2_2 = new example2_2();
-for (let i = 0; i < 21; i++) {
-    console.info(JSON.stringify(test2_2.getActionAuto({ "player": 1, "positions": [0, 0, 0, 0, 0, 0, 1, 0, 1, 0], "sum": 4, "warehouse": 0 })))
+for (let i = 0; i < 10; i++) {
+    console.info(JSON.stringify(test2_2.getActionAuto({ "player": 1, "positions": [0, 0, 0, 0, 0, 0, 0, 0, 1, 0], "sum": 4, "warehouse": 0 })))
 }
+// console.info("=== 1 ========================")
+// for (let i = 0; i < 10; i++) {
+//     console.info(JSON.stringify(test2_2.getActionAuto({ "player": 1, "positions": [0, 1, 0, 0, 1, 0, 1, 0, 0, 1], "sum": 4, "warehouse": 0 })))
+// }
+
+// console.info("=== 2 ========================")
+// for (let i = 0; i < 10; i++) {
+//     console.info(JSON.stringify(test2_2.getActionAuto({ "player": 1, "positions": [0, 1, 0, 0, 0, 1, 0, 0, 1, 1], "sum": 4, "warehouse": 0 })))
+// }
+// console.info("=== 3 ========================")
+// for (let i = 0; i < 10; i++) {
+//     console.info(JSON.stringify(test2_2.getActionAuto({ "player": 1, "positions": [0, 1, 0, 0, 0, 0, 1, 0, 0, 1], "sum": 4, "warehouse": 0 })))
+// }
+// console.info("=== 4 ========================")
+// for (let i = 0; i < 10; i++) {
+//     console.info(JSON.stringify(test2_2.getActionAuto({ "player": 1, "positions": [1, 0, 0, 1, 0, 0, 0, 0, 0, 1], "sum": 4, "warehouse": 0 })))
+// }
+    // （2，5，7，10）（2，6，9，10）（2，7，10）（1，4，10）
 // console.info(JSON.stringify(test2_2.binArr[1]))
 // console.info(JSON.stringify(test2_2.binAdd([0, 1, 0, 1], [0, 0, 0, 1])))
 // for (let i = 0; i < 10; i++) {
