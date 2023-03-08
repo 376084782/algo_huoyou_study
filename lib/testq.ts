@@ -5,6 +5,7 @@ import { FileWriter } from './common/FileWriter';
 import example10_3 from './module10_3';
 import { module2_1, module8_4 } from '.';
 import { Algo10_6 } from './module10_6';
+import { Algo2_7, GameAction2_7, GameData2_7 } from './module2_7';
 function test8_5() {
   let desk = new GameData8_5();
   let deskData = { "typeSet": 1, "desk": ["x", "o", "o", "o", "o", "o", "x", "o", "x", "o", "o", "o", "x", "o", "x", "o"], "player": 1, "allRes": [], "step": 0, "dangerRes": [], "greatRes": [], "betterRes": [] }
@@ -194,4 +195,25 @@ async function createQuesAll10_6() {
     await createQues10_6(data.stepList, data.lev, data.count)
   }
 }
-createQuesAll10_6()
+// createQuesAll10_6()
+
+
+function test2_7() {
+  let ctr = new Algo2_7();
+  let desk = {
+    "typeSet": 1, "player": 2, "maxX": 8, "maxY": 8, "desk": [
+      [0, 0, 1, 0, 0, 1, 0, 0],
+      [0, 1, 1, 1, 1, 1, 1, 1],
+      [1, 1, 1, 1, 1, 1, 1, 0],
+      [1, 1, 0, 1, 1, 1, 1, 0],
+      [0, 0, 0, 1, 1, 1, 0, 0],
+      [1, 1, 1, 1, 1, 1, 1, 1],
+      [0, 0, 1, 0, 1, 1, 1, 0],
+      [0, 1, 1, 1, 1, 1, 1, 1]
+    ], "compIdxsUsed": [1, 3, 4, 4, 3, 1, 2, 2, 4, 2, 4], "listIdxCompAll": [1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4]
+  }
+
+  let act = ctr.checkDesk(desk);
+  console.log(act, 'act')
+}
+test2_7()

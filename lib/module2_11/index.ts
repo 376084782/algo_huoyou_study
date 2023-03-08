@@ -6,7 +6,7 @@
  * 初始默认值：①棋子 9 颗
  * 参数范围：①棋子颗数[3,12]
  */
-
+var _ = require('lodash');
 import RandomGenerater from '../util/RandomGenerater';
 
 const rg = new RandomGenerater(0);
@@ -135,7 +135,7 @@ export default class Example2_11 {
    * 获取 action 之后的桌面
    */
   getDeskAfterAction(originalDesk: DeskItem[], action: number[]): DeskItem[] {
-    const cloneDesk: DeskItem[] = structuredClone(originalDesk);
+    const cloneDesk: DeskItem[] = _.cloneDeep(originalDesk);
     cloneDesk.forEach(item => {
       if (action.includes(item.index)) {
         item.isTake = true;
