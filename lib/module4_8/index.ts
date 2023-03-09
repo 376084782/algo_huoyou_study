@@ -108,12 +108,14 @@ export default class example4_8 {
         deskData.desk[dataAction.line[1][0]][dataAction.line[1][1]] = 3
         deskData.desk[dataAction.line[2][0]][dataAction.line[2][1]] = 3
         deskData.desk[dataAction.line[3][0]][dataAction.line[3][1]] = 3
+        deskData.lines1.push(dataAction.line)
       } else {
         deskData.p2 += 1
         deskData.desk[dataAction.line[0][0]][dataAction.line[0][1]] = 4
         deskData.desk[dataAction.line[1][0]][dataAction.line[1][1]] = 4
         deskData.desk[dataAction.line[2][0]][dataAction.line[2][1]] = 4
         deskData.desk[dataAction.line[3][0]][dataAction.line[3][1]] = 4
+        deskData.lines2.push(dataAction.line)
       }
     }
     // let lines: number[][][] = this.getAdjacentLine(deskData, dataAction.action[0], dataAction.action[1]);
