@@ -517,7 +517,28 @@ let i = 0
 //     }
 // }
 // 4_8
-// let test4_8 = new example4_8();
+let test4_8 = new example4_8();
+let result = {
+    "typeSet": 1,
+    "desk": [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
+    "p1": 0,
+    "p2": 0,
+    "player": 1,
+    "lines1": [],
+    "lines2": []
+}
+let action = test4_8.getActionAuto(result)
+console.info(JSON.stringify(action))
 
 // for (i = 0; i < 1; i++) {
 //     let result = new GameData4_8();
@@ -658,9 +679,27 @@ let i = 0
 // }
 //// 2_2
 // let test2_2 = new example2_2();
-// for (let i = 0; i < 21; i++) {
-//     console.info(JSON.stringify(test2_2.getActionAuto({ "player": 1, "positions": [0, 0, 0, 0, 0, 0, 1, 0, 1, 0], "sum": 4, "warehouse": 0 })))
+// for (let i = 0; i < 10; i++) {
+//     console.info(JSON.stringify(test2_2.getActionAuto({ "player": 1, "positions": [0, 0, 0, 0, 0, 0, 0, 0, 1, 0], "sum": 4, "warehouse": 0 })))
 // }
+// console.info("=== 1 ========================")
+// for (let i = 0; i < 10; i++) {
+//     console.info(JSON.stringify(test2_2.getActionAuto({ "player": 1, "positions": [0, 1, 0, 0, 1, 0, 1, 0, 0, 1], "sum": 4, "warehouse": 0 })))
+// }
+
+// console.info("=== 2 ========================")
+// for (let i = 0; i < 10; i++) {
+//     console.info(JSON.stringify(test2_2.getActionAuto({ "player": 1, "positions": [0, 1, 0, 0, 0, 1, 0, 0, 1, 1], "sum": 4, "warehouse": 0 })))
+// }
+// console.info("=== 3 ========================")
+// for (let i = 0; i < 10; i++) {
+//     console.info(JSON.stringify(test2_2.getActionAuto({ "player": 1, "positions": [0, 1, 0, 0, 0, 0, 1, 0, 0, 1], "sum": 4, "warehouse": 0 })))
+// }
+// console.info("=== 4 ========================")
+// for (let i = 0; i < 10; i++) {
+//     console.info(JSON.stringify(test2_2.getActionAuto({ "player": 1, "positions": [1, 0, 0, 1, 0, 0, 0, 0, 0, 1], "sum": 4, "warehouse": 0 })))
+// }
+// （2，5，7，10）（2，6，9，10）（2，7，10）（1，4，10）
 // console.info(JSON.stringify(test2_2.binArr[1]))
 // console.info(JSON.stringify(test2_2.binAdd([0, 1, 0, 1], [0, 0, 0, 1])))
 // for (let i = 0; i < 10; i++) {
@@ -689,15 +728,14 @@ let i = 0
 //     }
 // }
 // 2_1
-let test2_1 = new example2_1();
-let desk = { "p1": 0, "p2": 0, "player": 2, "positions": [[], [2, 1, 1], [], [1, 2], [], [], [2], [2, 2, 1], [], [2, 1], [], []], "typeSet": 1 }
-let tmp = test2_1.getActionAuto(desk)
-// let tmp = test2_1.doAction(desk, new GameAction2_1([0, 0], [1, 0]))
-console.info(JSON.stringify(tmp))
-// for (i = 0; i < 10; i++) {
-//     let tmp = test2_1.getActionAuto(desk)
-//     console.info(JSON.stringify(tmp))
+// let test2_1 = new example2_1();
+// // let move = { "move": [3, 0], "score": 0, "action": [2, 0] }
+// let desk = { "p1": 3, "p2": 3, "player": 1, "positions": [[2, 1, 2], [], [], [], [], [], [], [1, 2], [1], [], [], []], "typeSet": 1 }
+// for (i = 0; i < 1; i++) {
+//     let res = test2_1.getActionAuto(desk);
+//     console.info(JSON.stringify(res))
 // }
+
 // for (i = 0; i < 1; i++) {
 //     let result = test2_1.getRiddle(undefined);
 //     let flagResult = 0
