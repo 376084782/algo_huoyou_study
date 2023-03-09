@@ -228,24 +228,27 @@ export default class example4_8 {
     } else {
       nobest = best
     }
-
-    let lines: number[][][] = this.getAdjacentLine(deskData, best.action[0], best.action[1]);
+    let deskDataTmp1 = JSON.parse(JSON.stringify(deskData));
+    deskDataTmp1.desk[best.action[0]][best.action[1]] = deskData.player
+    let lines: number[][][] = this.getAdjacentLine(deskDataTmp1, best.action[0], best.action[1]);
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i];
-      if (deskData.desk[line[0][0]][line[0][1]] != 0 &&
-        deskData.desk[line[0][0]][line[0][1]] == deskData.desk[line[1][0]][line[1][1]] &&
-        deskData.desk[line[0][0]][line[0][1]] == deskData.desk[line[2][0]][line[2][1]] &&
-        deskData.desk[line[0][0]][line[0][1]] == deskData.desk[line[3][0]][line[3][1]]) {
+      if (deskDataTmp1.desk[line[0][0]][line[0][1]] != 0 &&
+        deskDataTmp1.desk[line[0][0]][line[0][1]] == deskDataTmp1.desk[line[1][0]][line[1][1]] &&
+        deskDataTmp1.desk[line[0][0]][line[0][1]] == deskDataTmp1.desk[line[2][0]][line[2][1]] &&
+        deskDataTmp1.desk[line[0][0]][line[0][1]] == deskDataTmp1.desk[line[3][0]][line[3][1]]) {
         best.line = line
       }
     }
-    let lines2: number[][][] = this.getAdjacentLine(deskData, nobest.action[0], nobest.action[1]);
+    let deskDataTmp2 = JSON.parse(JSON.stringify(deskData));
+    deskDataTmp2.desk[nobest.action[0]][nobest.action[1]] = deskData.player
+    let lines2: number[][][] = this.getAdjacentLine(deskDataTmp2, nobest.action[0], nobest.action[1]);
     for (let i = 0; i < lines2.length; i++) {
       const line = lines2[i];
-      if (deskData.desk[line[0][0]][line[0][1]] != 0 &&
-        deskData.desk[line[0][0]][line[0][1]] == deskData.desk[line[1][0]][line[1][1]] &&
-        deskData.desk[line[0][0]][line[0][1]] == deskData.desk[line[2][0]][line[2][1]] &&
-        deskData.desk[line[0][0]][line[0][1]] == deskData.desk[line[3][0]][line[3][1]]) {
+      if (deskDataTmp2.desk[line[0][0]][line[0][1]] != 0 &&
+        deskDataTmp2.desk[line[0][0]][line[0][1]] == deskDataTmp2.desk[line[1][0]][line[1][1]] &&
+        deskDataTmp2.desk[line[0][0]][line[0][1]] == deskDataTmp2.desk[line[2][0]][line[2][1]] &&
+        deskDataTmp2.desk[line[0][0]][line[0][1]] == deskDataTmp2.desk[line[3][0]][line[3][1]]) {
         best.line = line
       }
     }
