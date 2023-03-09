@@ -133,9 +133,10 @@ function test8_4() {
 
 function test2_1() {
   // let move = { "move": [3, 0], "score": 0, "action": [2, 0] }
-  let desk = { "p1": 0, "p2": 0, "player": 2, "positions": [[], [2, 1, 1], [], [1, 2, 1], [], [], [2], [2, 2, 1], [], [2, 1], [], []], "typeSet": 1 }
   let ctr = new module2_1()
-  let res = ctr.getActionAuto(desk);
+  let desk = { "p1": 0, "p2": 1, "player": 2, "positions": [[2, 1], [1, 2, 1], [2, 1], [2], [], [], [], [], [], [1, 1, 2], [], []], "typeSet": 1 }
+  let act = { "move": [3, 0], "score": 0, "action": [2, 2] }
+  let res = ctr.checkAction(desk, act);
   console.log(res)
 }
 // test2_1()
@@ -227,4 +228,4 @@ function test4_9() {
   let paths = ctr.getAllPath(desk, 2, 1)
   console.log(paths)
 }
-test4_9()
+// test4_9()
