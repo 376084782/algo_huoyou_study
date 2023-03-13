@@ -164,9 +164,9 @@ export default class example6_8 {
         const action = allAction[i];
         const dd = this.doAction(JSON.parse(JSON.stringify(deskData)), action);
         const dds = this.deskToStr(dd[1].desk);
-        if (deskDatas.d1l1.has(dds) ||
-          deskDatas.d1l2.has(dds) ||
-          deskDatas.d1l3.has(dds)) {
+        if (deskDatas.d1w1.has(dds) ||
+          deskDatas.d1w2.has(dds) ||
+          deskDatas.d1w3.has(dds)) {
           best = action
           break
         }
@@ -239,15 +239,15 @@ export default class example6_8 {
         const action = allAction[i];
         const dd = this.doAction(JSON.parse(JSON.stringify(deskData)), action);
         const dds = this.deskToStr(dd[1].desk);
-        if (deskDatas.d3l2.has(dds) ||
-          deskDatas.d3l3.has(dds) ||
-          deskDatas.d3l4.has(dds) ||
-          deskDatas.d3l5.has(dds) ||
-          deskDatas.d3l6.has(dds) ||
-          deskDatas.d3l7.has(dds) ||
-          deskDatas.d3l8.has(dds) ||
-          deskDatas.d3l9.has(dds) ||
-          deskDatas.d3l10.has(dds)) {
+        if (deskDatas.d3w2.has(dds) ||
+          deskDatas.d3w3.has(dds) ||
+          deskDatas.d3w4.has(dds) ||
+          deskDatas.d3w5.has(dds) ||
+          deskDatas.d3w6.has(dds) ||
+          deskDatas.d3w7.has(dds) ||
+          deskDatas.d3w8.has(dds) ||
+          deskDatas.d3w9.has(dds) ||
+          deskDatas.d3w10.has(dds)) {
           best = action
           break
         }
@@ -281,15 +281,15 @@ export default class example6_8 {
         const action = allAction[i];
         const dd = this.doAction(JSON.parse(JSON.stringify(deskData)), action);
         const dds = this.deskToStr(dd[1].desk);
-        if (deskDatas.d4l1.has(dds) ||
-          deskDatas.d4l2.has(dds) ||
-          deskDatas.d4l3.has(dds) ||
-          deskDatas.d4l4.has(dds) ||
-          deskDatas.d4l5.has(dds) ||
-          deskDatas.d4l6.has(dds) ||
-          deskDatas.d4l7.has(dds) ||
-          deskDatas.d4l8.has(dds) ||
-          deskDatas.d4l9.has(dds)) {
+        if (deskDatas.d4w1.has(dds) ||
+          deskDatas.d4w2.has(dds) ||
+          deskDatas.d4w3.has(dds) ||
+          deskDatas.d4w4.has(dds) ||
+          deskDatas.d4w5.has(dds) ||
+          deskDatas.d4w6.has(dds) ||
+          deskDatas.d4w7.has(dds) ||
+          deskDatas.d4w8.has(dds) ||
+          deskDatas.d4w9.has(dds)) {
           best = action
           break
         }
@@ -326,18 +326,18 @@ export default class example6_8 {
         const action = allAction[i];
         const dd = this.doAction(JSON.parse(JSON.stringify(deskData)), action);
         const dds = this.deskToStr(dd[1].desk);
-        if (deskDatas.d5l1.has(dds) ||
-          deskDatas.d5l2.has(dds) ||
-          deskDatas.d5l3.has(dds) ||
-          deskDatas.d5l4.has(dds) ||
-          deskDatas.d5l5.has(dds) ||
-          deskDatas.d5l6.has(dds) ||
-          deskDatas.d5l7.has(dds) ||
-          deskDatas.d5l8.has(dds) ||
-          deskDatas.d5l9.has(dds) ||
-          deskDatas.d5l10.has(dds) ||
-          deskDatas.d5l11.has(dds) ||
-          deskDatas.d5l12.has(dds)) {
+        if (deskDatas.d5w1.has(dds) ||
+          deskDatas.d5w2.has(dds) ||
+          deskDatas.d5w3.has(dds) ||
+          deskDatas.d5w4.has(dds) ||
+          deskDatas.d5w5.has(dds) ||
+          deskDatas.d5w6.has(dds) ||
+          deskDatas.d5w7.has(dds) ||
+          deskDatas.d5w8.has(dds) ||
+          deskDatas.d5w9.has(dds) ||
+          deskDatas.d5w10.has(dds) ||
+          deskDatas.d5w11.has(dds) ||
+          deskDatas.d5w12.has(dds)) {
           best = action
           break
         }
@@ -1461,7 +1461,7 @@ export default class example6_8 {
     //移动2个
     if (allcar.length >= 2) {
       for (let i = 0; i < allcar.length; i++) {
-        for (let j = i; j < allcar.length; j++) {
+        for (let j = i + 1; j < allcar.length; j++) {
           allaction.push([allcar[i], allcar[j]])
         }
       }
@@ -1469,8 +1469,8 @@ export default class example6_8 {
     //移动3个
     if (allcar.length >= 3) {
       for (let i = 0; i < allcar.length; i++) {
-        for (let j = i; j < allcar.length; j++) {
-          for (let z = j; z < allcar.length; z++) {
+        for (let j = i + 1; j < allcar.length; j++) {
+          for (let z = j + 1; z < allcar.length; z++) {
             allaction.push([allcar[i], allcar[j], allcar[z]])
           }
         }

@@ -353,22 +353,22 @@ let i = 0
 //         }
 //     }
 // 6_8
-// let test6_8 = new example6_8();
+let test6_8 = new example6_8();
 // let s5 = test6_8.getAllDesk(5)
 // let s4 = test6_8.getAllDesk(4)
 // let s3 = test6_8.getAllDesk(3)
 // let s2 = test6_8.getAllDesk(2)
 // let s1 = test6_8.getAllDesk(1)
-// let action = test6_8.getActionAuto({
-//     //参数
-//     "desk": [
-//         [0, 0, 0, 0, 1, 0],
-//         [0, 0, 0, 0, 0, 1]],
-//     "player": 1
-// })
-// console.info(JSON.stringify(action))
-// 这个情况（2,1）是必胜棋面，机器人走上面一个或者了俩个都走，会必败，只有走下面这个会必胜。要考虑进去，目前机器人走必败。
-// 三个棋子的俩步必胜策略也应该考虑进去。（2,2,2）（2,1,1）（2,1,2）（1,1,1,）
+let action = test6_8.getActionAuto({
+    //参数
+    "desk": [
+        [0, 0, 0, 0, 1, 0],
+        [0, 0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 0, 1]],
+    "player": 1
+})
+console.info(JSON.stringify(action))
+
 
 // 6_3
 // let test6_3 = new example6_3();
@@ -517,28 +517,23 @@ let i = 0
 //     }
 // }
 // 4_8
-let test4_8 = new example4_8();
-let result = {
-    "typeSet": 1,
-    "desk": [
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
-    "p1": 0,
-    "p2": 0,
-    "player": 1,
-    "lines1": [],
-    "lines2": []
-}
-let action = test4_8.getActionAuto(result)
-console.info(JSON.stringify(action))
+// let test4_8 = new example4_8();
+// let result = {
+//     "typeSet": 1, "desk":
+//         [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//         [0, 0, 0, 0, 3, 3, 3, 3, 0, 0],
+//         [0, 0, 0, 2, 2, 2, 0, 0, 0, 0],
+//         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]], "p1": 1, "p2": 0, "player": 2, "lines1": [[[4, 4], [4, 5], [4, 6], [4, 7]]], "lines2": []
+// }
+
+// let action = test4_8.getActionAuto(result)
+// console.info(JSON.stringify(action))
 
 // for (i = 0; i < 1; i++) {
 //     let result = new GameData4_8();
