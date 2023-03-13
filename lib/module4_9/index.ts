@@ -1,6 +1,8 @@
 
 var _ = require('lodash');
 
+import RandomGenerater from '../util/RandomGenerater';
+let randomer = new RandomGenerater(0);
 const deskNum = [
   [-1, 5, 4, 3, 2],
   [1, 0, 1, 2, 3],
@@ -15,6 +17,7 @@ const deskDefault = [
 ];
 
 export class GameData4_9 {
+  typeSet?: number = 1;
   desk: number[][] = []
   deskNum: number[][] = []
   player: number = 1;
@@ -26,9 +29,10 @@ export class GameData4_9 {
 export class GameAction4_9 {
   numList: number[] = []
   pos: number[] = []
+  score: number = 0
 }
 
-export class Algo4_9 {
+export class module4_9 {
   getRiddle() {
     return new GameData4_9();
   }
@@ -40,7 +44,7 @@ export class Algo4_9 {
     return 0
   }
 
-  getAllPath(deskData: GameData4_9, x: number, y: number) {
+  getAllPath(deskData: GameData4_9, x: number, y: number, forceBlank = true) {
     // 按照方向分3组，每组按照所处的相对序号再分三个
     let listPathCombine = [];
     for (let dir = 0; dir < 4; dir++) {
@@ -78,19 +82,26 @@ export class Algo4_9 {
     }
 
     // 遍历出所有可能的组合后，筛掉不合法的组合
-
-    return listPathCombine.filter(e => e.every(p => this.checkValidPosition(deskData, p[0], p[1])))
+    return listPathCombine.filter(e => e.every(p => this.checkValidPosition(deskData, p[0], p[1], forceBlank)))
   }
-  checkValidPosition(desk: GameData4_9, x: number, y: number) {
-    return desk.desk[y] && desk.desk[y][x] == 0
+  checkValidPosition(desk: GameData4_9, x: number, y: number, forceBlank = true) {
+    if (forceBlank) {
+      return desk.desk[y] && desk.desk[y][x] == 0
+    } else {
+      return desk.desk[y] && desk.desk[y][x] != -1
+    }
   }
   checkDesk(deskData: GameData4_9) {
     // 如果有三个相连，返回获胜
+    let flagFull = true;
     for (let y = 0; y < deskData.desk.length; y++) {
       let row = deskData.desk[y]
       for (let x = 0; x < row.length; x++) {
         let value = row[x];
-        let pathAll = this.getAllPath(deskData, x, y);
+        if (value == 0) {
+          flagFull = false;
+        }
+        let pathAll = this.getAllPath(deskData, x, y, false);
         for (let c = 0; c < pathAll.length; c++) {
           let line = pathAll[c];
           let sameColor = this.checkThreeSame(line, deskData)
@@ -100,7 +111,11 @@ export class Algo4_9 {
         }
       }
     }
-    return -1
+    if (flagFull) {
+      return 3
+    } else {
+      return -1
+    }
   }
   checkThreeSame(listPath: number[][], desk: GameData4_9) {
     let p0 = listPath[0];
@@ -144,9 +159,136 @@ export class Algo4_9 {
 
     return 0
   }
+  randomNumByTarget(num: number): number[] {
+    // 根据目标点数随机出骰子
+    let numList: number[] = []
+    let randomJian = num == 1 ? 1 : Math.random() < .5;
+    if (num < 6 && randomJian) {
+      // 通过减法
+      let max = randomer.RangeInteger(num + 1, 7);
+      let min = max - num;
+      numList = [min, max]
+    } else {
+      // 通过加法获得
+      let randomMin = num - 6;
+      if (randomMin < 1) {
+        randomMin = 1
+      }
+      let randomMax = 7;
+      if (num < 6) {
+        randomMax = num;
+      }
+      let num1 = randomer.RangeInteger(randomMin, randomMax);
+      let num2 = num - num1;
+      numList = [num1, num2]
+
+    }
+    // 增强随机性加个大乱
+    return _.shuffle(numList)
+  }
 
   getActionAuto(deskData: GameData4_9) {
+    // 机器人避免投掷筛子对应的格子都被占满的情况
+    let numCanGet: number[] = [];
+    deskData.desk.forEach((row, y) => {
+      row.forEach((v, x) => {
+        if (v == 0) {
+          numCanGet.push(deskData.deskNum[y][x]);
+        }
+      })
+    })
+    if (numCanGet.length == 0) {
+      return { nobest: undefined, best: undefined }
+    }
+    // 根据空位置，随机出筛子点数
+    let randomIdx = randomer.RangeInteger(0, numCanGet.length)
+    let numTarget = numCanGet[randomIdx];
 
+    let numList = this.randomNumByTarget(numTarget);
+
+
+    // 递归出所有合法的操作
+    let listActionAll: GameAction4_9[] = [];
+    deskData.desk.forEach((row, y) => {
+      row.forEach((v, x) => {
+        if (v == 0) {
+          let value = deskData.deskNum[y][x]
+          if (value == numTarget) {
+            let act = new GameAction4_9();
+            act.numList = numList;
+            act.pos = [y, x]
+            listActionAll.push(act)
+          }
+        }
+      })
+    })
+
+    if (listActionAll.length == 0) {
+      return { nobest: undefined, best: undefined }
+    }
+
+    listActionAll.forEach(e => {
+      this.scoreAction(deskData, e)
+    })
+    listActionAll = listActionAll.sort((a, b) => b.score - a.score);
+    if (listActionAll.length > 1) {
+      // 进行降级
+      let best = listActionAll[0]
+      let listActionNotBest = listActionAll.filter(e => {
+        e.score <= best.score - 10
+      })
+      if (listActionNotBest.length > 0) {
+        return {
+          best: listActionAll[0],
+          nobest: listActionNotBest[0]
+        }
+      } else {
+        return {
+          best: listActionAll[0],
+          nobest: listActionAll[1]
+        }
+      }
+    } else {
+      return {
+        best: listActionAll[0],
+        nobest: listActionAll[0]
+      }
+    }
+
+
+  }
+
+  scoreAction(deskData: GameData4_9, act: GameAction4_9) {
+    // 获取所有可连线位置
+    let paths = this.getAllPath(deskData, act.pos[1], act.pos[0]);
+    // 如果这个路径上已有两个以上相连
+    paths.forEach(line => {
+      let countSelf = 0;
+      let countOppo = 0;
+      line.forEach(([x, y]) => {
+        let color = deskData.desk[y][x];
+        if (color == deskData.player) {
+          countSelf++
+        } else if (color == 3 - deskData.player) {
+          countOppo++
+        }
+        if (countSelf == 2) {
+          // 最优先，score+100
+          act.score += 100
+        }
+        if (countOppo == 2) {
+          // 拦截 +20
+          act.score += 20
+        }
+        if (countSelf == 1 && countOppo == 0) {
+          act.score += 5
+        }
+        if (countSelf == 0 && countOppo == 0) {
+          // 无人占据 +2
+          act.score += 2
+        }
+      })
+    })
   }
 
 

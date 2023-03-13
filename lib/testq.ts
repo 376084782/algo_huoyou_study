@@ -6,7 +6,7 @@ import example10_3 from './module10_3';
 import { module2_1, module8_4 } from '.';
 import { Algo10_6 } from './module10_6';
 import { Algo2_7, GameAction2_7, GameData2_7 } from './module2_7';
-import { Algo4_9 } from './module4_9';
+import { module4_9 } from './module4_9';
 function test8_5() {
   let desk = new GameData8_5();
   let deskData = { "typeSet": 1, "desk": ["x", "o", "o", "o", "o", "o", "x", "o", "x", "o", "o", "o", "x", "o", "x", "o"], "player": 1, "allRes": [], "step": 0, "dangerRes": [], "greatRes": [], "betterRes": [] }
@@ -223,9 +223,10 @@ function test2_7() {
 
 
 function test4_9() {
-  let ctr = new Algo4_9();
-  let desk = ctr.getRiddle();
-  let paths = ctr.getAllPath(desk, 2, 1)
+  let ctr = new module4_9();
+  let desk = {"desk":[[-1,0,1,1,1],[0,0,1,2,2],[2,0,0,0,0],[0,0,0,0,-1]],"deskNum":[[-1,5,4,3,2],[1,0,1,2,3],[4,5,6,7,8],[9,10,11,12,-1]],"player":1}
+  let paths = ctr.randomNumByTarget(1)
   console.log(paths)
+
 }
-// test4_9()
+test4_9()
