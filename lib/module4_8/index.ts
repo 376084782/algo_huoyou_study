@@ -249,7 +249,7 @@ export default class example4_8 {
         deskDataTmp2.desk[line[0][0]][line[0][1]] == deskDataTmp2.desk[line[1][0]][line[1][1]] &&
         deskDataTmp2.desk[line[0][0]][line[0][1]] == deskDataTmp2.desk[line[2][0]][line[2][1]] &&
         deskDataTmp2.desk[line[0][0]][line[0][1]] == deskDataTmp2.desk[line[3][0]][line[3][1]]) {
-        best.line = line
+        nobest.line = line
       }
     }
     return new GameAutoWay(best, nobest)
