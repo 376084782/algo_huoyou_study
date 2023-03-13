@@ -362,9 +362,9 @@ let test6_8 = new example6_8();
 let action = test6_8.getActionAuto({
     //参数
     "desk": [
-        [0, 0, 0, 0, 1, 0],
         [0, 0, 0, 0, 0, 1],
-        [0, 0, 0, 0, 0, 1]],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0]],
     "player": 1
 })
 console.info(JSON.stringify(action))
