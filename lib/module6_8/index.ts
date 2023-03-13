@@ -239,7 +239,9 @@ export default class example6_8 {
         const action = allAction[i];
         const dd = this.doAction(JSON.parse(JSON.stringify(deskData)), action);
         const dds = this.deskToStr(dd[1].desk);
-        if (deskDatas.d3w2.has(dds) ||
+        if (
+          deskDatas.d3w1.has(dds) ||
+          deskDatas.d3w2.has(dds) ||
           deskDatas.d3w3.has(dds) ||
           deskDatas.d3w4.has(dds) ||
           deskDatas.d3w5.has(dds) ||
