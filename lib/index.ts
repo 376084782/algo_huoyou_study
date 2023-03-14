@@ -24,6 +24,7 @@ import module10_1, { GameData10_1, GameAction10_1 } from './module10_1/index';
 import module10_2, { GameData10_2, GameAction10_2, GameConfig10_2 } from './module10_2/index';
 import module10_5, { GameData10_5, GameAction10_5 } from './module10_5/index';
 import module10_8, { GameData10_8 } from './module10_8/index';
+import { module10_10, GameData10_10 } from './module10_10/index';
 import module8_3, { GameData8_3, GameAction8_3 } from './module8_3/index';
 import module8_6, { GameData8_6, GameAction8_6 } from './module8_6/index';
 import {
@@ -158,4 +159,6 @@ export {
   GameData2_2,
   GameConfig2_2,
 
+  module10_10,
+  GameData10_10
 }
