@@ -204,8 +204,7 @@ export class GameAction6_10 {
 }
 export class GameData6_10 {
   desk: number[][] = []
-  block1 = [];
-  block2 = [];
+  blockInit = [];
   typeSet: number = 1
   player: number = 1;
   compIdxsUsed: number[] = []
@@ -272,8 +271,10 @@ export class module6_10 {
   // 根据组件结构获取所有可以放的位置
   getCanPutPlaceAll(desk: GameData6_10) {
     let listActionAll: GameAction6_10[] = []
+    let listCompIdCanUse = listComp.filter(e => desk.compIdxsUsed.indexOf(e.id) == -1);
 
-    for (let idxComp = 1; idxComp <= 4; idxComp++) {
+    for (let i = 0; i < listCompIdCanUse.length; i++) {
+      let idxComp = listCompIdCanUse[i].id
       if (desk.compIdxsUsed.filter(id => id == idxComp).length < 4) {
         let listActionByIdx: GameAction6_10[] = this.getActionAllByCompIdx(idxComp, desk, 15);
         listActionAll = listActionAll.concat(listActionByIdx);
@@ -393,7 +394,7 @@ export class module6_10 {
     return new GameData6_10()
   }
   checkRiddle(desk: GameData6_10) {
-    if (desk.block1.length != desk.block2.length) {
+    if (desk.blockInit.length % 2 == 1) {
       return -1
     }
     //验证不能直接获胜
@@ -414,7 +415,7 @@ export class module6_10 {
   }
   checkAction(desk: GameData6_10, action: GameAction6_10) {
     // 如果没有这个块块了，不能放
-    if (desk.compIdxsUsed.filter(id => id == action.idx).length >= 4) {
+    if (desk.compIdxsUsed.indexOf(action.idx) > -1) {
       return -1
     }
     // 左上第一个位置三角形方向必须向左
