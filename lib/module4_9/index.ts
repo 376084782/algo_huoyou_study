@@ -37,6 +37,21 @@ export class module4_9 {
     return new GameData4_9();
   }
   checkRiddle(deskData: GameData4_9) {
+    let count1 = 0;
+    let count2 = 0;
+    deskData.desk.forEach((row, y) => {
+      row.forEach((v, x) => {
+        if (v == 1) {
+          count1++;
+        }
+        if (v == 2) {
+          count2++
+        }
+      })
+    })
+    if (count1 != count2) {
+      return -1
+    }
     let finishColor = this.checkDesk(deskData);
     if (finishColor > 0) {
       return -1
@@ -162,7 +177,10 @@ export class module4_9 {
   randomNumByTarget(num: number): number[] {
     // 根据目标点数随机出骰子
     let numList: number[] = []
-    let randomJian = num == 1 ? 1 : Math.random() < .5;
+    let randomJian = Math.random() < .5;
+    if (num <= 1) {
+      randomJian = true;
+    }
     if (num < 6 && randomJian) {
       // 通过减法
       let max = randomer.RangeInteger(num + 1, 7);
@@ -181,7 +199,6 @@ export class module4_9 {
       let num1 = randomer.RangeInteger(randomMin, randomMax);
       let num2 = num - num1;
       numList = [num1, num2]
-
     }
     // 增强随机性加个大乱
     return _.shuffle(numList)
@@ -205,7 +222,11 @@ export class module4_9 {
     let numTarget = numCanGet[randomIdx];
 
     let numList = this.randomNumByTarget(numTarget);
-
+    // todo：要删掉
+    numList = [1, 4]
+    let cha = Math.abs(numList[0] - numList[1])
+    let he = numList[0] + numList[1];
+    let numCanPut = [cha, he];
 
     // 递归出所有合法的操作
     let listActionAll: GameAction4_9[] = [];
@@ -213,7 +234,7 @@ export class module4_9 {
       row.forEach((v, x) => {
         if (v == 0) {
           let value = deskData.deskNum[y][x]
-          if (value == numTarget) {
+          if (numCanPut.indexOf(value) > -1) {
             let act = new GameAction4_9();
             act.numList = numList;
             act.pos = [y, x]
@@ -260,7 +281,7 @@ export class module4_9 {
 
   scoreAction(deskData: GameData4_9, act: GameAction4_9) {
     // 获取所有可连线位置
-    let paths = this.getAllPath(deskData, act.pos[1], act.pos[0]);
+    let paths = this.getAllPath(deskData, act.pos[1], act.pos[0], false);
     // 如果这个路径上已有两个以上相连
     paths.forEach(line => {
       let countSelf = 0;
