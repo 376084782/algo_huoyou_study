@@ -1,6 +1,6 @@
 {
   "name": "algo_huoyou_study",
-  "version": "6.0.8",
+  "version": "6.0.9",
   "description": "思维游戏项目的算法包",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
