@@ -40,7 +40,7 @@ function test2_5() {
   console.log(desk);
   let auto = ctr.getActionAuto(desk);
   let dataAfterMove = ctr.doAction(desk, auto.best)
-  console.log('dataAfterMove', dataAfterMove[1].positions)
+  // console.log('dataAfterMove', dataAfterMove[1].positions)
 
   return
   // let desk = {"palyer1Fishes":[],"palyer2Fishes":[],"curPlayer":1,"positions":[[0,0],[0,0,0],[0,0,0],[0,0,0,0],[0,0,0,0],[null,0,0,0],[null,0,0,0],[null,null,0,0]],"config":{"borderSize":2,"initPalyer1Fishes":[],"initPalyer2Fishes":[]}} 
