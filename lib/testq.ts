@@ -6,7 +6,6 @@ import example10_3 from './module10_3';
 import { module2_1, module8_4 } from '.';
 import { Algo10_6 } from './module10_6';
 import { Algo2_7, GameAction2_7, GameData2_7 } from './module2_7';
-import { module4_9 } from './module4_9';
 import { GameData6_10, module6_10 } from './module6_10';
 import { GameData6_11, module6_11 } from './module6_11';
 import { GameData4_12, module4_12 } from './module4_12';
@@ -227,21 +226,6 @@ function test2_7() {
 
 
 
-function test4_9() {
-  let ctr = new module4_9();
-  let desk = { "typeSet": 1, "desk": [[-1, 1, 0, 0, 0], [0, 0, 2, 1, 0], [0, 0, 2, 1, 0], [0, 0, 0, 0, -1]], "deskNum": [[-1, 5, 4, 3, 2], [1, 0, 1, 2, 3], [4, 5, 6, 7, 8], [9, 10, 11, 12, -1]], "player": 1 }
-
-  // let pathAll = ctr.getAllPath(desk, 3, 0, true)
-  let paths = ctr.getActionAuto(desk)
-  console.log(paths, 'ppp')
-
-  // for (let i = 0; i < 10; i++) {
-  //   let res = ctr.randomNumByTarget(0)
-  //   console.log(res)
-  // }
-
-}
-// test4_9()
 
 function test6_10() {
   let ctr = new module6_10();

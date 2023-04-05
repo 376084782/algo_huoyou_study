@@ -204,7 +204,7 @@ export class module4_9 {
     return _.shuffle(numList)
   }
 
-  getActionAuto(deskData: GameData4_9) {
+  getActionAuto(deskData: GameData4_9): { best: any, nobest: any } {
     // 机器人避免投掷筛子对应的格子都被占满的情况
     let numCanGet: number[] = [];
     deskData.desk.forEach((row, y) => {
@@ -222,8 +222,6 @@ export class module4_9 {
     let numTarget = numCanGet[randomIdx];
 
     let numList = this.randomNumByTarget(numTarget);
-    // todo：要删掉
-    numList = [1, 4]
     let cha = Math.abs(numList[0] - numList[1])
     let he = numList[0] + numList[1];
     let numCanPut = [cha, he];
