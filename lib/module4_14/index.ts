@@ -21,13 +21,13 @@ export class module4_14 {
     if (desk.length > 55 || desk.length < 5) {
       return false;
     }
-    if (this.checkDesk(desk) == -1) {
+    if (this.checkDesk(desk) != -1) {
       return false;
     }
     return true;
   }
   checkDesk(desk: GameData4_14) {
-    if (desk.chess == desk.length) {
+    if (desk.chess == desk.length - 1) {
       return desk.player;
     }
     return -1;
@@ -35,7 +35,7 @@ export class module4_14 {
   checkAction(desk: GameData4_14, act: GameAction4_14) {
     if (desk.lastMove == 0) {
       // 第一次移动不能直接移动到终点
-      if (act.targetIdx == desk.length) {
+      if (act.targetIdx > desk.length - 1) {
         return false;
       }
     } else {
@@ -69,7 +69,7 @@ export class module4_14 {
   getActionAll(desk: GameData4_14) {
     let acts: GameAction4_14[] = [];
     let moveMax = desk.lastMove * 2;
-    let maxCanMove = desk.length - desk.chess;
+    let maxCanMove = desk.length - 1 - desk.chess;
     if (moveMax > 0 && maxCanMove > moveMax) {
       maxCanMove = moveMax;
     }
