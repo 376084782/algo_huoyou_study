@@ -15,6 +15,7 @@ export class GameAction4_12 {
   step: number = 0;//0 选牌比较大小，1选择得分
   score: number = 0;
   countBigger: number = 0
+  countBigger2: number = 0
 }
 export class module4_12 {
   randomList(deskIn: GameData4_12) {
@@ -53,13 +54,13 @@ export class module4_12 {
     if (desk.centerList.length > 0) {
       return -1
     }
-    if (desk.list1.length <= 0) {
+    if (desk.list1.length < 0) {
       return 1
-    }
-    if (desk.list2.length <= 0) {
+    } else if (desk.list2.length < 0) {
       return 2
+    } else {
+      return 3
     }
-    return -1
   }
   doAfterSelect(desk: GameData4_12, act: GameAction4_12): [flag: number, desk: GameData4_12] {
     // 一张作为得分加到自己这边
@@ -118,8 +119,13 @@ export class module4_12 {
     }
     return 0
   }
+  getListSmallInRule(list: number[], num: number) {
+
+  }
   getAutoAction(deskIn: GameData4_12) {
     let desk: GameData4_12 = _.cloneDeep(deskIn);
+    let listSelf = desk.player == 1 ? desk.list1 : desk.list2;
+    let listOppo = desk.player == 2 ? desk.list1 : desk.list2;
     if (desk.centerList.length == 2) {
       let best = new GameAction4_12()
       let nobest = new GameAction4_12()
@@ -128,13 +134,38 @@ export class module4_12 {
       nobest.step = 1;
       let max = Math.max(...desk.centerList);
       let min = Math.min(...desk.centerList);
-      best.moveNum = max
-      nobest.moveNum = min
+
+      let countBiggerMax = 0;
+      let countBiggerMin = 0;
+      // 在两张牌中计算能压过自己的多少牌，如果小牌一张都压不过，那就选大牌给对面自己记小分，否则选大牌积分，小牌给对面
+      listSelf.forEach((v2, idx2) => {
+        let winSmallMax = v2 < max && max <= v2 * 2;
+        let winBigMax = v2 > max && v2 > max * 2
+        if (!winSmallMax && !winBigMax) {
+          countBiggerMax++
+        }
+
+        let winSmallMin = v2 < min && min <= v2 * 2;
+        let winBigMin = v2 > min && v2 > min * 2
+        if (!winSmallMin && !winBigMin) {
+          countBiggerMin++
+        }
+      })
+      console.log(countBiggerMax, countBiggerMin, 'mmmmmm')
+      if (countBiggerMax == 0) {
+        // 如果大牌一张都压不住，那就选小牌积分
+        best.moveNum = min;
+        nobest.moveNum = max;
+      } else {
+        best.moveNum = max;
+        nobest.moveNum = min;
+
+      }
       return [best, nobest]
     } else {
       let listActionAll: GameAction4_12[] = [];
-      let listSelf = desk.player == 1 ? desk.list1 : desk.list2;
-      let listOppo = desk.player == 2 ? desk.list1 : desk.list2;
+
+
       listSelf.forEach((v, idx) => {
         let act = new GameAction4_12()
         act.step = 0;
@@ -150,15 +181,34 @@ export class module4_12 {
         })
       })
 
+
+
       listActionAll.forEach(e => {
+
+        // 如果自己选第二张牌，优先选择可以得分的
+        if (desk.centerList.length == 1) {
+          let v = desk.centerList[0]
+          let v2 = e.moveNum
+          let winSmall = v2 < v && v <= v2 * 2;
+          let winBig = v2 > v && v2 > v * 2
+          if (winSmall || winBig) {
+            e.score += 200
+          }
+        }
+
         if (e.countBigger >= listSelf.length * 2 / 3) {
           // 如果这个牌能压的牌超过2/3，得分+10
           e.score += 10;
+        }
+        if (e.countBigger == listSelf.length) {
+          // 如果这个牌能压所有，直接出
+          e.score += 100
         }
         // 如果这个牌能压的牌小于1/4，得分+20优先出
         if (e.countBigger <= listSelf.length / 3) {
           e.score += 20;
         }
+
       })
       listActionAll = listActionAll.sort((a, b) => b.score - a.score)
       if (listActionAll.length > 1) {

@@ -227,22 +227,6 @@ function test2_7() {
 
 
 
-function test4_9() {
-  let ctr = new module4_9();
-  let desk = { "typeSet": 1, "desk": [[-1, 1, 0, 0, 0], [0, 0, 2, 1, 0], [0, 0, 2, 1, 0], [0, 0, 0, 0, -1]], "deskNum": [[-1, 5, 4, 3, 2], [1, 0, 1, 2, 3], [4, 5, 6, 7, 8], [9, 10, 11, 12, -1]], "player": 1 }
-
-  // let pathAll = ctr.getAllPath(desk, 3, 0, true)
-  let paths = ctr.getActionAuto(desk)
-  console.log(paths, 'ppp')
-
-  // for (let i = 0; i < 10; i++) {
-  //   let res = ctr.randomNumByTarget(0)
-  //   console.log(res)
-  // }
-
-}
-// test4_9()
-
 function test6_10() {
   let ctr = new module6_10();
   let desk = { "desk": [[-1, -1, 0, 0, 7, 7, 0, 0, -1, -1], [-1, -1, 0, 7, 7, 0, 0, 0, -1, -1], [-1, -1, 0, 7, 7, 0, 0, 0, -1, -1], [-1, 0, 0, 0, 0, 0, 8, 8, 8, -1], [-1, 0, 1, 1, 0, 0, 8, 8, 0, -1], [-1, 1, 1, 3, 3, 0, 8, 0, 0, -1], [1, 1, 0, 3, 3, 3, 0, 0, 4, 4], [0, 4, 0, 3, 0, 0, 5, 5, 4, 0], [0, 4, 4, 4, 8, 8, 5, 5, 4, 0], [-1, 4, 4, 8, 8, 0, 5, 5, 4, -1], [-1, 7, 0, 8, 5, 5, 0, 0, 4, -1], [-1, 7, 7, 8, 5, 8, 8, 8, 0, -1], [-1, -1, 7, 7, 5, 8, 8, 8, -1, -1], [-1, -1, 7, 5, 5, 1, 1, 0, -1, -1], [-1, -1, 0, 0, 1, 1, 1, 1, -1, -1]], "blockInit": [], "typeSet": 1, "player": 2, "compIdxsUsed": [3, 5, 6, 19, 15, 13, 14, 11, 12, 4, 17, 1] }
@@ -261,40 +245,6 @@ function test6_10() {
 // test6_10()
 
 
-async function test6_11() {
-  let ctr = new module6_11();
-  let mapAll = ctr.randomRiddle();
-
-  for (let level = 1; level <= 6; level++) {
-    console.log('写入等级' + level)
-    let deskList: GameData6_11[] = [];
-    mapAll[level].forEach((listNum: number[]) => {
-      let desk = new GameData6_11(7);
-      desk.desk = listNum;
-      deskList.push(desk);
-    });
-    await FileWriter.setFile(`./train/6-11/level${level}.json`, JSON.stringify(deskList))
-  }
-
-}
-// test6_11()
-
-
-async function test4_12() {
-  let ctr = new module4_12();
-  // let desk = new GameData4_12();
-  // desk.listInited = [1, 2, 3, 4, 5, 6]
-  // let desk2 = ctr.randomList(desk);
-  // console.log(desk2)
-  // let desk = ctr.getRiddle(8)
-  // let act = ctr.getAutoAction(desk)
-  // console.log(act, 'asdasd')
-  // let res = ctr.doAction(desk, act[0])
-
-
-}
-
-// test4_12()
 
 
 
