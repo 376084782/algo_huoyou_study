@@ -6,7 +6,6 @@ import example10_3 from './module10_3';
 import { module2_1, module8_4 } from '.';
 import { Algo10_6 } from './module10_6';
 import { Algo2_7, GameAction2_7, GameData2_7 } from './module2_7';
-import { module4_9 } from './module4_9';
 import { GameData6_10, module6_10 } from './module6_10';
 import { GameData6_11, module6_11 } from './module6_11';
 import { GameData4_12, module4_12 } from './module4_12';
