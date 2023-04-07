@@ -32,6 +32,15 @@ export class module8_14 {
         }
         return desk;
     }
+    getBasicList(size: number) {
+        let l = [];
+        for (let y = 0; y < size; y++) {
+            for (let x = 0; x < size; x++) {
+                l.push([x, y].join(','))
+            }
+        }
+        return l
+    }
     sortPos(arr: number[][]) {
         return arr.sort(([x1, y1], [x2, y2]) => {
             if (x1 == x2) {
@@ -102,12 +111,14 @@ export class module8_14 {
         }
         return true
     }
-    checkAction(desk: GameData8_14, act: GameAction8_14): boolean {
+    checkAction(deskIn: GameData8_14, act: GameAction8_14): boolean {
+        let desk: GameData8_14 = _.cloneDeep(deskIn)
         let [x, y] = act.pos
         // 判断这个格子为空可以填入数字
         if (!desk.desk[y] || desk.desk[y][x] != '') {
             return false
         }
+        desk.desk[y][x] = act.num.join(',');
         // 判断连续格子里是否颜色和数字都不同
         for (let dir = 1; dir <= 4; dir++) {
             let l = this.getSeriesByDir(desk, x, y, dir)
@@ -132,14 +143,77 @@ export class module8_14 {
             desk
         }
     }
+    getActionAll(desk: GameData8_14) {
+        let actAll: GameAction8_14[] = [];
+        desk.chessLeft.forEach(chess => {
+            desk.desk.forEach((row, y) => {
+                row.forEach((v, x) => {
+                    if (v == '') {
+                        let act = new GameAction8_14()
+                        act.pos = [x, y];
+                        act.num = chess.split(',').map(e => +e);
+                        let flag = this.checkAction(desk, act)
+                        if (flag) {
+                            actAll.push(act);
+                        }
+                    }
+                })
+            })
 
-    getActionAuto(deskIn: GameData8_14, act: GameAction8_14) {
-
+        })
+        return actAll;
+    }
+    getActionAuto(desk: GameData8_14) {
+        let actionAll = this.getActionAll(desk);
+        // 推算所有可能性
+        for (let i = 0; i < actionAll.length; i++) {
+            let act1Self = actionAll[i];
+            let { desk: desk2Oppo } = this.doAction(desk, act1Self);
+            let actionAllOppo = this.getActionAll(desk2Oppo);
+            // 放之后对方可行棋子为0，说明必胜,直接使用
+            if (actionAllOppo.length == 0) {
+                return {
+                    best: act1Self, nobest: act1Self
+                }
+            }
+            if (actionAll.length < 40) {
+                // 可放的方式不多，有制胜局的可能性，多考虑一步
+                for (let m = 0; m < actionAllOppo.length; m++) {
+                    let act1Oppo = actionAllOppo[m];
+                    let { desk: desk2Self } = this.doAction(desk2Oppo, act1Oppo);
+                    let actionAllSelf2 = this.getActionAll(desk2Self);
+                    if (actionAllSelf2.length == 0) {
+                        // 我可能面对的局面，该棋面下我无棋可走，得分-100
+                        act1Self.score -= 100
+                    }
+                }
+            }
+        }
+        // 增加一点随机性，避免计算机很呆都是一样的走法
+        actionAll = _.shuffle(actionAll)
+        actionAll = actionAll.sort((a, b) => b.score - a.score)
+        if (actionAll.length >= 2) {
+            return {
+                best: actionAll[0], nobest: actionAll[1]
+            }
+        } else {
+            return {
+                best: actionAll[0], nobest: actionAll[0]
+            }
+        }
     }
     checkDesk(desk: GameData8_14) {
-
+        let list = this.getActionAll(desk);
+        if (list.length == 0) {
+            return desk.player
+        }
+        return -1;
     }
     checkRiddle(desk: GameData8_14) {
-
+        let flagFinish = this.checkDesk(desk);
+        if (flagFinish > -1) {
+            return -1
+        }
+        return 0
     }
 }

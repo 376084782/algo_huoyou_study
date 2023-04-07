@@ -54,13 +54,15 @@ export class module4_12 {
     if (desk.centerList.length > 0) {
       return -1
     }
-    if (desk.list1.length < 0) {
-      return 1
-    } else if (desk.list2.length < 0) {
-      return 2
-    } else {
-      return 3
+    if (desk.list1.length == 0 || desk.list2.length) {
+      let score1 = desk.score1;
+      let score2 = desk.score2;
+      if (score1 == score2) {
+        return 3
+      }
+      return score1 > score1 ? 1 : 2
     }
+    return -1
   }
   doAfterSelect(desk: GameData4_12, act: GameAction4_12): [flag: number, desk: GameData4_12] {
     // 一张作为得分加到自己这边
