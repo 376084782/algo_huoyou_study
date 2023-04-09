@@ -88,7 +88,6 @@ export class module10_12 {
         return -1
       }
     }
-    // todo: 如果是斜向的线段，要判断是否越过了其他的线段
     // 校验这些点是否都为空
     let posInLine = this.getListBetween(act.list)
     for (let i = 0; i < posInLine.length; i++) {
