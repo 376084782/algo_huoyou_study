@@ -54,13 +54,13 @@ export class module4_12 {
     if (desk.centerList.length > 0) {
       return -1
     }
-    if (desk.list1.length == 0 || desk.list2.length) {
+    if (desk.list1.length == 0 || desk.list2.length == 0) {
       let score1 = desk.score1;
       let score2 = desk.score2;
       if (score1 == score2) {
         return 3
       }
-      return score1 > score1 ? 1 : 2
+      return score1 > score2 ? 1 : 2
     }
     return -1
   }
