@@ -50,6 +50,13 @@ export class module6_14 {
         if (!act.multi) {
             return false
         }
+        let max = Math.max(...desk.desk);
+        let min = Math.min(...desk.desk);
+        let v = min * act.multi;
+        max = max - v;
+        if (max < 0) {
+            return false
+        }
         return true
     }
     doAction(deskIn: GameData6_14, act: GameAction6_14): { flag: number, desk: GameData6_14 } {
@@ -60,9 +67,9 @@ export class module6_14 {
             }
         }
         let max = Math.max(...desk.desk);
-        let min = Math.max(...desk.desk);
+        let min = Math.min(...desk.desk);
         let v = min * act.multi;
-        min = max - v;
+        max = max - v;
         desk.desk = [min, max].sort((a, b) => b - a)
         return {
             flag: 0, desk: desk
@@ -109,6 +116,7 @@ export class module6_14 {
         // 增加一点随机性，避免计算机很呆都是一样的走法
         actionAll = _.shuffle(actionAll)
         actionAll = actionAll.sort((a, b) => b.score - a.score)
+        console.log(actionAll,'actionAllactionAll')
         if (actionAll.length >= 2) {
             return {
                 best: actionAll[0], nobest: actionAll[1]
