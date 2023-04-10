@@ -74,7 +74,9 @@ export class module6_14 {
         multiList.forEach(m => {
             let act = new GameAction6_14();
             act.multi = m;
-            l.push(act)
+            if (this.checkAction(desk, act)) {
+                l.push(act)
+            }
         })
         return l
     }
