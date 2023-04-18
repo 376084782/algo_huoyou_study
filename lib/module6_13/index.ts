@@ -99,11 +99,15 @@ export class module6_13 {
     return 0
   }
 
-  getActionAuto(desk: GameData6_13) {
+  getActionAuto(deskIn: GameData6_13) {
+    let desk = _.cloneDeep(deskIn)
+    let playerSelf = desk.player;
+    let playerOppo = 3 - desk.player;
     let actionAll = this.getActionAll(desk);
     // 推算所有可能性
     for (let i = 0; i < actionAll.length; i++) {
       let act1Self = actionAll[i];
+      desk.player = playerOppo;
       let [fOppo, desk2Oppo] = this.doAction(desk, act1Self);
       let actionAllOppo = this.getActionAll(desk2Oppo);
       // 放之后对方可行棋子为0，说明必胜,直接使用
@@ -118,6 +122,7 @@ export class module6_13 {
         for (let m = 0; m < actionAllOppo.length; m++) {
           let act1Oppo = actionAllOppo[m];
           let [f, desk2Self] = this.doAction(desk2Oppo, act1Oppo);
+          desk2Self.player = playerSelf
           let actionAllSelf2 = this.getActionAll(desk2Self);
           if (actionAllSelf2.length == 0) {
             // 我可能面对的局面，该棋面下我无棋可走，得分-100
@@ -125,6 +130,18 @@ export class module6_13 {
           }
         }
       }
+      // 吃掉的棋子的颜色差值作为得分，尽可能以更少的自己的棋子吃掉更多对方的
+      let countSelf = 0;
+      let countOppo = 0;
+      act1Self.listIdxs.forEach(([x, y]) => {
+        let color = desk.desk[y][x];
+        if (color == playerSelf) {
+          countSelf++
+        } else if (color == playerOppo) {
+          countOppo++
+        }
+      })
+      act1Self.score += (countOppo - countSelf)
     }
     // 增加一点随机性，避免计算机很呆都是一样的走法
     actionAll = _.shuffle(actionAll);

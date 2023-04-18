@@ -10,7 +10,7 @@ export class GameData4_15 {
     cards: { idx: number, value: number, used: boolean }[] = []
     listAction: number[] = [1, 2]
     score: number = 0;
-    targetScore: number = 0;
+    targetScore: number = 100;
     constructor() {
     }
 }
@@ -65,13 +65,19 @@ export class module4_15 {
         if (!this.checkAction) {
             return [-1, desk]
         }
+        act.idxList.forEach(idx => {
+            let card = desk.cards.find(e => e.idx == idx);
+            if (card) {
+                card.used = true;
+            }
+        })
         if (act.idxList.length == 1) {
             // 直接取这张牌的值加到分数上
-            let card = desk.cards[act.idxList[0]];
+            let card = desk.cards.find(e => e.idx == act.idxList[0]) as any;
             desk.score += card.value;
         } else {
-            let card1 = desk.cards[act.idxList[0]]
-            let card2 = desk.cards[act.idxList[1]]
+            let card1 = desk.cards.find(e => e.idx == act.idxList[0]) as any
+            let card2 = desk.cards.find(e => e.idx == act.idxList[1]) as any
             let min = Math.min(card1.value, card2.value)
             let max = Math.max(card1.value, card2.value)
             let v = 0;
@@ -81,10 +87,10 @@ export class module4_15 {
             } else if (act.action == 2) {
                 // 减
                 v = max - min
-            } else if (act.action == 2) {
+            } else if (act.action == 3) {
                 // 乘
                 v = max * min
-            } else if (act.action == 2) {
+            } else if (act.action == 4) {
                 // 除
                 v = Math.floor(max / min)
             }
@@ -166,10 +172,13 @@ export class module4_15 {
         }
     }
     checkDesk(desk: GameData4_15) {
-        if (desk.score > 100) {
+        if (desk.score == desk.targetScore) {
             return desk.player
+        } else if (desk.score > desk.targetScore) {
+            return 3 - desk.player;
+        } else {
+            return -1
         }
-        return -1
     }
 
 
