@@ -27,6 +27,28 @@ export class GameAction6_13 {
   listIdxs: number[][] = [];
 }
 export class module6_13 {
+  getRiddleByStep(step = 1) {
+    let player = 1;
+    let desk = this.getRiddle();
+    for (let i = 0; i < step; i++) {
+      desk.player = player;
+      let act = this.getActionAuto(desk);
+      let [f, desk2] = this.doAction(desk, act.nobest)
+      desk = desk2;
+      player = 3 - player;
+    }
+    return desk;
+
+  }
+  getRiddlesByLev(lev = 1) {
+    let step = 2 + lev * 2;
+    let listDesk = []
+    for (let i = 0; i < 10; i++) {
+      let desk = this.getRiddleByStep(step);
+      listDesk.push(desk);
+    }
+    return listDesk
+  }
   getRiddle() {
     return new GameData6_13();
   }

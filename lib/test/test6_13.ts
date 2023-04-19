@@ -1,5 +1,6 @@
 import { module6_13, GameData6_13, GameAction6_13 } from "..";
 import { FileWriter } from "../common/FileWriter";
+import { QuesWriter } from "../common/QuesWriter";
 
 async function test6_13() {
   let ctr = new module6_13();
@@ -15,5 +16,17 @@ async function test6_13() {
   let [f, desk2] = ctr.doAction(desk, act);
   console.log(f);
 }
-test6_13();
+// test6_13();
 
+async function createQues() {
+  let ctr = new module6_13();
+  let map = {
+    1: ctr.getRiddlesByLev(1),
+    2: ctr.getRiddlesByLev(2),
+    3: ctr.getRiddlesByLev(3),
+  }
+  QuesWriter.writeQuesIn(map, '6-13')
+  return
+
+}
+createQues();
