@@ -21,6 +21,7 @@ import { module10_12, GameData10_12, GameAction10_12 } from './module10_12/index
 import { module8_14, GameData8_14, GameAction8_14 } from './module8_14/index';
 import { module6_14, GameData6_14, GameAction6_14 } from './module6_14/index';
 import { module4_15, GameData4_15, GameAction4_15 } from './module4_15/index';
+import { module10_15, GameData10_15, GameAction10_15 } from './module10_15/index';
 import module2_11, { GameData2_11, GameData2_11Action as GameAction2_11 } from './module2_11/index';
 import * as module8_4 from './module8_4/index';
 import { GameData8_4, GameData8_4_action } from './module8_4/index';
@@ -104,6 +105,7 @@ export {
 
   module6_14, GameData6_14, GameAction6_14,
   module4_15, GameData4_15, GameAction4_15,
+  module10_15, GameData10_15, GameAction10_15,
 
   module10_13,
   GameData10_13,

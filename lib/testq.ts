@@ -247,28 +247,6 @@ function test6_10() {
 
 
 
-async function test10_12() {
-  let ctr = new module10_12();
-  let desk = ctr.getRiddle(4)
-  desk.desk = [
-    [1, 1, 1, 0],
-    [1, 0, 1, 1],
-    [1, 0, 1, 1],
-    [1, 1, 1, 1]]
-  desk.listLine1 = []
-  // let act = new GameAction10_12();
-  // act.list = [[1, 0], [3, 0]]
-  let f = ctr.getActionAuto(desk);
-  // let getListBetween = ctr.getListBetween([[3, 3], [1, 0]])
-  console.log(f)
-
-
-  // let f = ctr.doAction(desk, act);
-  // console.log('fffff', f)
-}
-
-// test10_12()
-
 
 async function test10_13() {
   let ctr = new module10_13();
