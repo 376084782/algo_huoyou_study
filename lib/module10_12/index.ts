@@ -96,6 +96,7 @@ export class module10_12 {
         return -1
       }
     }
+    console.log(posInLine, act.list)
     if (posInLine.length >= 2) {
       // 如果是斜向的，
       // 要检验与已有的线段是否有交错
@@ -104,9 +105,8 @@ export class module10_12 {
         let l = listLineGot[i]
         let p1 = l[0];
         let p2 = l[1]
-        let p3 = posInLine[0]
-        let p4 = posInLine[1]
-        console.log(p1, p2, p3, p4)
+        let p3 = act.list[0]
+        let p4 = act.list[1]
         if (this.judgeIntersect(p1[0], p1[1], p2[0], p2[1], p3[0], p3[1], p4[0], p4[1])) {
           return -1
         }
