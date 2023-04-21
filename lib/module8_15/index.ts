@@ -1,17 +1,17 @@
 var _ = require('lodash');
 
-export class GameData10_12 {
+export class GameData8_15 {
   player: number = 1;
   desk: number[][] = [];
   listLine1: number[][][] = [];
   listLine2: number[][][] = [];
   typeSet: number = 1;
 }
-export class GameAction10_12 {
+export class GameAction8_15 {
   list: number[][] = [];
   score: number = 0
 }
-export class module10_12 {
+export class module8_15 {
   getRiddle(count: number) {
     let l: number[][] = []
     for (let y = 0; y < count; y++) {
@@ -21,13 +21,14 @@ export class module10_12 {
         row.push(0)
       }
     }
-    let desk = new GameData10_12();
+    let desk = new GameData8_15();
     desk.desk = l;
     return desk;
   }
-  checkRiddle(desk: GameData10_12) {
+  checkRiddle(desk: GameData8_15) {
     let len = desk.desk.length;
-    if (len < 3 || len > 6) {
+    let sizeList = [3, 5, 7, 9];
+    if (sizeList.indexOf(len) == -1) {
       return -1
     }
     if (this.checkDesk(desk) != -1) {
@@ -35,7 +36,7 @@ export class module10_12 {
     }
     return 0
   }
-  checkDesk(desk: GameData10_12) {
+  checkDesk(desk: GameData8_15) {
     let acts = this.getActionAll(desk);
     if (acts.length == 0) {
       // 无棋可走，获胜
@@ -56,7 +57,7 @@ export class module10_12 {
       }
     })
   }
-  doAction(deskIn: GameData10_12, act: GameAction10_12): [flag: number, desk: GameData10_12] {
+  doAction(deskIn: GameData8_15, act: GameAction8_15): [flag: number, desk: GameData8_15] {
     let desk = _.cloneDeep(deskIn)
     // 将点位排序
     act.list = this.sortLinePos(act.list);
@@ -80,7 +81,10 @@ export class module10_12 {
     }
     return [0, desk]
   }
-  checkAction(desk: GameData10_12, act: GameAction10_12) {
+  checkAction(desk: GameData8_15, act: GameAction8_15) {
+    if (act.list.length < 2) {
+      return -1
+    }
     if (act.list.length >= 2) {
       // 多个点，校验是否是一条直线
       let flagValid = this.checkLineValid(act.list);
@@ -145,7 +149,7 @@ export class module10_12 {
     let listSorted = this.sortLinePos(_.uniqWith(line, _.isEqual));
     if (listSorted.length < 2) {
       // 是个点
-      return true
+      return false
     }
     let pos1 = listSorted[0];
     let pos2 = listSorted[listSorted.length - 1];
@@ -192,7 +196,7 @@ export class module10_12 {
     return listRes;
 
   }
-  getActionAuto(desk: GameData10_12): any[] {
+  getActionAuto(desk: GameData8_15): any[] {
     let actionAll = this.getActionAll(desk);
 
     // 推算所有可能性
@@ -204,7 +208,7 @@ export class module10_12 {
       if (actionAllOppo.length == 0) {
         return [act1Self, act1Self]
       }
-      if (actionAll.length < 40) {
+      if (actionAll.length < 20) {
         // 可放的方式不多，有制胜局的可能性，多考虑一步
         for (let m = 0; m < actionAllOppo.length; m++) {
           let act1Oppo = actionAllOppo[m];
@@ -226,7 +230,7 @@ export class module10_12 {
       return [actionAll[0], actionAll[0]]
     }
   }
-  getAllActionByXY(desk: GameData10_12, x: number, y: number): number[][][] {
+  getAllActionByXY(desk: GameData8_15, x: number, y: number): number[][][] {
     let listPosAll: number[][][] = [];
     if (!desk.desk[y] || desk.desk[y][x] != 0) {
       return []
@@ -267,7 +271,7 @@ export class module10_12 {
     }
     return listPosAll
   }
-  getActionAll(desk: GameData10_12): GameAction10_12[] {
+  getActionAll(desk: GameData8_15): GameAction8_15[] {
     // 先遍历所有可以放的点，然后根据点再按照四个方向辐射推出可以画的线
     let listPosAll: number[][][] = []
     for (let y = 0; y < desk.desk.length; y++) {
@@ -281,9 +285,9 @@ export class module10_12 {
     }
     // 过滤相同的线段
     listPosAll = _.uniqWith(listPosAll, _.isEqual);
-    let listActionAll: GameAction10_12[] = []
+    let listActionAll: GameAction8_15[] = []
     listPosAll.forEach(e => {
-      let act = new GameAction10_12();
+      let act = new GameAction8_15();
       act.list = e;
       if (this.checkAction(desk, act) != -1) {
         listActionAll.push(act)
