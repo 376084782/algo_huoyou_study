@@ -35,7 +35,7 @@ export class module4_14 {
   checkAction(desk: GameData4_14, act: GameAction4_14) {
     if (desk.lastMove == 0) {
       // 第一次移动不能直接移动到终点
-      if (act.targetIdx > desk.length - 1) {
+      if (act.targetIdx >= desk.length - 1) {
         return false;
       }
     } else {
