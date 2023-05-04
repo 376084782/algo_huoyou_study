@@ -8,7 +8,7 @@ export class GameData4_15 {
     typeSet?: number = 1;
     player: number = 1;
     cards: { idx: number, value: number, used: boolean }[] = []
-    listAction: number[] = [1, 2]
+    listAction: number[] = [1]
     score: number = 0;
     targetScore: number = 100;
     constructor() {
