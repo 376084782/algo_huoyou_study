@@ -205,6 +205,9 @@ export class module8_14 {
     checkDesk(desk: GameData8_14) {
         let list = this.getActionAll(desk);
         if (list.length == 0) {
+            if (desk.chessLeft.length == 0) {
+                return 3
+            }
             return desk.player
         }
         return -1;

@@ -42,7 +42,7 @@ export class module6_14 {
         return 0
     }
     checkDesk(desk: GameData6_14) {
-        if (desk.desk[0] == desk.desk[1]) {
+        if (desk.desk[0] == desk.desk[1] || desk.desk[1] == 0 || desk.desk[0] == 0) {
             return desk.player
         }
         return -1
