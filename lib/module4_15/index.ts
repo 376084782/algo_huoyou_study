@@ -172,10 +172,13 @@ export class module4_15 {
         }
     }
     checkDesk(desk: GameData4_15) {
+        let listLeft = desk.cards.filter(e => !e.used);
         if (desk.score == desk.targetScore) {
             return desk.player
         } else if (desk.score > desk.targetScore) {
             return 3 - desk.player;
+        } else if (listLeft.length == 0) {
+            return 3
         } else {
             return -1
         }

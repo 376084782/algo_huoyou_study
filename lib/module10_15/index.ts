@@ -48,6 +48,10 @@ export class module10_15 {
       if (listValid.indexOf(act.number) == -1) {
         return -1
       }
+    } else {
+      if (act.number >= 50) {
+        return -1
+      }
     }
     return 0
   }
