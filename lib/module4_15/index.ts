@@ -8,7 +8,7 @@ export class GameData4_15 {
     typeSet?: number = 1;
     player: number = 1;
     cards: { idx: number, value: number, used: boolean }[] = []
-    listAction: number[] = [1, 2]
+    listAction: number[] = [1]
     score: number = 0;
     targetScore: number = 100;
     constructor() {
@@ -172,10 +172,13 @@ export class module4_15 {
         }
     }
     checkDesk(desk: GameData4_15) {
+        let listLeft = desk.cards.filter(e => !e.used);
         if (desk.score == desk.targetScore) {
             return desk.player
         } else if (desk.score > desk.targetScore) {
             return 3 - desk.player;
+        } else if (listLeft.length == 0) {
+            return 3
         } else {
             return -1
         }

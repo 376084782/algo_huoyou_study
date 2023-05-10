@@ -15,6 +15,7 @@ export class GameData6_14 {
 export class GameAction6_14 {
     multi: number = 0
     score: number = 0
+    desk: number[] = []
 }
 
 export class module6_14 {
@@ -41,7 +42,7 @@ export class module6_14 {
         return 0
     }
     checkDesk(desk: GameData6_14) {
-        if (desk.desk[0] == desk.desk[1]) {
+        if (desk.desk[0] == desk.desk[1] || desk.desk[1] == 0 || desk.desk[0] == 0) {
             return desk.player
         }
         return -1
@@ -66,8 +67,9 @@ export class module6_14 {
                 flag: -1, desk: deskIn
             }
         }
-        let max = Math.max(...desk.desk);
-        let min = Math.min(...desk.desk);
+        act.desk = desk.desk.concat();
+        let max = Math.max(...act.desk);
+        let min = Math.min(...act.desk);
         let v = min * act.multi;
         max = max - v;
         desk.desk = [min, max].sort((a, b) => b - a)
@@ -116,7 +118,7 @@ export class module6_14 {
         // 增加一点随机性，避免计算机很呆都是一样的走法
         actionAll = _.shuffle(actionAll)
         actionAll = actionAll.sort((a, b) => b.score - a.score)
-        console.log(actionAll,'actionAllactionAll')
+        console.log(actionAll, 'actionAllactionAll')
         if (actionAll.length >= 2) {
             return {
                 best: actionAll[0], nobest: actionAll[1]
