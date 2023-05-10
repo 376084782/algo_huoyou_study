@@ -14,6 +14,7 @@ export class GameData2_16 {
 export class GameAction2_16 {
   x: number = -1;
   y: number = -1;
+  num: number = -1;
   score: number = 0
 }
 export class module2_16 {
@@ -99,13 +100,13 @@ export class module2_16 {
     }
     return 0
   }
-  doAction(deskIn: GameData2_16, act: GameAction2_16) {
-    let desk = _.cloneDeep(deskIn);
+  doAction(deskIn: GameData2_16, act: GameAction2_16): [f: number, d: GameData2_16] {
+    let desk: GameData2_16 = _.cloneDeep(deskIn);
     if (this.checkAction(desk, act) == -1) {
       return [-1, desk];
     }
-    let v = desk[act.y][act.x]
-    desk[act.y][act.x] = 0;
+    let v = desk.desk[act.y][act.x]
+    desk.desk[act.y][act.x] = 0;
     if (desk.player == 1) {
       desk.score1 += v;
     } else {
@@ -127,6 +128,7 @@ export class module2_16 {
         let act = new GameAction2_16();
         act.x = x;
         act.y = y;
+        act.num = v;
         if (this.checkAction(deskIn, act) != -1) {
           actionAll.push(act);
         }

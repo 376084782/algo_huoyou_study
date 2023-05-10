@@ -21,7 +21,7 @@ export class GameAction4_15 {
 }
 
 export class module4_15 {
-    getRiddle() {
+    getRiddle(lev = 0) {
         let desk = new GameData4_15();
         let id = 0;
         for (let c = 0; c < 4; c++) {
@@ -35,6 +35,13 @@ export class module4_15 {
             }
         }
         desk.cards = _.shuffle(desk.cards)
+        if (lev == 1) {
+            desk.listAction = [1, 2];
+        } else if (lev == 2) {
+            desk.listAction = [2, 3];
+        } else if (lev == 3) {
+            desk.listAction = [3, 4];
+        }
         return desk;
     }
     checkRiddle(desk: GameData4_15) {
