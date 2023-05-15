@@ -252,7 +252,7 @@ export class module4_16 {
     listTree.push(dataLast)
     listTreeKai.push(dataLast);
     let listDeskCanUse = []
-    while ((!needCheckCount || checkCount < checkCountFinish) && !!dataLast && !dataLast.isFinished) {
+    while ((!needCheckCount || checkCount < checkCountFinish) && !!dataLast && !dataLast.isFinished && listDeskCanUse.length <= 10) {
       // 获取树结构的最后一级，继续往下遍历
       let y = desk.desk.findIndex(e => e.indexOf(0) > -1);
       let x = desk.desk[y]?.findIndex(e => e == 0);
@@ -305,17 +305,7 @@ export class module4_16 {
     this.logData(listDeskCanUse)
 
 
-
-
     return desk
-    // if (!this.checkRiddle(desk)) {
-    //   console.log('重新随机', desk.desk)
-    //   return this.getRiddleByLev(lev);
-    // } else {
-    //   desk.numInited = _.cloneDeep(desk.desk);
-    //   return desk
-    // }
-
 
   }
 
