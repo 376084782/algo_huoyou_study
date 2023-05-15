@@ -187,7 +187,7 @@ export class module4_16 {
     // 10,16,22
     let numMap: any = { 1: 10, 2: 16, 3: 22 };
     // 随机选择一个区域，按照顺序填入5个数字，然后依次随机获取唯一位置把数字填满
-    let desk = this.createBlankGameData(6);
+    let desk = this.createBlankGameData(7);
     let step = numMap[lev];
     // 将桌面位置分区
     let size = desk.desk.length;
@@ -302,16 +302,15 @@ export class module4_16 {
       }
 
     }
-    this.logData(listDeskCanUse)
-
+    this.logData(listDeskCanUse, 'desk' + size)
 
     return desk
 
   }
 
-  async logData(data: any) {
+  async logData(data: any, name = 'log') {
     await FileWriter.setFile(
-      `./train/4-16/log.json`,
+      `./train/4-16/${name}.json`,
       JSON.stringify(data)
     );
   }
