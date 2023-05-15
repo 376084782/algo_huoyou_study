@@ -17,6 +17,8 @@ export class GameTreeNode {
   isFinished: boolean = false;
   data: GameData4_16 = new GameData4_16();
   children: GameTreeNode[] = []
+  id: any = ''
+  parentId: any = ''
   constructor() {
   }
 }
@@ -225,27 +227,36 @@ export class module4_16 {
     let listAll = listArea1.concat(listArea2);
     let idx = randomer.RangeInteger(0, listAll.length);
     let l = listAll[idx]
-    let listShuffle = _.shuffle([1, 2, 3, 4, 5, 6]);
-    let count = 6
-    for (let i = 0; i < count; i++) {
+    let lAll = [];
+    for (let i = 0; i < size; i++) {
+      lAll.push(i + 1)
+    }
+    let listShuffle = _.shuffle(lAll);
+
+    for (let i = 0; i < size; i++) {
       let e = l[i];
       let [x, y] = e.split(',').map(e => +e);
       desk.desk[y][x] = listShuffle[i];
     }
 
     let listTree: GameTreeNode[] = [];
+    let listTreeKai: GameTreeNode[] = []
 
+    let needCheckCount = false;
     let checkCount = 0;
-    let checkCountFinish = 100
+    let checkCountFinish = 1000
     let dataLast: any = new GameTreeNode();
+    dataLast.id = checkCount;
     dataLast.data = _.cloneDeep(desk);
+    dataLast.parentId = 'root'
     listTree.push(dataLast)
-    while (checkCount < checkCountFinish && desk.desk.some(l => l.some(e => e == 0))) {
+    listTreeKai.push(dataLast);
+    let listDeskCanUse = []
+    while ((!needCheckCount || checkCount < checkCountFinish) && !!dataLast && !dataLast.isFinished) {
       // 获取树结构的最后一级，继续往下遍历
-
       let y = desk.desk.findIndex(e => e.indexOf(0) > -1);
       let x = desk.desk[y]?.findIndex(e => e == 0);
-      if (desk.desk[y][x] == 0) {
+      if (desk.desk[y] && desk.desk[y][x] == 0) {
         let area1 = listArea1.find(e => e.indexOf(`${x},${y}`) > -1) as string[];
         let area2 = listArea2.find(e => e.indexOf(`${x},${y}`) > -1) as string[];
         let area3 = listArea3.find(e => e.indexOf(`${x},${y}`) > -1) as string[];
@@ -258,9 +269,8 @@ export class module4_16 {
             listNumGot.push(n);
           }
         })
-        let listNumCanPut = [1, 2, 3, 4, 5, 6].filter(e => listNumGot.indexOf(e) == -1);
+        let listNumCanPut = lAll.filter(e => listNumGot.indexOf(e) == -1);
         if (listNumCanPut.length == 0) {
-          console.log('死结点')
           dataLast.isFinished = true;
         } else {
           for (let i = 0; i < listNumCanPut.length; i++) {
@@ -268,19 +278,31 @@ export class module4_16 {
             let dd = _.cloneDeep(desk);
             dd.desk[y][x] = n;
             let dataTree = new GameTreeNode();
+            dataTree.id = checkCount;
             dataTree.data = dd;
+            dataTree.parentId = dataLast.id;
             dataLast.children.push(dataTree)
+            listTreeKai.push(dataTree)
+            dataLast.isFinished = true;
           }
         }
+      } else {
+        dataLast.isFinished = true;
       }
 
       checkCount++;
-      dataLast = this.getTreeLast(listTree);
-      desk = dataLast.data
-      console.log('正在处理的桌面' + checkCount, desk.desk,)
+      dataLast = this.getTreeLast(listTreeKai);
+      if (dataLast && !dataLast.isFinished) {
+        desk = dataLast.data
+        console.log('正在处理的桌面' + checkCount, desk.desk,)
+        let f = this.checkDesk(desk)
+        if (f) {
+          listDeskCanUse.push(desk)
+        }
+      }
 
     }
-    this.logData(listTree)
+    this.logData(listDeskCanUse)
 
 
 
@@ -307,15 +329,9 @@ export class module4_16 {
     if (list.length == 0) {
       return undefined
     }
-    let data: GameTreeNode = list[0];
-    while (true) {
-      let dd = data.children.find(e => !e.isFinished) as GameTreeNode;
-      if (!dd) {
-        break
-      } else {
-        data = dd
-      }
-    }
-    return data;
+
+    let dd = list.find((e: any) => !e.isFinished) as GameTreeNode;
+
+    return dd;
   }
 }
