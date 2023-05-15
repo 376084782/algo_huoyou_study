@@ -181,16 +181,7 @@ export class module4_16 {
   getActionAuto(desk: GameData4_16) {
     return [desk, desk]
   }
-
-  // 随机生成完美题目
-  getRiddleByLev(lev: number): GameData4_16 {
-    // 10,16,22
-    let numMap: any = { 1: 10, 2: 16, 3: 22 };
-    // 随机选择一个区域，按照顺序填入5个数字，然后依次随机获取唯一位置把数字填满
-    let desk = this.createBlankGameData(7);
-    let step = numMap[lev];
-    // 将桌面位置分区
-    let size = desk.desk.length;
+  getArea(size: number, desk: GameData4_16) {
 
     let listArea1: string[][] = []
     // 按照行
@@ -222,6 +213,23 @@ export class module4_16 {
         listArea3[color].push(`${x},${y}`)
       }
     }
+    return {
+      listArea1, listArea2, listArea3
+    }
+  }
+
+  // 随机生成完美题目
+  getRiddleByLev(lev: number): GameData4_16 {
+    // 10,16,22
+    let numMap: any = { 1: 10, 2: 16, 3: 22 };
+    // 随机选择一个区域，按照顺序填入5个数字，然后依次随机获取唯一位置把数字填满
+    let desk = this.createBlankGameData(9);
+    let step = numMap[lev];
+    // 将桌面位置分区
+    let size = desk.desk.length;
+
+    let { listArea1, listArea2, listArea3 } = this.getArea(size, desk);
+
 
     // 随机一行或一列填入6个数字，然后依次求解，解出整个盘
     let listAll = listArea1.concat(listArea2);
@@ -294,7 +302,7 @@ export class module4_16 {
       dataLast = this.getTreeLast(listTreeKai);
       if (dataLast && !dataLast.isFinished) {
         desk = dataLast.data
-        console.log('正在处理的桌面' + checkCount, desk.desk,)
+        console.log('正在处理的桌面' + checkCount)
         let f = this.checkDesk(desk)
         if (f) {
           listDeskCanUse.push(desk)
@@ -306,6 +314,30 @@ export class module4_16 {
 
     return desk
 
+  }
+  fillBlank(count: number, desk: GameData4_16): GameData4_16 {
+    let deskNew = this.createBlankGameData(desk.desk.length)
+    // 每行随机
+    for (let i = 0; i < count; i++) {
+      let listPos = this.getPosNotBlank(deskNew);
+      // 随机一个位置添加数字
+      let idx = randomer.RangeInteger(0, listPos.length);
+      let [x, y] = listPos[idx];
+      deskNew.desk[y][x] = desk.desk[y][x]
+    }
+    deskNew.numInited = _.cloneDeep(deskNew.desk);
+    return deskNew;
+  }
+  getPosNotBlank(desk: GameData4_16) {
+    let listPos: number[][] = [];
+    desk.desk.forEach((row, y) => {
+      row.forEach((v, x) => {
+        if (v == 0) {
+          listPos.push([x, y])
+        }
+      })
+    });
+    return listPos
   }
 
   async logData(data: any, name = 'log') {

@@ -115,11 +115,20 @@ export class module2_16 {
     return [0, desk];
   }
   checkDesk(deskIn: GameData2_16) {
+    let isFinished = false;
     let listCanDo = this.getActionAll(deskIn);
     if (listCanDo.length == 0) {
-      return deskIn.player
+      isFinished = true
     }
-    return -1;
+    if (isFinished) {
+      if (deskIn.score1 == deskIn.score2) {
+        return 3
+      } else {
+        return deskIn.score1 > deskIn.score2 ? 1 : 2
+      }
+    } else {
+      return -1;
+    }
   }
   getActionAll(deskIn: GameData2_16) {
     let actionAll: GameAction2_16[] = [];
@@ -139,6 +148,10 @@ export class module2_16 {
 
   getActionAuto(desk: GameData2_16): any[] {
     let actionAll = this.getActionAll(desk);
+    // 得分越高该走法分数越高
+    actionAll.forEach(e => {
+      e.score = e.num;
+    })
     // 推算所有可能性
     for (let i = 0; i < actionAll.length; i++) {
       let act1Self = actionAll[i];

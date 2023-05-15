@@ -30,8 +30,14 @@ export class module8_16 {
 
     // 在中间的位置放置第一颗棋子
     let center = Math.floor(size / 2);
-    desk.desk[center][center] = 2;
-    desk.pLast = [center, center]
+    let initX = center;
+    let initY = center;
+    if (size == 7) {
+      initX = 4;
+      initY = 3;
+    }
+    desk.desk[initY][initX] = 2;
+    desk.pLast = [initY, initX]
 
     return desk;
   }
@@ -85,6 +91,9 @@ export class module8_16 {
   }
 
   getCanPutPlaceAll(desk: GameData8_16) {
+    if (this.checkDesk(desk) != -1) {
+      return []
+    }
     let listAll: GameAction8_16[] = [];
     let listCanPut = this.getPosCanPut(desk);
     listCanPut.forEach(e => {
