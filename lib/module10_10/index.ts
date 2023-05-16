@@ -200,6 +200,7 @@ export class module10_10 {
     }
     checkColorWin(color: number, desk: GameData10_10) {
         let winPath = this.getWinPath(color, desk);
+        console.log(winPath,color)
         return !!winPath;
     }
     checkAction(desk: GameData10_10, action: number) {
@@ -233,8 +234,8 @@ export class module10_10 {
         let listActions: { action: number, score: number }[] = [];
         let listAllP: number[] = [].concat(desk.points1, desk.points2)
         let playerOppo = desk.player == 1 ? 2 : 1
-        let listPathBestBefore: number[][] = this.getWinPath(desk.player, desk, true, true);
-        let listPathOppoBestBefore: number[][] = this.getWinPath(playerOppo, desk, true, true);
+        let listPathBestBefore: number[][] = this.getWinPath(desk.player, desk, true, true) || [];
+        let listPathOppoBestBefore: number[][] = this.getWinPath(playerOppo, desk, true, true) || [];
         for (let i = 0; i < 41; i++) {
             let idPoint = i + 1;
             if (listAllP.indexOf(idPoint) == -1) {
