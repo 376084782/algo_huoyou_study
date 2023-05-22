@@ -37,7 +37,7 @@ export class module8_16 {
       initY = 2;
     }
     desk.desk[initY][initX] = 2;
-    desk.pLast = [initY, initX]
+    desk.pLast = [initX, initY]
 
     return desk;
   }
