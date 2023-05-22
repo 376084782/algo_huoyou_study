@@ -34,10 +34,10 @@ export class module8_16 {
     let initY = center;
     if (size == 7) {
       initX = 4;
-      initY = 3;
+      initY = 2;
     }
     desk.desk[initY][initX] = 2;
-    desk.pLast = [initY, initX]
+    desk.pLast = [initX, initY]
 
     return desk;
   }

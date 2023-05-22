@@ -3,9 +3,10 @@ import { module8_15 } from "../module8_15";
 
 async function test8_15() {
     let ctr = new module8_15();
-    let desk = ctr.getRiddle(7);
-    let act = ctr.getActionAll(desk);
-    console.log(act.map(e => e.list))
+    let desk = {"player":1,"desk":[[3,3,3,3,0],[3,4,4,0,0],[3,4,3,3,0],[3,0,4,0,0],[3,0,0,0,0]],"listLine1":[[[2,2],[3,2]],[[0,0],[0,1],[0,2],[0,3],[0,4]],[[1,0],[2,0],[3,0]]],"listLine2":[[[1,1],[2,1]],[[1,2],[2,3]]],"typeSet":1}
+    let act= {"list":[[3,1],[3,1]],"score":0}
+    let f=ctr.checkAction(desk,act);
+    console.log(f)
 }
 
 test8_15()
@@ -44,4 +45,4 @@ async function writeQuesIn(mapAll: any, maxEachLev = 10) {
     }
 
 }
-createQues()
+// createQues()
