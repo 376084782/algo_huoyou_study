@@ -1,5 +1,7 @@
 var _ = require('lodash');
 
+const MAX_EACH_DIR = 10;
+const COUNT_ACTIONAUTO_MAX = 100
 export class GameData8_15 {
   player: number = 1;
   desk: number[][] = [];
@@ -241,10 +243,16 @@ export class module8_15 {
       let xEnd = x;
       let yEnd = y;
       let listP = [[x, y]]
-      while (desk.desk[yEnd] && desk.desk[yEnd][xEnd] == 0) {
+      while (desk.desk[yEnd] && desk.desk[yEnd][xEnd] == 0 && listPosAll.length <= MAX_EACH_DIR) {
         if (yEnd != y || xEnd != x) {
+          let act = new GameAction8_15();
           listP.push([xEnd, yEnd])
-          listPosAll.push(this.sortLinePos(_.cloneDeep(listP)));
+          let l = this.sortLinePos(_.cloneDeep(listP))
+          act.list = l;
+          let f = this.checkAction(desk, act)
+          if (f != -1) {
+            listPosAll.push(l);
+          }
         }
         if (dir == 0) {
           yEnd--;
@@ -285,6 +293,9 @@ export class module8_15 {
     }
     // 过滤相同的线段
     listPosAll = _.uniqWith(listPosAll, _.isEqual);
+    if (listPosAll.length > COUNT_ACTIONAUTO_MAX) {
+      listPosAll = listPosAll.splice(0, COUNT_ACTIONAUTO_MAX)
+    }
     let listActionAll: GameAction8_15[] = []
     listPosAll.forEach(e => {
       let act = new GameAction8_15();

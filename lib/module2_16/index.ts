@@ -3,7 +3,10 @@
  * @author 钱丽云
  */
 
+import RandomGenerater from "../util/RandomGenerater";
+
 var _ = require('lodash');
+let randomer = new RandomGenerater(0)
 export class GameData2_16 {
   player: number = 1;
   desk: number[][] = [];
@@ -18,6 +21,50 @@ export class GameAction2_16 {
   score: number = 0
 }
 export class module2_16 {
+  randomDesk(desk: GameData2_16) {
+    let max = desk.desk.length - 1;
+    let size = desk.desk.length * desk.desk.length;
+    let listP: number[][] = [];
+    desk.desk.forEach((row, y) => {
+      row.forEach((v, x) => {
+        listP.push([x, y])
+      })
+    })
+
+    // 先随机填入1/4个0
+    let count0 = Math.floor(size / 4)
+    for (let i = 0; i < count0; i++) {
+      let idx = randomer.RangeInteger(0, listP.length);
+      let [x, y] = listP.splice(idx, 1)[0];
+      desk.desk[y][x] = 0
+    }
+    // 先随机填入1/4个1
+    let count1 = Math.floor(size / 4)
+    for (let i = 0; i < count1; i++) {
+      let idx = randomer.RangeInteger(0, listP.length);
+      let [x, y] = listP.splice(idx, 1)[0];
+      desk.desk[y][x] = 1
+    }
+    // 随机填入 1/4 个2
+    let count2 = Math.floor(size / 4)
+    for (let i = 0; i < count2; i++) {
+      let idx = randomer.RangeInteger(0, listP.length);
+      let [x, y] = listP.splice(idx, 1)[0];
+      desk.desk[y][x] = 2
+    }
+    // 剩余的格子每个格子随机可以填的数字
+    listP.forEach(([x, y]) => {
+      let xMax = Math.max(x, max - x, y, max - y)
+      let listCanPutNum = [];
+      for (let i = 0; i < xMax; i++) {
+        listCanPutNum.push(i + 1);
+      }
+      let idx = randomer.RangeInteger(0, listCanPutNum.length);
+      let n = listCanPutNum[idx];
+      desk.desk[y][x] = n;
+    })
+    return desk;
+  }
   getRiddleDefault() {
     let desk = new GameData2_16();
     desk.desk = [
@@ -54,34 +101,47 @@ export class module2_16 {
     let size = desk.desk.length;
     // 上右下左四个列表
     let list1: number[] = [];
-    let list2: number[] = [];
-    let list3: number[] = [];
-    let list4: number[] = [];
-    for (let y = 0; y < size; y++) {
-      for (let x = 0; x < size; x++) {
-        let v = desk.desk[y][x]
-        let targetList;
-        if (x == xIn) {
-          if (y < yIn) {
-            targetList = list1
-          } else if (y > yIn) {
-            targetList = list3
-          }
-        }
-        if (y == yIn) {
-          if (x < xIn) {
-            targetList = list2
-          } else if (x > xIn) {
-            targetList = list4
-          }
-        }
-        if (targetList != undefined) {
-          if (!onlyBlank || v <= 0) {
-            targetList.push(v);
-          }
-        }
+    for (let y = yIn - 1; y >= 0; y--) {
+      let x = xIn;
+      let v = desk.desk[y][x]
+      if (v != 0) {
+        break
+      } else {
+        list1.push(v)
       }
     }
+    let list2: number[] = [];
+    for (let y = yIn + 1; y < desk.desk.length; y++) {
+      let x = xIn;
+      let v = desk.desk[y][x]
+      if (v != 0) {
+        break
+      } else {
+        list2.push(v)
+      }
+    }
+
+    let list3: number[] = [];
+    for (let x = xIn - 1; x >= 0; x--) {
+      let y = yIn;
+      let v = desk.desk[y][x]
+      if (v != 0) {
+        break
+      } else {
+        list3.push(v)
+      }
+    }
+    let list4: number[] = [];
+    for (let x = xIn + 1; x < desk.desk.length; x++) {
+      let y = yIn;
+      let v = desk.desk[y][x]
+      if (v != 0) {
+        break
+      } else {
+        list4.push(v)
+      }
+    }
+
     let listNums = [list1.length, list2.length, list3.length, list4.length];
     return Math.max(...listNums);
   }
