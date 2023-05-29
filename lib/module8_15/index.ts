@@ -1,6 +1,6 @@
 var _ = require('lodash');
 
-const MAX_EACH_DIR = 10;
+const MAX_EACH_DIR = 4;
 const COUNT_ACTIONAUTO_MAX = 100
 export class GameData8_15 {
   player: number = 1;
@@ -200,7 +200,6 @@ export class module8_15 {
   }
   getActionAuto(desk: GameData8_15): any[] {
     let actionAll = this.getActionAll(desk);
-
     // 推算所有可能性
     for (let i = 0; i < actionAll.length; i++) {
       let act1Self = actionAll[i];
@@ -232,7 +231,7 @@ export class module8_15 {
       return [actionAll[0], actionAll[0]]
     }
   }
-  getAllActionByXY(desk: GameData8_15, x: number, y: number): number[][][] {
+  getAllActionByXY(desk: GameData8_15, x: number, y: number, max = 999): number[][][] {
     let listPosAll: number[][][] = [];
     if (!desk.desk[y] || desk.desk[y][x] != 0) {
       return []
@@ -243,7 +242,7 @@ export class module8_15 {
       let xEnd = x;
       let yEnd = y;
       let listP = [[x, y]]
-      while (desk.desk[yEnd] && desk.desk[yEnd][xEnd] == 0 && listPosAll.length <= MAX_EACH_DIR) {
+      while (desk.desk[yEnd] && desk.desk[yEnd][xEnd] == 0 && listPosAll.length <= max) {
         if (yEnd != y || xEnd != x) {
           let act = new GameAction8_15();
           listP.push([xEnd, yEnd])
@@ -282,11 +281,20 @@ export class module8_15 {
   getActionAll(desk: GameData8_15): GameAction8_15[] {
     // 先遍历所有可以放的点，然后根据点再按照四个方向辐射推出可以画的线
     let listPosAll: number[][][] = []
+    let size = desk.desk.length
+    let max = 999;
+    if (size == 5) {
+      max = 10;
+    } else if (size == 7) {
+      max = 4;
+    } else if (size == 9) {
+      max = 4;
+    }
     for (let y = 0; y < desk.desk.length; y++) {
       let row: number[] = desk.desk[y]
       for (let x = 0; x < row.length; x++) {
         if (desk.desk[y][x] == 0) {
-          let l = this.getAllActionByXY(desk, x, y)
+          let l = this.getAllActionByXY(desk, x, y, max)
           listPosAll = listPosAll.concat(l)
         }
       }
