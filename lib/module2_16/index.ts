@@ -94,6 +94,10 @@ export class module2_16 {
       return false
     }
     // todo: 如果开局就无解，不可用
+    let listCanPut = this.getActionAll(desk);
+    if (listCanPut.length == 0) {
+      return false
+    }
     return true
   }
   checkSeriesMax(xIn: number, yIn: number, desk: GameData2_16, onlyBlank = true) {
