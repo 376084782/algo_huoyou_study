@@ -200,7 +200,6 @@ export class module10_10 {
     }
     checkColorWin(color: number, desk: GameData10_10) {
         let winPath = this.getWinPath(color, desk);
-        console.log(winPath,color)
         return !!winPath;
     }
     checkAction(desk: GameData10_10, action: number) {
@@ -276,40 +275,53 @@ export class module10_10 {
                     // 对于自己
                     // 这个点在我需要的最短路径上
                     let listBlockMostNeed = desk.desk.filter(e => pathBestBefore.indexOf(e.id) > -1 && e.color == 0);
-                    if (listBlockMostNeed.length <= 2) {
-                        listBlockMostNeed.forEach(e => {
-                            // 没有被占领的+5
-                            if (e.points.indexOf(actionSet.action) > -1) {
+                    listBlockMostNeed.forEach(e => {
+                        if (e.points.indexOf(actionSet.action) > -1) {
+                            let list1 = desk.points1.filter(p1 => e.points.indexOf(p1) > -1)
+                            let list2 = desk.points2.filter(p2 => e.points.indexOf(p2) > -1)
+                            let countSelf = desk.player == 1 ? list1.length : list2.length
+                            let countOppo = desk.player == 1 ? list2.length : list1.length
+                            if (desk.player == 1 && countSelf >= countOppo) {
+                                // 先手优先放
+                                actionSet.score += 1;
+                            }
+                            if (listBlockMostNeed.length <= 2) {
+                                // 没有被占领的+10
                                 actionSet.score += 5;
-                                // 相同占领数量的块额外+10
-                                let list1 = desk.points1.filter(p1 => e.points.indexOf(p1) > -1)
-                                let list2 = desk.points2.filter(p2 => e.points.indexOf(p2) > -1)
-                                if (list1.length == list2.length && list1.length > 0) {
+                                if (countSelf == countOppo && countSelf > 0) {
+                                    // 相同占领数量的块额外+10
                                     actionSet.score += 10;
                                 }
                             }
-                        })
-                    }
+                        }
+                    })
                 });
 
 
                 listPathOppoBestBefore.forEach(pathOppoBestBefore => {
                     // 这个点在对方需要的最短路径上
                     let listBlockOppoMostNeed = desk.desk.filter(e => pathOppoBestBefore.indexOf(e.id) > -1 && e.color == 0);
-                    if (listBlockOppoMostNeed.length <= 2) {
-                        // 如果对面还有小于等于2个块就获胜了，优先抢占其中一个 优先度5
-                        listBlockOppoMostNeed.forEach(e => {
-                            if (e.points.indexOf(actionSet.action) > -1) {
+                    listBlockOppoMostNeed.forEach(e => {
+
+                        if (e.points.indexOf(actionSet.action) > -1) {
+                            let list1 = desk.points1.filter(p1 => e.points.indexOf(p1) > -1)
+                            let list2 = desk.points2.filter(p2 => e.points.indexOf(p2) > -1)
+                            let countSelf = desk.player == 1 ? list1.length : list2.length
+                            let countOppo = desk.player == 1 ? list2.length : list1.length
+                            if (desk.player == 2 && countOppo != 0) {
+                                // 后手优先拦截
+                                actionSet.score += 1;
+                            }
+                            if (listBlockOppoMostNeed.length <= 2) {
+                                // 如果对面还有小于等于2个块就获胜了，优先抢占其中一个 优先度5
                                 actionSet.score += 5;
-                                // 相同占领情况焦灼的块额外+10优先拦截
-                                let list1 = desk.points1.filter(p1 => e.points.indexOf(p1) > -1)
-                                let list2 = desk.points2.filter(p2 => e.points.indexOf(p2) > -1)
-                                if (list1.length == list2.length && list1.length > 0) {
+                                if (countSelf == countOppo && countSelf > 0) {
+                                    // 相同占领情况焦灼的块额外+10优先拦截
                                     actionSet.score += 10;
                                 }
                             }
-                        })
-                    }
+                        }
+                    })
                 });
 
 
@@ -318,6 +330,7 @@ export class module10_10 {
                 let countInNoUserBlock = desk.desk.filter(e => e.points.indexOf(actionSet.action) > -1 && e.color == 0).length;
                 actionSet.score += countInNoUserBlock * 1;
 
+                // 如果这个块对方马上要占领了
 
             }
 
@@ -355,7 +368,6 @@ export class module10_10 {
             checkColorList.push(0)
         }
         let colorBlockList = desk.desk.filter(e => checkColorList.indexOf(e.color) > -1);
-
         let listStart = colorBlockList.filter(e => e.colorEnd.indexOf(color) > -1);
         // 可以作为初始的块块
         if (listStart.length == 0) {
@@ -379,6 +391,12 @@ export class module10_10 {
                 listPath.push(res);
             }
         })
+        // let res = this.checkPathEach(color, [], listStart[1], desk.desk, 0, withBlockNotGet)
+        // console.log(res, 'checkpatheach', desk.desk.filter(e => e.color == 0).map(e => e.id))
+        // console.log('checkpatheach2', desk.desk.filter(e => e.color == 2).map(e => e.id))
+        // if (res) {
+        //     listPath.push(res);
+        // }
 
         if (listPath.length > 0) {
             if (all) {
@@ -414,8 +432,10 @@ export class module10_10 {
             // 优先查已经占领的
             let blockA: any = blockList.find(e => e.id == a);
             let blockB: any = blockList.find(e => e.id == b);
-            if (blockA.color != 0 && blockB.color == 0) {
+            if (blockA.color == color && blockB.color == 0) {
                 return -1
+            } else if (blockA.color == 0 && blockB.color == color) {
+                return 1
             } else {
                 let idxSortA = listSort.indexOf(a);
                 let idxSortB = listSort.indexOf(b);
