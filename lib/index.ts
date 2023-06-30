@@ -47,8 +47,6 @@ import {
 import {
   example2_2 as module2_2, GameData2_2, GameConfig2_2,
 } from './module2_2/index';
-import example from './example/index';
-
 export {
   module4_6,
   GameData4_6,
@@ -200,7 +198,6 @@ export {
   GameData8_6,
   GameAction8_6,
 
-  example,
   module6_2,
   GameData6_2,
   GameAction6_2,
