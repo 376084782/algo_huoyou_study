@@ -47,7 +47,23 @@ import {
 import {
   example2_2 as module2_2, GameData2_2, GameConfig2_2,
 } from './module2_2/index';
+
+
+import {
+  module1_1, GameData1_1, GameAction1_1
+} from './books_odd/module1_1/index';
+import {
+  module3_1, GameData3_1, GameAction3_1
+} from './books_odd/module3_1/index';
+import {
+  module5_2, GameData5_2, GameAction5_2
+} from './books_odd/module5_2/index';
 export {
+
+  module1_1, GameData1_1, GameAction1_1,
+  module3_1, GameData3_1, GameAction3_1,
+  module5_2, GameData5_2, GameAction5_2,
+
   module4_6,
   GameData4_6,
   GameData4_6_action,
