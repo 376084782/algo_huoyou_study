@@ -5,14 +5,13 @@ let ctr = new module7_1()
 function test() {
     let desk = ctr.getRiddle()
     // desk.options = [2, 3, 5]
-    let act = ctr.getActionAuto(desk);
-    console.log(act);
+    // let acts = ctr.getActionAuto(desk);
+    // console.log(acts);
 
-    // let act = new GameAction7_1();
-    // act.dir = 2;
-    // act.step = 2;
-    // let f = ctr.doAction(desk, act);
-    // console.log(f)
+    let act = new GameAction7_1();
+    act.listIdx = [[1, 1], [2, 1]]
+    let f = ctr.doAction(desk, act);
+    console.log(f)
 }
 
 test()

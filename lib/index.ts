@@ -58,11 +58,15 @@ import {
 import {
   module5_2, GameData5_2, GameAction5_2
 } from './books_odd/module5_2/index';
+import {
+  module7_1, GameData7_1, GameAction7_1
+} from './books_odd/module7_1/index';
 export {
 
   module1_1, GameData1_1, GameAction1_1,
   module3_1, GameData3_1, GameAction3_1,
   module5_2, GameData5_2, GameAction5_2,
+  module7_1, GameData7_1, GameAction7_1,
 
   module4_6,
   GameData4_6,
