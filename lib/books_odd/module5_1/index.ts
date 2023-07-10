@@ -1,37 +1,37 @@
 var _ = require('lodash');
 
-export class GameData3_1 {
+export class GameData5_1 {
   player: number = 1;
   countInited: number = 20;
   desk: number[] = [];
-  options: number[] = [1, 2];
+  options: number[] = [1, 2, 4];
   typeSet: number = 1;
 }
-export class GameAction3_1 {
+export class GameAction5_1 {
   listIdx: number[] = [];
   score: number = 0
 }
-export class module3_1 {
+export class module5_1 {
   getRiddle() {
-    let desk = new GameData3_1();
+    let desk = new GameData5_1();
     return desk;
   }
   getRiddleLev() {
     let countMap: any = {
       1: {
-        listCount: [4, 5, 6, 7, 8, 9, 10],
+        listCount: [8, 9, 10],
         opt: [1, 2]
       }, 2: {
         listCount: [11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
         opt: [1, 2]
       }, 3: {
-        listCount: [6, 7, 8, 9, 10],
-        opt: [1, 3]
+        listCount: [8, 9, 10],
+        opt: [2, 3]
       }, 4: {
-        listCount: [11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
-        opt: [1, 2, 4]
+        listCount: [11, 12, 13, 14, 15],
+        opt: [2, 3, 4]
       }, 5: {
-        listCount: [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+        listCount: [15, 16, 17, 18, 19, 20],
         opt: [1, 3, 4]
       }
     }
@@ -44,7 +44,7 @@ export class module3_1 {
       listLev.forEach((lev2: number) => {
         let conf = countMap[lev2]
         conf.listCount.forEach((c: number) => {
-          let desk = new GameData3_1();
+          let desk = new GameData5_1();
           desk.countInited = c;
           desk.options = conf.opt;
           map[lev].push(desk)
@@ -54,7 +54,7 @@ export class module3_1 {
     }
     return map;
   }
-  checkRiddle(desk: GameData3_1) {
+  checkRiddle(desk: GameData5_1) {
     if (desk.countInited < 6 || desk.countInited > 30) {
       return -1
     }
@@ -63,13 +63,13 @@ export class module3_1 {
     }
     return 0
   }
-  checkDesk(desk: GameData3_1) {
+  checkDesk(desk: GameData5_1) {
     if (desk.desk.length >= desk.countInited) {
       return desk.player
     }
     return -1
   }
-  checkAction(desk: GameData3_1, act: GameAction3_1) {
+  checkAction(desk: GameData5_1, act: GameAction5_1) {
     if (desk.options.indexOf(act.listIdx.length) == -1) {
       // 获取的颗数错误
       return false
@@ -83,8 +83,8 @@ export class module3_1 {
     }
     return true
   }
-  doAction(deskIn: GameData3_1, act: GameAction3_1): [flag: number, desk: GameData3_1] {
-    let desk: GameData3_1 = _.cloneDeep(deskIn)
+  doAction(deskIn: GameData5_1, act: GameAction5_1): [flag: number, desk: GameData5_1] {
+    let desk: GameData5_1 = _.cloneDeep(deskIn)
     let f = this.checkAction(desk, act);
     if (!f) {
       return [-1, desk];
@@ -92,10 +92,10 @@ export class module3_1 {
     desk.desk = desk.desk.concat(act.listIdx);
     return [0, desk]
   }
-  getActionAuto(desk: GameData3_1): any[] {
+  getActionAuto(desk: GameData5_1): any[] {
 
     let actionAll = this.getActionAll(desk);
-    let listBetter: GameAction3_1[] = []
+    let listBetter: GameAction5_1[] = []
     // 推算所有可能性
     for (let i = 0; i < actionAll.length; i++) {
       let act1Self = actionAll[i];
@@ -204,16 +204,16 @@ export class module3_1 {
       }
     }
   }
-  getActionAll(desk: GameData3_1): GameAction3_1[] {
-    let listActionAll: GameAction3_1[] = []
+  getActionAll(desk: GameData5_1): GameAction5_1[] {
+    let listActionAll: GameAction5_1[] = []
     desk.options.forEach(c => {
       let act = this.getActionByCount(c, desk);
       listActionAll.push(act);
     })
     return listActionAll
   }
-  getActionByCount(c: number, desk: GameData3_1) {
-    let act = new GameAction3_1();
+  getActionByCount(c: number, desk: GameData5_1) {
+    let act = new GameAction5_1();
     for (let i = 0; i < desk.countInited; i++) {
       if (desk.desk.find(e => e == i) == undefined) {
         act.listIdx.push(i)

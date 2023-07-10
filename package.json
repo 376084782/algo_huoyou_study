@@ -26,6 +26,7 @@
   "dependencies": {
     "babel-plugin-add-module-exports": "^1.0.4",
     "lodash": "^4.17.21",
+    "moment": "^2.29.4",
     "ts-node": "^10.9.1"
   },
   "directories": {

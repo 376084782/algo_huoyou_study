@@ -44,8 +44,10 @@ export class module1_1 {
     return 0
   }
   checkDesk(desk: GameData1_1) {
-    if (desk.countCurrent >= desk.countInited) {
+    if (desk.countCurrent == desk.countInited) {
       return desk.player
+    } else if (desk.countCurrent > desk.countInited) {
+      return 3 - desk.player
     }
     return -1
   }
@@ -68,9 +70,9 @@ export class module1_1 {
     for (let i = 0; i < actionAll.length; i++) {
       let act1Self = actionAll[i];
       let [flagOppo, desk2Oppo] = this.doAction(desk, act1Self);
-      let actionAllOppo = this.getActionAll(desk2Oppo);
-      // 放之后对方可行棋子为0，说明必胜,直接使用
-      if (actionAllOppo.length == 0) {
+      let res = this.checkDesk(desk2Oppo);
+      // 必胜,直接使用
+      if (res == desk.player) {
         return [act1Self, act1Self]
       }
     }

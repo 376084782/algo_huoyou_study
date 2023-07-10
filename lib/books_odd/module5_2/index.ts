@@ -57,6 +57,9 @@ export class module5_2 {
     return [0, desk]
   }
   checkAction(desk: GameData5_2, act: GameAction5_2) {
+    if (act.dir != 1 && act.dir != 2 && act.dir != 3) {
+      return false
+    }
     let [x, y] = this.getTargetPos(act.dir, act.step, desk.pChess)
     if (x < 0 || y < 0 || x > desk.xMax - 1 || y > desk.yMax - 1) {
       return false
@@ -132,7 +135,7 @@ export class module5_2 {
     })
 
     let listNotBetter = actionAll.filter(e => listBetter.indexOf(e) == -1);
-    
+
     let listRes = []
     if (listBetter[0]) {
       listRes.push(listBetter[0])
@@ -157,7 +160,7 @@ export class module5_2 {
   getActionAll(desk: GameData5_2): GameAction5_2[] {
     let listActionAll: GameAction5_2[] = []
     let stepMax = Math.max(desk.xMax, desk.yMax)
-    for (let dir = 1; dir < 9; dir++) {
+    for (let dir = 1; dir <= 3; dir++) {
       // console.log(dir, 'dirrr')
       // 八个方向
       for (let step = 1; step <= stepMax; step++) {
