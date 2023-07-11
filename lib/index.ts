@@ -64,6 +64,9 @@ import {
 import {
   module5_1, GameData5_1, GameAction5_1
 } from './books_odd/module5_1/index';
+import {
+  module7_2, GameData7_2, GameAction7_2
+} from './books_odd/module7_2/index';
 export {
 
   module1_1, GameData1_1, GameAction1_1,
@@ -71,6 +74,7 @@ export {
   module5_2, GameData5_2, GameAction5_2,
   module7_1, GameData7_1, GameAction7_1,
   module5_1, GameData5_1, GameAction5_1,
+  module7_2, GameData7_2, GameAction7_2,
 
   module4_6,
   GameData4_6,
