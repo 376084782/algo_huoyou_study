@@ -116,9 +116,9 @@ export class module3_1 {
       let act2 = this.getActionByCount(n1, desk);
       if (r >= min) {
         if (r - n1 < min) {
-          listBetter.push(act1)
+          act1 && listBetter.push(act1)
         } else if (r - n2 < min) {
-          listBetter.push(act2)
+          act2 && listBetter.push(act2)
         }
       }
     } else {
@@ -208,7 +208,9 @@ export class module3_1 {
     let listActionAll: GameAction3_1[] = []
     desk.options.forEach(c => {
       let act = this.getActionByCount(c, desk);
-      listActionAll.push(act);
+      if (act) {
+        listActionAll.push(act);
+      }
     })
     return listActionAll
   }
@@ -222,6 +224,6 @@ export class module3_1 {
         return act
       }
     }
-    return act
+    return false
   }
 }

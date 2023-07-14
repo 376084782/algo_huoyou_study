@@ -3,8 +3,12 @@ var _ = require('lodash');
 export class GameData1_3 {
   player: number = 1;
   size: number = 3;
+  stepStartLineIdx = 0;//开始计步数的listLine序号
+  mapFlagColor: any = {}
   listFlag: number[][] = []
   listLine: number[][][] = []
+  listInited1: number[][][] = []
+  listInited2: number[][][] = []
   typeSet: number = 1;
 }
 export class GameAction1_3 {
@@ -38,7 +42,9 @@ export class module1_3 {
     // 检查是否形成包围，如果形成了则占领一个房子
     let ls = this.getBoxLines(act.line);
     ls.forEach((lines: number[][][]) => {
-      if (lines.every(e => desk.listLine.find(e2 => this.checkSameLine(e2, e)))) {
+      let listAll: any[] = _.cloneDeep(desk.listLine).concat(desk.listInited1, desk.listInited2);
+      if (lines.every(e => listAll.find(e2 => this.checkSameLine(e2, e)))) {
+        desk.mapFlagColor[desk.listFlag.length] = desk.player;
         desk.listFlag.push(lines[0][0])
       }
     })
@@ -93,11 +99,14 @@ export class module1_3 {
   checkAction(desk: GameData1_3, act: GameAction1_3) {
     for (let i = 0; i < act.line.length; i++) {
       let [x, y] = act.line[i];
-      if (x >= desk.size || y >= desk.size || x < 0 || y < 0) {
+      if (x > desk.size || y > desk.size || x < 0 || y < 0) {
         // 超出棋盘范围
+        // console.log('超出棋盘范围')
         return false
       }
-      if (desk.listLine.find(e => this.checkSameLine(e, act.line))) {
+      let listAll: any[] = _.cloneDeep(desk.listLine).concat(desk.listInited1, desk.listInited2);
+      if (listAll.find(e => this.checkSameLine(e, act.line))) {
+        // console.log('已经画线了')
         return false
       }
     }

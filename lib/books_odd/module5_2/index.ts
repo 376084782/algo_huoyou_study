@@ -2,8 +2,8 @@ var _ = require('lodash');
 
 export class GameData5_2 {
   player: number = 1;
-  pChess: number[] = [0, 0];
-  pStart: number[] = [3, 0]
+  pChess: number[] = [2, 0];
+  pStart: number[] = [2, 0]
   pGoal: number[] = [7, 7];
   xMax = 8;
   yMax = 8;
