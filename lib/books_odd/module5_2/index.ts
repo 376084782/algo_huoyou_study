@@ -120,6 +120,16 @@ export class module5_2 {
   getActionAuto(desk: GameData5_2): any[] {
     let actionAll = this.getActionAll(desk);
 
+    // 推算所有可能性
+    for (let i = 0; i < actionAll.length; i++) {
+      let act1Self = actionAll[i];
+      let flagRes = this.checkDesk(desk);
+      // 放之后必胜,直接使用
+      if (flagRes == desk.player) {
+        return [act1Self, act1Self]
+      }
+    }
+
     let listBetter: GameAction5_2[] = [];
     let pOff = [[0, 0], [-2, -1], [-1, -2], [-5, -3], [-3, -5], [-7, -4], [-4, -7], [-10, -6], [-6, -10]];
     let pBetter: number[][] = [];
