@@ -20,10 +20,80 @@ export class module5_2 {
     return desk;
   }
   getRiddleLev() {
-    let map = {
+    let mapStartPos: any = {
+      1: [
+        [7, 0],
+        [7, 1],
+        [7, 2],
+        [7, 3],
+        [7, 4],
+        [7, 5],
+        [7, 6],
+        [0, 7],
+        [2, 7],
+        [3, 7],
+        [4, 7],
+        [5, 7],
+        [6, 7],
+        [0, 0],
+        [1, 1],
+        [2, 2],
+        [3, 3],
+        [4, 4],
+        [5, 5],
+        [6, 6],
+      ],
+      2: [
+        [0, 1],
+        [1, 2],
+        [2, 3],
+        [3, 4],
+        [4, 5],
+        [0, 6],
+        [1, 6],
+        [2, 6],
+        [3, 6],
+        [4, 6],
+        [1, 0],
+        [2, 1],
+        [3, 2],
+        [4, 3],
+        [5, 4],
+        [5, 0],
+        [5, 1],
+        [5, 2],
+        [5, 3],
+        [6, 0],
+        [6, 1],
+        [6, 2],
+        [6, 3],
+        [6, 4],
+      ],
+      3: [
+        [0, 2],
+        [1, 3],
+        [0, 4],
+        [1, 4],
+        [2, 0],
+        [3, 1],
+        [4, 0],
+        [4, 1],
+      ]
+    }
+
+    let map: any = {
       1: [],
       2: [],
       3: []
+    }
+    for (let l = 1; l < 4; l++) {
+      let listStart: number[] = mapStartPos[l];
+      listStart.forEach(pStart => {
+        let desk = this.getRiddle()
+        desk.pStart = _.cloneDeep(pStart);
+        desk.pChess = _.cloneDeep(pStart)
+        map[l].push(desk);
+      });
     }
     return map
   }
@@ -119,6 +189,17 @@ export class module5_2 {
   }
   getActionAuto(desk: GameData5_2): any[] {
     let actionAll = this.getActionAll(desk);
+
+    // 推算所有可能性
+    for (let i = 0; i < actionAll.length; i++) {
+      let act1Self = actionAll[i];
+      let [flagOppo, desk2Oppo] = this.doAction(desk, act1Self)
+      let flagRes = this.checkDesk(desk2Oppo);
+      // 放之后必胜,直接使用
+      if (flagRes == desk.player) {
+        return [act1Self, act1Self]
+      }
+    }
 
     let listBetter: GameAction5_2[] = [];
     let pOff = [[0, 0], [-2, -1], [-1, -2], [-5, -3], [-3, -5], [-7, -4], [-4, -7], [-10, -6], [-6, -10]];
