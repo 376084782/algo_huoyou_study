@@ -29,4 +29,4 @@ async function writeQuesIn(mapAll: any, maxEachLev = 10) {
     }
 
 }
-// createQues()
+createQues()

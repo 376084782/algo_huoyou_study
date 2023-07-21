@@ -2,7 +2,7 @@ var _ = require('lodash');
 
 export class GameData1_3 {
   player: number = 1;
-  size: number = 3;
+  size: number = 2;
   stepStartLineIdx = 0;//开始计步数的listLine序号
   mapFlagColor: any = {}
   listFlag: number[][] = []

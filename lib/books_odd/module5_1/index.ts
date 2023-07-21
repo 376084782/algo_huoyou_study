@@ -64,7 +64,12 @@ export class module5_1 {
     return 0
   }
   checkDesk(desk: GameData5_1) {
-    if (desk.desk.length >= desk.countInited) {
+    let countLeft = desk.countInited - desk.desk.length;
+    let minGet = Math.min(...desk.options);
+    if (countLeft < minGet) {
+      return desk.player
+    }
+    if (countLeft <= 0) {
       return desk.player
     }
     return -1

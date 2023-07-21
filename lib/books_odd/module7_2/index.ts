@@ -9,6 +9,7 @@ interface DataMonth7_2 {
 }
 
 export class GameData7_2 {
+  year: number = 0;
   player: number = 1;
   desk: DataMonth7_2[] = [];
   startDay: number[] = [7, 10];
@@ -22,8 +23,50 @@ export class GameAction7_2 {
   score: number = 0
 }
 export class module7_2 {
+  getRiddleLev() {
+    let year = new Date().getFullYear();
+    let map: any = {
+      1: [],
+      2: [],
+      3: []
+    }
+
+    let mapYQ: any = {
+      1: {
+        month: 11,
+        off: 1
+      },
+      2: {
+        month: 10,
+        off: 0
+      },
+      3: {
+        month: 9,
+        off: 1
+      },
+
+    }
+    for (let lev = 1; lev < 4; lev++) {
+      let list = map[lev];
+      let conf = mapYQ[lev];
+      let { month, off } = conf;
+      let desk = this.getRiddle(year);
+      let targetMonth = desk.desk.find(e => e.month == month);
+
+      targetMonth?.list.forEach(day => {
+        if (day % 2 == off) {
+          let deskNeed: GameData7_2 = _.cloneDeep(desk);
+          deskNeed.startDay = [month, day]
+          list.push(deskNeed)
+        }
+      });
+
+    }
+    return map;
+  }
   getRiddle(year: number) {
     let desk = new GameData7_2();
+    desk.year = year;
     let flagEnd = false
     let day = 0;
     let dateEnd = moment(year + '1231')
@@ -60,14 +103,24 @@ export class module7_2 {
     return -1
   }
 
+  formatNum1(str: string) {
+    return ('0000' + str).slice(-2)
+  }
   checkAction(desk: GameData7_2, act: GameAction7_2) {
-    let offset = act.day[1] - desk.startDay[1]
-    if (offset == 0) {
+    if (act.day[1] - desk.startDay[1] == 0) {
       // 同一天，查看相隔几个月
-      offset = act.day[0] - desk.startDay[0]
-    }
-    if (offset > desk.offsetMax || offset <= 0) {
-      return -1
+      let offMonth = act.day[0] - desk.startDay[0]
+      if (offMonth > desk.offsetMax || offMonth <= 0) {
+        return -1
+      }
+    } else {
+      let etm = moment(`${desk.year}-${this.formatNum1('' + act.day[0])}-${this.formatNum1('' + act.day[1])}`)
+      let stm = moment(`${desk.year}-${this.formatNum1('' + desk.startDay[0])}-${this.formatNum1('' + desk.startDay[1])}`)
+      // diff可以理解为减号 结束时间(etm) - 开始时间(stm) = 时间差(val)
+      let val = etm.diff(stm, 'days')
+      if (val > desk.offsetMax || val <= 0) {
+        return -1
+      }
     }
     // 检查是否有这一天
     let dataMonth = desk.desk.find(e => e.month == act.day[0])
@@ -133,9 +186,12 @@ export class module7_2 {
     for (let i = 0; i < desk.offsetMax; i++) {
       let offset = i + 1;
       // 下一天
-      let day = [desk.startDay[0], desk.startDay[1] + offset]
+
+      let dayNow = moment(`${desk.year}-${this.formatNum1('' + desk.startDay[0])}-${this.formatNum1('' + desk.startDay[1])}`)
+      let dayNext = dayNow.add(1, 'days');
+
       let actDay = new GameAction7_2();
-      actDay.day = day;
+      actDay.day = [dayNext.month() + 1, dayNext.date()];
       if (this.checkAction(desk, actDay) == 0) {
         listActionAll.push(actDay)
       }
