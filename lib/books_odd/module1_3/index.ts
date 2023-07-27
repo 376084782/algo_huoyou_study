@@ -10,6 +10,7 @@ export class GameData1_3 {
   listInited1: number[][][] = []
   listInited2: number[][][] = []
   typeSet: number = 1;
+  gainExtraChance = false;
 }
 export class GameAction1_3 {
   line: number[][] = []
@@ -29,7 +30,21 @@ export class module1_3 {
   checkDesk(desk: GameData1_3) {
     let listCanPut = this.getActionAll(desk);
     if (listCanPut.length == 0) {
-      return desk.player;
+      let count1 = 0;
+      let count2 = 0;
+      for (let idx in desk.mapFlagColor) {
+        let color = desk.mapFlagColor[idx];
+        if (color == 1) {
+          count1++
+        } else {
+          count2++
+        }
+      }
+      if (count1 == count2) {
+        return 3
+      } else {
+        return count1 > count2 ? 1 : 2
+      }
     }
     return -1
   }
@@ -39,6 +54,7 @@ export class module1_3 {
       return [-1, desk]
     }
     desk.listLine.push(act.line);
+    desk.gainExtraChance = false;
     // 检查是否形成包围，如果形成了则占领一个房子
     let ls = this.getBoxLines(act.line);
     ls.forEach((lines: number[][][]) => {
@@ -46,6 +62,7 @@ export class module1_3 {
       if (lines.every(e => listAll.find(e2 => this.checkSameLine(e2, e)))) {
         desk.mapFlagColor[desk.listFlag.length] = desk.player;
         desk.listFlag.push(lines[0][0])
+        desk.gainExtraChance = true;
       }
     })
     return [0, desk]
@@ -166,8 +183,8 @@ export class module1_3 {
   getActionAll(desk: GameData1_3): GameAction1_3[] {
     let listActionAll: GameAction1_3[] = []
     // 从左上到右下遍历，每个向右向下取点
-    for (let y = 0; y < desk.size; y++) {
-      for (let x = 0; x < desk.size; x++) {
+    for (let y = 0; y <= desk.size; y++) {
+      for (let x = 0; x <= desk.size; x++) {
         let pEnd1 = [x + 1, y]
         let act1 = new GameAction1_3();
         act1.line = [[x, y], pEnd1]
