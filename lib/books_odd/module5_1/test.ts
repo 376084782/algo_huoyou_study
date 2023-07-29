@@ -3,9 +3,9 @@ import { FileWriter } from "../../common/FileWriter";
 
 let ctr = new module5_1()
 function test() {
-    let desk = {"player":2,"countInited":20,"desk":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],"options":[1,2],"typeSet":2}
+    let desk = {"player":2,"countInited":20,"desk":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],"options":[4,5],"typeSet":2}
     // desk.options = [2, 3, 5]
-    let act = ctr.getActionAuto(desk);
+    let act = ctr.checkDesk(desk);
     console.log(act);
 
 }
@@ -29,4 +29,4 @@ async function writeQuesIn(mapAll: any, maxEachLev = 10) {
     }
 
 }
-createQues()
+// createQues()

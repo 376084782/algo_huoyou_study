@@ -5,6 +5,7 @@ export class GameData1_3 {
   size: number = 2;
   stepStartLineIdx = 0;//开始计步数的listLine序号
   mapFlagColor: any = {}
+  mapLineColor: any = {}
   listFlag: number[][] = []
   listLine: number[][][] = []
   listInited1: number[][][] = []
@@ -38,6 +39,7 @@ export class module1_3 {
     if (!this.checkAction(desk, act)) {
       return [-1, desk]
     }
+    desk.mapLineColor[desk.listLine.length] = deskIn.player;
     desk.listLine.push(act.line);
     // 检查是否形成包围，如果形成了则占领一个房子
     let ls = this.getBoxLines(act.line);
