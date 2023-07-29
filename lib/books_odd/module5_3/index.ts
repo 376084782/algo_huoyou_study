@@ -1,5 +1,8 @@
+import RandomGenerater from "../../util/RandomGenerater";
+
 var _ = require('lodash');
 
+let randomer = new RandomGenerater(0)
 export class GameData5_3 {
   player: number = 1;
   desk: number[][] = [];
@@ -8,7 +11,7 @@ export class GameData5_3 {
 export class GameAction5_3 {
   p1: number[] = [];
   p2: number[] = []
-  score: number = 0
+  score: number = 0;
 }
 export class module5_3 {
   getRiddle(size: number, defaultPosList?: number[][]) {
@@ -34,6 +37,62 @@ export class module5_3 {
       })
     }
     return desk;
+  }
+  getStepBack(desk: GameData5_3): GameAction5_3[] {
+    let listAction: GameAction5_3[] = []
+    let listP: number[][] = [];
+    desk.desk.forEach((row, y) => {
+      row.forEach((v, x) => {
+        if (v != 0) {
+          listP.push([x, y])
+        }
+      })
+    })
+    listP.forEach(([x, y], i) => {
+      let vLeft = this.getGridValue(x - 1, y, desk);
+      let vTop = this.getGridValue(x, y + 1, desk);
+
+      // 向左跳
+      let jumpX = vLeft == 1 ? x - 2 : x - 1
+      let vLeft2 = this.getGridValue(jumpX, y, desk);
+      if (vLeft2 == 0) {
+        let act = new GameAction5_3();
+        act.p1 = [x, y];
+        act.p2 = [jumpX, y]
+        listAction.push(act);
+      }
+
+      // 向上跳
+      let jumpY = vTop == 1 ? y + 2 : y + 1
+      let vTop2 = this.getGridValue(x, jumpY, desk);
+      if (vTop2 == 0) {
+        let act = new GameAction5_3();
+        act.p1 = [x, y];
+        act.p2 = [x, jumpY]
+        listAction.push(act);
+      }
+    })
+
+    return listAction
+  }
+  getGridValue(x: number, y: number, desk: GameData5_3) {
+    if (desk.desk[y]) {
+      return desk.desk[y][x]
+    }
+    return -1
+  }
+  getRiddleLev(stepMin = 8) {
+    let maxX = 8;
+    // 把四个圆片放在终点
+    let desk = this.getRiddle(8, [[maxX - 2, 0], [maxX - 1, 0], [maxX - 2, 1], [maxX - 1, 1]]);
+    for (let step = 0; step < stepMin; step++) {
+      let actList = this.getStepBack(desk);
+      let idx = randomer.RangeInteger(0, actList.length)
+      let act = actList[idx];
+      let [f, deskNew] = this.doAction(desk, act);
+      desk = deskNew
+    }
+    return desk
   }
   getRiddleDefault() {
     let desk = this.getRiddle(8, [[3, 4], [4, 4], [3, 3], [4, 2]]);

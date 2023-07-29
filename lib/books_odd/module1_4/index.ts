@@ -8,8 +8,7 @@ export class GameData1_4 {
 }
 export class GameAction1_4 {
   color: number = -1;
-  x: number = -1;
-  y: number = -1
+  listP: number[][] = []
   score: number = 0
 }
 export class module1_4 {
@@ -38,7 +37,10 @@ export class module1_4 {
     return desk;
   }
   checkRiddle(desk: GameData1_4) {
-    if (desk.desk.length > 4 || desk.desk.length < 8) {
+    if (desk.desk.length < 4 || desk.desk.length > 8) {
+      return -1
+    }
+    if (desk.desk[0].length < 4 || desk.desk[0].length > 8) {
       return -1
     }
     return 0
@@ -147,7 +149,9 @@ export class module1_4 {
     if (this.checkAction(desk, act) == -1) {
       return [-1, desk];
     }
-    desk.desk[act.y][act.x] = act.color;
+    act.listP.forEach(([x, y]) => {
+      desk.desk[y][x] = act.color;
+    })
     return [0, desk]
   }
   checkAction(desk: GameData1_4, act: GameAction1_4) {
