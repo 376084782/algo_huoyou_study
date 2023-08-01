@@ -7,6 +7,7 @@ export class GameData3_4 {
   desk: number[][] = [];
   deskInited: number[][] = []
   typeSet: number = 1;
+  isTrainMode: boolean = false
 }
 export class GameAction3_4 {
   color: number = 0;
@@ -44,22 +45,61 @@ export class module3_4 {
     }
     return 0
   }
-  checkDesk(desk: GameData3_4) {
+  getAnswer(deskIn: GameData3_4) {
+    let desk: GameData3_4 = _.cloneDeep(deskIn);
     for (let y = 1; y < desk.desk.length; y++) {
       let row = desk.desk[y];
       for (let x = 0; x < row.length; x++) {
         let v = row[x];
-        if (v == 0) {
-          // 还没有填色
-          return -1
+        if (v <= 0) {
+          // 获取这个球的上一行的两个球，判断是否符合规则
+          let ball1 = desk.desk[y - 1][x];
+          let ball2 = desk.desk[y - 1][x + 1];
+          let r = -1;
+          let fAllSame = ball1 == ball2;
+          if (fAllSame) {
+            r = ball1
+          } else {
+            let listColor = [1, 2, 3];
+            listColor = listColor.filter(c => c != ball1 && c != ball2);
+            r = listColor[0]
+          }
+          desk.desk[y][x] = r;
         }
-        // 获取这个球的上一行的两个球，判断是否符合规则
-        let ball1 = desk.desk[y - 1][x];
-        let ball2 = desk.desk[y - 1][x + 1];
-        let fAllSame = ball1 == ball2 && v == ball1;
-        let fAllDiff = ball1 != ball2 && ball1 != v && ball2 != v;
-        if (!fAllSame || !fAllDiff) {
-          return -1
+      }
+    }
+    return desk;
+  }
+  checkDesk(desk: GameData3_4) {
+    if (desk.isTrainMode) {
+      // 如果是训练赛模式，只需要填最后的一个球
+      let deskLastColor = desk.desk[desk.desk.length - 1][0];
+      if (deskLastColor <= 0) {
+        return -1
+      } else {
+        // 检查答案是否正确
+        let ques = this.getAnswer(desk);
+        let colorTruth = ques.desk[ques.desk.length - 1][0];
+        return colorTruth == deskLastColor ? desk.player : -1
+      }
+    } else {
+      // 检查所有球
+      for (let y = 1; y < desk.desk.length; y++) {
+        let row = desk.desk[y];
+        for (let x = 0; x < row.length; x++) {
+          let v = row[x];
+          if (v == 0) {
+            // 还没有填色
+            return -1
+          }
+          // 获取这个球的上一行的两个球，判断是否符合规则
+          let ball1 = desk.desk[y - 1][x];
+          let ball2 = desk.desk[y - 1][x + 1];
+          let fAllSame = ball1 == ball2 && v == ball1;
+          let fAllDiff = ball1 != ball2 && ball1 != v && ball2 != v;
+          if (!fAllSame || !fAllDiff) {
+            return -1
+          }
         }
       }
     }

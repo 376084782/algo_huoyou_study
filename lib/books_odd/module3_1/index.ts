@@ -170,7 +170,7 @@ export class module3_1 {
           optBetter.listX.forEach(x => {
             optBetter.listY.forEach(y => {
               let n = (left - y) / x;
-              if (n % 1 === 0 && n > 0) {
+              if (n % 1 === 0 && n >= 0) {
                 listBetter.push(act1Self)
               }
             })
