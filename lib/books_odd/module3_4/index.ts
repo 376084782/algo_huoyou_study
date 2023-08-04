@@ -26,10 +26,28 @@ export class module3_4 {
 
     for (let y = 0; y < count; y++) {
       let row: number[] = []
-      for (let x = count - y; x > 0; x--) {
+      for (let x = 0; x < count - y; x++) {
         idx++;
         if (idx <= total - blankCount) {
-          row.push(randomer.RangeInteger(1, 3));
+          if (y == 0) {
+            // 如果是第一行随机
+            row.push(randomer.RangeInteger(1, 4));
+          } else {
+            // 否则填上正确的颜色
+            let ball1 = desk.desk[y - 1][x];
+            let ball2 = desk.desk[y - 1][x + 1];
+            console.log(ball1, ball2, x, desk.desk[y - 1])
+            let r = -1;
+            let fAllSame = ball1 == ball2;
+            if (fAllSame) {
+              r = ball1
+            } else {
+              let listColor = [1, 2, 3];
+              listColor = listColor.filter(c => c != ball1 && c != ball2);
+              r = listColor[0]
+            }
+            row.push(r);
+          }
         } else {
           row.push(0)
         }
@@ -105,14 +123,43 @@ export class module3_4 {
     }
     return -1
   }
-
   doAction(deskIn: GameData3_4, act: GameAction3_4): [flag: number, desk: GameData3_4] {
     let desk: GameData3_4 = _.cloneDeep(deskIn)
-    desk.desk[act.y][act.x] = act.color;
-    return [0, desk]
+    let f = this.checkAction(desk, act);
+    if (f == -1) {
+      return [-1, desk]
+    } else {
+      desk.desk[act.y][act.x] = act.color;
+      return [0, desk]
+    }
   }
   checkAction(desk: GameData3_4, act: GameAction3_4) {
-    return 0
+    if (act.color < 0 || act.color > 3) {
+      return -1
+    }
+    if (desk.isTrainMode) {
+      let isLastBall = (act.x == 0 && act.y == desk.desk.length - 1)
+      if (!isLastBall) {
+        return -1
+      }
+
+      // 检查答案是否正确
+      let ques = this.getAnswer(desk);
+      let colorTruth = ques.desk[ques.desk.length - 1][0];
+      if (colorTruth != act.color) {
+        return -1
+      }
+      
+      return 0
+    }
+    let { x, y } = act;
+    let ball1 = desk.desk[y - 1][x];
+    let ball2 = desk.desk[y - 1][x + 1];
+    if (ball1 == ball2) {
+      return ball1 == act.color ? 0 : -1
+    } else {
+      return (act.color != ball1 && act.color != ball2) ? 0 : -1
+    }
   }
   getActionAuto(desk: GameData3_4): any[] {
     let actionAll = this.getActionAll(desk);
