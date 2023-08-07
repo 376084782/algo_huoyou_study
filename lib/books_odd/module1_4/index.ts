@@ -75,12 +75,14 @@ export class module1_4 {
             maxY = maxYIn
           } else if (maxY != maxYIn) {
             // 说明纵向不是一个矩形
+            console.log('纵向不是一个矩形')
             return -1
           }
         }
         // 检查横向是否满足一个矩形标准
         for (let yIn = y; yIn < maxY; yIn++) {
           if (desk.desk[yIn][maxX + 1] == v) {
+            console.log('横向是否满足一个矩形标准')
             return -1
           }
         }
@@ -88,6 +90,7 @@ export class module1_4 {
         // 获取这个矩形范围内的需求数字，如果数字不止一个或者没有数字，则答题错误
         let countNeed = this.getCountNeed(desk.ques, [x, y], [maxX, maxY]);
         if (countNeed == -1) {
+          console.log('获取这个矩形范围内的需求数字，如果数字不止一个或者没有数字，则答题错误')
           return -1
         }
 
@@ -95,6 +98,7 @@ export class module1_4 {
         // 能到这里就说明这个范围是一个矩形，而且范围内只有一个目标数字，把颜色置负，用于区分是否已扫描
         for (let yIn = y; yIn <= maxY; yIn++) {
           for (let xIn = x; xIn <= maxX; xIn++) {
+            console.log('zhife')
             desk.desk[yIn][xIn] *= -1;
             countReal++;
           }
@@ -106,7 +110,7 @@ export class module1_4 {
       }
 
     }
-    return 0
+    return desk.player
   }
   getCountNeed(ques: number[][], p1: number[], p2: number[]) {
     let [x, y] = p1;

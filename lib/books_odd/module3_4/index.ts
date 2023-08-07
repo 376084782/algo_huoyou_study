@@ -88,17 +88,22 @@ export class module3_4 {
     }
     return desk;
   }
-  checkDesk(desk: GameData3_4) {
+  checkDesk(deskIn: GameData3_4) {
+    let desk: GameData3_4 = _.cloneDeep(deskIn);
     if (desk.isTrainMode) {
       // 如果是训练赛模式，只需要填最后的一个球
       let deskLastColor = desk.desk[desk.desk.length - 1][0];
       if (deskLastColor <= 0) {
         return -1
       } else {
+        let deskCheck: GameData3_4 = _.cloneDeep(deskIn);
+        deskCheck.desk[deskCheck.desk.length - 1][0] = 0;
         // 检查答案是否正确
-        let ques = this.getAnswer(desk);
+        let ques = this.getAnswer(deskCheck);
         let colorTruth = ques.desk[ques.desk.length - 1][0];
-        return colorTruth == deskLastColor ? desk.player : -1
+        let isWin = colorTruth == deskLastColor
+        console.log('isWin', isWin, colorTruth, deskLastColor)
+        return isWin ? desk.player : 3 - desk.player
       }
     } else {
       // 检查所有球
@@ -143,13 +148,7 @@ export class module3_4 {
         return -1
       }
 
-      // 检查答案是否正确
-      let ques = this.getAnswer(desk);
-      let colorTruth = ques.desk[ques.desk.length - 1][0];
-      if (colorTruth != act.color) {
-        return -1
-      }
-      
+
       return 0
     }
     let { x, y } = act;
