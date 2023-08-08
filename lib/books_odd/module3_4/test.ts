@@ -23,7 +23,10 @@ function createQues() {
     let map: any = {
         1: [],
         2: [],
-        3: []
+        3: [],
+        4: [],
+        5: [],
+        6: [],
     }
     let configMap: any = {
         1: {
@@ -52,9 +55,12 @@ function createQues() {
         }
     }
     let mapLev: any = {
-        1: [1, 2],
-        2: [3, 4],
-        3: [5, 6]
+        1: [1],
+        2: [2],
+        3: [3],
+        4: [4],
+        5: [5],
+        6: [6],
     }
     for (let lev in mapLev) {
         let levList: number[] = mapLev[lev];
@@ -72,10 +78,10 @@ function createQues() {
     writeQuesIn(map, 999)
 }
 async function writeQuesIn(mapAll: any, maxEachLev = 10) {
-    for (let level = 1; level <= 3; level++) {
+    for (let level = 1; level <= 6; level++) {
         let listQues = mapAll[level].slice(0, maxEachLev)
         console.log(`写入等级${level},数量：${listQues.length}`)
         await FileWriter.setFile(`./train/3-4/level${level}.json`, JSON.stringify(listQues))
     }
 }
-// createQues()
+createQues()

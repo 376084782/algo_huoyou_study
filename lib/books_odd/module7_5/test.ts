@@ -20,8 +20,8 @@ function createQues() {
     // 三个等级，等级1两个棋子
     let ctr = new module7_5();
     let map: any = { 1: [], 2: [], 3: [] }
-    let stepMap: any = { 1: 3, 2: 2, 3: 5 }
-    let sizeMap: any = { 1: 2, 2: 2, 3: 3 }
+    let stepMap: any = { 1: 6, 2: 4, 3: 3 }
+    let sizeMap: any = { 1: 3, 2: 3, 3: 3 }
     for (let lev = 1; lev < 4; lev++) {
         console.log(map[lev].length, 'start')
         while (map[lev].length < 10) {
