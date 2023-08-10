@@ -4,14 +4,14 @@ import RandomGenerater from "../../util/RandomGenerater";
 let randomer = new RandomGenerater(1)
 let ctr = new module3_4()
 function test() {
-    let desk = { "player": 1, "desk": [[1, 1, 2, 3, 1, 3, 1, 3, 3, 2], [1, 3, 1, 2, 2, 2, 2, 3, 1], [2, 2, 3, 2, 2, 2, 1, 2], [2, 1, 1, 2, 2, 3, 3], [3, 1, 3, 2, 1, 3], [2, 2, 1, 3, 2], [2, 3, 2, 1], [1, 1, 0], [0, 0], [0]], "deskInited": [[1, 1, 2, 3, 1, 3, 1, 3, 3, 2], [1, 3, 1, 2, 2, 2, 2, 3, 1], [2, 2, 3, 2, 2, 2, 1, 2], [2, 1, 1, 2, 2, 3, 3], [3, 1, 3, 2, 1, 3], [2, 2, 1, 3, 2], [2, 3, 2, 1], [1, 1, 0], [0, 0], [0]], "typeSet": 1, "isTrainMode": true }
+    let desk = {"player":1,"desk":[[3,3,1,1,1,3,3,2,1,2],[3,2,1,1,2,3,1,3,3],[1,3,1,3,1,2,2,3],[2,2,2,2,3,2,1],[2,2,2,1,1,3],[2,2,3,1,2],[2,1,2,3],[3,3,1],[3,2],[1]],"deskInited":[[3,3,1,1,1,3,3,2,1,2],[3,2,1,1,2,3,1,3,3],[1,3,1,3,1,2,2,3],[2,2,2,2,3,2,1],[2,2,2,1,1,3],[2,2,3,1,2],[2,1,2,3],[3,3,1],[3,0],[0]],"typeSet":1,"isTrainMode":false}
     let act = {
         color: 3,
         score: 0,
         x: 0,
         y: 9
     }
-    let r = ctr.doAction(desk, act)
+    let r = ctr.checkDesk(desk)
     console.log(r);
 
 }
@@ -84,4 +84,4 @@ async function writeQuesIn(mapAll: any, maxEachLev = 10) {
         await FileWriter.setFile(`./train/3-4/level${level}.json`, JSON.stringify(listQues))
     }
 }
-createQues()
+// createQues()
