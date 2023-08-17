@@ -99,6 +99,9 @@ export class module7_6 {
     }
   }
   checkRiddle(desk: GameData7_6) {
+    if (desk.targetNum < 7 || desk.targetNum > 100) {
+      return -1
+    }
     return 0
   }
   checkDesk(desk: GameData7_6) {
