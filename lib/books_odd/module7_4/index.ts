@@ -134,13 +134,13 @@ export class module7_4 {
     }
     return map;
   }
-  getRiddle(list: number[]) {
+  getRiddle(list: number[], count = 1) {
     let desk = new GameData7_4();
     if (list.length > 0) {
       desk.desk = [list];
     } else {
       let listQues = _.shuffle(_.cloneDeep(this.listQues))
-      desk.desk = [listQues[0]];
+      desk.desk = listQues.slice(0, count);
     }
     return desk;
   }
