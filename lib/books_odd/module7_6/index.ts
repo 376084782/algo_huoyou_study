@@ -37,6 +37,39 @@ export class GameAction7_6 {
   score: number = 0
 }
 export class module7_6 {
+  getRiddleLev() {
+    let map: any = {
+      1: [
+        [3, 27], [4, 28], [2, 24], [3, 24], [4, 24], [5, 24]
+      ],
+      2: [
+        [1, 25], [2, 25], [1, 24], [2, 24], [5, 24], [6, 24]
+      ],
+      3: [
+        [4, 22], [5, 22], [6, 22], [1, 21], [2, 20], [3, 19], [4, 18], [5, 17], [6, 16]
+      ],
+      4: [
+        [1, 13], [2, 13], [3, 13], [4, 13], [5, 13], [6, 13], [1, 14], [2, 15], [3, 16]
+      ],
+      5: [
+        [1, 4], [3, 4], [4, 4], [1, 3], [2, 3], [1, 5], [2, 6], [3, 7], [4, 8], [5, 9]
+      ]
+    }
+    let mapQues: any = {}
+    for (let lev in map) {
+      let list: number[][] = map[lev];
+
+      list.forEach(([upNum, total]) => {
+        let desk = this.getRiddle(upNum)
+        desk.targetNum = total;
+        if (!mapQues[lev]) {
+          mapQues[lev] = []
+        }
+        mapQues[lev].push(desk);
+      });
+    }
+    return mapQues
+  }
   getRiddle(count: number) {
     let desk = new GameData7_6();
     desk.randomStart = count < 1;
@@ -99,6 +132,9 @@ export class module7_6 {
     }
   }
   checkRiddle(desk: GameData7_6) {
+    if (desk.targetNum < 7 || desk.targetNum > 100) {
+      return -1
+    }
     return 0
   }
   checkDesk(desk: GameData7_6) {
