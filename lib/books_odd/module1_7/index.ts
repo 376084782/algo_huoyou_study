@@ -99,8 +99,8 @@ export class module1_7 {
     if (act.listP.length >= 2) {
       let pStart = act.listP[0];
       let [xStart, yStart] = pStart;
-      let p2 = act.listP[0];
-      let [x2, y2] = pStart;
+      let p2 = act.listP[1];
+      let [x2, y2] = p2;
       let sameX = x2 == xStart;
       let sameY = y2 == yStart;
       if (!sameX && !sameY) {
@@ -174,7 +174,9 @@ export class module1_7 {
     let size = desk.desk.length;
     for (let y = 0; y < size; y++) {
       for (let x = 0; x < size; x++) {
-        listP.push([x, y])
+        if (desk.desk[y][x] == 0) {
+          listP.push([x, y])
+        }
       }
     }
     return listP
@@ -213,7 +215,8 @@ export class module1_7 {
       let pAllY = pAll.filter(([x, y]) => y == yTarget);
       // 获取所有的拿取方式
       if (pAllY.length >= 1) {
-        for (let count = 1; count < pAllY.length; count++) {
+
+        for (let count = 1; count <= pAllY.length; count++) {
           let listWays = this.getAllActionWay(pAllY, count);
           listWays.forEach((way) => {
             let act = new GameAction1_7();
@@ -227,7 +230,7 @@ export class module1_7 {
       let pAllX = pAll.filter(([x, y]) => x == xTarget);
       // 获取所有的拿取方式
       if (pAllX.length >= 1) {
-        for (let count = 1; count < pAllX.length; count++) {
+        for (let count = 1; count <= pAllX.length; count++) {
           let listWays = this.getAllActionWay(pAllX, count);
           listWays.forEach((way) => {
             let act = new GameAction1_7();
