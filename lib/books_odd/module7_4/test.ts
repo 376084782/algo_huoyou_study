@@ -3,9 +3,13 @@ import { FileWriter } from "../../common/FileWriter";
 
 let ctr = new module7_4()
 function test() {
-    let desk = { "player": 1, "desk": [[1, 1, 12, 2]], "curQuesIdx": 0, "score1": 1, "score2": 0, "typeSet": 1 }
-    let act = { "listCalculate": ['1', "*", '1', "*", '12', "*", '2'], "score": 0 }
-    let f = ctr.checkAction(desk, act);
+    let desk = {"player":1,"desk":[[5,6,7,8]],"curQuesIdx":1,"score1":-1,"score2":0,"typeSet":1}
+    // desk.desk = [[1, 1, 1, 8]]
+    // let act = {
+    //     listCalculate: ['(', '1', '+', '1', '+', '1', ')', '*', '8'],
+    //     score: 0
+    // }
+    let f = ctr.checkDesk(desk);
     console.log(f)
 }
 
