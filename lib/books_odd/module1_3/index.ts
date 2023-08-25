@@ -26,6 +26,9 @@ export class module1_3 {
     if (desk.size > 5 || desk.size < 2) {
       return false
     }
+    if (desk.listInited1.length != desk.listInited2.length) {
+      return false
+    }
     return true
   }
   checkDesk(desk: GameData1_3) {
