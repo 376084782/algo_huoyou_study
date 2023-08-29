@@ -7,7 +7,8 @@ export class GameData3_4 {
   desk: number[][] = [];
   deskInited: number[][] = []
   typeSet: number = 1;
-  isTrainMode: boolean = false
+  isTrainMode: boolean = false;
+  onlyAllDiff: boolean = false;
 }
 export class GameAction3_4 {
   color: number = 0;
@@ -106,6 +107,22 @@ export class module3_4 {
     }
     return countWrong
   }
+  getFinishedCount(deskIn: GameData3_4) {
+    let desk: GameData3_4 = _.cloneDeep(deskIn);
+    // 检查所有球
+    let c = 0;
+    for (let y = 1; y < desk.desk.length; y++) {
+      let row = desk.desk[y];
+      for (let x = 0; x < row.length; x++) {
+        let v = row[x];
+        if (v > 0) {
+          // 还没有填色
+          c++
+        }
+      }
+    }
+    return c
+  }
   checkFinished(deskIn: GameData3_4) {
     let desk: GameData3_4 = _.cloneDeep(deskIn);
     // 检查所有球
@@ -182,15 +199,28 @@ export class module3_4 {
       }
       return 0
     }
+    if (desk.onlyAllDiff) {
+      let { x, y } = act;
+      if (act.y > 0) {
+        let ball1 = desk.desk[y - 1][x];
+        let ball2 = desk.desk[y - 1][x + 1];
+        let allDiff = (act.color != ball1 && act.color != ball2 && ball1 != ball2)
+        if (!allDiff) {
+          return -1
+        }
+      }
+
+      let ball1 = desk.desk[y][x - 1];
+      let ball2 = desk.desk[y][x + 1];
+      if (ball1 && ball1 == act.color) {
+        return -1
+      }
+      if (ball2 && ball2 == act.color) {
+        return -1
+      }
+    }
+    
     return 0
-    // let { x, y } = act;
-    // let ball1 = desk.desk[y - 1][x];
-    // let ball2 = desk.desk[y - 1][x + 1];
-    // if (ball1 == ball2) {
-    //   return ball1 == act.color ? 0 : -1
-    // } else {
-    //   return (act.color != ball1 && act.color != ball2) ? 0 : -1
-    // }
   }
   getActionAuto(desk: GameData3_4): any[] {
     let actionAll = this.getActionAll(desk);
