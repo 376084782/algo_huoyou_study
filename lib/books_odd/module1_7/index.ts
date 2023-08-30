@@ -53,6 +53,10 @@ export class module1_7 {
     return map
   }
   checkRiddle(desk: GameData1_7) {
+    let countBlank = this.getBlankCount(desk)
+    if (countBlank < 1) {
+      return -1
+    }
     return 0
   }
   getBlankCount(desk: GameData1_7) {

@@ -26,6 +26,12 @@ export class module9_7 {
   }
   getRiddleLev() {
     let map: any = {};
+    for (let lev = 0; lev++; lev < 3) {
+      for (let c = 0; c++; c < 30) {
+        // 随机30个题目
+        
+      }
+    }
     return map
   }
   checkRiddle(desk: GameData9_7) {
@@ -134,6 +140,7 @@ export class module9_7 {
         if (desk.desk[y][x] == 1) {
           let act = new GameAction9_7();
           act.p = [x, y]
+          act.listAround = this.getChessAround(act.p[0], act.p[1], desk);
           listActionAll.push(act);
         }
       }
