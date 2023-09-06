@@ -3,8 +3,12 @@ import { FileWriter } from "../../common/FileWriter";
 
 let ctr = new module9_6()
 function test() {
-    let desk = ctr.getRiddleLev();
+    let desk = ctr.getRiddle();
     // desk.options = [2, 3, 5]
+    // desk.desk = [[[1, 1, 1, 0], [2, 2, 2, 0]]]
+    console.log(desk.desk, 'deskkkkk')
+    var valid = ctr.checkRiddle(desk);
+    console.log(valid, '11111111')
 }
 
 test()

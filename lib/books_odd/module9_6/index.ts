@@ -40,7 +40,7 @@ export class module9_6 {
   }
   getRiddle() {
     let desk = new GameData9_6();
-    let ques = [[0, 0, 0, 0], [0, 0, 0, 0]]
+    let ques = [[3, 4, 7, 0], [5, 2, 8, 0]]
     desk.desk = [ques];
     return desk;
   }
@@ -49,14 +49,19 @@ export class module9_6 {
     for (let i = 0; i < desk.desk.length; i++) {
       let ques = desk.desk[i]
       for (let m = 0; m < ques.length; m++) {
-        let n = +ques[i];
-        if (isNaN(n) || n > 20 || n < 1) {
+        let card = ques[m];
+        for (let j = 0; j < card.length; j++) {
+          let n = +card[j];
+          if (j != 3) {
+            if (isNaN(n) || n > 20 || n < 1) {
+              return -1
+            }
+          }
+        }
+        // 不足四张
+        if (card.length != 4) {
           return -1
         }
-      }
-      // 不足四张
-      if (ques.length != 4) {
-        return -1
       }
     }
     return 0
@@ -80,18 +85,15 @@ export class module9_6 {
   checkAction(desk: GameData9_6, act: GameAction9_6) {
     // 先检查是否四个数字都用上了
     let listNumUsed = act.listCalculate.map(e => +e).filter(e => e > 0);
+
+
     let quesCurrent = desk.desk[desk.curQuesIdx];
     if (!quesCurrent) {
       return -1
     }
-    for (let i = 0; i < quesCurrent.length; i++) {
-      let n = quesCurrent[i][act.selectedCardIdx]
-      let idx = listNumUsed.indexOf(n)
-      if (idx == -1) {
-        return -1
-      } else {
-        listNumUsed.splice(idx, 1)
-      }
+    if (listNumUsed.length != 4) {
+      console.log('没有用全四个数字')
+      return -1
     }
     // 检查去掉括号之后每个数字之间都有且只有一个符号，避免把数字直接相连或者加号当作正号的非法情况
     let listOnlyNumAndFH = act.listCalculate.filter(e => e != '(' && e != ')');
