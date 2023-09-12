@@ -61,8 +61,7 @@ export class module7_6 {
 
       list.forEach(([upNum, total]) => {
         let desk = this.getRiddle(upNum)
-        desk.targetNum = total;
-        desk.curNum = upNum;
+        desk.curNum = total;
         if (!mapQues[lev]) {
           mapQues[lev] = []
         }
