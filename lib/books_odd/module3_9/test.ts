@@ -3,11 +3,14 @@ import { FileWriter } from "../../common/FileWriter";
 
 let ctr = new module3_9()
 function test() {
-    let desk = ctr.getRiddle([1, 2, 3, 4, 5, 6, 7, 8, 9]);
-    // desk.options = [2, 3, 5]
-    desk.player = 1;
-    desk.list1 = [0, 1, 2, 3, 4, 5, 6]
-    let act = ctr.checkThree(desk, 1);
+    let desk = {
+        desk: [1, 2, 3, 4, 5, 6, 7, 8, 9, 4],
+        list1: [2, 7, 9],
+        list2: [3, 6, 8],
+        player: 2,
+        typeSet: 1
+    }
+    let act = ctr.checkDesk(desk);
     console.log(act);
 }
 

@@ -24,6 +24,13 @@ export class module3_9 {
     if (this.checkThree(desk, desk.player)) {
       return desk.player
     }
+    if (this.checkThree(desk, 3 - desk.player)) {
+      return 3 - desk.player
+    }
+    // 如果没有牌了
+    if (desk.desk.length == desk.list1.length + desk.list2.length) {
+      return 3
+    }
     return -1
   }
   checkThree(desk: GameData3_9, color: number) {
@@ -31,10 +38,15 @@ export class module3_9 {
     for (let a = 0; a < list.length; a++) {
       for (let b = a + 1; b < list.length; b++) {
         for (let c = b + 1; c < list.length; c++) {
-          let v1 = desk.desk[a];
-          let v2 = desk.desk[b];
-          let v3 = desk.desk[c];
-          if (v1 + v2 + v3 == 15) {
+          var i1 = list[a];
+          var i2 = list[b];
+          var i3 = list[c];
+
+          let v1 = desk.desk[i1];
+          let v2 = desk.desk[i2];
+          let v3 = desk.desk[i3];
+          let total = v1 + v2 + v3
+          if (total == 15) {
             return true
           }
         }
