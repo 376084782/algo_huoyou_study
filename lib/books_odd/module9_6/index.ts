@@ -40,7 +40,7 @@ export class module9_6 {
   }
   getRiddle() {
     let desk = new GameData9_6();
-    let ques = [[3, 4, 7, 0], [5, 2, 8, 0]]
+    let ques = [[3, 4, 7, 0], [5, 2, 0, 8]]
     desk.desk = [ques];
     return desk;
   }
@@ -52,7 +52,7 @@ export class module9_6 {
         let card = ques[m];
         for (let j = 0; j < card.length; j++) {
           let n = +card[j];
-          if (j != 3) {
+          if (j != (m == 0 ? 3 : 2)) {
             if (isNaN(n) || n > 20 || n < 1) {
               return -1
             }

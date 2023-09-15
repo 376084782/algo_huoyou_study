@@ -87,11 +87,12 @@ export class module7_8 {
     for (let i = 0; i < actionAll.length; i++) {
       let act1Self = actionAll[i];
       let [flagOppo, desk2Oppo] = this.doAction(desk, act1Self);
-      let actionAllOppo = this.getActionAll(desk2Oppo);
+      let f1 = this.checkDesk(desk2Oppo);
       // 放之后对方可行棋子为0，说明必胜,直接使用
-      if (actionAllOppo.length == 0) {
+      if (f1 == desk.player) {
         return [act1Self, act1Self]
       }
+      let actionAllOppo = this.getActionAll(desk2Oppo);
       if (actionAll.length < 40) {
         // 可放的方式不多，有制胜局的可能性，多考虑一步
         for (let m = 0; m < actionAllOppo.length; m++) {

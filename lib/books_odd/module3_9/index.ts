@@ -47,7 +47,7 @@ export class module3_9 {
           let v3 = desk.desk[i3];
           let total = v1 + v2 + v3
           if (total == 15) {
-            return true
+            return [i1, i2, i3]
           }
         }
       }
