@@ -159,7 +159,6 @@ export class module7_2 {
 
     let listNotBetter = actionAll.filter(e => listBetter.filter(e2 => e2 == e).length == 0);
     // 增加一点随机性，避免计算机很呆都是走一样的地方从左往右放
-
     let listRes = []
     if (listBetter[0]) {
       listRes.push(listBetter[0])
