@@ -82,6 +82,33 @@ export class module9_6 {
     let separator = /\+|-|\*|\/| |,|，|(|)/;
     return str.split(separator)
   }
+  checkCalculate(act: GameAction9_6) {
+    // 先检查是否四个数字都用上了
+    let listNumUsed = act.listCalculate.map(e => +e).filter(e => e > 0);
+    if (listNumUsed.length != 4) {
+      console.log('没有用全四个数字')
+      return -1
+    }
+    // 检查去掉括号之后每个数字之间都有且只有一个符号，避免把数字直接相连或者加号当作正号的非法情况
+    let listOnlyNumAndFH = act.listCalculate.filter(e => e != '(' && e != ')');
+    // 即去掉括号之后所有的奇数位必须是数字，偶数位必须是符号
+    for (let i = 0; i < listOnlyNumAndFH.length; i++) {
+      let v = listOnlyNumAndFH[i];
+      let isNum = !isNaN(+v);
+      if (i % 2 == 0 != isNum) {
+        return -1
+      }
+    }
+
+    // 然后检查算式是否合法
+    try {
+      // 最后检查结果是否等于24
+      let res = eval(act.listCalculate.join(''))
+    } catch (e) {
+      return -1
+    }
+    return 0
+  }
   checkAction(desk: GameData9_6, act: GameAction9_6) {
     // 先检查是否四个数字都用上了
     let listNumUsed = act.listCalculate.map(e => +e).filter(e => e > 0);

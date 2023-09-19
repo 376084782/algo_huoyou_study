@@ -29,7 +29,7 @@ export class module9_7 {
     for (let lev = 0; lev++; lev < 3) {
       for (let c = 0; c++; c < 30) {
         // 随机30个题目
-        
+
       }
     }
     return map
@@ -105,11 +105,13 @@ export class module9_7 {
     for (let i = 0; i < actionAll.length; i++) {
       let act1Self = actionAll[i];
       let [flagOppo, desk2Oppo] = this.doAction(desk, act1Self);
-      let actionAllOppo = this.getActionAll(desk2Oppo);
       // 放之后对方可行棋子为0，说明必胜,直接使用
-      if (actionAllOppo.length == 0) {
+      let res = this.checkDesk(desk2Oppo);
+      // 必胜,直接使用
+      if (res == desk.player) {
         return [act1Self, act1Self]
       }
+      let actionAllOppo = this.getActionAll(desk2Oppo);
       if (actionAll.length < 40) {
         // 可放的方式不多，有制胜局的可能性，多考虑一步
         for (let m = 0; m < actionAllOppo.length; m++) {

@@ -110,14 +110,14 @@ export class module3_1 {
     // 先按照策略筛选
     if (desk.options.length == 2) {
       let [n1, n2] = desk.options
-      let r = (desk.countInited - desk.desk.length) / (n1 + n2);
+      let r = (desk.countInited - desk.desk.length) % (n1 + n2);
       let min = Math.min(...desk.options);
       let act1 = this.getActionByCount(n1, desk);
-      let act2 = this.getActionByCount(n1, desk);
+      let act2 = this.getActionByCount(n2, desk);
       if (r >= min) {
-        if (r - n1 < min) {
+        if (r - n1 < min && r - n1 > 0) {
           act1 && listBetter.push(act1)
-        } else if (r - n2 < min) {
+        } else if (r - n2 < min && r - n2 > 0) {
           act2 && listBetter.push(act2)
         }
       }

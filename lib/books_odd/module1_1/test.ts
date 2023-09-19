@@ -3,13 +3,13 @@ import { FileWriter } from "../../common/FileWriter";
 
 let ctr = new module1_1()
 function test() {
-    let desk = ctr.getRiddle();
+    let desk = { "player": 1, "countInited": 10, "countCurrent":2, "options": [1, 2], "typeSet": 1 }
     // desk.options = [2, 3, 5]
     let act = ctr.getActionAuto(desk);
     console.log(act);
 }
 
-// test()
+test()
 
 
 
@@ -28,4 +28,4 @@ async function writeQuesIn(mapAll: any, maxEachLev = 10) {
     }
 
 }
-createQues()
+// createQues()
