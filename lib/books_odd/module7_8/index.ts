@@ -83,13 +83,15 @@ export class module7_8 {
   getActionAuto(desk: GameData7_8): any[] {
     let actionAll = this.getActionAll(desk);
 
+    let playerSelf = desk.player;
+    let playerOppo = 3 - desk.player;
     // 推算所有可能性
     for (let i = 0; i < actionAll.length; i++) {
       let act1Self = actionAll[i];
       let [flagOppo, desk2Oppo] = this.doAction(desk, act1Self);
-      let f1 = this.checkDesk(desk2Oppo);
-      // 放之后对方可行棋子为0，说明必胜,直接使用
-      if (f1 == desk.player) {
+      let res = this.checkDesk(desk2Oppo);
+      // 必胜,直接使用
+      if (res == playerSelf) {
         return [act1Self, act1Self]
       }
       let actionAllOppo = this.getActionAll(desk2Oppo);
@@ -98,9 +100,9 @@ export class module7_8 {
         for (let m = 0; m < actionAllOppo.length; m++) {
           let act1Oppo = actionAllOppo[m];
           let [flagSelf, desk2Self] = this.doAction(desk2Oppo, act1Oppo);
-          let actionAllSelf2 = this.getActionAll(desk2Self);
-          if (actionAllSelf2.length == 0) {
-            // 我可能面对的局面，该棋面下我无棋可走，得分-100
+          let res2 = this.checkDesk(desk2Self);
+          if (res2 == playerOppo) {
+            // 如果对方会获胜，得分-100
             act1Self.score -= 100
           }
         }

@@ -24,6 +24,7 @@ export class module1_9 {
   }
   checkDesk(desk: GameData1_9) {
     // 检查如果有连成3子则获胜
+    let flagAllPut = true;
     for (let y = 0; y < desk.desk.length; y++) {
       let row = desk.desk[y];
       for (let x = 0; x < row.length; x++) {
@@ -49,10 +50,16 @@ export class module1_9 {
               }
             }
           }
+        } else {
+          flagAllPut = false;
         }
       }
     }
-    return -1
+    if (flagAllPut) {
+      return 3
+    } else {
+      return -1
+    }
   }
   getAllSeriesThree(x: number, y: number) {
     let mapDir = [[[-1, 1], [1, -1]], [[-1, 0], [1, 0]], [[-1, -1], [1, 1]], [[0, 1], [0, -1]]]
@@ -86,24 +93,26 @@ export class module1_9 {
   }
   getActionAuto(desk: GameData1_9): any[] {
     let actionAll = this.getActionAll(desk);
-
+    let playerSelf = desk.player;
+    let playerOppo = 3 - desk.player;
     // 推算所有可能性
     for (let i = 0; i < actionAll.length; i++) {
       let act1Self = actionAll[i];
       let [flagOppo, desk2Oppo] = this.doAction(desk, act1Self);
-      let actionAllOppo = this.getActionAll(desk2Oppo);
-      // 放之后对方可行棋子为0，说明必胜,直接使用
-      if (actionAllOppo.length == 0) {
+      let res = this.checkDesk(desk2Oppo);
+      // 必胜,直接使用
+      if (res == playerSelf) {
         return [act1Self, act1Self]
       }
+      let actionAllOppo = this.getActionAll(desk2Oppo);
       if (actionAll.length < 40) {
         // 可放的方式不多，有制胜局的可能性，多考虑一步
         for (let m = 0; m < actionAllOppo.length; m++) {
           let act1Oppo = actionAllOppo[m];
           let [flagSelf, desk2Self] = this.doAction(desk2Oppo, act1Oppo);
-          let actionAllSelf2 = this.getActionAll(desk2Self);
-          if (actionAllSelf2.length == 0) {
-            // 我可能面对的局面，该棋面下我无棋可走，得分-100
+          let res2 = this.checkDesk(desk2Self);
+          if (res2 == playerOppo) {
+            // 如果对方会获胜，得分-100
             act1Self.score -= 100
           }
         }
