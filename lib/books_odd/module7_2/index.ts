@@ -153,7 +153,12 @@ export class module7_2 {
       }
       // 按照策略筛选,抢占月+日为奇数的
       if ((act1Self.day[0] + act1Self.day[1]) % 2 == 1) {
-        listBetter.push(act1Self)
+        // 优先抢占12月
+        if (act1Self.day[0] == 12) {
+          listBetter.unshift(act1Self)
+        } else {
+          listBetter.push(act1Self)
+        }
       }
     }
 

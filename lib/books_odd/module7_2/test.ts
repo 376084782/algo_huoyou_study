@@ -7,7 +7,7 @@ function test() {
     // let act = ctr.getActionAuto(desk);
     // console.log(act, 'ac')
 
-    desk.startDay = [8, 31];
+    desk.startDay = [11, 29];
     let f = ctr.getActionAuto(desk);
     console.log(f)
 }
@@ -31,4 +31,4 @@ async function writeQuesIn(mapAll: any, maxEachLev = 10) {
     }
 
 }
-createQues()
+// createQues()

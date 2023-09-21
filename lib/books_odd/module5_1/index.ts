@@ -120,9 +120,9 @@ export class module5_1 {
       let act1 = this.getActionByCount(n1, desk);
       let act2 = this.getActionByCount(n2, desk);
       if (r >= min) {
-        if (r - n1 < min && r - n1 > 0) {
+        if (r - n1 < min && r - n1 >= 0) {
           act1 && listBetter.push(act1)
-        } else if (r - n2 < min && r - n2 > 0) {
+        } else if (r - n2 < min && r - n2 >= 0) {
           act2 && listBetter.push(act2)
         }
       }
