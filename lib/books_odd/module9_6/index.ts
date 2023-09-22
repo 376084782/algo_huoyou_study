@@ -20,28 +20,98 @@ export class GameAction9_6 {
 export class module9_6 {
   listQues = QuesList
   getRiddleLev() {
-    let listQues = this.listQues
     let map: any = {};
-    let listByMin = this.listQues.map(e => Math.min(...e));
-    console.log(listByMin.filter(e => e == 1).length)
-    console.log(listByMin.filter(e => e == 2).length)
-    console.log(listByMin.filter(e => e == 3).length)
-    console.log(listByMin.filter(e => e == 4).length)
-    console.log(listByMin.filter(e => e == 5).length)
+
+    let listFen: number[][][] = [];
+    this.listQues.forEach(e => {
+      let min = Math.min(...e);
+      if (!listFen[min]) {
+        listFen[min] = []
+      }
+      listFen[min].push(e)
+    })
 
     for (let i = 0; i < 5; i++) {
       let lev = i + 1;
+      let delNum = i + 1
       if (!map[lev]) {
         map[lev] = []
       }
+      let list11 = listFen[i + 1]
+
+      if (list11.length < 10) {
+        // 如果数量太少，顺序排列
+        for (let a = 0; a < list11.length; a++) {
+          for (let b = a; b < list11.length; b++) {
+            console.log(a, b, i + 1, list11.length, 'aabababab')
+            let desk = this.createQues(list11[a], list11[b], delNum)
+            map[lev].push(desk);
+          }
+        }
+      } else {
+        for (let j = 0; j < 10; j++) {
+          // 随机抽取 生成10个题目
+          let listShuffle = _.shuffle(list11);
+          let desk1 = listShuffle.slice(0, 2);
+          let desk = this.createQues(desk1[0], desk1[1], delNum)
+          map[lev].push(desk);
+        }
+      }
+
 
     }
     return map;
   }
-  getRiddle() {
+  delNum(list: number[], delNum: number) {
+    list = _.shuffle(list)
+    let idx = list.indexOf(delNum);
+    if (idx > -1) {
+      list.splice(idx, 1);
+    }
+    return list
+  }
+  createQues(list1: number[], list2: number[], delNum: number) {
+    let desk = new GameData9_6();
+    // 先删掉对应的数字
+    list1 = this.delNum(list1, delNum);
+    list2 = this.delNum(list2, delNum);
+    // 然后依次填入
+    let ques = [[list1[0], list1[1], list1[2], 0], [list2[0], list2[1], 0, list2[2]]]
+    desk.desk = [ques]
+    return desk
+  }
+  getRiddleDefault() {
     let desk = new GameData9_6();
     let ques = [[3, 4, 7, 0], [5, 2, 0, 8]]
     desk.desk = [ques];
+    return desk;
+  }
+  getRiddle(count = 1) {
+
+    let listFen: number[][][] = [];
+    this.listQues.forEach(e => {
+      let min = Math.min(...e);
+      if (!listFen[min]) {
+        listFen[min] = []
+      }
+      listFen[min].push(e)
+    })
+
+    let desk = new GameData9_6();
+    for (let i = 0; i < count; i++) {
+      // 随机选取两组有统一数字的
+      // 1-7随机选一个数字
+      let num = randomer.RangeInteger(1, 7 + 1)
+      let listQ = _.shuffle(listFen[num]);
+
+      let [list1, list2] = listQ.slice(0, 2)
+      // 先删掉对应的数字
+      list1 = this.delNum(list1, num);
+      list2 = this.delNum(list2, num);
+      // 然后依次填入
+      let ques = [[list1[0], list1[1], list1[2], 0], [list2[0], list2[1], 0, list2[2]]]
+      desk.desk.push(ques);
+    }
     return desk;
   }
   checkRiddle(desk: GameData9_6) {
