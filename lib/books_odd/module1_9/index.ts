@@ -109,10 +109,11 @@ export class module1_9 {
         // 可放的方式不多，有制胜局的可能性，多考虑一步
         for (let m = 0; m < actionAllOppo.length; m++) {
           let act1Oppo = actionAllOppo[m];
+          desk2Oppo.player = playerOppo;
           let [flagSelf, desk2Self] = this.doAction(desk2Oppo, act1Oppo);
           let res2 = this.checkDesk(desk2Self);
           if (res2 == playerOppo) {
-            // 如果对方会获胜，得分-100
+            // 如果走了之后对方有可能获胜，不能这么走
             act1Self.score -= 100
           }
         }
