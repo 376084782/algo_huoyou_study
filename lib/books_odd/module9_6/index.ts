@@ -44,17 +44,21 @@ export class module9_6 {
         for (let a = 0; a < list11.length; a++) {
           for (let b = a; b < list11.length; b++) {
             console.log(a, b, i + 1, list11.length, 'aabababab')
-            let desk = this.createQues(list11[a], list11[b], delNum)
-            map[lev].push(desk);
+            let desk = this.createQues(list11[a], list11[b], delNum, true)
+            if (desk) {
+              map[lev].push(desk);
+            }
           }
         }
       } else {
-        for (let j = 0; j < 10; j++) {
+        while (map[lev].length < 10) {
           // 随机抽取 生成10个题目
           let listShuffle = _.shuffle(list11);
           let desk1 = listShuffle.slice(0, 2);
-          let desk = this.createQues(desk1[0], desk1[1], delNum)
-          map[lev].push(desk);
+          let desk = this.createQues(desk1[0], desk1[1], delNum, true)
+          if (desk) {
+            map[lev].push(desk);
+          }
         }
       }
 
@@ -70,11 +74,15 @@ export class module9_6 {
     }
     return list
   }
-  createQues(list1: number[], list2: number[], delNum: number) {
+  createQues(list1: number[], list2: number[], delNum: number, skipSame = false) {
     let desk = new GameData9_6();
     // 先删掉对应的数字
     list1 = this.delNum(list1, delNum);
     list2 = this.delNum(list2, delNum);
+    if (JSON.stringify(list1) == JSON.stringify(list2)) {
+      console.log('skiiiiiiiiip')
+      return
+    }
     // 然后依次填入
     let ques = [[list1[0], list1[1], list1[2], 0], [list2[0], list2[1], 0, list2[2]]]
     desk.desk = [ques]
