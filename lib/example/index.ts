@@ -46,6 +46,7 @@ export class module10_12 {
         // 可放的方式不多，有制胜局的可能性，多考虑一步
         for (let m = 0; m < actionAllOppo.length; m++) {
           let act1Oppo = actionAllOppo[m];
+          desk2Oppo.player = playerOppo;
           let [flagSelf, desk2Self] = this.doAction(desk2Oppo, act1Oppo);
           let res2 = this.checkDesk(desk2Self);
           if (res2 == playerOppo) {

@@ -5,6 +5,7 @@ export class GameData3_9 {
   desk: number[] = [];
   list1: number[] = [];
   list2: number[] = [];
+  targetNum: number = 15;
   typeSet: number = 1;
 }
 export class GameAction3_9 {
@@ -15,6 +16,14 @@ export class module3_9 {
   getRiddle(list: number[]) {
     let desk = new GameData3_9();
     desk.desk = list;
+    let max = Math.max(...list);
+    let map: any = {
+      9: 15,
+      10: 18,
+      11: 21,
+      12: 24
+    }
+    desk.targetNum = map[max] || 15;
     return desk;
   }
   checkRiddle(desk: GameData3_9) {
@@ -46,7 +55,7 @@ export class module3_9 {
           let v2 = desk.desk[i2];
           let v3 = desk.desk[i3];
           let total = v1 + v2 + v3
-          if (total == 15) {
+          if (total == desk.targetNum) {
             return [i1, i2, i3]
           }
         }
@@ -96,6 +105,7 @@ export class module3_9 {
         // 可放的方式不多，有制胜局的可能性，多考虑一步
         for (let m = 0; m < actionAllOppo.length; m++) {
           let act1Oppo = actionAllOppo[m];
+          desk2Oppo.player = playerOppo;
           let [flagSelf, desk2Self] = this.doAction(desk2Oppo, act1Oppo);
           let res2 = this.checkDesk(desk2Self);
           if (res2 == playerOppo) {

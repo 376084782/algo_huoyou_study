@@ -5,13 +5,18 @@ let randomer = new RandomGenerater(1)
 
 let ctr = new module9_7()
 function test() {
-    let desk = ctr.getRiddle(4, 3);
+    let desk = {
+        "player": 2, "desk": [
+            [0, 0, 1, 1],
+            [0, 1, 1, 0],
+            [1, 1, 0, 0]], "typeSet": 1
+    }
     // desk.options = [2, 3, 5]
     let act = ctr.getActionAuto(desk);
     console.log(act);
 }
 
-// test()
+test()
 
 
 
@@ -42,7 +47,7 @@ function createQues() {
 
         }
     }
-    writeQuesIn(map,99)
+    writeQuesIn(map, 99)
 }
 
 
@@ -54,4 +59,4 @@ async function writeQuesIn(mapAll: any, maxEachLev = 10) {
     }
 
 }
-createQues()
+// createQues()
