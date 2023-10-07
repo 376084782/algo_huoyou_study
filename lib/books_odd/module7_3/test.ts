@@ -3,7 +3,7 @@ import { FileWriter } from "../../common/FileWriter";
 
 let ctr = new module7_3()
 function test() {
-    let desk = { "player": 1, "desk": [20], "finishedDui": [], "typeSet": 1 }
+    let desk = { "player": 1, "desk": [4, 5, 5, 5], "finishedDui": [], "typeSet": 1 }
     let act = ctr.getActionAuto(desk);
     console.log(act, 'ac')
 
@@ -29,4 +29,4 @@ async function writeQuesIn(mapAll: any, maxEachLev = 10) {
     }
 
 }
-createQues()
+// createQues()

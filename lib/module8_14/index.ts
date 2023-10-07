@@ -122,8 +122,11 @@ export class module8_14 {
         // 判断连续格子里是否颜色和数字都不同
         for (let dir = 1; dir <= 4; dir++) {
             let l = this.getSeriesByDir(desk, x, y, dir)
-            if (!this.checkAllDiff(desk, l)) {
-                return false
+            if (l.length == desk.desk.length) {
+                // 排除掉不在整个棋盘的对角线上
+                if (!this.checkAllDiff(desk, l)) {
+                    return false
+                }
             }
         }
         return true
