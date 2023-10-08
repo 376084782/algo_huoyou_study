@@ -54,14 +54,20 @@ export class module1_12 {
     if (!desk.desk[y] || desk.desk[y][x] != desk.player) {
       return -1
     }
+    if (dirX * dirY != 0) {
+      return -1
+    }
+    if (Math.abs(dirX) != 1 && Math.abs(dirY) != 1) {
+      return -1
+    }
     if (desk.player == 1) {
       // 红棋不能往左走
-      if (dirX == -1 && dirY == 0) {
+      if (dirX < 0) {
         return -1
       }
     } else if (desk.player == 2) {
       // 蓝棋不能往下走
-      if (dirX == 0 && dirY == -1) {
+      if (dirY < 0) {
         return -1
       }
     }
@@ -74,7 +80,7 @@ export class module1_12 {
     }
     let { p1, p2 } = act;
     desk.desk[p1[1]][p1[0]] = 0;
-    if (desk.desk[p2[1]] && desk.desk[p2[1]][p2[0]]) {
+    if (desk.desk[p2[1]] && desk.desk[p2[1]][p2[0]] == 0) {
       desk.desk[p2[1]][p2[0]] = desk.player;
     }
     return [0, desk]
@@ -119,6 +125,7 @@ export class module1_12 {
   }
   getActionAll(desk: GameData1_12): GameAction1_12[] {
     let listActionAll: GameAction1_12[] = []
+    
     return listActionAll
   }
 }
