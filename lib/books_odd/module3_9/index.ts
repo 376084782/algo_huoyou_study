@@ -13,6 +13,158 @@ export class GameAction3_9 {
   score: number = 0
 }
 export class module3_9 {
+
+
+  getRiddleLev() {
+    let quesList: any = {
+      1: [
+        {
+          list1: [2, 5],
+          list2: [3, 8],
+          player: 1
+        },
+        {
+          list1: [6, 8],
+          list2: [1, 4],
+          player: 1
+        },
+        {
+          list1: [5, 6],
+          list2: [3, 4],
+          player: 1
+        },
+        {
+          list1: [6, 8],
+          list2: [1, 3],
+          player: 1
+        },
+        {
+          list1: [2, 5],
+          list2: [8, 9],
+          player: 1
+        },
+        {
+          list1: [6, 8],
+          list2: [1, 7],
+          player: 1
+        },
+        {
+          list1: [6, 8],
+          list2: [1, 2],
+          player: 1
+        },
+        {
+          list1: [6, 8],
+          list2: [1, 9],
+          player: 1
+        },
+      ],
+      2: [
+        {
+          list1: [6],
+          list2: [2],
+          player: 1
+        },
+        {
+          list1: [6],
+          list2: [9],
+          player: 1
+        },
+        {
+          list1: [6],
+          list2: [4],
+          player: 1
+        },
+        {
+          list1: [6],
+          list2: [5],
+          player: 1
+        },
+        {
+          list1: [6],
+          list2: [3],
+          player: 1
+        },
+        {
+          list1: [6],
+          list2: [1],
+          player: 1
+        },
+        {
+          list1: [6],
+          list2: [8],
+          player: 1
+        },
+        {
+          list1: [6],
+          list2: [7],
+          player: 1
+        },
+      ],
+      3: [
+        {
+          list1: [1],
+          list2: [],
+          player: 2
+        },
+        {
+          list1: [2],
+          list2: [],
+          player: 2
+        },
+        {
+          list1: [3],
+          list2: [],
+          player: 2
+        },
+        {
+          list1: [4],
+          list2: [],
+          player: 2
+        },
+        {
+          list1: [5],
+          list2: [],
+          player: 2
+        },
+        {
+          list1: [6],
+          list2: [],
+          player: 2
+        },
+        {
+          list1: [7],
+          list2: [],
+          player: 2
+        },
+        {
+          list1: [8],
+          list2: [],
+          player: 2
+        },
+        {
+          list1: [9],
+          list2: [],
+          player: 2
+        },
+      ]
+    }
+    let map: any = {};
+    for (let lev in quesList) {
+      let list = quesList[lev];
+      map[lev] = []
+      list.forEach((deskEach: any, idx: number) => {
+        let desk = new GameData3_9();
+        desk.desk = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        desk.list1 = deskEach.list1.map((e: number) => e - 1)
+        desk.list2 = deskEach.list2.map((e: number) => e - 1)
+        desk.player = deskEach.player;
+        map[lev].push(desk);
+      });
+    }
+    return map
+  }
+
   getRiddle(list: number[]) {
     let desk = new GameData3_9();
     desk.desk = list;

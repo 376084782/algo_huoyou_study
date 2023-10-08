@@ -118,8 +118,12 @@ import {
 import {
   module3_11, GameData3_11, GameAction3_11
 } from './books_odd/module3_11/index';
+import {
+  module1_12, GameData1_12, GameAction1_12
+} from './books_odd/module1_12/index';
 export {
 
+  module1_12, GameData1_12, GameAction1_12,
   module3_11, GameData3_11, GameAction3_11,
   module5_10, GameData5_10, GameAction5_10,
   module3_10, GameData3_10, GameAction3_10,

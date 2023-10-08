@@ -156,8 +156,26 @@ export class module7_13 {
           pCheck.isClosed = true
         } else {
           // 根据权重获取下一个遍历点位目标
-          // todo: 这里可以优化一下寻路算法，目前没有按照方向来优化权重
-          let pNext = listNotChecked[0]
+          listNotChecked = listNotChecked.sort((a: number[], b: number[]) => {
+            let offX1 = a[0] - p[0];
+            let offX2 = b[0] - p[0];
+            let offY1 = a[1] - p[1];
+            let offY2 = b[1] - p[1];
+            if (wallId == 1) {
+              return offY1 - offY2
+            } else if (wallId == 2) {
+              return offY2 - offY1
+            } else if (wallId == 3) {
+              return offX1 - offX2
+            } else if (wallId == 4) {
+              return offX2 - offX1
+            } else {
+              return 0
+            }
+          })
+          let pNext = listNotChecked[0];
+
+
           pCheck.listChecked.push(pNext)
           pCheck = getPointSearch(pNext[0], pNext[1], [pCheck.x, pCheck.y])
           this.log('获取下一个遍历点位目标', pNext)
@@ -228,7 +246,9 @@ export class module7_13 {
     // 遍历整个局面，如果这个点位已经被围死了无法
   }
   getActionAll(desk: GameData7_13): GameAction7_13[] {
-    let listActionAll: GameAction7_13[] = []
+    let listActionAll: GameAction7_13[] = [];
+    
+
     return listActionAll
   }
 }

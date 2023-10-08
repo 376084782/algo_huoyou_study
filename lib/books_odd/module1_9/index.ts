@@ -1,3 +1,5 @@
+import { QuesList } from "./quesList";
+
 var _ = require('lodash');
 
 export class GameData1_9 {
@@ -18,6 +20,23 @@ export class module1_9 {
       [0, 0, 0]
     ]
     return desk;
+  }
+  getRiddleLev() {
+    let map: any = {};
+    for (let lev in QuesList) {
+      let list = QuesList[lev];
+      map[lev] = []
+      list.forEach((deskList: number[][], idx: number) => {
+        let desk = new GameData1_9();
+        desk.desk = deskList;
+        desk.player = 1;
+        if (+lev == 3 && idx != list.length - 1) {
+          desk.player = 2;
+        }
+        map[lev].push(desk);
+      });
+    }
+    return map
   }
   checkRiddle(desk: GameData1_9) {
     return 0
