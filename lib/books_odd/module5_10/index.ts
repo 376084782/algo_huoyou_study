@@ -6,18 +6,20 @@ export class GameDataGrid5_10 {
   // 横着的线
   vx: number = 0;
   // 竖着的线
-  vy: number = 0
+  vy: number = 0;
 }
 export class GameData5_10 {
   player: number = 1;
   desk: GameDataGrid5_10[][] = [];
   typeSet: number = 1;
+  player1Dir = 0;
 }
 export class GameAction5_10 {
   score: number = 0;
   // 1竖着切 2横着切
   dir: number = 1;
-  p: number[] = []
+  p: number[] = [];
+  pLine: number[][] = []
 }
 export class module5_10 {
   getRiddle(maxX: number, maxY: number) {
@@ -46,6 +48,10 @@ export class module5_10 {
     return 0
   }
   checkDesk(desk: GameData5_10) {
+    if (this.getActionAll(desk).length == 0) {
+      return desk.player
+    }
+
     for (let y = 0; y < desk.desk.length; y++) {
       let listRow = desk.desk[y]
       for (let x = 0; x < listRow.length; x++) {
@@ -66,6 +72,12 @@ export class module5_10 {
     let dataBlock = desk.desk[y][x];
     if (!dataBlock) {
       return -1
+    }
+    if (desk.player1Dir > 0) {
+      let targetDir = desk.player == 1 ? desk.player1Dir : 3 - desk.player1Dir;
+      if (targetDir != act.dir) {
+        return -1
+      }
     }
     // 如果切过了
     if (act.dir == 1 && dataBlock.vy == 1) {
@@ -136,6 +148,9 @@ export class module5_10 {
     if (this.checkAction(desk, act) == -1) {
       return [-1, desk];
     }
+    if (desk.player1Dir == 0) {
+      desk.player1Dir = act.dir;
+    }
     // 根据方向获取相邻的所有
     let listP = this.getListPByDirAll(act.p, act.dir, desk)
     listP.forEach(([x, y], idx) => {
@@ -146,6 +161,7 @@ export class module5_10 {
         grid.vx = 1
       }
     })
+    act.pLine = listP;
     return [0, desk]
   }
   getActionAuto(desk: GameData5_10): any[] {

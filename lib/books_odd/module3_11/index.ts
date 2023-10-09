@@ -4,7 +4,7 @@ export class GameData3_11 {
   player: number = 1;
   countInited: number = 20;
   desk: number[] = [];
-  options: number[] = [1, 2];
+  options: number[] = [2, 3];
   typeSet: number = 1;
 }
 export class GameAction3_11 {
