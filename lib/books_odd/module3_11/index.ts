@@ -58,8 +58,11 @@ export class module3_11 {
     return 0
   }
   checkDesk(desk: GameData3_11) {
-    if (desk.desk.length >= desk.countInited) {
+    let min = Math.min(...desk.options)
+    if (desk.countInited == desk.desk.length) {
       return desk.player
+    } else if (desk.countInited - desk.desk.length < min) {
+      return 3 - desk.player
     }
     return -1
   }

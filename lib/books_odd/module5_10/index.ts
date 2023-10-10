@@ -115,10 +115,39 @@ export class module5_10 {
     }
 
     let [xOff, yOff] = map[dir2];
+    let dataGridX, dataGridY;
     while (desk.desk[yCheck] && desk.desk[yCheck][xCheck]) {
-      if (desk.desk[yCheck][xCheck].vy != 0 || desk.desk[yCheck][xCheck].vx != 0) {
-        break
+      let isFrom = yCheck == y && x == xCheck
+      if (dir2 == 1 || dir2 == 3) {
+        let dataGrid = desk.desk[yCheck] && desk.desk[yCheck][xCheck]
+        if (!isFrom && dataGrid && (dataGrid.vx != 0 || dataGrid.vy != 0)) {
+          break
+        }
+      } else if (dir2 == 2) {
+        dataGridX = desk.desk[yCheck] && desk.desk[yCheck][xCheck]
+        dataGridY = desk.desk[yCheck] && desk.desk[yCheck][xCheck - 1]
+
+        if (dataGridX && dataGridX.vx != 0) {
+          break
+        }
+        if (!isFrom && dataGridY && dataGridY.vy != 0) {
+          break
+        }
+      } else if (dir2 == 4) {
+        dataGridX = desk.desk[yCheck - 1] && desk.desk[yCheck - 1][xCheck]
+        dataGridY = desk.desk[yCheck] && desk.desk[yCheck][xCheck]
+
+        if (!isFrom && dataGridX && dataGridX.vx != 0) {
+          break
+        }
+        if (dataGridY && dataGridY.vy != 0) {
+          break
+        }
       }
+
+
+
+      // console.log(dataGridX, dataGridY, dir2)
       listAll.push([xCheck, yCheck]);
       xCheck += xOff
       yCheck += yOff
