@@ -62,7 +62,7 @@ export class module3_11 {
     if (desk.countInited == desk.desk.length) {
       return desk.player
     } else if (desk.countInited - desk.desk.length < min) {
-      return 3 - desk.player
+      return desk.player
     }
     return -1
   }

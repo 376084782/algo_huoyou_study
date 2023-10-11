@@ -33,6 +33,25 @@ export class module5_10 {
     }
     return desk;
   }
+  getRiddleLev() {
+    let map1: any = {
+      1: [[2, 2], [3, 3], [4, 2], [4, 3], [5, 2], [5, 3]],
+      2: [[7, 6], [7, 7], [8, 6], [8, 7], [9, 7], [10, 7]],
+      3: [[8, 8], [9, 8], [10, 9], [11, 10], [12, 11], [12, 12]]
+    }
+    let map: any = {}
+    for (let lev in map1) {
+      let listSize = map1[lev] as number[][];
+      listSize.forEach((size) => {
+        let desk = this.getRiddle(size[0], size[1]);
+        if (!map[lev]) {
+          map[lev] = []
+        }
+        map[lev].push(desk);
+      })
+    }
+    return map
+  }
   checkRiddle(desk: GameData5_10) {
     let countY = desk.desk.length;
     if (countY < 1) {
@@ -48,22 +67,13 @@ export class module5_10 {
     return 0
   }
   checkDesk(desk: GameData5_10) {
-    if (this.getActionAll(desk).length == 0) {
-      return desk.player
+    let deskOppo: GameData5_10 = _.cloneDeep(desk);
+    deskOppo.player = 3 - desk.player;
+    if (this.getActionAll(deskOppo).length == 0) {
+      // 如果对方切不了了，判自己获胜
+      return desk.player;
     }
 
-    for (let y = 0; y < desk.desk.length; y++) {
-      let listRow = desk.desk[y]
-      for (let x = 0; x < listRow.length; x++) {
-        let data = listRow[x];
-        if (x != listRow.length - 1 && data.vy == 0) {
-          return -1
-        }
-        if (y != desk.desk.length - 1 && data.vx == 0) {
-          return -1
-        }
-      }
-    }
     return desk.player
   }
 

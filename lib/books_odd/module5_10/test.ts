@@ -21,4 +21,20 @@ function test() {
 test()
 
 
+function createQues() {
+    // 三个等级，等级1两个棋子
+    let ctr = new module5_10();
+    let map = ctr.getRiddleLev()
+    writeQuesIn(map, 999)
+}
+async function writeQuesIn(mapAll: any, maxEachLev = 10) {
+    for (let level = 1; level <= 3; level++) {
+        let listQues = mapAll[level].slice(0, maxEachLev)
+        console.log(`写入等级${level},数量：${listQues.length}`)
+        await FileWriter.setFile(`./train/5-10/level${level}.json`, JSON.stringify(listQues))
+    }
+
+}
+createQues()
+
 
