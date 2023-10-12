@@ -180,7 +180,7 @@ export class module5_10 {
     if (listAll.length == 0) {
       listAll.push(p)
     }
-    return listAll;
+    return _.uniqWith(listAll, (a: any, b: any) => JSON.stringify(a) == JSON.stringify(b)) as number[][];
   }
   doAction(deskIn: GameData5_10, act: GameAction5_10): [flag: number, desk: GameData5_10] {
     let desk: GameData5_10 = _.cloneDeep(deskIn)
@@ -211,6 +211,10 @@ export class module5_10 {
     // 推算所有可能性
     for (let i = 0; i < actionAll.length; i++) {
       let act1Self = actionAll[i];
+      // 优先切短的
+      let listAll = this.getListPByDirAll(act1Self.p, act1Self.dir, desk);
+      act1Self.score += (100 - listAll.length);
+
       let [flagOppo, desk2Oppo] = this.doAction(desk, act1Self);
       let res = this.checkDesk(desk2Oppo);
       // 必胜,直接使用
