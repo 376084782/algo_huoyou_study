@@ -74,7 +74,7 @@ export class module5_10 {
       return desk.player;
     }
 
-    return desk.player
+    return -1
   }
 
   checkAction(desk: GameData5_10, act: GameAction5_10) {
