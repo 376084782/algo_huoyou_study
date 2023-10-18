@@ -47,6 +47,9 @@ export class module3_12 {
     if (!desk.desk[act.p2]) {
       return -1
     }
+    if (Math.abs(act.p1 - act.p2) != 1) {
+      return -1
+    }
     return 0
   }
   doAction(deskIn: GameData3_12, act: GameAction3_12): [flag: number, desk: GameData3_12] {
