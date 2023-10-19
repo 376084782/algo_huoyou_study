@@ -460,7 +460,7 @@ function getQues() {
         3: list3,
         4: list4,
         5: list5,
-        6: list6,
+        6: list6
     }
 }
 
@@ -474,16 +474,29 @@ function createQues() {
     for (let lev in map) {
         let listQues = map[lev];
         listQues.forEach((ques: number[][]) => {
+            // 加一层校验，检验出错的题目
             let maxY = ques.length
             let maxX = ques[0].length;
-            let desk = ctr.getRiddle(maxX, maxY)
-            desk.ques = ques;
-            if (!mapAll[lev]) {
-                mapAll[lev] = []
-            }
-            mapAll[lev].push(desk)
-        });
 
+            let max1 = maxX * maxY;
+            let countTotal = 0;
+            ques.forEach(row => {
+                row.forEach(v => {
+                    countTotal += v
+                })
+            })
+            if (max1! - countTotal) {
+                console.log('出错题目了');
+            } else {
+                let desk = ctr.getRiddle(maxX, maxY)
+                desk.ques = ques;
+                if (!mapAll[lev]) {
+                    mapAll[lev] = []
+                }
+                mapAll[lev].push(desk)
+            }
+
+        });
     }
     writeQuesIn(mapAll, 999)
 }
