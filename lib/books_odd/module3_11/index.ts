@@ -49,10 +49,10 @@ export class module3_11 {
     return map;
   }
   checkRiddle(desk: GameData3_11) {
-    if (desk.countInited < 6 || desk.countInited > 30) {
+    if (desk.countInited < 10 || desk.countInited > 36) {
       return -1
     }
-    if (desk.options.length != 2 && desk.options.length != 3) {
+    if (desk.options.length < 2 || desk.options.length > 4) {
       return -1
     }
     return 0

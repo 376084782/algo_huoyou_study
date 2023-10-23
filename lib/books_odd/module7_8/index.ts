@@ -30,7 +30,7 @@ export class module7_8 {
     for (let n = 1; n <= 5; n++) {
       let listFilterN = desk.desk.filter(e => e == n);
       if (listFilterN.length > 5) {
-        return -1
+        return '卡片设置不符合规则'
       }
     }
     // 目标分不超过所有牌的总和
@@ -38,9 +38,9 @@ export class module7_8 {
       return a + b
     })
     if (desk.numTarget > numTotal) {
-      return -1
+      return '目标分数设置不符合规则'
     }
-    return 0
+    return ''
   }
   checkDesk(desk: GameData7_8) {
     // 检查目标分是否达到
