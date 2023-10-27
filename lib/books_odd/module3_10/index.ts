@@ -14,6 +14,48 @@ export class GameAction3_10 {
   score: number = 0
 }
 export class module3_10 {
+  getRiddleLev() {
+    let map: any = {
+      1: [
+        [1, 3],
+        [2, 3],
+        [3, 4],
+        [4, 5],
+        [2, 6],
+        [5, 6]
+      ],
+      2: [
+        [3, 6],
+        [4, 6],
+        [6, 8],
+        [5, 10],
+        [7, 8],
+        [8, 10]
+      ],
+      3: [
+        [9, 5],
+        [10, 5],
+        [8, 11],
+        [9, 12],
+        [12, 15],
+        [5, 18]
+      ]
+    }
+    let mapAll: any = {}
+    for (let lev in map) {
+      if (!mapAll[lev]) {
+        mapAll[lev] = []
+      }
+      let list = map[lev] as number[][];
+      list.forEach(([c1, c2], idx) => {
+        let desk = new GameData3_10()
+        desk.desk1 = c1;
+        desk.desk2 = c2;
+        mapAll[lev].push(desk)
+      })
+    }
+    return mapAll
+  }
   getRiddle(count?: number) {
     let desk = new GameData3_10();
     return desk;
@@ -71,6 +113,13 @@ export class module3_10 {
       if (res == playerSelf) {
         return [act1Self, act1Self]
       }
+      // 如果拿完了之后是12的局面，+10分
+      let left1 = desk2Oppo.desk1 - desk2Oppo.desk1Got;
+      let left2 = desk2Oppo.desk2 - desk2Oppo.desk2Got;
+      if ((left1 == 1 && left2 == 2) || (left2 == 1 && left1 == 2)) {
+        act1Self.score += 10;
+      }
+
       let actionAllOppo = this.getActionAll(desk2Oppo);
       if (actionAll.length < 40) {
         // 可放的方式不多，有制胜局的可能性，多考虑一步

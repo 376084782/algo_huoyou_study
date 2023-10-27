@@ -94,6 +94,10 @@ export class module7_8 {
       if (res == playerSelf) {
         return [act1Self, act1Self]
       }
+      // 优先抢17
+      if (desk2Oppo.numCurrent == 17) {
+        act1Self.score += 10
+      }
       let actionAllOppo = this.getActionAll(desk2Oppo);
       if (actionAll.length < 40) {
         // 可放的方式不多，有制胜局的可能性，多考虑一步

@@ -4,6 +4,7 @@ export class GameData7_12 {
   player: number = 1;
   desk: number[] = [];
   typeSet: number = 1;
+  lastEatIdxs: number[] = []
 }
 export class GameAction7_12 {
   idxFrom: number = -1;
@@ -63,9 +64,9 @@ export class module7_12 {
     let colorSelf = desk.player;
     desk.desk.forEach((v, idx) => {
       if (flagSaveStart) {
-        if (v == colorSelf) {
+        if (v == colorOppo) {
           listGroup.push(idx);
-        } else if (v == colorOppo) {
+        } else if (v == colorSelf) {
           // 提交清除
           listIdxWillClear = listIdxWillClear.concat(listGroup);
           listGroup = []
@@ -73,12 +74,13 @@ export class module7_12 {
           listGroup = []
         }
       } else {
-        if (v == colorOppo) {
+        if (v == colorSelf) {
           flagSaveStart = true
         }
       }
     })
 
+    desk.lastEatIdxs = listIdxWillClear;
     // 执行吃子操作
     listIdxWillClear.forEach((idx) => {
       desk.desk[idx] = 0
