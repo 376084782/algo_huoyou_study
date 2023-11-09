@@ -13,6 +13,67 @@ export class GameAction3_12 {
   score: number = 0
 }
 export class module3_12 {
+  getRiddleLev() {
+    let map: any = {
+      1: [
+        [10, 4],
+        [15, 5],
+        [18, 6]
+      ],
+      2: [
+        [31, 7],
+        [24, 8],
+        [27, 9],
+      ],
+      3: [
+        [30, 10],
+        [45, 11],
+        [50, 12],
+      ]
+    }
+    let mapAll: any = {}
+    for (let lev in map) {
+      let listConf = map[lev] as number[][];
+      let mapStones = [1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4]
+      listConf.forEach(([total, dui]) => {
+
+        for (let count = 0; count < 10; count++) {
+
+          let desk = new GameData3_12();
+          // 先拿出每堆1颗，然后将剩余的依次随机，放到小于10颗的堆里
+          let left = total - dui;
+          let listDeskBase = [];
+          for (let i = 0; i < dui; i++) {
+            listDeskBase.push(1);
+          }
+          for (let i = 0; i < left; i++) {
+            let idxCanPuts = listDeskBase.map((v, idx) => {
+              if (v < 10) {
+                return idx
+              }
+            })
+            idxCanPuts = _.shuffle(idxCanPuts);
+            let targetIdx = idxCanPuts[0] as number;
+            listDeskBase[targetIdx]++;
+          }
+          desk.desk = []
+          listDeskBase.forEach(c => {
+            desk.desk.push(mapStones.slice(0, c))
+          });
+          console.log(desk.desk)
+
+
+
+          if (!mapAll[lev]) {
+            mapAll[lev] = []
+          }
+          mapAll[lev].push(desk);
+        }
+      });
+    }
+
+    return mapAll
+  }
   getRiddle() {
     let desk = new GameData3_12();
     return desk;
