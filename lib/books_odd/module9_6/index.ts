@@ -13,9 +13,10 @@ export class GameData9_6 {
   typeSet: number = 1;
 }
 export class GameAction9_6 {
-  selectedCardIdx: number = -1
-  listCalculate: string[] = []
-  score: number = 0
+  selectedCardIdx: number = -1;
+  listCalculate: string[] = [];
+  score: number = 0;
+  isGiveUp: boolean = false;
 }
 export class module9_6 {
   listQues = QuesList
@@ -188,6 +189,9 @@ export class module9_6 {
     return 0
   }
   checkAction(desk: GameData9_6, act: GameAction9_6) {
+    if (act.isGiveUp) {
+      return 0
+    }
     // 先检查是否四个数字都用上了
     let listNumUsed = act.listCalculate.map(e => +e).filter(e => e > 0);
 
@@ -225,9 +229,11 @@ export class module9_6 {
     if (this.checkAction(desk, act) == -1) {
       return [-1, desk];
     }
-
-    let res = eval(act.listCalculate.join(''))
-    let score = res != 24 ? -1 : 1;
+    let score = 0
+    if (!act.isGiveUp) {
+      let res = eval(act.listCalculate.join(''))
+      score = res != 24 ? -1 : 1;
+    }
     if (desk.player == 1) {
       desk.score1 += score
     } else {

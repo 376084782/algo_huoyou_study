@@ -47,10 +47,16 @@ export class module3_12 {
     if (!desk.desk[act.p2]) {
       return -1
     }
+    if (Math.abs(act.p1 - act.p2) != 1) {
+      return -1
+    }
     return 0
   }
   doAction(deskIn: GameData3_12, act: GameAction3_12): [flag: number, desk: GameData3_12] {
     let desk: GameData3_12 = _.cloneDeep(deskIn)
+    if (this.checkAction(desk, act) == -1) {
+      return [-1, desk]
+    }
     // 将1合并到2
     desk.desk[act.p2] = desk.desk[act.p2].concat(desk.desk[act.p1]);
     // 删除原来的1

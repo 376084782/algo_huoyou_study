@@ -14,7 +14,49 @@ export class GameAction3_10 {
   score: number = 0
 }
 export class module3_10 {
-  getRiddle(count: number) {
+  getRiddleLev() {
+    let map: any = {
+      1: [
+        [1, 3],
+        [2, 3],
+        [3, 4],
+        [4, 5],
+        [2, 6],
+        [5, 6]
+      ],
+      2: [
+        [3, 6],
+        [4, 6],
+        [6, 8],
+        [5, 10],
+        [7, 8],
+        [8, 10]
+      ],
+      3: [
+        [9, 5],
+        [10, 5],
+        [8, 11],
+        [9, 12],
+        [12, 15],
+        [5, 18]
+      ]
+    }
+    let mapAll: any = {}
+    for (let lev in map) {
+      if (!mapAll[lev]) {
+        mapAll[lev] = []
+      }
+      let list = map[lev] as number[][];
+      list.forEach(([c1, c2], idx) => {
+        let desk = new GameData3_10()
+        desk.desk1 = c1;
+        desk.desk2 = c2;
+        mapAll[lev].push(desk)
+      })
+    }
+    return mapAll
+  }
+  getRiddle(count?: number) {
     let desk = new GameData3_10();
     return desk;
   }
@@ -64,17 +106,26 @@ export class module3_10 {
     // 推算所有可能性
     for (let i = 0; i < actionAll.length; i++) {
       let act1Self = actionAll[i];
+      desk.player = playerSelf;
       let [flagOppo, desk2Oppo] = this.doAction(desk, act1Self);
       let res = this.checkDesk(desk2Oppo);
       // 必胜,直接使用
       if (res == playerSelf) {
         return [act1Self, act1Self]
       }
+      // 如果拿完了之后是12的局面，+10分
+      let left1 = desk2Oppo.desk1 - desk2Oppo.desk1Got;
+      let left2 = desk2Oppo.desk2 - desk2Oppo.desk2Got;
+      if ((left1 == 1 && left2 == 2) || (left2 == 1 && left1 == 2)) {
+        act1Self.score += 10;
+      }
+
       let actionAllOppo = this.getActionAll(desk2Oppo);
       if (actionAll.length < 40) {
         // 可放的方式不多，有制胜局的可能性，多考虑一步
         for (let m = 0; m < actionAllOppo.length; m++) {
           let act1Oppo = actionAllOppo[m];
+          desk2Oppo.player = playerOppo;
           let [flagSelf, desk2Self] = this.doAction(desk2Oppo, act1Oppo);
           let res2 = this.checkDesk(desk2Self);
           if (res2 == playerOppo) {
@@ -87,6 +138,7 @@ export class module3_10 {
     // 增加一点随机性，避免计算机很呆都是走一样的地方从左往右放
     actionAll = _.shuffle(actionAll)
     actionAll = actionAll.sort((a, b) => b.score - a.score)
+    console.log(actionAll, 'actionAll')
     if (actionAll.length >= 2) {
       return [actionAll[0], actionAll[1]]
     } else {
