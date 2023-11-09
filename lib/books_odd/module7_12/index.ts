@@ -70,8 +70,10 @@ export class module7_12 {
           // 提交清除
           listIdxWillClear = listIdxWillClear.concat(listGroup);
           listGroup = []
+          flagSaveStart = false;
         } else {
           listGroup = []
+          flagSaveStart = false;
         }
       } else {
         if (v == colorSelf) {
