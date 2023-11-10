@@ -59,25 +59,25 @@ export class module7_12 {
     let listIdxWillClear: number[] = [];
     // 用来保存一组待定是否需要清楚的序号
     let listGroup: number[] = []
-    let flagSaveStart = false;
+    let listJia: number[] = [];
     let colorOppo = 3 - desk.player;
     let colorSelf = desk.player;
     desk.desk.forEach((v, idx) => {
-      if (flagSaveStart) {
+      if (listJia.length == 1) {
         if (v == colorOppo) {
           listGroup.push(idx);
-        } else if (v == colorSelf) {
+        } else if (v == colorSelf && (idx == act.idxTo || listJia[0] == act.idxTo)) {
           // 提交清除
           listIdxWillClear = listIdxWillClear.concat(listGroup);
           listGroup = []
-          flagSaveStart = false;
+          listJia = []
         } else {
           listGroup = []
-          flagSaveStart = false;
+          listJia = []
         }
       } else {
         if (v == colorSelf) {
-          flagSaveStart = true
+          listJia.push(idx)
         }
       }
     })
