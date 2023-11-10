@@ -94,10 +94,14 @@ export class module7_12 {
 
     let playerSelf = desk.player;
     let playerOppo = 3 - desk.player;
+    let countOppo1 = desk.desk.filter(e => e == playerOppo).length;
     // 推算所有可能性
     for (let i = 0; i < actionAll.length; i++) {
       let act1Self = actionAll[i];
+
       let [flagOppo, desk2Oppo] = this.doAction(desk, act1Self);
+      let countOppo2 = desk2Oppo.desk.filter(e => e == playerOppo).length;
+      act1Self.score += (countOppo1 - countOppo2);
       let res = this.checkDesk(desk2Oppo);
       // 必胜,直接使用
       if (res == playerSelf) {
