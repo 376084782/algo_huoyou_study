@@ -13,6 +13,46 @@ export class GameAction7_12 {
 }
 
 export class module7_12 {
+  getRiddleLev() {
+    let map: any = {}
+    let mapQues: any = {
+      1: [[4, 2, 11], [4, 3, 11], [3, 2, 11]],
+      2: [[5, 2, 13], [5, 3, 13], [4, 2, 13]],
+      3: [[6, 2, 15], [6, 3, 15], [5, 2, 15]],
+    }
+    for (let lev in mapQues) {
+      let l = mapQues[lev] as number[][];
+      l.forEach(([c1, c2, total], idx) => {
+        for (let i = 0; i < 10; i++) {
+          let desk = this.getRiddle(total);
+          desk.desk = [];
+          let listIdxs = [];
+          for (let m = 0; m < total; m++) {
+            listIdxs.push(m);
+            desk.desk.push(0)
+          }
+          listIdxs = _.shuffle(listIdxs);
+          let pList1 = listIdxs.slice(0, c1);
+          let pList2 = listIdxs.slice(c1, c1 + c2);
+          console.log('------------', pList1, pList2);
+          // 先获取所有可以放的位置，打乱
+
+          pList1.forEach((idx: number) => {
+            desk.desk[idx] = 1;
+          })
+          pList2.forEach((idx: number) => {
+            desk.desk[idx] = 2;
+          })
+          if (!map[lev]) {
+            map[lev] = []
+          }
+          map[lev].push(desk);
+        }
+      });
+    }
+    return map
+
+  }
   getRiddle(count: number) {
     let desk = new GameData7_12();
     let map: any = {
@@ -70,10 +110,13 @@ export class module7_12 {
           // 提交清除
           listIdxWillClear = listIdxWillClear.concat(listGroup);
           listGroup = []
-          listJia = []
+          listJia = [idx]
         } else {
           listGroup = []
           listJia = []
+          if (v == colorSelf) {
+            listJia.push(idx)
+          }
         }
       } else {
         if (v == colorSelf) {
