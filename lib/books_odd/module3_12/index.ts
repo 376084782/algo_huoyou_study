@@ -3,9 +3,10 @@ var _ = require('lodash');
 export class GameData3_12 {
   player: number = 1;
   desk: number[][] = [[1], [1, 2, 3, 4], [1], [1, 2], [1, 2], [1, 2, 3, 4, 1]];
+  deskInited: number[][] = []
+  listDisabled: number[] = []
   typeSet: number = 1;
-  score1: number = 0;
-  score2: number = 0;
+  score: number = 0;
 }
 export class GameAction3_12 {
   p1: number = -1;
@@ -60,9 +61,8 @@ export class module3_12 {
           listDeskBase.forEach(c => {
             desk.desk.push(mapStones.slice(0, c))
           });
-          console.log(desk.desk)
-
-
+          desk.deskInited = _.cloneDeep(desk.desk);
+          desk.listDisabled = []
 
           if (!mapAll[lev]) {
             mapAll[lev] = []
@@ -90,13 +90,10 @@ export class module3_12 {
     return 0
   }
   checkDesk(desk: GameData3_12) {
-    if (desk.desk.length == 1) {
+    let listActive = desk.desk.filter((v, i) => desk.listDisabled.indexOf(i) == -1);
+    if (listActive.length == 1) {
       // 合并为1堆即获胜
-      if (desk.score1 == desk.score2) {
-        return 3
-      } else {
-        return desk.score1 > desk.score2 ? 1 : 2
-      }
+      return desk.player
     }
     return -1
   }
@@ -108,7 +105,18 @@ export class module3_12 {
     if (!desk.desk[act.p2]) {
       return -1
     }
-    if (Math.abs(act.p1 - act.p2) != 1) {
+    let listIdxCanUse: number[] = []
+    desk.desk.forEach((v, idx) => {
+      if (desk.listDisabled.indexOf(idx) == -1) {
+        listIdxCanUse.push(idx);
+      }
+    })
+    let i1 = listIdxCanUse.indexOf(act.p1);
+    let i2 = listIdxCanUse.indexOf(act.p2);
+    if (i1 == -1 || i2 == -1) {
+      return -1
+    }
+    if (Math.abs(i1 - i2) != 1) {
       return -1
     }
     return 0
@@ -122,12 +130,8 @@ export class module3_12 {
     desk.desk[act.p2] = desk.desk[act.p2].concat(desk.desk[act.p1]);
     // 删除原来的1
     let scoreAdd = desk.desk[act.p2].length;
-    desk.desk.splice(act.p1, 1)
-    if (desk.player == 1) {
-      desk.score1 += scoreAdd
-    } else {
-      desk.score2 += scoreAdd
-    }
+    desk.listDisabled.push(act.p1)
+    desk.score += scoreAdd
     return [0, desk]
   }
   getActionAuto(desk: GameData3_12): any[] {

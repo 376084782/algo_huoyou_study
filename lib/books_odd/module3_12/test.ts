@@ -3,7 +3,7 @@ import { FileWriter } from "../../common/FileWriter";
 
 let ctr = new module3_12()
 function test() {
-    let desk = { "player": 2, "desk": [[1, 2, 3, 4, 1], [1], [1, 2], [1, 2], [1, 2, 3, 4, 1]], "typeSet": 1, "score1": 5, "score2": 0 }
+    let desk = ctr.getRiddle()
     let act = ctr.getActionAuto(desk);
     console.log(act);
 }
