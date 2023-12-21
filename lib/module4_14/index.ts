@@ -82,7 +82,29 @@ export class module4_14 {
     }
     return acts;
   }
-
+  isBestMove(desk: GameData4_14) {
+    let listBest = [3, 5, 8, 13, 21, 34, 55];
+    let left = desk.length - desk.chess - 1;
+    return listBest.indexOf(left) > -1
+  }
+  getAllLenFillFBNQ() {
+    let listAll: number[] = []
+    for (let i1 = 1; i1 < 55; i1++) {
+      for (let i2 = 1; i2 < 55; i2++) {
+        let nNext = i1 + i2;
+        let list = [i1, i2];
+        while (nNext < 55) {
+          list.push(nNext);
+          if (listAll.indexOf(nNext) == -1) {
+            listAll.push(nNext)
+          }
+          nNext = list[list.length - 1] + list[list.length - 2];
+        }
+        console.log(list)
+      }
+    }
+    return listAll.sort((a, b) => a - b)
+  }
   getActionAuto(desk: GameData4_14) {
     let actionAll = this.getActionAll(desk);
     // 推算所有可能性
@@ -97,8 +119,12 @@ export class module4_14 {
           nobest: act1Self
         };
       }
-      // 单次算量小，放宽限制
-      if (actionAll.length < 1000) {
+      // 如果满足斐波那契数列，分值+100
+      if (this.isBestMove(desk2Oppo)) {
+        console.log('满足斐波那契数列');
+        act1Self.score += 100
+      } else if (actionAll.length < 1000) {
+        // 单次算量小，放宽限制
         // 可放的方式不多，有制胜局的可能性，多考虑一步
         for (let m = 0; m < actionAllOppo.length; m++) {
           let act1Oppo = actionAllOppo[m];
