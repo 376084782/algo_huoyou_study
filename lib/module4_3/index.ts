@@ -23,6 +23,8 @@ import RandomGenerater from '../util/RandomGenerater';
 import OtherUtil from '../util/OtherUtil';
 import { Console } from 'console';
 
+var _ = require('lodash');
+
 export class GameData4_3 {
   typeSet? = 1;//前端用的，存是否是自定义棋盘
   //参数
@@ -184,14 +186,19 @@ export default class example4_3 {
     return this.deskMap.get(value) as number[][];
   }
 
+  log(a: any, b?: any, c?: any, d?: any, e?: any, f?: any) {
+    // console.log(a, b, c, d, e, f)
+  }
   checkAction(deskData: GameData4_3, dataAction: GameAction4_3): number {
     if (dataAction.chessNum == 1) {
       if (deskData.chess1 == dataAction.chessPosition) {
+        this.log('wrong1')
         return -1;
       }
     }
     if (dataAction.chessNum == 2) {
       if (deskData.chess2 == dataAction.chessPosition) {
+        this.log('wrong2')
         return -1;
       }
     }
@@ -202,22 +209,26 @@ export default class example4_3 {
       tmp = deskData.chess1
     }
     if (dataAction.chessPosition + tmp != this.cdesk[dataAction.move[0]][dataAction.move[1]]) {
-      // console.log('不一样的数字', this.cdesk[dataAction.move[0]][dataAction.move[1]], dataAction.chessPosition, tmp)
+      // this.log('不一样的数字', this.cdesk[dataAction.move[0]][dataAction.move[1]], dataAction.chessPosition, tmp)
+      this.log('wrong3', dataAction.chessPosition, tmp, this.cdesk[dataAction.move[0]][dataAction.move[1]])
       return -1
     }
     if (dataAction.chessNum == 1) {
       // let tmp: number = deskData.chess2 * dataAction.chessPosition
       // let xy = this.getPosition(tmp)
       if (deskData.desk[dataAction.move[0]][dataAction.move[1]] != 0) {
+        this.log('wrong4')
         return -1;
       }
     } else if (dataAction.chessNum == 2) {
       // let tmp: number = deskData.chess1 * dataAction.chessPosition
       // let xy = this.getPosition(tmp)
       if (deskData.desk[dataAction.move[0]][dataAction.move[1]] != 0) {
+        this.log('wrong5')
         return -1;
       }
     } else {
+      this.log('wrong6')
       return -1;
     }
     return 1;
@@ -341,20 +352,21 @@ export default class example4_3 {
   }
 
   getActionAuto(deskData: GameData4_3): GameAutoWay {
+    let deskBackup = _.cloneDeep(deskData)
     let weight: GameAction4_3[] = []
     let canChessPositionMap = new Map<string, GameAction4_3[]>()
-    let canChessPosition = new Set<number[]>()
     for (let index = 1; index <= 12; index++) {
       // if (index != deskData.chess1) {
       let tmp1 = this.getPosition(index + deskData.chess1)
       for (let j = 0; j < tmp1.length; j++) {
         const move = tmp1[j];
         if (!this.deskHas(deskData, move)) {
-          canChessPosition.add(move)
+          let act = new GameAction4_3(2, index, move)
+          weight.push(act)
           if (canChessPositionMap.has(move[0] + "_" + move[1])) {
-            canChessPositionMap.get(move[0] + "_" + move[1])?.push(new GameAction4_3(2, index, move))
+            canChessPositionMap.get(move[0] + "_" + move[1])?.push(act)
           } else {
-            canChessPositionMap.set(move[0] + "_" + move[1], [new GameAction4_3(2, index, move)])
+            canChessPositionMap.set(move[0] + "_" + move[1], [act])
           }
         }
       }
@@ -364,26 +376,28 @@ export default class example4_3 {
       for (let j = 0; j < tmp2.length; j++) {
         const move = tmp2[j];
         if (!this.deskHas(deskData, move)) {
-          canChessPosition.add(move)
+          let act = new GameAction4_3(1, index, move)
+          weight.push(act)
           if (canChessPositionMap.has(move[0] + "_" + move[1])) {
-            canChessPositionMap.get(move[0] + "_" + move[1])?.push(new GameAction4_3(1, index, move))
+            canChessPositionMap.get(move[0] + "_" + move[1])?.push(act)
           } else {
-            canChessPositionMap.set(move[0] + "_" + move[1], [new GameAction4_3(1, index, move)])
+            canChessPositionMap.set(move[0] + "_" + move[1], [act])
           }
         }
         // }
       }
     }
-    canChessPosition.forEach(move => {
-      weight.push(new GameAction4_3(move[0], move[1], move, this.calculateTheWeightXy(deskData, move[0], move[1])))
-    })
     let steps = weight.sort((a, b) => {
       if (a.score < b.score)
         return 1;
       if (a.score > b.score)
         return -1
       return 0;
-    });
+    }).filter(e => this.checkAction(deskBackup, e) != -1)
+
+    this.log(deskBackup, steps, 'deskBackup')
+    this.log(this.checkAction(deskBackup, steps[0]))
+
     if (steps.length == 0) {
       throw new Error("无子可走");
     }
