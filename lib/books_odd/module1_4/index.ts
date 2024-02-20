@@ -57,6 +57,7 @@ export class module1_4 {
         }
       }
     }
+    let countBlank = 0;
     // 开始判断
     for (let y = 0; y < desk.desk.length; y++) {
       let row = desk.desk[y]
@@ -98,17 +99,24 @@ export class module1_4 {
         // 能到这里就说明这个范围是一个矩形，而且范围内只有一个目标数字，把颜色置负，用于区分是否已扫描
         for (let yIn = y; yIn <= maxY; yIn++) {
           for (let xIn = x; xIn <= maxX; xIn++) {
-            console.log('zhife')
             desk.desk[yIn][xIn] *= -1;
             countReal++;
           }
         }
+        let color = desk.desk[y][x]
         // 然后判断一下这个矩形的大小是否符合条件
         if (countNeed != countReal) {
           return -1
         }
+        if (Math.abs(color) == 999) {
+          countBlank++;
+        }
       }
 
+    }
+    if (countBlank > 1) {
+      console.log('空余方块数量：', countBlank)
+      return -1
     }
     return desk.player
   }

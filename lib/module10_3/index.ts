@@ -349,7 +349,7 @@ export default class example10_3 {
     }
     let actionMap: Map<string, GameAction10_3> = new Map<string, GameAction10_3>
 
-    if (count / countA > 0.5) {
+    if (count / countA > 0.7) {
       let best = null
       let nobest = null
 

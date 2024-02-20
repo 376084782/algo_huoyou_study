@@ -26,7 +26,7 @@ export class GameData10_5{
     step = 0;
 
     // 当前选手
-    currentPlayer = 2;
+    currentPlayer = 1;
 
 
     nextArea = 5;

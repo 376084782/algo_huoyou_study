@@ -40,7 +40,7 @@ import { FileWriter } from '../common/FileWriter';
 //todo
 
 export class GameData8_3 {
-  typeSet?= 1;//前端用的，存是否是自定义棋盘
+  typeSet? = 1;//前端用的，存是否是自定义棋盘
   //参数
   desk: number[] = [5, 3, 7]
   player: number = 1
@@ -159,8 +159,8 @@ export default class example8_3 {
     const allAction: GameAction8_3[] = this.getAllAction(deskTmp)
     let deskStr = this.deskToStr(deskData.desk)
     const deskDatas = new DeskData()
-    let best = new GameAction8_3([], 0)
-    let nobest = new GameAction8_3([], 0)
+    let best: GameAction8_3|undefined;
+    let nobest: GameAction8_3;
     if (deskDatas.d30w15.has(deskStr) ||
       deskDatas.d30w14.has(deskStr) ||
       deskDatas.d30w13.has(deskStr) ||
@@ -176,6 +176,7 @@ export default class example8_3 {
       deskDatas.d30w3.has(deskStr) ||
       deskDatas.d30w2.has(deskStr) ||
       deskDatas.d30w1.has(deskStr)) {
+
       best = allAction[rg.RangeInteger(0, allAction.length - 1)]
       nobest = allAction[rg.RangeInteger(1, allAction.length - 1)]
     } else {
@@ -218,6 +219,9 @@ export default class example8_3 {
         }
       }
       nobest = allAction[rg.RangeInteger(1, allAction.length - 1)]
+    }
+    if (!best) {
+      best = nobest
     }
     return new GameAutoWay(best, nobest)
   }

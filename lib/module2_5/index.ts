@@ -44,7 +44,7 @@ export class GameData2_5 {
   palyer1Fishes: GameAction2_5[] = []
   palyer2Fishes: GameAction2_5[] = []
   //当前玩家
-  curPlayer = 2
+  curPlayer = 1
   config?: GameConfig2_5
   //
   positions: number[][] = []

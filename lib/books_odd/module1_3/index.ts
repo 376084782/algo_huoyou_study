@@ -23,7 +23,7 @@ export class module1_3 {
     return desk;
   }
   checkRiddle(desk: GameData1_3) {
-    if (desk.size > 5 || desk.size < 2) {
+    if (desk.size > 5 || desk.size < 1) {
       return false
     }
     if (desk.listInited1.length != desk.listInited2.length) {

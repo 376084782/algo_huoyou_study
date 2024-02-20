@@ -39,6 +39,10 @@ export class module1_9 {
     return map
   }
   checkRiddle(desk: GameData1_9) {
+    let fWin = this.checkDesk(desk);
+    if (fWin != -1) {
+      return -1
+    }
     return 0
   }
   checkDesk(desk: GameData1_9) {

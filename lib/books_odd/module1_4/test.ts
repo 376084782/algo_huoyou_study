@@ -3,8 +3,7 @@ import { FileWriter } from "../../common/FileWriter";
 
 let ctr = new module1_4()
 function test() {
-    let desk = { "player": 1, "desk": [[1, 1, 4, 2], [1, 1, 4, 2], [4, 3, 3, 3], [4, 3, 3, 3]], "ques": [[4, 0, 2, 0], [0, 0, 0, 2], [0, 0, 6, 0], [2, 0, 0, 0]], "typeSet": 1 }
-    // desk.desk = [
+    let desk = {"player":1,"desk":[[0,0,0,1,1],[3,3,3,1,1],[3,3,3,0,0],[4,2,5,5,3],[3,2,5,5,3],[3,6,6,6,3]],"ques":[[0,3,0,0,0],[0,0,0,4,0],[0,6,0,0,2],[1,0,4,0,3],[0,2,0,0,0],[2,0,3,0,0]],"typeSet":1}   // desk.desk = [
     //     [1, 1, 2, 2],
     //     [1, 1, 2, 2],
     //     [1, 1, 4, 5],
@@ -507,4 +506,4 @@ async function writeQuesIn(mapAll: any, maxEachLev = 10) {
         await FileWriter.setFile(`./train/1-4/level${level}.json`, JSON.stringify(listQues))
     }
 }
-createQues()
+// createQues()
