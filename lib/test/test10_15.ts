@@ -7,7 +7,7 @@ async function test10_15() {
     console.log('fffff', f)
 }
 
-// test10_15()
+test10_15()
 
 
 function createQues() {
@@ -44,4 +44,4 @@ async function writeQuesIn(mapAll: any, maxEachLev = 10) {
     }
 
 }
-createQues()
+// createQues()

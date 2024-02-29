@@ -84,7 +84,9 @@ export class module10_15 {
     listNum.forEach((n: number) => {
       let act = new GameAction10_15()
       act.number = n;
-      listAct.push(act);
+      if (this.checkAction(desk, act) == 0) {
+        listAct.push(act);
+      }
     })
     return listAct
   }

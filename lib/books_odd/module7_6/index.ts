@@ -105,7 +105,7 @@ export class module7_6 {
       let pOld = _.cloneDeep(p);
       switch (dir) {
         case 1: {
-          // 上 : z->-y  x不变 y->z
+          // 上 : z>-y  x不变 y>z
           p.y = -pOld.z;
           p.z = pOld.y
           break
@@ -128,6 +128,18 @@ export class module7_6 {
           p.z = -pOld.x
           break
         }
+        case 5: {
+          // 绕up转左   ：z不变  x>y y>-x
+          p.y = pOld.x;
+          p.x = -pOld.y
+          break
+        }
+        case 6: {
+          // 绕up转右   ：z不变  x>-y y>x
+          p.y = -pOld.x;
+          p.x = pOld.y
+          break
+        }
       }
     }
   }
@@ -146,7 +158,7 @@ export class module7_6 {
     return -1
   }
   checkAction(desk: GameData7_6, act: GameAction7_6) {
-    if (act.dir < 1 || act.dir > 4) {
+    if (act.dir < 1 || act.dir > 6) {
       return -1
     }
     return 0
@@ -174,7 +186,7 @@ export class module7_6 {
   }
   getActionAuto(desk: GameData7_6): any[] {
     let actionAll = this.getActionAll(desk);
-    
+
     let playerSelf = desk.player;
     let playerOppo = 3 - desk.player;
     // 推算所有可能性
