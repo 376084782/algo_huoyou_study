@@ -7,7 +7,7 @@
   "scripts": {
     "start": "webpack serve --mode development",
     "prepublish": "npm run build",
-    "test": "ts-node lib/books_odd/module1_1/test.ts",
+    "test": "ts-node lib/test/test10_1.ts",
     "test_example": "mocha test/example/**.js --reporter spec",
     "build": "tsc",
     "watch": "npm run build -- --watch",
