@@ -17,7 +17,6 @@
 import { GameStep, GameWay, GameAutoWay } from "../common/pojo";
 import RandomGenerater from "../util/RandomGenerater";
 import OtherUtil from "../util/OtherUtil";
-import { Console } from "console";
 
 export class GameData10_1 {
   typeSet? = 1; //前端用的，存是否是自定义棋盘
@@ -95,13 +94,14 @@ export default class example10_1 {
   checkDesk(deskData: GameData10_1): number {
     let f = 0;
     for (let i = 0; i <= 5; i++) {
-      for (let j = 0; j < 5; j++) {
+      for (let j = 0; j <= 5; j++) {
         if (deskData.desk[i][j] != 0) {
           let f1 = this.lurd(deskData, i, j);
           let f2 = this.ruld(deskData, i, j);
           let f3 = this.leftRight(deskData, i, j);
           let f4 = this.upDown(deskData, i, j);
           let f = f1 || f2 || f3 || f4;
+          // console.log(f1, f2, f3, f4);
           let res = f ? deskData.desk[i][j] : 0;
           if (res != 0) {
             return res;
@@ -298,7 +298,7 @@ export default class example10_1 {
           const tcell1 = deskData.desk[tx1][ty1];
           const tcell2 = deskData.desk[tx2][ty2];
           const tcell3 = deskData.desk[tx3][ty3];
-          if (tcell1 == tcell2 && tcell1 == tcell3) {
+          if (tcell1 == tcell2 && tcell1 == tcell3 && tcell1 != 0) {
             return true;
           }
         }
@@ -325,7 +325,7 @@ export default class example10_1 {
           const tcell1 = deskData.desk[tx1][ty1];
           const tcell2 = deskData.desk[tx2][ty2];
           const tcell3 = deskData.desk[tx3][ty3];
-          if (tcell1 == tcell2 && tcell1 == tcell3) {
+          if (tcell1 == tcell2 && tcell1 == tcell3 && tcell1 != 0) {
             return true;
           }
         }
@@ -348,7 +348,7 @@ export default class example10_1 {
           const tcell1 = deskData.desk[x][ty1];
           const tcell2 = deskData.desk[x][ty2];
           const tcell3 = deskData.desk[x][ty3];
-          if (tcell1 == tcell2 && tcell1 == tcell3) {
+          if (tcell1 == tcell2 && tcell1 == tcell3 && tcell1 != 0) {
             return true;
           }
         }
@@ -371,7 +371,7 @@ export default class example10_1 {
           const tcell1 = deskData.desk[tx1][y];
           const tcell2 = deskData.desk[tx2][y];
           const tcell3 = deskData.desk[tx3][y];
-          if (tcell1 == tcell2 && tcell1 == tcell3) {
+          if (tcell1 == tcell2 && tcell1 == tcell3 && tcell1 != 0) {
             return true;
           }
         }
